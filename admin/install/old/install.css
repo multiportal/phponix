@@ -1,0 +1,22 @@
+@charset "utf-8";
+/* CSS Document */
+body{margin:0; background:#eee;}
+.tit-install{font-size:16px; font-weight:bold; padding:0 0 10px 0;}
+.content-step{height:400px;}
+.active{color:#666;}
+/*#content, #layer { text-align:center;}*/
+#content{ position:absolute; top:0px; left:0px; width:100%; height:100%}
+#layer { width:920px; height:100%; margin: 0em auto; padding:20px; background:#eee; border-left: 5px solid #bbb; border-right: 5px solid #bbb;}
+#cabecera{ padding:5px 0 20px 0; font: 28px Arial,Verdana; color:#666;}
+a{ font: bold 12px Arial; color:#999; text-decoration:none;}
+a:hover{ font: bold 12px Arial; color:#666; text-decoration:none;}
+div#producto {background:#eee;margin:4px 0px 0px 4px;padding:0px;width:375px;border-radius:7px;-moz-border-radius: 7px; -webkit-border-radius : 7px; float: left; vertical-align:top;}  
+div#producto p {margin:0;padding:0px;color:#666; vertical-align:top;}  
+div#rectanguloObscuro {background:#ccc;margin:0 auto;padding:0;width:765px;border-radius:7px;-moz-border-radius: 7px; -webkit-border-radius : 7px; height:350px}  
+div#rectanguloObscuro p {margin:0;padding:10px;color:#666;}  
+p{ padding:10px;}
+.img{float:left;}
+#status{padding:10px; font: 22px Verdana; color:#666;}
+#price{padding:10px; font: 20px Verdana; color:#bbb;}
+#delete{ padding-right:20px; font: 16px Arial; color:#666; cursor:pointer; text-align:right;}
+

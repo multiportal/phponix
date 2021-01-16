@@ -1,0 +1,39 @@
+body{margin:0;}
+/*ENCABEZADO-------------------------------------------------------------------------------------------------*/
+#head1{width:1200px;margin:0 auto;}
+
+/*PIE DE PAGINA----------------------------------------------------------------------------------------------*/
+#footer1{width:1200px; min-height:300px; margin:0 auto; color:#fff;}
+#item-f{width:400px; float:left; margin:20px auto; color:#fff;}
+.itemf{ width:100%;padding:15px 20px 15px 10px;}
+#footer2{width:1200px; min-height:80px; margin:0 auto; color:#fff; background:#222; text-align:left; padding:30px;}
+#footer2 h1{width:80px;float:left;font-size:14px; font-weight:bold;margin:0px;}
+
+/*HOME------------------------------------------------------------------------------------------------------*/
+#banner1{width:100%;height:539px; /*background:url(../../../modulos/Home/img/home.jpg)*/}
+#content1{width:100%;min-height:550px;text-align:justify; background:#fff;}
+#content2{width:100%;min-height:550px;text-align:justify; background:#ccc;}
+#content1 h2,
+#content2 h2{text-align:center;}
+#intro,
+#beneficios{width:1200px;padding:5px 35px; margin:0 auto;}
+#item3{width:380px; float:left; padding:20px 20px;}
+#slider-content{width:900px;margin:0px auto; padding:100px 0 0 0;}
+.txt-c1{font-size:38px; text-transform:uppercase;}
+.txt-c2{font-size:38px; text-transform:uppercase;}
+.txt-c3{font-size:18px}
+/*RESPONSIVO----------------------------------------------------------------------------------------------*/
+@media screen and (max-width:1200px){
+#head1{width:100%;}
+#footer1,
+#footer2{ width:100%;}
+#intro,
+#beneficios{width:100%;}	
+}
+@media screen and (max-width:900px){
+#slider-content{width:90%; padding:100px 0 0 0;}
+.txt-c1{font-size:18px;}
+.txt-c2{font-size:18px;}
+.txt-c3{font-size:10px}
+.itemf,#item-f{width:90%;}
+}

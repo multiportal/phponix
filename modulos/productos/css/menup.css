@@ -1,0 +1,63 @@
+.mypets{ /*header of 1st demo*/
+    cursor: hand;
+    cursor: pointer;
+    background-repeat: no-repeat; 
+    height:25px;
+    border:0;
+    padding: 0;
+    margin:0;
+    font-family: "Oswald", Arial, Helvetica, sans-serif;
+	letter-spacing:1px;
+    font-size:12px;
+    color:#444;
+    vertical-align:middle;    
+    padding-left: 6px;
+    padding-top: 2px;
+}
+.mypets a{font-family: "Oswald", Arial, Helvetica, sans-serif;letter-spacing:1px;color:#444;}
+.thepet{
+    /*background:url(< ?php echo $page_url; ?>themes/Fibremex_Resp_2015/js/menup/linea_cuerpo.jpg) repeat-y; */ 
+    border:0;
+    padding-right: 1px;
+    padding-left: 19px;
+    margin:0;
+    font-family: "Oswald", Arial, Helvetica, sans-serif;
+	letter-spacing:1px;
+    font-size: 11px;
+    color:#444;
+    vertical-align:middle;
+/* 
+    padding-top: 12px;
+    padding-bottom: 14px;
+*/
+}
+.thepet a{
+	font-family: "Oswald", Arial, Helvetica, sans-serif;
+	letter-spacing:1px;
+	font-size: 11px;
+    color:#444;
+	margin-right: 0px;
+    padding-left: 0px;
+}
+.thepet a:hover, .thepet a:active{
+	font-size: 11px;
+    color: #444;
+/*
+    padding-top: 12px;
+    padding-bottom: 14px;
+*/
+}
+
+#circulo{
+	float:left;
+	background:#444;
+	width:6px;
+	height:6px;
+	border-radius:50%;
+	-moz-border-radius:50%;
+	-webkit-border-radius:50%;
+	margin-top:9px;
+}
+#espacio{
+	height:5px;
+}

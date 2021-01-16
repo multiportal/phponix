@@ -1,0 +1,135 @@
+<!DOCTYPE HTML>
+<html>
+<head><?php echo $meta_chartset;?>
+<title><?php echo $title;?></title>
+<?php echo $metas;?>
+<META NAME="DESCRIPTION" CONTENT="<?php echo $description;?>">
+<META NAME="KEYWORDS" CONTENT="<?php echo $keywords;?>">
+<!-- LINK-ICON -->
+<link rel="shortcut icon" type="image/x-icon" href="<?php echo $page_url;?>favicon.ico">
+<link rel="icon" type="image/x-icon" href="<?php echo $page_url;?>favicon.ico">
+<?php 
+sql_opciones('api_icon',$valor);
+if($valor==1){icon();}
+?>
+<!-- LINK-STYLE -->
+<!--Se sustituyen todos los estilos anterior: < ?php echo $style;? > / tema: <?php echo $tema;?> -->
+<?php 
+sql_opciones('web_style',$valor);
+if($valor==1){style();}else{echo $style;}
+?>
+<!-- jQuery -->
+<?php echo $jQuery10;?>
+<!-- JAVASCRIPT -->
+<?php echo $javascript;?>
+<!--GOOGLE ANALITYCS-->
+<?php 
+sql_opciones('google_analytics',$valor);
+if($valor==1){echo $google_analytics;}
+?>
+<!--FIN GOOGLE ANALITYCS-->
+<?php 
+sql_opciones('api_social_chat',$valor);
+if($valor==1){?>
+<!-- WhatsHelp.io widget -->
+<script type="text/javascript">
+    (function () {
+        var options = {
+            email: "<?php echo $contactMail;?>", // Email
+            call: "+52<?php echo $tel1;?>", // Call phone number
+            facebook: "273325302781021", // Facebook page ID
+            whatsapp: "+52<?php echo $wapp;?>", // WhatsApp number
+            call_to_action: "Chatea con nosotros", // Call to action
+            button_color: "#129BF4", // Color of button
+            position: "left", // Position may be 'right' or 'left'
+            order: "facebook,whatsapp,call,email", // Order of buttons
+        };
+        var proto = document.location.protocol, host = "whatshelp.io", url = proto + "//static." + host;
+        var s = document.createElement('script'); s.type = 'text/javascript'; s.async = true; s.src = url + '/widget-send-button/js/init.js';
+        s.onload = function () { WhWidgetSendButton.init(host, proto, options); };
+        var x = document.getElementsByTagName('script')[0]; x.parentNode.insertBefore(s, x);
+    })();
+</script>
+<!-- /WhatsHelp.io widget -->
+<?php }?>
+
+<?php 
+login($login_se,$username,$ID_login);
+?>
+</head>
+<body>
+<div id="head">
+	<div id="head1">
+		<div id="logo-min"><a href="<?php echo $page_url;?>"><img src="<?php echo $page_url.$path_tema;?>images/logo.min.png"></a></div>
+    	<div id="menu-web"><div><?php echo $login_se;?></div> 
+        <a href="<?php echo $page_url;?>index.php">Home</a> 
+        <?php menu_web();?>
+		</div>
+    </div>
+</div>
+<div id="content">
+	<div id="modulo">
+    <?php bodymodulos();?>
+	</div>
+</div>
+<?php if($mod!='gmaps'){?>
+<div id="footer">
+	<div id="footer1">
+    	<div id="item-f">
+        	<h4>Nosotros</h4>
+            <div class="itemf">
+				<b>PHP Onix</b> es una un CMS desarrollado en PHP y creado para la gesti&oacute;n y administraci&oacute;n de sitios web de una forma r&aacute;pida y eficaz, constituido por una serie de modulos perfectamente adaptables para los requerimientos de tu sitio web. Este producto es desarrollado por <a target="_blank" href="http://multiportal.com.mx">[:Multiportal:]</a>.             
+            </div>
+        </div>
+    	<div id="item-f">
+        	<h4>M&oacute;dulos</h4>
+            <div class="itemf">
+            	<div><i class="fa fa-angle-right"></i> Home</div>
+                <div><i class="fa fa-angle-right"></i> Contacto</div>
+                <div><i class="fa fa-angle-right"></i> Blog</div>
+                <div><i class="fa fa-angle-right"></i> Estadisticas</div>
+                <div><i class="fa fa-angle-right"></i> Portafolio</div>
+                <br>
+                <p><a href="<?php echo $page_url;?>index.php?mod=descargas">Ver m&aacute;s...</a></p>
+            </div>
+        </div>
+    	<div id="item-f">
+        	<h4>Contacto</h4>
+            <div class="itemf">
+            Santiago de Quer&eacute;taro, Qro, M&eacutexico C.P. 76000<br>
+            <i class="fa fa-whatsapp"></i> <?php echo $tel1;?><br>
+            <i class="fa fa-envelope-o"></i> <a href="mailto:multiportal@outlook.com"><?php echo $contactMail;?></a>
+            </div>
+        </div>
+    </div>
+    <div style="background:#222;">
+	<div id="footer2"><H1>PHP Onix</H1> 2017 - CMS Gestor de contenido web. Todos los derechos reservados. <a href="#">Aviso de Privacidad</a> 
+    <span style="float:right; letter-spacing:5px;">
+<?php
+if($fb_web!=''){
+	echo '<a target="_blank" href="'.$fb_web.'"><i class="fa fa-facebook"></i></a>';
+}
+if($tw_web!=''){
+	echo '<a target="_blank" href="'.$tw_web.'"><i class="fa fa-twitter"></i></a>';
+}
+if($gp_web!=''){
+	echo '<a target="_blank" href="'.$gp_web.'"><i class="fa fa-google-plus"></i></a>';
+}
+if($lk_web!=''){
+	echo '<a target="_blank" href="'.$lk_web.'"><i class="fa fa-linkedin"></i></a>';
+}
+if($yt_web!=''){
+	echo '<a target="_blank" href="'.$yt_web.'"><i class="fa fa-youtube"></i></a>';
+}
+if($ins_web!=''){
+	echo '<a target="_blank" href="'.$ins_web.'"><i class="fa fa-instagram"></i></a>';
+}
+?>
+    </span>
+    </div>
+    </div>
+</div>
+<?php }?>
+<?php API_WPA();?>
+</body>
+</html>

@@ -1,0 +1,40 @@
+﻿
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        
+    </style>
+    <script src="js/snippet-javascript-console.min.js?v=1"></script>
+</head>
+<body>
+
+  Ingrese una url válida:<input type="text" id="input-url" size="50" value=""></input>
+  <input type="button" id="button" value="Ver"></input>
+  <div class="text">
+    <hr />
+    <h2>Texto:</h2>
+  </div>
+  
+<script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+<script>
+$(function() {
+  $("#button").click( function(){
+    //var TXT_URL = 'https://www.mozilla.org/media/MPL/2.0/index.815ca599c9df.txt';
+    var TXT_URL = $("#input-url").val();
+    $.ajax({
+        url : TXT_URL,
+        dataType: "html",
+        success : function (data) 
+        {
+          $(".text").html("<div>"+data+"</div>");
+        }
+    });
+  });
+});
+</script>
+    <script type="text/javascript">
+        
+    </script>
+</body>
+</html>

@@ -1,0 +1,12 @@
+html,
+body,
+#map {
+	position:absolute !important;
+	z-index:10px;
+	top:0px;
+	left:0px;
+    display: block;
+    width: 100% !important;
+    height: 100% !important;
+    background: #58B;
+}

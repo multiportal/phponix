@@ -1,0 +1,13 @@
+<IfModule mod_rewrite.c>
+# Activar RewriteEngine
+RewriteEngine on
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d 
+# Reescribir la URL solicitada por el usuario
+#   Entrada:  NOMBRE/
+#   Salida:   index.php?mod=NOMBRE
+RewriteRule ^(\w+)/?$ index.php?t=$1
+#RewriteRule ^(\w+)/(\w+)/?$ index.php?t=$1&id=$2
+#RewriteRule ^([0-9]+)\-([a-zA-Z0-9-]*)/?$ index.php?t=$1
+</IfModule>

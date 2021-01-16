@@ -1,0 +1,30 @@
+﻿<!DOCTYPE html>
+<html>
+<body>
+
+<script type="text/javascript">
+function getQueryVariable(){
+    var query = window.location.search.substring(1);
+    var vars = query.split("&");
+    var mod='';
+    var ext='';
+    var id='';
+
+    for(var i=0;i<vars.length;i++) {
+        var GET = vars[i].split("=");
+        if(GET[0]=='mod'){mod=GET[1];}
+        if(GET[0]=='ext'){ext=GET[1];}
+        if(GET[0]=='id'){id=GET[1];}
+    }
+	document.writeln('mod:'+mod);    
+    document.writeln('ext:'+ext);
+    document.writeln('id:'+id);
+    //return(false);
+}
+
+onload=getQueryVariable();
+//document.writeln(mod);
+</script>
+
+</body>
+</html>

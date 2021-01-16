@@ -1,0 +1,10 @@
+@memojl - karma7908
+ftp.webcindario.com
+u:phponix
+p:karma79
+
+MySQL
+mysql.webcindario.com
+DB:phponix
+U:phponix
+P:memo458x

@@ -1,0 +1,6 @@
+#title{height:40px;text-align:center;}
+#desc{height:30px;}
+.content{min-height:0px;}
+.ima-size{height:145px; text-align:center; margin:0 auto;}
+.controles{float:right;font-size:20px;}
+#aviso{position:fixed; z-index:1000; top:80px; right:10px; display:none;}
