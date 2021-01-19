@@ -86,12 +86,13 @@ $(document).ready(function(){
 	//LISTAR
 	function listar(){
 		$.ajax({
-			//url: 'http://localhost/MisSitios/phponix/bloques/ws/t/index.php?t=tareas',
+			type: 'GET',
+			//url: 'http://localhost/MisSitios/mandragora/api/tareas',
 			url: 'admin/backend.php?opc=list',
-			type: 'POST',
-			//dataType : 'json',
+			dataType : 'JSON',
 			success: function(response){
-				let tasks=JSON.parse(response);
+				console.log(response);
+				let tasks=response;//let tasks=JSON.parse(JSON.stringify(response));//let tasks=JSON.parse(response);
 				let template='';
 				
 				tasks.forEach(task=>{
@@ -108,8 +109,8 @@ $(document).ready(function(){
                   </tr>
                 `
 					});
-				$('#task').html(template);
-			}
+				$('#task').html(template);			
+			}			
 		});
 	}
 	setInterval(listar,30000);

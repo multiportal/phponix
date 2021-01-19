@@ -1,6 +1,6 @@
 //appCon.js index.php
 if ('serviceWorker' in navigator) {
-	navigator.serviceWorker.register('/MisSitios/phponix/sw.js').then(function(registration) {
+	navigator.serviceWorker.register('/MisSitios/phponixdev/sw.js').then(function(registration) {
 		console.log(
 		  'Service Worker registro correcto con scope: ',
 		  registration.scope

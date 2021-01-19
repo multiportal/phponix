@@ -3,7 +3,9 @@ include '../../../admin/conexion.php';
 
 switch(true){
   case ($opc=='list'):
-	ws_tabla('tareas',1);
+	//ws_tabla('tareas',1);//OBSOLETO
+	$tabla=validacion_tabla('tareas');
+	all_tabla($tabla);
   break;
   case ($opc=='buscar'):
 	$search=$_POST['search'];

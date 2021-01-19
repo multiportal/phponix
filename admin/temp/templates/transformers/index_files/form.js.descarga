@@ -1,0 +1,338 @@
+$(function() {
+
+	var isEmailSelected = true;
+	var isMailSelected;
+	var isPhoneSelected;
+	var request;
+	var fadeDur = 1000;
+	var shortFadeDur = 500;
+
+
+	$('#signup').submit(function(event){
+		event.preventDefault();
+
+		if(validateForm()){
+			// Abort any pending request
+	    if (request) {
+	        request.abort();
+	    }
+	    // setup some local variables
+	    var $form = $(this);
+
+	    // Let's select and cache all the fields
+	    var $inputs = $form.find("input, select, button, textarea");
+
+	    // Serialize the data in the form
+	    var serializedData = {};
+			$.each($form.serializeArray(), function(_, kv) {
+			  serializedData[kv.name] = kv.value;
+			});
+
+
+	    // Let's disable the inputs for the duration of the Ajax request.
+	    // Note: we disable elements AFTER the form data has been serialized.
+	    // Disabled form elements will not be serialized.
+	    $inputs.prop("disabled", true);
+	    var data = getFormattedData(serializedData);
+
+	    $('.form-holder .form-submit').fadeOut(function(){
+	    	$('.form-holder').addClass('submitting');
+	    	$('.form-holder .loader').hide().fadeIn(function(){
+
+	    	});
+
+	    	// Fire off the request to /form.php
+		    request = $.ajax({
+		        url: "/wp-content/themes/transformers/subscribe.php",
+		        type: "post",
+		        data: data,
+	          dataType: 'json'
+		    });
+
+		    // Callback handler that will be called on success
+		    request.done(function (response, textStatus, jqXHR){
+		    		ga('send', 'event', 'Form', 'Submit', 'Email Submit');
+		        if(response.status == 'success'){
+		        	hideForm();
+				// track the lead
+				fbq('track', 'Lead');
+		        } else if(response.status == 'error'){
+		        	hideForm();
+		        	//alert(response.message);
+		        } else {
+		        	hideForm();
+		        	//alert('An unknow error has occurred. Please try again.');
+		        }
+		    });
+
+		    // Callback handler that will be called on failure
+		    request.fail(function (jqXHR, textStatus, errorThrown){
+		    	hideForm();
+		    	$inputs.prop("disabled", false);
+		        // Log the error to the console
+		        /*console.error(
+		            "The following error occurred: "+
+		            textStatus, errorThrown
+		        );*/
+		    });
+
+		    // Callback handler that will be called regardless
+		    // if the request failed or succeeded
+		    request.always(function () {
+		    	hideForm();
+	        // Reenable the inputs
+	        $inputs.prop("disabled", false);
+		    });
+	    });
+		}
+    
+    return false;
+	});
+
+	function getFormattedData(data){
+
+		var formattedData = {}
+
+		if(!isEmail( data.email )){
+			formattedData.phone = data.email;
+		} else {
+			formattedData.email = data.email;	
+		}
+		
+		formattedData.os = data.os;
+		return formattedData;
+	}
+
+	function validateForm(){
+		var hasError = false;
+		var emailVal = $('#email').val(); 
+		var isE = isEmail(emailVal);
+		var isP = isPhoneNumber(emailVal)
+		removeErrors();
+		// Validate OS
+		if(!validateRequired('#os')){
+			hasError = true;
+			$('#os').addClass('error');
+			$('#os-proxy').addClass('error');
+		}
+		
+		// Validate email
+		if(!validateRequired('#email')){
+			hasError = true;
+			$('#email').addClass('error').addClass('required');
+		}
+
+		if(!isE && !isP){
+			$('#email').addClass('error');
+			return false;
+		}
+
+		return !hasError;
+	}
+
+	function validateEmail(){
+		return true;
+	}
+
+	function validateMail(){
+		return true;
+	}
+
+	function validatePhone(){
+		return true;
+	}
+
+	function validatePhone(val) {
+      var regexp = /^[\s()+-]*([0-9][\s()+-]*){6,20}$/
+      if (!regexp.test(val)) {
+        return false;
+      }
+      return true;
+  }
+
+	function validateRequired(selector){
+		var val = $(selector).val();
+		if(!val || !val.length){
+			return false;
+		}
+		return true;
+	}
+
+	function removeErrors(){
+		$('.form-holder .error').removeClass('error').removeClass('required').removeClass('invalid');
+	}
+
+	function hideForm(){
+    $('.form-holder form').fadeOut(function(){
+      showThankYou();
+    });
+  }
+
+  function showThankYou(){
+  	$('.form-holder').removeClass('submitting');
+    $('.form-holder .thank-you').fadeIn(fadeDur);
+  }
+
+  function resetForm(){
+  	isEmailSelected = true;
+		isMailSelected = false;
+		isPhoneSelected = false;
+
+		$('.form-holder form').addClass('email-active');
+		$('.email-box').addClass('active');
+  }
+
+  function initClicks(){
+  	
+  }
+
+  function initOS(){
+  	var userAgent = navigator.userAgent.toLowerCase();
+
+  	// iOS
+  	if( /iPhone|iPad|iPod/i.test(userAgent) ) {
+  		$( "li span[value='ios']" ).parent().trigger('click');
+  	} else if( /android/i.test(userAgent) ){
+  		$( "li span[value='android']" ).parent().trigger('click');
+  	} else {
+  		$('#os').val(null);
+  		$('.faux-sb .parent').text('기기를 선택하세요');
+  		$('.faux-sb .parent').addClass('default');
+  	}
+  }
+
+  function initSelectControls(){
+  	$('.select-holder').each(function(){
+    	var select = $(this).find('select');
+    	var options = select.find('option');
+    	var ul = $(this).find('.faux-sb');
+    	var dropdown = ul.find('.dropdown');
+
+    	var html = '';
+
+    	options.each(function(){
+    		html += '<li><span value="'+$(this).attr('value')+'">'+$(this).text()+'</span></li>';
+    	});
+
+    	dropdown.html(html)
+
+    	if($('#os').val() == 'ios'){
+    		$('#signup .faux-sb .parent').text('IOS');
+    	} else if($('#os').val() == 'android') {
+    		$('#signup .faux-sb .parent').text('Android');
+    	}
+    });
+
+		setTimeout(initSelectControlClicks, 100);
+  }
+
+  function initSelectControlClicks(){
+  	var winW = $(window).width();
+  	// clicks
+  	$('.registration .faux-sb').click(function(){
+  		scrollToTop( $('.registration') );
+  	});
+
+		$('.faux-sb').click(function(){
+    	var wasOpen = $(this).hasClass('open');
+    	$('.faux-sb').removeClass('open');
+    	$('.faux-sb .dropdown').css('height', '0px');
+
+    	$('#os').removeClass('error');
+			$('#os-proxy').removeClass('error');
+
+    	if(!wasOpen){
+    		var rowh = $(this).find('.dropdown li').first().outerHeight(true);
+    		var maxh = rowh * 6;
+    		var h = 0;
+    		var len = $(this).find('.dropdown li').length;
+    		if(len > 6){
+    			h = maxh;
+    		} else {
+    			h = len * rowh;
+    		}
+
+    		$(this).addClass('open');
+    		$(this).find('.dropdown').css('height', h+'px');
+    		
+    		var holder = $(this).closest('.select-holder');
+    		holder.css('z-index', '101');
+    	}
+
+    	setTimeout(zindexSelects, 500);
+    });
+
+  	// Drop down clicks
+    $('#signup .faux-sb .dropdown li').click(function(){
+    	var span = $(this).find('span');
+    	var txt = span.text();
+    	var val = span.attr('value');
+    	var holder = $(this).closest('.select-holder');
+
+
+    	$(this).closest('.faux-sb').find('.parent').text(txt);
+    	$(this).closest('.faux-sb').find('.parent').removeClass('default');
+    	holder.find('select').val(val)
+    });
+
+    // Body click
+    $('body').click(function(event){
+        if(!$(event.target).closest('.faux-sb').length) {
+            if($('.faux-sb').is(":visible")) {
+                $(this).find('.faux-sb').removeClass('open');
+                $(this).find('.dropdown').css('height', '0px')
+            }
+        }
+    });
+
+    $('.form-submit').click(function(event){
+    	event.stopPropagation();
+    	$('#signup').submit();
+    	return false;
+    });
+  }
+
+  function zindexSelects(){
+  	$('.select-holder').css('z-index', '100');
+
+  	var holder = $('.faux-sb.open').closest('.select-holder');
+    holder.css('z-index', '101');
+  }
+
+  function resizeUI(){
+  	var scrollTop  = window.pageYOffset || (document.documentElement || document.body.parentNode || document.body).scrollTop;
+  	$(window).trigger('resizeUI');
+  	$('html,body').scrollTop(scrollTop);	
+  }
+
+  function windowScrolled() {
+  }
+
+  function isPhoneNumber(number) {
+  	var phoneno = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;
+	  if(number.match(phoneno)) {
+	    return true;
+	  }
+	  else {
+	    return false;
+	  }
+  }
+
+  function isEmail(email) {
+	  var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+	  return regex.test(email);
+	}
+
+	function scrollToTop(selector){
+    var top = selector.offset().top;
+    $(window).trigger('onAnimateStart');
+    $("html, body").stop().animate({ scrollTop: top+'px' }, 500, 'easeInOutQuad', function(){
+      $(window).trigger('onAnimateComplete');
+    });
+    $('body').trigger('resizeDOM');
+  }
+
+  initClicks();
+  initSelectControls();
+  initOS();
+});

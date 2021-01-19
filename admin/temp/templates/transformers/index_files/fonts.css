@@ -1,0 +1,45 @@
+@charset "UTF-8";
+
+@font-face {
+    font-family: 'robotoregular';
+    src: url('fonts/roboto_regular_macroman/Roboto-Regular-webfont.eot');
+    src: url('fonts/roboto_regular_macroman/Roboto-Regular-webfont.eot?#iefix') format('embedded-opentype'),
+         url('fonts/roboto_regular_macroman/Roboto-Regular-webfont.woff') format('woff'),
+         url('fonts/roboto_regular_macroman/Roboto-Regular-webfont.ttf') format('truetype'),
+         url('fonts/roboto_regular_macroman/Roboto-Regular-webfont.svg#robotoregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'robotomedium';
+    src: url('fonts/roboto_medium_macroman/Roboto-Medium-webfont.eot');
+    src: url('fonts/roboto_medium_macroman/Roboto-Medium-webfont.eot?#iefix') format('embedded-opentype'),
+         url('fonts/roboto_medium_macroman/Roboto-Medium-webfont.woff') format('woff'),
+         url('fonts/roboto_medium_macroman/Roboto-Medium-webfont.ttf') format('truetype'),
+         url('fonts/roboto_medium_macroman/Roboto-Medium-webfont.svg#robotomedium') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'robotobold';
+    src: url('fonts/roboto_bold_macroman/Roboto-Bold-webfont.eot');
+    src: url('fonts/roboto_bold_macroman/Roboto-Bold-webfont.eot?#iefix') format('embedded-opentype'),
+         url('fonts/roboto_bold_macroman/Roboto-Bold-webfont.woff') format('woff'),
+         url('fonts/roboto_bold_macroman/Roboto-Bold-webfont.ttf') format('truetype'),
+         url('fonts/roboto_bold_macroman/Roboto-Bold-webfont.svg#robotobold') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'robotoblack';
+    src: url('fonts/roboto_black_macroman/Roboto-Black-webfont.eot');
+    src: url('fonts/roboto_black_macroman/Roboto-Black-webfont.eot?#iefix') format('embedded-opentype'),
+         url('fonts/roboto_black_macroman/Roboto-Black-webfont.woff') format('woff'),
+         url('fonts/roboto_black_macroman/Roboto-Black-webfont.ttf') format('truetype'),
+         url('fonts/roboto_black_macroman/Roboto-Black-webfont.svg#robotoblack') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}

@@ -210,6 +210,10 @@ $jQuery='<script src="'.$page_url.'assets/jq/jQuery.js"></script>'."\r\n";
 $jQuery10='<script src="https://code.jquery.com/jquery-1.10.2.js"></script>'."\r\n";
 $base_target='<base target="_blank">'."\r\n";
 $back='<a href="javascript:history.go(-1);">Regresar</a>';
+$back2='<a href="'.$page_url.'">Regresar Inicio</a>';
+$inicio='<a href="'.$page_url.'">Inicio</a>';
+$admin='<a href="'.$page_url.'admin/">Admin</a>';
+$login='<a href="'.$page_url.'login/">Login</a>';
 /*---VARIABLES PARA ADMIN-LTE---*/
 $path_dashboard='apps/dashboards/'.$dboard2.'/';//$path_LTE='assets/plugins/AdminLTE/';
 /*---CODE LICENCE---*/
@@ -230,16 +234,6 @@ if($num_block!=0){
 /*---------------------------------------------------------------------------------------------------------------------*/
 //--FUNCIONES DE CONSULTAS BASICAS--//////////////////////////////////////////////////////////////////////////////
 /*---------------------------------------------------------------------------------------------------------------------*/
-function conecta(){
-$mysqli = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_DB); //conexión ala base de datos por medio de misqli poo
-  if($mysqli->connect_errno > 0){ //si retorna algun error
- 	return("Imposible conectarse con la base de datos [" . $mysqli->connect_error . "]"); //se muestra el error
-  }else{ //si no retorna el error
- 	$mysqli->query("SET NAMES 'utf8'"); //codifica las consultas a utf-8
- 	return $mysqli; //retorna la conexión a la base de datos mysql
-  }
-}
-
 function conexion(){
 $mysqli = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_DB); //conexión ala base de datos por medio de misqli poo
     if($mysqli->connect_errno > 0){ //si retorna algun error
@@ -249,7 +243,7 @@ $mysqli = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_DB); //conexión ala base
         return $mysqli; //retorna la conexión a la base de datos mysql
     }
 }
-
+/////////////////////////////////////////////////////////////////////////////////////////////////
 function todo($tabla){
 	$sql = 'SELECT * FROM '.$tabla.' ORDER BY ID ASC';
 	return @mysqli_query(conexion(),$sql);
@@ -285,8 +279,163 @@ global $mysqli,$DBprefix;
 	if($r=mysqli_fetch_assoc($sql)){$array_campos[] = $r;}
 	$row=array_unique($array_campos[0]);
 }
+/////////////////////////////////////////////////////////////////////////////////////////////////
 
-/**NUEVAS FUNCIONALIDADES */
+function conecta(){
+$mysqli = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_DB); //conexión ala base de datos por medio de misqli poo
+  if($mysqli->connect_errno > 0){ //si retorna algun error
+ 	return("Imposible conectarse con la base de datos [" . $mysqli->connect_error . "]"); //se muestra el error
+  }else{ //si no retorna el error
+ 	$mysqli->query("SET NAMES 'utf8'"); //codifica las consultas a utf-8
+ 	return $mysqli; //retorna la conexión a la base de datos mysql
+  }
+}
+
+//CONEXION PDO
+function connect(){
+    try {
+        $mysqli = new PDO("mysql:host=".DB_HOST.";dbname=".DB_DB.";charset=utf8mb4", DB_USER, DB_PASSWORD);
+        // set the PDO error mode to exception
+        $mysqli->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        return $mysqli;
+    } catch (PDOException $exception) {
+        exit($exception->getMessage());
+    }
+}
+$conec=connect();
+
+//Validación
+function validacion_tabla($tabla){
+global $bootstrap,$DBprefix;
+    if($tabla!='signup' && $tabla!=NULL){
+        return $tabla=($tabla==$DBprefix.'signup')?$tabla:$DBprefix.$tabla;
+    }else{
+        echo $bootstrap.'<div class="alert alert-warning"><b>PRECAUCIÓN:</b> No hay datos que mostrar<div>';exit();
+    }
+}
+//validacion_tabla();
+
+//Obtener campos para insert
+function getCampos($input){
+    $filterParams = [];
+    foreach($input as $param => $value){
+        $filterParams[] = "$param";
+    }
+    return implode(", ", $filterParams);
+}
+
+//Obtener valores para insert
+function getValores($input){
+    $filterParams = [];
+    foreach($input as $param => $value){
+        $filterParams[] = ":$param";
+    }
+    return implode(", ", $filterParams);
+}
+
+//Obtener parametros para updates
+function getParams($input){
+    $filterParams = [];
+    foreach($input as $param => $value){
+        $filterParams[] = "$param=:$param";
+    }
+    return implode(", ", $filterParams);
+}
+
+//Asociar todos los parametros a un sql
+function bindAllValues($statement, $params){
+	foreach($params as $param => $value){
+		$statement->bindValue(':'.$param, $value);
+	}
+	return $statement;
+}
+//FUNCIONES PARA API REST ////////////////////////////////////////////////////////////////////////////
+
+//INDEX
+function all(){
+global $conec, $tabla;
+    $sql = $conec->prepare("SELECT * FROM $tabla");
+    $sql->execute();
+    $sql->setFetchMode(PDO::FETCH_ASSOC);
+    $data=$sql->fetchAll();//$data[]=$json;
+    //mysqli_set_charset($conec, 'utf8');
+    header("HTTP/1.1 200 OK");
+    header('Content-Type: application/json');
+    echo json_encode($data);
+}
+
+function all_tabla($tabla){
+global $conec;
+    $sql = $conec->prepare("SELECT * FROM $tabla");
+    $sql->execute();
+    $sql->setFetchMode(PDO::FETCH_ASSOC);
+    $data=$sql->fetchAll();//$data[]=$json;
+    //mysqli_set_charset($conec, 'utf8');
+    header("HTTP/1.1 200 OK");
+    header('Content-Type: application/json');
+    echo json_encode($data);
+}
+
+//STORE
+function store($id){
+global $conec, $tabla;
+    $sql = $conec->prepare("SELECT * FROM $tabla where ID=:id");
+    $sql->bindValue(':id', $id);
+    $sql->execute();
+    $json=$sql->fetch(PDO::FETCH_ASSOC);
+    $data[]=$json;
+    header("HTTP/1.1 200 OK");
+    header('Content-Type: application/json');
+    echo json_encode($data);
+}
+
+//INSERT
+function insert(){
+global $conec,$tabla;
+    $input = $_POST;
+    $campos = getCampos($input); //echo $campos;
+    $valores = getValores($input); //echo $valores;
+    $sql = "INSERT INTO $tabla ($campos) VALUES ($valores)";
+    $statement = $conec->prepare($sql);
+    bindAllValues($statement, $input);
+    $statement->execute();
+    $postId = $conec->lastInsertId();
+    if($postId){
+      //$input['id'] = $postId;
+      header("HTTP/1.1 200 OK");
+      header('Content-Type: application/json');
+      echo json_encode($input);
+    }    
+}
+
+//UPDATE
+function update($id){
+global $conec,$tabla;
+    $input = $_POST; 
+    $postId = $id; 
+    $fields = getParams($input); //echo $fields;//exit();
+    $sql = "UPDATE $tabla SET $fields WHERE ID='$postId'";
+    $statement = $conec->prepare($sql);
+    bindAllValues($statement, $input);
+    $statement->execute();
+    header("HTTP/1.1 200 OK");
+    header('Content-Type: application/json');
+    echo json_encode($input);
+}
+
+//DELETE
+function delete($id){
+global $conec,$tabla;
+    $statement = $conec->prepare("DELETE FROM $tabla where ID=:id");
+    $statement->bindValue(':id', $id);
+    $statement->execute();
+    header("HTTP/1.1 200 OK");
+    echo 'El registro '.$id.' ha sido eliminado.';  
+}
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+//--FUNCIONES CRUD JSON--//////////////////////////////////////////////////////////////////////////////
+//FUNCION DATA 
 function query_data($tabla,$url_api){
 global $page_url,$path_jsonDB,$path_jsonWS;
     $path_JSON=$path_jsonDB.$tabla.'.json';
@@ -297,48 +446,9 @@ global $page_url,$path_jsonDB,$path_jsonWS;
     return $Data;
 }
 
-//Buscar un valor en especifico
-function query_opc($tabla,$c_res,$c_bus,$val){
-    $data=query_data($tabla,$url_api);
-    foreach($data as $key => $value){
-        $selec=$data[$key][$c_bus];
-        if($selec==$val){$dato=$data[$key][$c_res];}
-    }
-    return $dato;    
-}
-
-function sql_opc($tabla,$campo,$opcion,$val){
-global $mysqli,$DBprefix;//$mysqli=conexion();
-    $sql=mysqli_query($mysqli,"SELECT * FROM ".$DBprefix.$tabla." WHERE {$opcion}='{$val}';") or print mysqli_error($mysqli); 
-    if($row=mysqli_fetch_array($sql)){$dato=$row[$campo];}
-    return $dato;
-}
-
-//[GET-SHOW] Buscar ID/CAMPO y Mostrar un registro  
-function query_row($tabla,$campo,$id){
-    $data=query_data($tabla,$url_api);
-    //DATOS
-    foreach($data as $key => $value){
-        $b_id=$data[$key][$campo];
-        if($b_id==$id){//$index=$key;
-            $row=$data[$key];
-        }
-    }
-    return $row;
-}
-
-function sql_row($tabla,$campo,$id){
-global $mysqli,$DBprefix;
-    $sql=mysqli_query($mysqli,"SELECT * FROM ".$DBprefix.$tabla." WHERE {$campo}='{$id}';") or print mysqli_error($mysqli);
-    $array_campos=array();
-    if($r=mysqli_fetch_assoc($sql)){$array_campos[] = $r;}
-    //$row=array_unique($array_campos[0]);
-    return $r;
-}    
-
-//MOSTRAR TODA LA TABLA CON CONTROLES CRUD
+//[LISTAR/INDEX] MOSTRAR TODA LA TABLA CON CONTROLES CRUD 
 function query_all_tabla($tabla,$url_api,$crud){
-global $page_url,$path_jsonDB,$path_jsonWS;//echo $table;
+global $page_url,$path_jsonDB,$path_jsonWS;//echo $tabla;
     $display=($crud!=0)?'':'none';
     $data=query_data($tabla,$url_api);//print_r($data);
     //CAMPOS
@@ -353,18 +463,20 @@ global $page_url,$path_jsonDB,$path_jsonWS;//echo $table;
     $campos.='<th style="display:'.$display.';">Acciones</th>'."\n";
     echo '<tr>'.$campos.'</tr>'."\n";
     //DATOS
-    foreach($data as $key => $value){
-        $row=$data[$key];
-        echo '<tr id="'.$key.'">'."\n";   
-        foreach($row as $datos=>$value){//echo '<td>'.$row[$datos].'</td>'."\n";
-            echo '<td>'.$value.'</td>'."\n";
-        }
-        echo '<td style="display:'.$display.';"><button class="btn btn-secondary btn-edit"><i class="fa fa-edit"></i></button> | <button class="btn btn-danger btn-delete"><i class="fa fa-trash"></i></button></td>';
-        echo '</tr>'."\n";
+    foreach($data as $key => $value){        
+        //if($key!=0){
+            $row=$data[$key];$key=$row['ID'];
+            echo '<tr id="'.$key.'">'."\n";   
+            foreach($row as $datos=>$value){//echo '<td>'.$row[$datos].'</td>'."\n";
+                echo '<td>'.str_limit($value,28,'...').'</td>'."\n";
+            }
+            echo '<td style="display:'.$display.';"><button class="btn btn-secondary btn-edit"><i class="fa fa-edit"></i></button> | <button class="btn btn-danger btn-delete"><i class="fa fa-trash"></i></button></td>';
+            echo '</tr>'."\n";
+        //}
     }
 }
 
-//MOSTRAR TABLA CON CONFIGURACION DE CAMPOS, ORDEN-ID Y CONTROLES CRUD
+//[LISTAR/INDEX] MOSTRAR TABLA CON CONFIGURACION DE CAMPOS, ORDEN-ID Y CONTROLES CRUD
 //EXAMPLE: query_tabla($index='ID',$th,$tabla,$url_api,$crud=1);
 function query_tabla($index,$th,$tabla,$url_api,$crud){
 global $page_url,$path_jsonDB,$path_jsonWS;
@@ -389,22 +501,102 @@ global $page_url,$path_jsonDB,$path_jsonWS;
     echo '<tr>'.$campos.'</tr>'."\n";
     //DATOS
     foreach($data as $key => $value){
-        $row=$data[$key];if($index!=''){$key=$row['ID'];}
-        echo '<tr id="'.$key.'">'."\n";
-        echo '<td style="display:'.$display.';"><button class="btn btn-primary btn-edit" data-toggle="modal" data-target="#addVcard"><i class="fa fa-edit"></i></button> | <button class="btn btn-danger btn-delete"><i class="fa fa-trash"></i></button></td>';   
-        if($th!=''){
-            for($j=0;$j<count($th);$j++){$datos=$th[$j];
-                echo '<td>'.$row[$datos].'</td>'."\n";
+        //if($key!=0){
+            $row=$data[$key];if($index!=''){$key=$row['ID'];}
+            echo '<tr id="'.$key.'">'."\n";
+            echo '<td style="display:'.$display.';"><button class="btn btn-primary btn-edit" data-toggle="modal" data-target="#addVcard"><i class="fa fa-edit"></i></button> | <button class="btn btn-danger btn-delete"><i class="fa fa-trash"></i></button></td>';   
+            if($th!=''){
+                for($j=0;$j<count($th);$j++){$datos=$th[$j];
+                    echo '<td>'.$row[$datos].'</td>'."\n";
+                }
+            }else{
+                foreach($row as $datos=>$value){//echo '<td>'.$row[$datos].'</td>'."\n";
+                    echo '<td>'.$value.'</td>'."\n";
+                }
             }
-        }else{
-            foreach($row as $datos=>$value){//echo '<td>'.$row[$datos].'</td>'."\n";
-                echo '<td>'.$value.'</td>'."\n";
-            }
-        }
-        echo '</tr>'."\n";
+            echo '</tr>'."\n";
+        //}
     }
 }
 
+//BUSCAR CON AJAX
+function query_buscar($tabla,$url_api,$campo,$val){
+    $data=query_data($tabla,$url_api);
+    //DATOS
+    foreach($data as $key => $value){
+        $row=$data[$key];
+        $b_val = $data[$key][$campo];
+        $valor = ucwords($val);
+        $bus   = strpos($b_val, $valor);
+        if($bus==$val){//$index=$key;           
+            echo '
+            <div class="public-user-block block">
+            <div class="row d-flex align-items-center">                   
+              <div class="col-lg-4 d-flex align-items-center">
+                <div class="order">'.$row['ID'].'</div>
+                <div class="avatar" style="background:url('.$row['cover'].');background-repeat:no-repeat;background-size:cover;background-position:center;"></div>
+                <a href="'.$page_url.'profile/'.$row['profile'].'" class="name">
+                  <strong class="d-block">'.$row['nombre'].'</strong>
+                  <span class="d-block">'.$row['profile'].'</span>
+                </a>
+              </div>
+              <div class="col-lg-4 text-center">
+                <div class="contributions">'.$row['puesto'].'</div>
+              </div>
+              <div class="col-lg-4">
+                <div class="details d-flex">
+                  <div class="item"><i class="fa fa-calendar"></i><strong>'.$row['f_create'].'</strong></div>
+                </div>
+              </div>
+            </div>
+          </div>
+            ';
+        }
+    }
+}
+
+//[GET-SHOW][ID] Buscar ID/CAMPO y Mostrar un registro ///////////////////////////////////////////////
+function query_row($tabla,$campo,$id){
+    $data=query_data($tabla,$url_api);
+    //DATOS
+    foreach($data as $key => $value){
+        $b_id=$data[$key][$campo];
+        if($b_id==$id){//$index=$key;
+            $row=$data[$key];
+        }
+    }
+    return $row;
+}
+
+function sql_row($tabla,$campo,$id){
+global $mysqli,$DBprefix;
+    $sql=mysqli_query($mysqli,"SELECT * FROM ".$DBprefix.$tabla." WHERE {$campo}='{$id}';") or print mysqli_error($mysqli);
+    $array_campos=array();
+    if($r=mysqli_fetch_assoc($sql)){$array_campos[] = $r;}
+    //$row=array_unique($array_campos[0]);
+    return $r;
+}
+/////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+//Buscar un valor en especifico ////////////////////////////////////////////////////////////////////////
+function query_opc($tabla,$campo,$opcion,$val){
+    $data=query_data($tabla,$url_api);
+    foreach($data as $key => $value){
+        $selec=$data[$key][$opcion];
+        if($selec==$val){$dato=$data[$key][$campo];}
+    }
+    return $dato;    
+}
+
+function sql_opc($tabla,$campo,$opcion,$val){
+global $mysqli,$DBprefix;//$mysqli=conexion();
+    $sql=mysqli_query($mysqli,"SELECT * FROM ".$DBprefix.$tabla." WHERE {$opcion}='{$val}';") or print mysqli_error($mysqli); 
+    if($row=mysqli_fetch_array($sql)){$dato=$row[$campo];}
+    return $dato;
+}
+/////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+  
 /*---------------------------------------------------------------------------------------------------------------------*/
 //--FUNCIONES--//////////////////////////////////////////////////////////////////////////////
 /*---------------------------------------------------------------------------------------------------------------------*/

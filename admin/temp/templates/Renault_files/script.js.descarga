@@ -1,0 +1,329 @@
+/* eslint-disable */
+function loadLiveChat() {
+  var initESW = function(gslbBaseURL) {
+    console.log("Snap-In Pre-chat Snippet settings file loaded."); // Logs that the snippet settings file was loaded successfully
+    embedded_svc.settings.displayHelpButton = true; //Or false
+    embedded_svc.settings.language = "es-mx"; //For example, enter 'en' or 'en-US'
+    embedded_svc.settings.disabledMinimizedText = "Offline";
+    embedded_svc.settings.defaultMinimizedText = "Chatea con nosotros";
+    embedded_svc.settings.avatarImgURL = "https://renaultarca--contactrenaultgroup.eu10.visual.force.com/resource/1575387837000/Rforce_prechatResources_STR/web2case/CS/logo_renault.png";
+	  
+    embedded_svc.settings.extraPrechatFormDetails = [
+      {
+        label: "caseOrigin",
+        value: "Chat",
+        displayToAgent: false
+      },
+      {
+        label: "caseSubject",
+        value: "",
+        displayToAgent: false
+      },
+	   {
+        label: "ContactMobileNumber",
+        value: "",
+        displayToAgent: false
+      },
+	  {
+        label: "ChatFeedbackEmail",
+        value: "",
+        displayToAgent: false
+      },
+      {
+        label: "caseStatus",
+        value: "New",
+        displayToAgent: false
+      },
+      {
+        label: "caseCaseSubSource",
+        value: "Renault Site",
+        displayToAgent: false
+      },
+      {
+        label: "caseType",
+        value: "",
+        displayToAgent: false
+      },
+	  {
+		label: "caseCatalogCode",
+		value: "Snapinrecord",
+		displayToAgent: false
+	  },
+      {
+        label: "caseFrom",
+        value: "Customer",
+        displayToAgent: false
+      },
+      {
+        label: "caseCountry",
+        value: "Mexico",
+        displayToAgent: false
+      },
+      {
+        label: "caseCaseBrand",
+        value: "Renault",
+        displayToAgent: false
+      },
+      {
+        label: "accountLanguage",
+        value: "es-mx",
+        displayToAgent: false
+      },
+	  {
+		label: "ConAssistant",
+		value: "SnapinBadContact",
+		displayToAgent: false
+	  },	
+      {
+        label: "accountCountry",
+        value: "Mexico",
+        displayToAgent: false
+      },
+      {
+        label: "accountComAgreemt",
+        value: "true",
+        displayToAgent: false
+      }
+    ];
+
+    embedded_svc.settings.extraPrechatInfo = [
+      {
+        entityName: "Contact",
+        showOnCreate: true,
+        linkToEntityName: "Case",
+        linkToEntityField: "ContactId",
+        saveToTranscript: "ContactId",
+        entityFieldMaps: [
+          {
+            isExactMatch: true,
+            fieldName: "FirstName",
+            doCreate: false,
+            doFind: true,
+            label: "First Name"
+          },
+          {
+            isExactMatch: true,
+            fieldName: "LastName",
+            doCreate: false,
+            doFind: true,
+            label: "Last Name"
+          },
+          {
+            isExactMatch: true,
+            fieldName: "Email",
+            doCreate: false,
+            doFind: true,
+            label: "Email"
+          },
+		  {
+            isExactMatch: true,
+            fieldName: "PersMobPhone__c",
+            doCreate: false,
+            doFind: true,
+            label: "phone"    
+          },
+		  {
+			isExactMatch: false,
+			fieldName: "AssistantName",	
+			doCreate: false,
+			doFind: false,
+			label: "ConAssistant"
+		  }
+        ]
+      },
+      {
+        entityName: "Account",
+        showOnCreate: true,
+        linkToEntityName: "Case",
+        linkToEntityField: "AccountId",
+        saveToTranscript: "AccountId",
+        entityFieldMaps: [
+          {
+            isExactMatch: false,
+            fieldName: "Name",
+            doCreate: false,
+            doFind: true,
+            label: "Last Name"
+          },          
+          {
+            isExactMatch: true,
+            fieldName: "PersEmailAddress__c",
+            doCreate: false,
+            doFind: true,
+            label: "Email"
+          },
+          {
+            isExactMatch: false,
+            fieldName: "PersMobPhone__c",
+            doCreate: false,
+            doFind: true,
+            label: "Phone"
+          },
+          {
+            isExactMatch: false,
+            fieldName: "Language__c",
+            doCreate: false,
+            doFind: false,
+            label: "accountLanguage"
+          },
+          {
+            isExactMatch: false,
+            fieldName: "Country__c",
+            doCreate: false,
+            doFind: false,
+            label: "accountCountry"
+          },
+          {
+            isExactMatch: false,
+            fieldName: "ComAgreemt__c",
+            doCreate: false,
+            doFind: false,
+            label: "accountComAgreemt"
+          }
+        ]
+      },
+      {
+        entityName: "Case",
+        showOnCreate: true,
+        saveToTranscript: "CaseId",
+        entityFieldMaps: [
+          {
+            isExactMatch: false,
+            fieldName: "Origin",
+            doCreate: true,
+            doFind: false,
+            label: "caseOrigin"
+          },
+          {
+            isExactMatch: false,
+            fieldName: "Subject",
+            doCreate: true,
+            doFind: false,
+            label: "caseType"
+          },
+          {
+            isExactMatch: false,
+            fieldName: "Status",
+            doCreate: true,
+            doFind: false,
+            label: "caseStatus"
+          },
+          {
+            isExactMatch: false,
+            fieldName: "CaseSubSource__c",
+            doCreate: true,
+            doFind: false,
+            label: "caseCaseSubSource"
+          },
+          {
+            isExactMatch: false,
+            fieldName: "Type",
+            doCreate: true,
+            doFind: false,
+            label: "caseType"
+          },
+          {
+            isExactMatch: false,
+            fieldName: "From__c",
+            doCreate: true,
+            doFind: false,
+            label: "caseFrom"
+          },{
+            isExactMatch: false,
+            fieldName: "ContactMobileNumber__c",	
+            doCreate: true,
+            doFind: false,
+            label: "ContactMobileNumber"
+          },
+		  {
+            isExactMatch: false,
+            fieldName: "Email_chat__c",	
+            doCreate: true,
+            doFind: false,
+            label: "ChatFeedbackEmail"
+          },
+		  {
+			isExactMatch: false,
+			fieldName: "CatalogFuncCode__c",
+			doCreate: true,
+			doFind: false,
+			label: "caseCatalogCode"
+		  },
+          {
+            isExactMatch: false,
+            fieldName: "CountryCase__c",
+            doCreate: true,
+            doFind: false,
+            label: "caseCountry"
+          },
+          {
+            isExactMatch: false,
+            fieldName: "CaseBrand__c",
+            doCreate: true,
+            doFind: false,
+            label: "caseCaseBrand"
+          }
+        ]
+      }
+    ];
+
+    embedded_svc.settings.enabledFeatures = ["LiveAgent"];
+    embedded_svc.settings.entryFeature = "LiveAgent";
+	
+embedded_svc.init(
+		'https://renaultarca.my.salesforce.com',
+			'https://networkcty.force.com/snapin',
+			gslbBaseURL,
+			'00Db0000000cZvn',
+			'Rforce_MX_Renault_Snapin',
+			{
+				baseLiveAgentContentURL: 'https://c.la1-c2-frf.salesforceliveagent.com/content',
+				deploymentId: '572b0000000ClJB',
+				buttonId: '573b0000000ClaZ',
+				baseLiveAgentURL: 'https://d.la1-c2-frf.salesforceliveagent.com/chat',
+				eswLiveAgentDevName: 'EmbeddedServiceLiveAgent_Parent04I0X00000000MMUAY_1729a466603',
+				isOfflineSupportEnabled: false
+			}
+		);
+	};
+
+	if (!window.embedded_svc) {
+		var s = document.createElement('script');
+		s.setAttribute('src', 'https://renaultarca.my.salesforce.com/embeddedservice/5.0/esw.min.js');
+		s.onload = function() {
+			initESW(null);
+		};
+		document.body.appendChild(s);
+	} else {
+		initESW('https://service.force.com');
+	}
+}
+
+function loadLiveChatStyle() {
+  var style = document.createElement("style");
+  style.innerHTML = `
+    .embeddedServiceHelpButton .helpButton .uiButton {
+		background-color: #FFCE33;
+		font-family: "Arial", sans-serif;
+	}
+	.embeddedServiceHelpButton .helpButton .uiButton:focus {
+		outline: 1px solid #FFCE33;
+	}
+  `;
+  document.head.appendChild(style);
+}
+
+(function() {
+  loadLiveChatStyle();
+  const script = document.createElement("script");
+
+  script.onload = loadLiveChat;
+  script.onerror = function() {
+    console.error("Failed to load LiveChat");
+  };
+  script.type = "text/javascript";
+  script.charset = "utf-8";
+  script.async = true;
+  script.src = "https://service.force.com/embeddedservice/5.0/esw.min.js";
+  if (document.body) document.body.appendChild(script);
+})();

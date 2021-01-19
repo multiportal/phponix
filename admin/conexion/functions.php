@@ -1,6 +1,7 @@
 <?php
 //--FUNCIONES SISTEMA-///////////////////////////////////////////////////////////////////////////////
 /*TABLA:CONFIGURACION*/
+
 $sql=mysqli_query($mysqli,"SELECT * FROM ".$DBprefix."config WHERE ID='1';") or print mysqli_error($mysqli); 
 if($row=mysqli_fetch_array($sql)){
 	$page_name=$row['page_name'];
@@ -68,7 +69,7 @@ $meta_chartset='
 /*---------------------------------------------------------------------------------------------------------------------*/
 //--FUNCIONES DE CONSULTAS BASICAS--//////////////////////////////////////////////////////////////////////////////
 /*---------------------------------------------------------------------------------------------------------------------*/
-function conecta(){
+function conexion(){
  $mysqli = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_DB); //conexión ala base de datos por medio de misqli poo
  if($mysqli->connect_errno > 0){ //si retorna algun error
  	return("Imposible conectarse con la base de datos [" . $mysqli->connect_error . "]"); //se muestra el error
@@ -78,55 +79,39 @@ function conecta(){
  }
 }
 
-function conexion(){
-$mysqli = @mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD);
-	if($mysqli){
-		if(@mysqli_select_db($mysqli,DB_DB)) return $mysqli;
-		else{
-		 die('Error: no se pudo seleccionar la base de datos.');
-		 exit();
+function query_data($tabla,$url_api){
+global $page_url,$path_jsonDB,$path_jsonWS;
+	$path_JSON=$path_jsonDB.$tabla.'.json';
+	if(!file_exists($path_JSON)){$path_JSON=$page_url.$path_jsonWS.$tabla;}
+	$path_JSON=($url_api)?$url_api:$path_JSON;
+	//echo $path_JSON;
+	$objData=file_get_contents($path_JSON);
+	$Data=json_decode($objData,true);
+	usort($Data, function($a, $b){return strnatcmp($a['ord'], $b['ord']);});//Orden del menu
+	return $Data;
+}
+
+function query_config($tabla,$campo,$id,&$index,&$row){
+	$data=query_data($tabla,$url_api);
+	//DATOS
+	foreach($data as $key => $value){
+		$b_id=$data[$key][$campo];
+		if($b_id==$id){
+			$index=$key;
+			$row=$data[$key];//print_r($row);
 		}
-	}else{
-		die('Error: no se pudo conectar al servidor.');
-		exit();
 	}
 }
 
-function todo($tabla){
-	$sql = 'SELECT * FROM '.$tabla.' ORDER BY ID ASC';
-	return @mysqli_query(conexion(),$sql);
+function query_all_tabla($tabla,$url_api){
+global $page_url,$path_jsonDB,$path_jsonWS;
+	$Data=query_data($tabla,$url_api);
+	print_r($Data);
 }
 
-function consulta($tabla=NULL,$condiciones=NULL){
-	if($tabla==NULL || $condiciones==NULL)
-	{
-		die('Debe proporcionarse la tabla y las condiciones de b&uacute;squeda.');
-		exit();
-	}
-	$sql = "SELECT * FROM ";
-	$sql .= $tabla;
-	$sql .= " WHERE ";
-	$sql .= $condiciones;
-	//$sql .= " ORDER BY ID ASC";
-	if($recurso = mysqli_query(conexion(),$sql)) return $recurso;
-	else return FALSE;
-}
+query_config($tabla='config','ID',1,$row);
+$page_name=$row['page_name'];
 
-function borrar($tabla=NULL,$condiciones=NULL){
-	echo "Tabla: ".$tabla;
-	echo "<br>Condiciones: ".$condiciones;
-	if($tabla==NULL || $condiciones==NULL)
-	{
-		die('Debe proporcionarse la tabla y las condiciones de b&uacute;squeda.');
-		exit();
-	}
-	$sql= "DELETE FROM ".$tabla;
-	$sql.= " WHERE ";
-	$sql.= $condiciones;
-	
-	$recurso = mysqli_query(conexion(),$sql);
-	return mysql_affected_rows();
-}
 /*---------------------------------------------------------------------------------------------------------------------*/
 //--FUNCIONES--//////////////////////////////////////////////////////////////////////////////
 /*---------------------------------------------------------------------------------------------------------------------*/
@@ -160,5 +145,41 @@ if(!file_exists($path_JSON)){$path_JSON=$page_url.'bloques/ws/t/?t='.$tabla;}
 $ruta_origen=($nivel_login!=-1)?'<!-- '.$tabla_json.' -->'."\n\r":'<!-- '.$tabla_json.' URL:('.$path_JSON.')-->'."\n\r";
 }
 
-
+/*|///WEBSERVICES///|*/
+function ws_tabla($tabla,$ajax){
+global $DBprefix;
+	if($ajax==1){mysqli_set_charset(conexion(), 'utf8');}
+	if($tabla!='signup'){
+		$query="SELECT * FROM ".$DBprefix.$tabla."";
+	}else{
+		echo '<div>No hay datos que mostrar.</div>';exit();
+	}
+	$sql=mysqli_query(conexion(),$query) or print mysqli_error(conexion());
+	$json = array();
+	while($row = mysqli_fetch_assoc($sql)){$json[]=$row;}
+	if($ajax==1){
+		$data = json_encode($json);
+	}else{
+		$data=json_encode($json, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+		header('Content-Type: application/json');
+	}
+	echo $data;
+}
+	
+function ws_query($query,$ajax,$d){
+global $DBprefix;
+	if($ajax==1){mysqli_set_charset(conexion(), 'utf8');}
+	$sql=mysqli_query(conexion(),$query) or print mysqli_error(conexion());
+	$json = array();
+	while($row = mysqli_fetch_assoc($sql)){$json[]=$row;}
+	if($ajax==1){
+		$data=($d!=1)?json_encode($json):json_encode($json[0]);
+	}else{
+		$data=json_encode($json, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+		header('Content-Type: application/json');
+	}
+	echo $data;
+}
+/*|///WEBSERVICES///|*/
+	
 ?>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 13-01-2021 a las 18:23:36
+-- Tiempo de generación: 19-01-2021 a las 21:29:48
 -- Versión del servidor: 10.1.38-MariaDB
 -- Versión de PHP: 7.3.2
 
@@ -936,33 +936,33 @@ CREATE TABLE `php_menu_admin` (
 --
 
 INSERT INTO `php_menu_admin` (`ID`, `nom_menu`, `icono`, `link`, `nivel`, `ID_menu_adm`, `ID_mod`, `visible`) VALUES
-(1, 'Config. Sistema', 'fa-gear', 'index.php?mod=sys&ext=admin/index', -1, 0, 9, 1),
+(1, 'Config. Sistema', 'fa-gear', 'index.php?mod=sys&ext=admin/index', -1, 0, 11, 1),
 (2, 'Modulos', 'fa-cubes', 'index.php?mod=sys&ext=modulos', -1, 0, 0, 1),
-(3, 'Logs', 'fa-globe', 'index.php?mod=sys&ext=admin/index&opc=logs', -1, 0, 9, 1),
-(4, 'Bloquear IP', 'fa-crosshairs', 'index.php?mod=sys&ext=admin/index&opc=bloquear', -1, 0, 9, 1),
-(5, 'Temas', 'fa-sticky-note-o', 'index.php?mod=sys&ext=admin/index&opc=temas', -1, 0, 9, 1),
-(6, 'Admin. Usuarios', 'fa-users', 'index.php?mod=usuarios&ext=admin/index', -1, 0, 4, 0),
-(7, 'Menu Admin', 'fa-list', 'index.php?mod=sys&ext=menu_admin', -1, 0, 9, 1),
-(8, 'Iconos', 'fa-smile-o', 'index.php?mod=sys&ext=admin/index&opc=iconos', -1, 0, 9, 1),
-(9, 'Informe de Visitas', 'fa-download', 'index.php?mod=estadisticas&ext=admin/index', 1, 0, 10, 1),
-(10, 'Backup DB', 'fa-download', 'index.php?mod=sys&ext=backup', -1, 0, 9, 1),
-(11, 'Config. Mailbox', 'fa-gear', 'index.php?mod=mailbox&ext=admin/index', 1, 0, 12, 1),
-(12, 'Mensajes', 'fa-envelope', 'index.php?mod=mailbox', 1, 0, 12, 1),
-(13, 'Editar', 'fa-home', 'index.php?mod=Home&ext=admin/index', 1, 0, 3, 1),
-(14, 'Menu Web', 'fa-list', 'index.php?mod=Home&ext=admin/index&opc=menu_web', 1, 0, 3, 1),
-(15, 'Admin productos', 'fa-shopping-cart', 'index.php?mod=productos&ext=admin/index&opc=producto', 1, 0, 15, 1),
-(16, 'Categoria de productos', 'fa-folder-open', 'index.php?mod=productos&ext=admin/index&opc=categoria', 1, 0, 15, 1),
-(17, 'Subcategoria de productos', 'fa-folder-open-o', 'index.php?mod=productos&ext=admin/index&opc=subcategoria', 1, 0, 15, 1),
-(18, 'Config. Gmaps', 'fa-gear', 'index.php?mod=gmaps&ext=admin/index', 1, 0, 16, 1),
-(19, 'Ubicaciones', 'fa-map-marker', 'index.php?mod=gmaps&ext=admin/index&opc=ubicaciones', 1, 0, 16, 1),
-(20, 'Config. Contacto', 'fa-gear', 'index.php?mod=contacto&ext=admin/index', 1, 0, 8, 1),
-(21, 'Correos de Formulario', 'fa-pencil-square-o', 'index.php?mod=contacto&ext=admin/index&opc=forms', 1, 0, 8, 1),
-(22, 'Generador Sitemap', 'fa-sitemap', 'index.php?mod=sys&ext=admin/index&opc=sitemap', 1, 0, 9, 1),
-(23, 'Opciones', 'fa-gears', 'index.php?mod=sys&ext=opciones', 1, 0, 9, 1),
-(24, 'Licencia', 'fa-eye', 'index.php?mod=sys&ext=licencia', -1, 0, 9, 1),
-(25, 'Slider', 'fa-caret-square-o-right', 'index.php?mod=Home&ext=admin/index&opc=slider', 1, 0, 3, 1),
-(26, 'Testimonios', 'fa-child', 'index.php?mod=Home&ext=admin/index&opc=testimonios', 1, 0, 3, 1),
-(27, 'Tema', 'fa-paint-brush', 'index.php?mod=Home&ext=admin/index&opc=tema', 1, 0, 3, 1);
+(3, 'Logs', 'fa-globe', 'index.php?mod=sys&ext=admin/index&opc=logs', -1, 0, 11, 1),
+(4, 'Bloquear IP', 'fa-crosshairs', 'index.php?mod=sys&ext=admin/index&opc=bloquear', -1, 0, 11, 1),
+(5, 'Temas', 'fa-sticky-note-o', 'index.php?mod=sys&ext=admin/index&opc=temas', -1, 0, 11, 1),
+(6, 'Admin. Usuarios', 'fa-users', 'index.php?mod=usuarios&ext=admin/index', -1, 0, 6, 0),
+(7, 'Menu Admin', 'fa-list', 'index.php?mod=sys&ext=menu_admin', -1, 0, 11, 1),
+(8, 'Iconos', 'fa-smile-o', 'index.php?mod=sys&ext=admin/index&opc=iconos', -1, 0, 11, 1),
+(9, 'Informe de Visitas', 'fa-download', 'index.php?mod=estadisticas&ext=admin/index', 1, 0, 12, 1),
+(10, 'Backup DB', 'fa-download', 'index.php?mod=sys&ext=backup', -1, 0, 11, 1),
+(11, 'Config. Mailbox', 'fa-gear', 'index.php?mod=mailbox&ext=admin/index', 1, 0, 14, 1),
+(12, 'Mensajes', 'fa-envelope', 'index.php?mod=mailbox', 1, 0, 14, 1),
+(13, 'Editar', 'fa-home', 'index.php?mod=Home&ext=admin/index', 1, 0, 5, 1),
+(14, 'Menu Web', 'fa-list', 'index.php?mod=Home&ext=admin/index&opc=menu_web', 1, 0, 5, 1),
+(15, 'Admin productos', 'fa-shopping-cart', 'index.php?mod=productos&ext=admin/index&opc=producto', 1, 0, 17, 1),
+(16, 'Categoria de productos', 'fa-folder-open', 'index.php?mod=productos&ext=admin/index&opc=categoria', 1, 0, 17, 1),
+(17, 'Subcategoria de productos', 'fa-folder-open-o', 'index.php?mod=productos&ext=admin/index&opc=subcategoria', 1, 0, 17, 1),
+(18, 'Config. Gmaps', 'fa-gear', 'index.php?mod=gmaps&ext=admin/index', 1, 0, 18, 1),
+(19, 'Ubicaciones', 'fa-map-marker', 'index.php?mod=gmaps&ext=admin/index&opc=ubicaciones', 1, 0, 18, 1),
+(20, 'Config. Contacto', 'fa-gear', 'index.php?mod=contacto&ext=admin/index', 1, 0, 10, 1),
+(21, 'Correos de Formulario', 'fa-pencil-square-o', 'index.php?mod=contacto&ext=admin/index&opc=forms', 1, 0, 10, 1),
+(22, 'Generador Sitemap', 'fa-sitemap', 'index.php?mod=sys&ext=admin/index&opc=sitemap', 1, 0, 11, 1),
+(23, 'Opciones', 'fa-gears', 'index.php?mod=sys&ext=opciones', 1, 0, 11, 1),
+(24, 'Licencia', 'fa-eye', 'index.php?mod=sys&ext=licencia', -1, 0, 11, 1),
+(25, 'Slider', 'fa-caret-square-o-right', 'index.php?mod=Home&ext=admin/index&opc=slider', 1, 0, 5, 1),
+(26, 'Testimonios', 'fa-child', 'index.php?mod=Home&ext=admin/index&opc=testimonios', 1, 0, 5, 1),
+(27, 'Tema', 'fa-paint-brush', 'index.php?mod=Home&ext=admin/index&opc=tema', 1, 0, 5, 1);
 
 -- --------------------------------------------------------
 
@@ -1044,8 +1044,8 @@ CREATE TABLE `php_modulos` (
 
 INSERT INTO `php_modulos` (`ID`, `nombre`, `modulo`, `description`, `dashboard`, `nivel`, `home`, `visible`, `activo`, `sname`, `icono`, `link`) VALUES
 (1, 'admin', 'admin', '', 0, 0, 0, 0, 1, 'false', '', ''),
-(2, 'Login', 'login', 'Administración Login.', 0, 0, 0, 1, 1, 'false', 'fa-users', 'index.php?mod=login'),
-(3, 'Logout', 'logout', 'Administración Logout.', 0, 0, 0, 1, 1, 'false', 'fa-users', 'index.php?mod=logout'),
+(2, 'Login', 'login', 'Administraci&oacute;n Login.', 0, 0, 0, 0, 1, 'false', 'fa-users', 'index.php?mod=login'),
+(3, 'Logout', 'logout', 'Administraci&oacute;n Logout.', 0, 0, 0, 0, 1, 'false', 'fa-users', 'index.php?mod=logout'),
 (4, 'Dashboard', 'dashboard', '', 1, -1, 0, 0, 1, 'false', 'fa-dashboard', 'index.php?mod=dashboard'),
 (5, 'Home', 'Home', 'Administración y gestión del Home.', 0, 0, 1, 1, 1, 'false', 'fa-home', 'index.php?mod=Home'),
 (6, 'Usuarios', 'usuarios', 'Administación y gestión de usuarios.', 0, -1, 0, 1, 1, 'false', 'fa-users', 'index.php?mod=usuarios'),
@@ -1059,12 +1059,12 @@ INSERT INTO `php_modulos` (`ID`, `nombre`, `modulo`, `description`, `dashboard`,
 (14, 'Mailbox', 'mailbox', 'Mailbox de formularios', 1, 1, 0, 1, 1, 'false', ' fa-envelope', 'index.php?mod=mailbox'),
 (15, 'Ecommerce', 'ecommerce', 'Administración y gestión del modulo ecommerce.', 0, 1, 0, 0, 0, 'false', 'fa-shopping-cart', 'index.php?mod=ecommerce'),
 (16, 'Marketing', 'marketing', '', 0, 1, 0, 0, 0, 'false', 'fa-globe', 'index.php?mod=marketing'),
-(17, 'Productos', 'productos', 'Administración de productos', 0, 1, 0, 1, 1, 'false', 'fa-shopping-cart', 'index.php?mod=productos'),
-(18, 'Gmaps', 'gmaps', 'Mapas de Google', 0, 0, 0, 1, 1, 'false', 'fa-map', 'index.php?mod=gmaps'),
+(17, 'Productos', 'productos', 'Administración de productos', 0, 1, 0, 0, 1, 'false', 'fa-shopping-cart', 'index.php?mod=productos'),
+(18, 'Gmaps', 'gmaps', 'Mapas de Google', 0, 0, 0, 0, 1, 'false', 'fa-map', 'index.php?mod=gmaps'),
 (19, 'Chat', 'chat', 'Administración del modulo chat.', 0, 1, 0, 0, 1, 'false', 'fa-commenting', 'index.php?mod=chat'),
 (20, 'Directorio', 'directorio', 'Administrador del modulo de Directorio.', 0, 1, 0, 0, 0, 'false', 'fa-globe', 'index.php?mod=directorio'),
 (21, 'descargas', 'descargas', 'Administrador del modulo descargas', 0, 1, 0, 0, 0, 'false', 'fa-download', 'index.php?mod=descargas'),
-(22, 'Servicios', 'servicios', 'Administrador del modulo servicios', 0, 0, 0, 1, 1, 'false', 'fa-briefcase', 'index.php?mod=servicios');
+(22, 'Servicios', 'servicios', 'Administrador del modulo servicios', 0, 0, 0, 0, 1, 'false', 'fa-briefcase', 'index.php?mod=servicios');
 
 -- --------------------------------------------------------
 
@@ -1891,13 +1891,6 @@ CREATE TABLE `php_visitas` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
--- Volcado de datos para la tabla `php_visitas`
---
-
-INSERT INTO `php_visitas` (`ID`, `IPv4`, `ip`, `info_nave`, `navegador`, `version`, `os`, `pais`, `user`, `page`, `refer`, `vhref`, `modulo`, `ext`, `idp`, `salida_pag`, `fecha`, `time`) VALUES
-(1, 2130706433, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.141 Safari/537.36 Edg/87.0.664.75', 'CHROME', '87.0.4280.141', 'WIN', '', '', 'http://localhost/MisSitios/phponix/', 'http://localhost/MisSitios/phponix/', '', 'Home', '', '', '2021-01-13 18:22:06', '2021-01-13 18:22:06', '2021-01-13 17:22:06');
-
---
 -- Índices para tablas volcadas
 --
 
@@ -2563,7 +2556,7 @@ ALTER TABLE `php_vcard_plan`
 -- AUTO_INCREMENT de la tabla `php_visitas`
 --
 ALTER TABLE `php_visitas`
-  MODIFY `ID` int(9) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `ID` int(9) UNSIGNED NOT NULL AUTO_INCREMENT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

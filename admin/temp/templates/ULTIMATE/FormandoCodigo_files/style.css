@@ -1,0 +1,350 @@
+/* Custom Stylesheet */
+
+
+/**
+ * Use this file to override Materialize files so you can update
+ * the core Materialize files in the future
+ *
+ * Made By MaterializeCSS.com
+ */
+
+
+/*
+################ START NUEVOS
+*/
+input:-webkit-autofill {
+    color: #fff !important;
+}
+.notification-web a {
+    color: white;
+    text-decoration: underline;
+}
+.examen-btn{
+  margin-top:-43px;
+}
+
+a.examen-btn div.puntaje-texto {
+    font-size: 22px;
+    position: absolute;
+    width: 100%;
+    text-align: center;
+}
+#web-b .puntaje{
+  font-size: 70px!important;
+  font-weight: 400;
+  text-align: center;
+}
+#web-b .p-total{
+  text-align: center!important;
+  margin-top: -15px;
+  font-size: 18px;
+  color: grey;
+}
+#web-b .sub-titulo {
+    font-size: 21px;
+    font-weight: 400;
+    text-align: center;
+    padding: 5px;
+      font-family: Roboto;
+    font-weight: 500;
+}
+#web-b .valor {
+    text-align: center;
+    font-size: 25px;
+    font-weight: 300;
+    margin-top: 0px;
+    color: grey;
+}
+.examen-btn i{
+  font-size: 20px;
+}
+.notification-web{
+    display: inline-block;
+    width: 100%;
+    padding: 15px;
+    text-align: center;
+    color: white;
+    font-weight: 300;
+    font-size: 16px;
+}
+.dis-b{
+  display:block;
+}
+.dis-n{
+  display:none;
+}
+.notification-web:hover{
+    opacity: 0.9;
+}
+.titulo-seccion-contenido{
+    font-size: 25px;
+    font-family: Poppins;
+    font-weight: 300!important;
+}
+.btn-cta-section{
+  
+}
+.titulo-seccion-contenido + h4{
+    font-family: Poppins;
+    font-size: 18px;
+    font-weight: 300;
+    color: #8E8E8E;
+    margin-top: -5px;
+}
+.barra-seccion-titulo{
+    margin-bottom:-20px;
+}
+.barra-seccion-titulo a{
+    margin-top: 33px;
+}
+@media(min-width:768px){
+  .cta-barra{
+    text-align:right; 
+  }
+}
+.label-maestro{
+  position: absolute;
+    z-index: 1;
+    bottom: 15px;
+    font-size: 12px;
+    color: #fff;
+    text-transform: uppercase;
+    border-top: 1px solid white;
+    border-right: 1px solid white;
+    border-bottom: 1px solid white;
+    padding: 4px 17px;
+}
+
+.terminos-h1 {
+  font-size: 2em;
+  font-weight: 500;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+  font-family: Roboto!important;
+  text-align: center;
+}
+
+#terminos .pol p {
+  text-align: justify!important;
+  font-family: Roboto;
+  font-weight: 300;
+  font-size: medium;
+}
+
+#terminos .pol h2 {
+  font-size: 25px;
+  font-weight: 500;
+  font-family: Roboto;
+}
+
+#terminos .titulo-area {
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+#terminos ul li {
+  font-size: medium;
+  font-family: Poppins;
+  font-weight: 300;
+  padding: 6px;
+}
+
+.par-back {
+  z-index: 0;
+}
+
+.back-blue {
+  background: #25588C;
+}
+
+.section-par {
+  margin-top: -320px;
+}
+
+.section-precio{
+  margin-top: -250px;
+}
+
+.border-b {
+  border-bottom: #E6E6E6 1px solid;
+}
+
+.border-t{
+  border-top: #E6E6E6 1px solid;
+}
+
+
+#terminos ul li:before {
+  content: "\f058";
+  margin-right: 8px;
+  font-family: "fontAwesome";
+  color: #424242;
+}
+
+#terminos .titulo-area span {
+  font-size: 1.5em;
+  font-family: Roboto;
+  font-weight: 300;
+}
+
+.blog-detalle .post ul {
+  list-style-type: disc!important;
+  font-size: 1.2em;
+  font-family: Roboto;
+  font-weight: 300;
+  padding-left: 0px;
+}
+
+.img-p {
+  padding: 6px;
+}
+
+.blog-detalle .post ul li {
+  padding: 2px;
+}
+
+.blog-detalle .post h3 {
+  font-size: 20px;
+  font-family: Roboto;
+}
+
+.blog-detalle .post ul li:before {
+  content: "\f0a4";
+  margin-right: 8px;
+  font-family: "fontAwesome";
+}
+
+.grabando {
+  position: absolute;
+  background: rgba(15, 15, 15, 0.85);
+  width: 100%;
+  text-align: center;
+  color: #fff;
+  bottom: 0px;
+  padding-top: 20%;
+  height: 100%;
+}
+
+.grabando i {
+  font-size: 40px;
+  padding: 15px 0px 0px;
+}
+
+.grabando p {
+  font-size: 18px;
+  padding: 10px;
+  font-weight: 100;
+  margin: 0px;
+}
+
+.fa-fc-down {
+  padding: 30px 38px 29px;
+}
+
+.icon-down {
+  border-right: 1px solid rgba(128, 128, 128, 0.18);
+}
+
+.fa-link-color {
+  color: #03A9F4;
+}
+
+.fa-file-color {
+  color: rgb(222, 151, 16);
+}
+
+.title-down {
+  font-size: 21px;
+  color: #484848;
+  font-family: Roboto;
+  font-weight: 400;
+}
+
+.link-down {
+  padding: 0px;
+  margin: 0px;
+  margin-top: -10px;
+  font-size: 13px;
+  color: grey;
+}
+
+.btn-fc-down {
+  float: right;
+  margin-right: 10px;
+  margin-top: -4px;
+  width: 150px;
+  padding: 0px 10px;
+}
+
+.rec {
+  background: #151515;
+}
+
+
+/*
+################ END NUEVOS
+*/
+
+nav ul a,
+nav .brand-logo {
+    color: #585858;
+    font-family: Roboto;
+    font-size: 16px;
+    font-weight: 300;
+}
+
+p {
+  line-height: 28px;
+}
+
+p.cert-info {
+    padding: 10px;
+    line-height: 18px;
+    text-align: center;
+    font-size: 15px;
+    color: #6b6b6b;
+}
+
+.button-collapse {
+  color: #4DBCF5;
+}
+
+.parallax-container {
+  min-height: 380px;
+  line-height: 0;
+  height: auto;
+  color: rgba(255, 255, 255, .9);
+  z-index: -1;
+}
+
+.parallax-container .section {
+  width: 100%;
+}
+
+@media only screen and (max-width: 992px) {
+  .parallax-container .section {
+    position: absolute;
+    top: 40%;
+  }
+  #index-banner .section {
+    top: 10%;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  #index-banner .section {
+    top: 0;
+  }
+}
+
+.icon-block {
+  padding: 0 15px;
+}
+
+.icon-block .material-icons {
+  font-size: inherit;
+}
+
+footer.page-footer {
+  margin: 0;
+}

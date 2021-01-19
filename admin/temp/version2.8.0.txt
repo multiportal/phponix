@@ -1,1 +1,53 @@
-Version_2.8.0
+/**********************************************************
+Author: Guillermo Jiménez López
+Author URI: http://www.multiportal.com.mx
+SISTEMA PHPONIX
+Version Actual: 2.8.0
+F.Creación: 26/03/2015
+F.Modficación: 10/03/2020
+Descripción: Aplicación web multiproposito.
+/**********************************************************
+v.2.8.0 - TOKEN  
+-Seguridad: Se agrego Token
+-Comprobacion si existen las API URL.
+-Se agrego varible para archivos css y js:$ver_file
+-Transformacion de modulos a AJAX
+1-MODULO: 
+2-MODULO:
+/**********************************************************
+v.2.7.8 - CONSULTAS TIEMPO REAL
+-Opcion: Activador de Ajax
+-Fix: Mejoras en las funciones Ajax
+-Lista de correos en menu panel cms
+/**********************************************************
+v.2.7.3(php7) - SEGURIDAD
+-Comprobar datos de acceso de sesion
+-Codigo de Seguridad
+-Registro de usuario con codigo de activacion
+-Encriptación del password
+/**********************************************************
+v.2.6.6
+-Modificacion de variables
+-Modificacion a la funcion: getRandomCode() y error_reporting()
+-Formularios ajax modulo: servicios en ajax.
+-Modulo contacto ajax - form v2.1.
+/**********************************************************
+v.2.6.3
+-Se agregan funciones ajax.
+-Se agrego la variable $frm=$_GET['frm'];
+/**********************************************************
+v.2.5.1
+-Se agrego la funcion push_simple($enviar,$nombre,$mensaje).
+-Funciones ajax para email(mensajes) en dashboard.
+/**********************************************************
+v.2.4.8
+-Se agregaron nuevas varibles (wapp) en la tabla de config.
+/**********************************************************
+v.2.4.7
+-Se agregaron nuevas varibles para la Liciencia del sistema.
+-Se agrego funcion enciptar() y cil().
+/**********************************************************
+v.2.4.6
+-Se agregaron nuevas varibles.
+-Se agrego funcion slider().
+/**********************************************************
