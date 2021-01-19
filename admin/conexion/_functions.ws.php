@@ -43,7 +43,7 @@ global $DBprefix,$bootstrap;
 	if($ajax==1){
 		$data = json_encode($json);
 	}else{
-		$data=json_encode($json, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);		
+		$data = json_encode($json, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);		
 	}
 	if($data=='' || $data==NULL || $data=='[]'){
 		header('Content-Type: text/html; charset=utf-8');

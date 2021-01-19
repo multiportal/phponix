@@ -8,6 +8,6 @@ RewriteCond %{REQUEST_FILENAME} !-d
 #   Entrada:  NOMBRE/
 #   Salida:   index.php?mod=NOMBRE
 RewriteRule ^(\w+)/?$ index.php?t=$1
-#RewriteRule ^(\w+)/(\w+)/?$ index.php?t=$1&id=$2
-#RewriteRule ^([0-9]+)\-([a-zA-Z0-9-]*)/?$ index.php?t=$1
+RewriteRule ^(\w+)/(\w+)/?$ index.php?t=$1&id=$2
+#RewriteRule ^(\w+)/([0-9]+)\-([a-zA-Z0-9-]*)/?$ index.php?t=$1&id=$2
 </IfModule>
