@@ -40,14 +40,15 @@ if($valor==1){?>
 <script type="text/javascript">
     (function () {
         var options = {
+            facebook: "273325302781021", // Facebook page ID
+            telegram: "Multiportalmx", // Telegram
+            whatsapp: "+52<?php echo $wapp;?>", // WhatsApp number
             email: "<?php echo $contactMail;?>", // Email
             call: "+52<?php echo $tel1;?>", // Call phone number
-            facebook: "273325302781021", // Facebook page ID
-            whatsapp: "+52<?php echo $wapp;?>", // WhatsApp number
             call_to_action: "Chatea con nosotros", // Call to action
             button_color: "#129BF4", // Color of button
             position: "left", // Position may be 'right' or 'left'
-            order: "facebook,whatsapp,call,email", // Order of buttons
+            order: "facebook,telegram,whatsapp,call,email", // Order of buttons
         };
         var proto = document.location.protocol, host = "whatshelp.io", url = proto + "//static." + host;
         var s = document.createElement('script'); s.type = 'text/javascript'; s.async = true; s.src = url + '/widget-send-button/js/init.js';

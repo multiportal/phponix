@@ -59,6 +59,32 @@
          <style type="text/css">.wpb_animate_when_almost_visible { opacity: 1; }</style>
       </noscript>
       <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.4.1/css/simple-line-icons.css">-->
+
+      <?php 
+      sql_opciones('api_social_chat',$valor);
+      if($valor==1){?>
+      <!-- WhatsHelp.io widget -->
+      <script type="text/javascript">
+          (function () {
+              var options = {
+                  facebook: "273325302781021", // Facebook page ID
+                  telegram: "Multiportalmx", // Telegram
+                  whatsapp: "+52<?php echo $wapp;?>", // WhatsApp number
+                  email: "<?php echo $contactMail;?>", // Email
+                  call: "+52<?php echo $tel1;?>", // Call phone number
+                  call_to_action: "Chatea con nosotros", // Call to action
+                  button_color: "#129BF4", // Color of button
+                  position: "left", // Position may be 'right' or 'left'
+                  order: "facebook,telegram,whatsapp,call,email", // Order of buttons
+              };
+              var proto = document.location.protocol, host = "whatshelp.io", url = proto + "//static." + host;
+              var s = document.createElement('script'); s.type = 'text/javascript'; s.async = true; s.src = url + '/widget-send-button/js/init.js';
+              s.onload = function () { WhWidgetSendButton.init(host, proto, options); };
+              var x = document.getElementsByTagName('script')[0]; x.parentNode.insertBefore(s, x);
+          })();
+      </script>
+      <!-- /WhatsHelp.io widget -->
+      <?php }?>
    </head>
    <body class="home page-template-default page page-id-143 full blog-10  wpb-js-composer js-comp-ver-5.5.2 vc_responsive">
       <div class="page-wrapper">
