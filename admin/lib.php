@@ -5,7 +5,7 @@ Author URI: http://www.multiportal.com.mx
 SISTEMA PHPONIX
 Version Actual: 2.8.0
 F.Creación: 26/03/2015
-F.Modficación: 16/08/2020
+F.Modficación: 30/01/2021
 Descripción: Aplicación web multiproposito.
 /**********************************************************
 v.2.8.0 - TOKEN  
@@ -86,11 +86,14 @@ $opc		= (isset($_GET['opc']))?$_GET['opc']:'';
 $action 	= (isset($_GET['action']))?$_GET['action']:'';
 $ctrl 		= (isset($_GET['ctrl']))?$_GET['ctrl']:'';
 $frm 		= (isset($_GET['frm']))?$_GET['frm']:'';
-$form		= (isset($_GET['form']))?$_GET['form']:'';
-//$id 		= (iseet($_GET['id']))?$_GET['id']:'';
-$idp 		= (isset($_GET['id']))?$_GET['id']:'';
-$idf 		= (isset($_GET['idf']))?$_GET['idf']:'';
+$form		= (isset($_GET['form']))?$_GET['form']:'';//Variable para mostrar formulario crud
+$id 		= (isset($_GET['id']))?$_GET['id']:'';//Variable de id general
+$idp 		= (isset($_GET['id']))?$_GET['id']:'';//Variable de id producto
+$idm		= (isset($_GET['idm']))?$_GET['idm']:'';//Variable de id para mail en formularios de contacto
+$idf 		= (isset($_GET['idf']))?$_GET['idf']:'';//Variable bandera
 $vhref 		= (isset($_GET['vhref']))?$_GET['vhref']:''; //Variable de seguimiento.
+$tabla      = (isset($_GET['tabla']))?$_GET['tabla']:'';//Variable de Tabla. 
+
 
 //$token=bin2hex(random_bytes(64));
 $ver_file=($host=='localhost')?'ver='.$time:'ver='.$date;
@@ -353,7 +356,7 @@ function bindAllValues($statement, $params){
 
 //INDEX
 function all(){
-global $conec, $tabla;
+global $conec,$DBprefix,$tabla;
     $sql = $conec->prepare("SELECT * FROM $tabla");
     $sql->execute();
     $sql->setFetchMode(PDO::FETCH_ASSOC);
@@ -364,8 +367,8 @@ global $conec, $tabla;
     echo json_encode($data);
 }
 
-function all_tabla($tabla){
-global $conec;
+function all_tabla(){
+global $conec,$DBprefix,$tabla;
     $sql = $conec->prepare("SELECT * FROM $tabla");
     $sql->execute();
     $sql->setFetchMode(PDO::FETCH_ASSOC);
@@ -378,7 +381,7 @@ global $conec;
 
 //STORE
 function store($id){
-global $conec, $tabla;
+global $conec,$DBprefix,$tabla;
     $sql = $conec->prepare("SELECT * FROM $tabla where ID=:id");
     $sql->bindValue(':id', $id);
     $sql->execute();
@@ -391,7 +394,7 @@ global $conec, $tabla;
 
 //INSERT
 function insert(){
-global $conec,$tabla;
+global $conec,$DBprefix,$tabla;
     $input = $_POST;
     $campos = getCampos($input); //echo $campos;
     $valores = getValores($input); //echo $valores;
@@ -402,15 +405,17 @@ global $conec,$tabla;
     $postId = $conec->lastInsertId();
     if($postId){
       //$input['id'] = $postId;
-      header("HTTP/1.1 200 OK");
-      header('Content-Type: application/json');
-      echo json_encode($input);
-    }    
+      //header("HTTP/1.1 200 OK");
+      //header('Content-Type: application/json');
+	  //echo json_encode($input);
+	  $save=1;
+	}else{$save=null;}
+	return $save;    
 }
 
 //UPDATE
 function update($id){
-global $conec,$tabla;
+global $conec,$DBprefix,$tabla;
     $input = $_POST; 
     $postId = $id; 
     $fields = getParams($input); //echo $fields;//exit();
@@ -418,14 +423,16 @@ global $conec,$tabla;
     $statement = $conec->prepare($sql);
     bindAllValues($statement, $input);
     $statement->execute();
-    header("HTTP/1.1 200 OK");
-    header('Content-Type: application/json');
-    echo json_encode($input);
+    //header("HTTP/1.1 200 OK");
+    //header('Content-Type: application/json');
+	//echo json_encode($input);
+	if($statement){$save=1;}else{$save=null;}
+	return $save;
 }
 
 //DELETE
 function delete($id){
-global $conec,$tabla;
+global $conec,$DBprefix,$tabla;
     $statement = $conec->prepare("DELETE FROM $tabla where ID=:id");
     $statement->bindValue(':id', $id);
     $statement->execute();
@@ -604,7 +611,7 @@ function variables(){
 global $mysqli,$DBprefix;
 global $year,$month,$day,$fecha,$date,$time,$ver_file;
 global $ip,$IPv4,$host,$pag_self,$page_url,$url,$URL,$token,$path_jsonWS,$path_jsonDB;
-global $mod,$ext,$idp,$vhref,$refer,$opc,$action,$ctrl,$form,$frm,$ext2;
+global $mod,$ext,$id,$idp,$idf,$vhref,$refer,$opc,$action,$ctrl,$form,$frm,$ext2;
 global $logo,$page_name,$title,$dominio,$path_root,$pag_url,$keywords,$description,$metas,$meta_chartset,$google_analytics,$tel1,$phone,$wapp,$webMail,$contactMail,$mode,$chartset,$dboard,$dboard2,$direc,$direc2,$CoR,$CoE,$BCC,$CoP,$fb_web,$tw_web,$gp_web,$lk_web,$yt_web,$ls_web,$ins_web,$ver_web,$ncod,$cms,$ls_encrip,$control,$vence,$pw_admin,$sas_lic,$cil,$tcil;
 global $cont_tema,$tema,$subtema,$path_t,$path_tema,$ruta_mod;
 global $ID_mod,$nombre_mod,$modulo_mod,$description_mod,$dashboard_mod,$nivel_mod,$home_mod,$visible_mod,$activo_mod,$sname_mod,$icono_mod,$link_mod,$qmod;
@@ -662,7 +669,7 @@ function get_client_ip() {
 }
 
 function listar_directorios_ruta($ruta){
-global $mysqli,$DBprefix,$mod,$ext,$opc,$action,$dboard;
+global $mysqli,$DBprefix,$mod,$ext,$id,$idp,$idf,$opc,$action,$dboard;
    // abrir un directorio y listarlo recursivo 
    if (is_dir($ruta)) { 
       if ($dh = opendir($ruta)) { 
@@ -685,7 +692,7 @@ echo $carpeta;
 }
 
 function select_dashboard($ruta){
-global $mysqli,$DBprefix,$mod,$ext,$opc,$action,$dboard;
+global $mysqli,$DBprefix,$mod,$ext,$id,$idp,$idf,$opc,$action,$dboard;
    // abrir un directorio y listarlo recursivo 
    if (is_dir($ruta)) { 
       if ($dh = opendir($ruta)) { 
@@ -780,7 +787,7 @@ function log_visitas($username){
 global $mysqli,$DBprefix;
 global $year,$month,$day,$fecha,$date,$time,$ver_file;
 global $ip,$IPv4,$host,$pag_self,$page_url,$url,$URL,$token,$path_jsonWS,$path_jsonDB;
-global $mod,$ext,$idp,$vhref,$refer;
+global $mod,$ext,$id,$idp,$idf,$vhref,$refer;
 sql_opciones('geo_loc_visitas',$valor);
 if($valor==1){$country=geoiploc();}else{$country='';}
 $info=navegador();
@@ -822,7 +829,7 @@ fclose($archivo);
 /*|///CREAR JSON///|*/
 //crear_json('consulta','path_ruta','nombre_archivo')
 function crear_json($query,$path_f,$nombre_archivo){
-global $mysqli,$DBprefix,$page_url,$mod,$ext,$opc,$action;
+global $mysqli,$DBprefix,$page_url,$mod,$ext,$id,$idp,$idf,$opc,$action;
 $sql=mysqli_query($mysqli,$query) or print mysqli_error($mysqli);
 $rows=array();
 while($r=mysqli_fetch_assoc($sql)){$rows[] = $r;}
@@ -903,7 +910,7 @@ file_json('api_version',$path_JSON);
 
 /*|///WEBSERVICES///|*/
 function ws_tabla($tabla,$ajax){
-global $mysqli,$DBprefix,$page_url,$URL,$mod,$ext,$opc,$action;
+global $mysqli,$DBprefix,$page_url,$URL,$mod,$ext,$id,$idp,$idf,$opc,$action;
  if($ajax==1){mysqli_set_charset($mysqli, 'utf8');}
  if($tabla!='signup'){
 	 $query="SELECT * FROM ".$DBprefix.$tabla."";
@@ -923,7 +930,7 @@ global $mysqli,$DBprefix,$page_url,$URL,$mod,$ext,$opc,$action;
 }
 
 function ws_query($query,$ajax,$d){
-global $mysqli,$DBprefix,$page_url,$URL,$mod,$ext,$opc,$action;
+global $mysqli,$DBprefix,$page_url,$URL,$mod,$ext,$id,$idp,$idf,$opc,$action;
  if($ajax==1){mysqli_set_charset($mysqli, 'utf8');}
  $sql=mysqli_query($mysqli,$query) or print mysqli_error($mysqli);
  $json = array();
@@ -1110,7 +1117,7 @@ function page_index(){
 global $mysqli,$DBprefix;
 global $year,$month,$day,$fecha,$date,$time,$ver_file;
 global $ip,$IPv4,$host,$pag_self,$page_url,$url,$URL,$token,$path_jsonWS,$path_jsonDB;
-global $mod,$ext,$idp,$vhref,$refer,$opc,$action,$ctrl,$form,$frm,$ext2;
+global $mod,$ext,$id,$idp,$idf,$vhref,$refer,$opc,$action,$ctrl,$form,$frm,$ext2;
 global $logo,$page_name,$title,$dominio,$path_root,$pag_url,$keywords,$description,$metas,$meta_chartset,$google_analytics,$tel1,$phone,$wapp,$webMail,$contactMail,$mode,$chartset,$dboard,$dboard2,$direc,$direc2,$CoR,$CoE,$BCC,$CoP,$fb_web,$tw_web,$gp_web,$lk_web,$yt_web,$ls_web,$ins_web,$ver_web,$ncod,$cms,$ls_encrip,$control,$vence,$pw_admin,$sas_lic,$cil,$tcil;
 global $cont_tema,$tema,$subtema,$path_t,$path_tema,$ruta_mod;
 global $ID_mod,$nombre_mod,$modulo_mod,$description_mod,$dashboard_mod,$nivel_mod,$home_mod,$visible_mod,$activo_mod,$sname_mod,$icono_mod,$link_mod,$qmod;
@@ -1134,7 +1141,7 @@ function listar_archivos(){
 global $mysqli,$DBprefix;
 global $year,$month,$day,$fecha,$date,$time,$ver_file;
 global $ip,$IPv4,$host,$pag_self,$page_url,$url,$URL,$token,$path_jsonWS,$path_jsonDB;
-global $mod,$ext,$idp,$vhref,$refer,$opc,$action,$ctrl,$form,$frm,$ext2;
+global $mod,$ext,$id,$idp,$idf,$vhref,$refer,$opc,$action,$ctrl,$form,$frm,$ext2;
 global $logo,$page_name,$title,$dominio,$path_root,$pag_url,$keywords,$description,$metas,$meta_chartset,$google_analytics,$tel1,$phone,$wapp,$webMail,$contactMail,$mode,$chartset,$dboard,$dboard2,$direc,$direc2,$CoR,$CoE,$BCC,$CoP,$fb_web,$tw_web,$gp_web,$lk_web,$yt_web,$ls_web,$ins_web,$ver_web,$ncod,$cms,$ls_encrip,$control,$vence,$pw_admin,$sas_lic,$cil,$tcil;
 global $cont_tema,$tema,$subtema,$path_t,$path_tema,$ruta_mod;
 global $ID_mod,$nombre_mod,$modulo_mod,$description_mod,$dashboard_mod,$nivel_mod,$home_mod,$visible_mod,$activo_mod,$sname_mod,$icono_mod,$link_mod,$qmod;
@@ -1187,7 +1194,7 @@ function bodymodulos(){
 global $mysqli,$DBprefix;
 global $year,$month,$day,$fecha,$date,$time,$ver_file;
 global $ip,$IPv4,$host,$pag_self,$page_url,$url,$URL,$token,$path_jsonWS,$path_jsonDB;
-global $mod,$ext,$idp,$vhref,$refer,$opc,$action,$ctrl,$form,$frm,$ext2;
+global $mod,$ext,$id,$idp,$idf,$vhref,$refer,$opc,$action,$ctrl,$form,$frm,$ext2;
 global $logo,$page_name,$title,$dominio,$path_root,$pag_url,$keywords,$description,$metas,$meta_chartset,$google_analytics,$tel1,$phone,$wapp,$webMail,$contactMail,$mode,$chartset,$dboard,$dboard2,$direc,$direc2,$CoR,$CoE,$BCC,$CoP,$fb_web,$tw_web,$gp_web,$lk_web,$yt_web,$ls_web,$ins_web,$ver_web,$ncod,$cms,$ls_encrip,$control,$vence,$pw_admin,$sas_lic,$cil,$tcil;
 global $cont_tema,$tema,$subtema,$path_t,$path_tema,$ruta_mod;
 global $ID_mod,$nombre_mod,$modulo_mod,$description_mod,$dashboard_mod,$nivel_mod,$home_mod,$visible_mod,$activo_mod,$sname_mod,$icono_mod,$link_mod,$qmod;
@@ -1255,7 +1262,7 @@ function sesion(&$form_login){
 global $mysqli,$DBprefix;
 global $year,$month,$day,$fecha,$date,$time,$ver_file;
 global $ip,$IPv4,$host,$pag_self,$page_url,$url,$URL,$token,$path_jsonWS,$path_jsonDB;
-global $mod,$ext,$idp,$vhref,$refer,$opc,$action,$ctrl,$form,$frm,$ext2;
+global $mod,$ext,$id,$idp,$idf,$vhref,$refer,$opc,$action,$ctrl,$form,$frm,$ext2;
 global $logo,$page_name,$title,$dominio,$path_root,$pag_url,$keywords,$description,$metas,$meta_chartset,$google_analytics,$tel1,$phone,$wapp,$webMail,$contactMail,$mode,$chartset,$dboard,$dboard2,$direc,$direc2,$CoR,$CoE,$BCC,$CoP,$fb_web,$tw_web,$gp_web,$lk_web,$yt_web,$ls_web,$ins_web,$ver_web,$ncod,$cms,$ls_encrip,$control,$vence,$pw_admin,$sas_lic,$cil,$tcil;
 global $cont_tema,$tema,$subtema,$path_t,$path_tema,$ruta_mod;
 global $ID_mod,$nombre_mod,$modulo_mod,$description_mod,$dashboard_mod,$nivel_mod,$home_mod,$visible_mod,$activo_mod,$sname_mod,$icono_mod,$link_mod,$qmod;
@@ -1355,7 +1362,7 @@ function comprobar(&$form_login,&$log_usuarios,$sal,$ses,$log,$U,$P){
 global $mysqli,$DBprefix;
 global $year,$month,$day,$fecha,$date,$time,$ver_file;
 global $ip,$IPv4,$host,$pag_self,$page_url,$url,$URL,$token,$path_jsonWS,$path_jsonDB;
-global $mod,$ext,$idp,$vhref,$refer,$opc,$action,$ctrl,$form,$frm,$ext2;
+global $mod,$ext,$id,$idp,$idf,$vhref,$refer,$opc,$action,$ctrl,$form,$frm,$ext2;
 global $logo,$page_name,$title,$dominio,$path_root,$pag_url,$keywords,$description,$metas,$meta_chartset,$google_analytics,$tel1,$phone,$wapp,$webMail,$contactMail,$mode,$chartset,$dboard,$dboard2,$direc,$direc2,$CoR,$CoE,$BCC,$CoP,$fb_web,$tw_web,$gp_web,$lk_web,$yt_web,$ls_web,$ins_web,$ver_web,$ncod,$cms,$ls_encrip,$control,$vence,$pw_admin,$sas_lic,$cil,$tcil;
 global $cont_tema,$tema,$subtema,$path_t,$path_tema,$ruta_mod;
 global $ID_mod,$nombre_mod,$modulo_mod,$description_mod,$dashboard_mod,$nivel_mod,$home_mod,$visible_mod,$activo_mod,$sname_mod,$icono_mod,$link_mod,$qmod;
@@ -1513,7 +1520,7 @@ function envio_mail($de,$para,$titulo,$intro,$contenido,$tabla,$condi,$sec,$cat_
 global $mysqli,$DBprefix;
 global $year,$month,$day,$fecha,$date,$time,$ver_file;
 global $ip,$IPv4,$host,$pag_self,$page_url,$url,$URL,$token,$path_jsonWS,$path_jsonDB;
-global $mod,$ext,$idp,$vhref,$refer,$opc,$action,$ctrl,$form,$frm,$ext2;
+global $mod,$ext,$id,$idp,$idf,$vhref,$refer,$opc,$action,$ctrl,$form,$frm,$ext2;
 global $logo,$page_name,$title,$dominio,$path_root,$pag_url,$keywords,$description,$metas,$meta_chartset,$google_analytics,$tel1,$phone,$wapp,$webMail,$contactMail,$mode,$chartset,$dboard,$dboard2,$direc,$direc2,$CoR,$CoE,$BCC,$CoP,$fb_web,$tw_web,$gp_web,$lk_web,$yt_web,$ls_web,$ins_web,$ver_web,$ncod,$cms,$ls_encrip,$control,$vence,$pw_admin,$sas_lic,$cil,$tcil;
 global $cont_tema,$tema,$subtema,$path_t,$path_tema,$ruta_mod;
 global $ID_mod,$nombre_mod,$modulo_mod,$description_mod,$dashboard_mod,$nivel_mod,$home_mod,$visible_mod,$activo_mod,$sname_mod,$icono_mod,$link_mod,$qmod;
@@ -1739,7 +1746,7 @@ if($span==1){echo '<span id="'.$tag_id.'"></span>';}
 }
 
 function ajax_crud($campos,$template,$tiny){
-global $page_url,$URL,$mod,$ext,$opc,$form,$action,$ctrl;
+global $page_url,$URL,$mod,$ext,$id,$idp,$idf,$opc,$form,$action,$ctrl;
 $cond_action=($action!='')?'&action='.$action:'';
 $edit=($action=='edit')?'true':'false';
 $tiny=($tiny==1)?'tinyMCE.triggerSave();':'';

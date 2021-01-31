@@ -1,4 +1,6 @@
-<?php
+<?php 
+$label='';
+$data='';
 if($opc=='semana'){
   if($_POST['sem']){
     $sem=$_POST['sem'];
@@ -8,7 +10,7 @@ if($opc=='semana'){
     $semana = $fecha->format('W');
     $sem=$semana;
   }
-  $week2 = $sem-1;$k=-3;
+  $week2 = $sem-1;$k=2;
   for($i=0; $i<7; $i++){$k++;
     $day_sem.= "'".date('Y-m-d', strtotime('01/00-1 +' . $week2 . ' weeks first day +' . $k . ' day'))."'";
     $day_f=date('Y-m-d', strtotime('01/00-1 +' . $week2 . ' weeks first day +' . $k . ' day'));
@@ -114,4 +116,5 @@ $contenido='// JavaScript Document
 ';
 crear_archivo('modulos/'.$mod.'/js/','chartjs.js',$contenido,$path_file);
 if(file_exists($path_file)){echo '<script src="'.$page_url.$path_file.'"></script>';}
+
 ?>
