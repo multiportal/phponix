@@ -51,5 +51,6 @@ function upima(val){
 function borrar_ima(val,mod){
     val=(val!=0)?val:'';
     ima=(val==0)?'<img id="img" src="./modulos/'+mod+'/fotos/nodisponible1.jpg" style="width:150px;" title="nodisponible1.jpg">':'';
-    document.getElementById('imagen'+val).innerHTML=ima+'<input type="hidden" class="form-control" id="ima'+val+'" name="ima'+val+'" value=""><br><a href="#" onclick="upima('+val+');">Subir Imagen '+val+'</a><div id="upload'+val+'"></div>';
+    fun=(val!=0)?'upima('+val+')':'up(1)';
+    document.getElementById('ima'+val).innerHTML=ima+'<input type="hidden" class="form-control" id="imagen'+val+'" name="imagen'+val+'" value=""><br><a href="#" onclick="'+fun+';">Subir Imagen '+val+'</a><div id="upload'+val+'"></div>';
 }

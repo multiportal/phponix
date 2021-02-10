@@ -1,11 +1,11 @@
 <?php 
 /**********************************************************
 Author: Guillermo Jiménez López
-Author URI: http://www.multiportal.com.mx
+Author URI: https://www.multiportal.com.mx
 SISTEMA PHPONIX
-Version Actual: 2.8.0
+Version Actual: 2.8.1
 F.Creación: 26/03/2015
-F.Modficación: 30/01/2021
+F.Modficación: 06/02/2021
 Descripción: Aplicación web multiproposito.
 /**********************************************************
 v.2.8.0 - TOKEN  
@@ -92,7 +92,7 @@ $idp 		= (isset($_GET['id']))?$_GET['id']:'';//Variable de id producto
 $idm		= (isset($_GET['idm']))?$_GET['idm']:'';//Variable de id para mail en formularios de contacto
 $idf 		= (isset($_GET['idf']))?$_GET['idf']:'';//Variable bandera
 $vhref 		= (isset($_GET['vhref']))?$_GET['vhref']:''; //Variable de seguimiento.
-$tabla      = (isset($_GET['tabla']))?$_GET['tabla']:'';//Variable de Tabla. 
+//$tabla      = (isset($_GET['tabla']))?$_GET['tabla']:'';//Variable de Tabla. 
 
 
 //$token=bin2hex(random_bytes(64));
@@ -453,6 +453,35 @@ global $page_url,$path_jsonDB,$path_jsonWS;
     return $Data;
 }
 
+function query_data2($ord,$tabla,$url_api){
+global $page_url,$path_jsonDB,$path_jsonWS;
+    $path_JSON=$path_jsonDB.$tabla.'.json';
+    if(!file_exists($path_JSON)){$path_JSON=$page_url.$path_jsonWS.$tabla;}
+    $path_JSON=($url_api)?$url_api:$path_JSON;//echo $path_JSON;
+    $objData=file_get_contents($path_JSON);//*Tarda consulta
+	$Data=json_decode($objData,true);
+	usort($Data, function($a, $b){return strnatcmp($a[$ord], $b[$ord]);});//Orden 
+    return $Data;
+}
+
+function ws_query_data($query,$ajax,$d,$rest){
+global $mysqli,$DBprefix,$page_url,$URL,$mod,$ext,$id,$idp,$idf,$opc,$action;
+	if($ajax==1){mysqli_set_charset($mysqli, 'utf8');}
+ 	$sql=mysqli_query($mysqli,$query) or print mysqli_error($mysqli);
+ 	$json = array();
+ 	while($row = mysqli_fetch_assoc($sql)){$json[]=$row;}
+ 	if($ajax==1){
+ 		$data=($d!=1)?json_encode($json):json_encode($json[0]);
+ 	}else{
+ 		$data=json_encode($json, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+ 		header('Content-Type: application/json');
+	}
+	if($rest==1){echo $data;}else{
+		$Data=json_decode($data,true);//usort($Data, function($b, $a){return strnatcmp($a['ID'], $b['ID']);});//Orden
+		return $Data;
+	}  	
+}
+
 //[LISTAR/INDEX] MOSTRAR TODA LA TABLA CON CONTROLES CRUD 
 function query_all_tabla($tabla,$url_api,$crud){
 global $page_url,$path_jsonDB,$path_jsonWS;//echo $tabla;
@@ -522,6 +551,48 @@ global $page_url,$path_jsonDB,$path_jsonWS;
                 }
             }
             echo '</tr>'."\n";
+        //}
+    }
+}
+
+//EXAMPLE: query_tabla2($index='ID',$th,$thc=0,$tabla,$url_api,$crud=0);
+function query_tabla2($index,$th,$thc,$tabla,$url_api,$crud){
+global $page_url,$path_jsonDB,$path_jsonWS;
+    $display=($crud!=0)?'':'none';
+    $data=query_data($tabla,$url_api);//print_r($data);
+    usort($data, function($a, $b){global $index;return strnatcmp($a[$index], $b[$index]);});//Orden por ID
+    //CAMPOS
+    $i=0;$campos='<th style="display:'.$display.';">Acciones</th>'."\n";	
+	if($th!=''){
+        for($j=0;$j<count($th);$j++){
+            $campos.='<th>'.$th[$j].'</th>'."\n";
+        }
+    }else{
+        foreach($data as $key){$i++;
+            if($i==1){
+                foreach($key as $datos=>$value){
+                    $campos.='<th>'.$datos.'</th>'."\n";
+                }  
+            }  
+        }   
+	}
+	if($thc==1){echo '<thead><tr>'.$campos.'</tr></thead>'."\n";}
+    //DATOS
+    foreach($data as $key => $value){
+        //if($key!=0){
+            $row=$data[$key];if($index!=''){$key=$row['ID'];}
+            echo '<tbody><tr id="'.$key.'">'."\n";
+            echo '<td style="display:'.$display.';"><button class="btn btn-primary btn-edit" data-toggle="modal" data-target="#addVcard"><i class="fa fa-edit"></i></button> | <button class="btn btn-danger btn-delete"><i class="fa fa-trash"></i></button></td>';   
+            if($th!=''){
+                for($j=0;$j<count($th);$j++){$datos=$th[$j];
+                    echo '<td>'.$row[$datos].'</td>'."\n";
+                }
+            }else{
+                foreach($row as $datos=>$value){//echo '<td>'.$row[$datos].'</td>'."\n";
+                    echo '<td>'.$value.'</td>'."\n";
+                }
+            }
+            echo '</tr></tbody>'."\n";
         //}
     }
 }
@@ -2108,9 +2179,257 @@ function str_limit($value,$limit=100,$end){
 	}
 	return rtrim(mb_strimwidth($value, 0, $limit, '', 'UTF-8')).$end;
 }
+
 /*
 function cadena_replace(&$replace1,&$replace2){
 	$replace1=array(' ','.',',','(',')','/','"','á','é','í','ó','ú','&aacute;','&eacute;','&iacute;','&oacute;','&uacute;','Á','É','Í','Ó','Ú','&Aacute;','&Eacute;','&Iacute;','&Oacute;','&Uacute;','ñ','Ñ','&ntilde;','&Ntilde;','&','amp;');
 	$replace2=array('-','-','-','-','-','-','-','a','e','i','o','u','a','e','i','o','u','A','E','I','O','U','A','E','I','O','U','n','N','n','N','','');
 }*/
+
+function ssl(){
+global $host,$path_root;
+	echo '<script>
+	const protocol = window.location.protocol;
+	console.log("protocol=" + protocol);
+	if(protocol=="http:"){window.location="https://'.$host.$path_root.'";}
+	</script>';
+}
+
+function ajaxCrud($campos,$th,$imas,$tinyMCE){
+global $page_url,$URL,$mod,$ext,$id,$idp,$idf,$opc,$form,$action,$ctrl;
+$tinyMCE=($tinyMCE==1)?'tinyMCE.triggerSave();':'';
+//CAMPOS print_r($th);
+$campos2=array();
+if($th!=''){
+    foreach($th as $datos=>$value){
+        $campos1.='<th class="text-center">'.$datos.'</th>'."\n";
+        $campos2[].=$value;
+    }
+    $campos1.='<th style="display:'.$display.';">Acciones</th>'."\n";
+}
+
+$rep1 = array('_','cion');
+$rep2 = array(' ','ci&oacute;n');
+for($k=0;$k<count($campos2);$k++){
+	$class=($campos2[$k]=='nombre')?'text-left':'text-center';
+	if($campos2[$k]=='cover'){
+		$cover = ($campos2[$k] != '')? '${'.$campos2[$k].'}' : 'nodisponible.jpg';
+		$row2 .= '<td><img src="./modulos/' . $mod . '/fotos/'.$cover.'" alt="Product Image" class="img-rounded" width="60"></td>';                                    
+	}elseif($campos2[$k]=='cate'){
+		$row2 .= '<td class="'.$class.'">${'.$campos2[$k].'}</td>';
+	}elseif($campos2[$k]=='visible'){
+		$row2 .= '<td>${sel}</td>';
+	}else{
+		$row2 .= '<td class="'.$class.'">${'.$campos2[$k].'}</td>';
+	}                        
+}
+
+
+
+for($i=0;$i<count($campos);$i++){
+	$camposVal.=$campos[$i].': $("#'.$campos[$i].'").val(),'."\n";
+	$cam.=$campos[$i].',';
+}
+$imas=($imas==1)?'imagen1: $("#imagen1").val(),
+imagen2: $("#imagen2").val(),
+imagen3: $("#imagen3").val(),
+imagen4: $("#imagen4").val(),
+imagen5: $("#imagen5").val(),':'';
+$contenido='// JavaScript Document
+let dbAjaxCrud = localStorage.getItem(\'dbCrud\'); //Obtener datos de localStorage
+dbAjaxCrud = JSON.parse(dbAjaxCrud); // Covertir a objeto
+var listado = 0;
+//LISTADO
+
+function inicio(){
+    if (dbAjaxCrud !== null) {
+		//console.log(dbAjaxCrud);
+		listado = dbAjaxCrud[0].val;
+		console.log("listado:"+listado);
+    } else {
+		console.log("Vacio");
+		const valor = {
+			val: 0
+		}
+		listar=[];
+		listar.push(valor);
+		localStorage.setItem(\'dbCrud\', JSON.stringify(listar));
+		console.log(listado);		
+	}
+	dbAjaxCrud = localStorage.getItem(\'dbCrud\');
+	dbAjaxCrud = JSON.parse(dbAjaxCrud);
+}
+
+function load(page,q) {
+  inicio();
+  let action = (listado == 1) ? \'&action=listado\' : \'\';
+  var parametros = {
+    "mode": "ajax",
+	"page": page,
+	"q": q
+  };
+  if (listado == 1) {
+    $(".btn-listado").removeClass(\'activar-listado\');
+    $(".btn-large").removeClass(\'btn-blue\');
+    $(".btn-listado").addClass(\'btn-blue\');
+    $(".btn-large").addClass(\'activar-large\');
+  } else {
+    $(".btn-listado").removeClass(\'btn-blue\');
+    $(".btn-large").removeClass(\'activar-large\');
+    $(".btn-listado").addClass(\'activar-listado\');
+    $(".btn-large").addClass(\'btn-blue\');
+  }
+
+  $("#loader").fadeIn(\'slow\');
+  $.ajax({
+    url: \'modulos/'.$mod.'/admin/backend.php?mod='.$mod.'\' + action,
+    data: parametros,
+    beforeSend: function (objeto) {
+      $("#loader").html("<img src=\'apps/dashboards/loader.gif\'>");
+    },
+    success: function (data) {
+      $(".outer_div").html(data);
+      $("#loader").html("");
+    }
+  });
+}
+
+$(document).ready(function () {
+  // Global Settings   
+  console.log(\'jQuery:ajaxCrud esta funcionando\');
+  let edit = false;
+  load(1);
+
+  //BOTONES
+  $(document).on(\'click\', \'.activar-listado\', function () {	
+	dbAjaxCrud[0] = {
+		val: 1
+	}
+	localStorage.setItem(\'dbCrud\', JSON.stringify(dbAjaxCrud));
+	listado = dbAjaxCrud[0].val;//listado = 1;
+	//console.log("listado1:"+listado);
+    load(1);
+  });
+  $(document).on(\'click\', \'.activar-large\', function () {	  
+	dbAjaxCrud[0] = {
+		val: 0
+	}
+	localStorage.setItem(\'dbCrud\', JSON.stringify(dbAjaxCrud));
+	listado = dbAjaxCrud[0].val;//listado = 0;
+	//console.log("listado0:"+listado);
+	load(1);
+  });
+
+  //AGREGAR/EDITAR
+  $("#form1").submit(function (e) {
+    e.preventDefault();
+    '.$tinyMCE.'
+    const postData = {
+'.$camposVal.$imas.'
+      visible: $("#visible").val(),
+      ID: $("#id").val()
+    };
+    //const url = edit === false ? \'modulos/'.$mod.'/admin/backend.php?mod='.$mod.'&ext=admin/index&action=add\' : \'modulos/'.$mod.'/admin/backend.php?mod='.$mod.'&ext=admin/index&action=edit\';
+    let edo = ($("#id").val() != \'\') ? \'edit\' : \'add\';
+    const url = \'modulos/'.$mod.'/admin/backend.php?mod='.$mod.'&ext=admin/index&action=\' + edo;
+    console.log(postData, url);
+    $.post(url, postData, function (response) {
+      //console.log(response);
+      console.log("Se ha " + edo + " el registro.");
+      $("#aviso").html(response).fadeIn("slow");
+      $("#aviso").fadeOut(6000);
+      //$("form1").trigger(\'reset\');//listar();//edit = false;
+    });
+  });
+
+  //BORRAR
+  $(document).on(\'click\', \'.btnBorrar\', function () {
+    const element = $(this)[0];
+    const id = $(element).attr(\'portaid\');
+    Swal.fire({
+      title: \'¿Esta seguro de eliminar el proyecto (\' + id + \')?\',
+      text: "¡Esta operación no se puede revertir!",
+      icon: \'warning\',
+      showCancelButton: true,
+      confirmButtonColor: \'#d33\',
+      cancelButtonColor: \'#3085d6\',
+      confirmButtonText: \'Borrar\'
+    }).then((result) => {
+      if (result.value) {
+        $.post(\'modulos/'.$mod.'/admin/backend.php?action=delete\', {
+          id
+        }, (response) => {
+          console.log(response);
+          load(1);
+        });
+        Swal.fire(\'¡Eliminado!\', \'El proyecto ha sido eliminado.\', \'success\')
+      }
+    })
+  });
+
+  //SUBIR COVER
+  $(document).on(\'click\', \'#Aceptar\', function (e) {
+    e.preventDefault();
+    var frmData = new FormData;
+    frmData.append("userfile", $("input[name=userfile]")[0].files[0]);
+    //console.log(frmData);
+    $.ajax({
+      url: \'modulos/'.$mod.'/admin/backend.php?mod='.$mod.'&action=subir_cover\',
+      type: \'POST\',
+      data: frmData,
+      processData: false,
+      contentType: false,
+      cache: false,
+      beforeSend: function (data) {
+        $("#imagen").html("Subiendo Imagen");
+      },
+      success: function (data) {
+        //console.log(data);
+        $("#imagen").html(data);
+        $(".alert-dismissible").delay(4000).fadeOut("slow");
+        console.log("Subido Correctamente");
+      }
+    });
+    //return false;
+  });
+
+  //BUSCAR
+  $("#q").keyup(function (e) {
+    var buscar = $("#q").val();
+    if (buscar!="") {
+      load(1,buscar);
+    }else{
+      load(1);
+    }
+  });
+
+});
+
+function imagenes(val) {
+  console.log(\'Imagen: \' + val);
+  let file = \'userfile\' + val;
+  var frmData = new FormData;
+  frmData.append("userfile", $("input[name=userfile" + val + "]")[0].files[0]);
+  //console.log(frmData);
+  $.ajax({
+    url: \'modulos/'.$mod.'/admin/backend.php?mod='.$mod.'&action=subir_cover&val=\' + val,
+    type: \'POST\',
+    data: frmData,
+    processData: false,
+    contentType: false,
+    cache: false,
+    beforeSend: function (data) {
+      $("#ima" + val).html("Subiendo Imagen");
+    },
+    success: function (data) {
+      //console.log(data);
+      $("#ima" + val).html(data);
+      $(".alert-dismissible").delay(4000).fadeOut("slow");
+      console.log("Subido Correctamente");
+    }
+  });
+}
+';
+crear_archivo('modulos/'.$mod.'/js/','ajax_'.$mod.'.js',$contenido,$path_file);
+}
 ?>
