@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 19-01-2021 a las 21:29:48
+-- Tiempo de generación: 11-02-2021 a las 01:30:29
 -- Versión del servidor: 10.1.38-MariaDB
 -- Versión de PHP: 7.3.2
 
@@ -1195,11 +1195,12 @@ INSERT INTO `php_opciones` (`ID`, `nom`, `descripcion`, `valor`) VALUES
 (35, 'validacion_json', '', '0'),
 (36, 'url_var_json', '', '0'),
 (37, 'VUE2', '', '0'),
-(38, 'api_social_chat', 'Chat de redes sociales', '0'),
+(38, 'api_social_chat', 'Chat de redes sociales', '1'),
 (39, 'AJAX', '', '1'),
 (40, 'api_icon', '', '1'),
 (41, 'web_style', '', '1'),
-(42, 'api_WPA', '', '0');
+(42, 'api_WPA', '', '0'),
+(43, 'ssl', '', '0');
 
 -- --------------------------------------------------------
 
@@ -1236,32 +1237,48 @@ INSERT INTO `php_pages` (`ID`, `titulo`, `contenido`, `modulo`, `tema`, `ext`, `
 
 CREATE TABLE `php_portafolio` (
   `ID` int(6) UNSIGNED NOT NULL,
-  `clave` varchar(100) NOT NULL,
-  `nombre` varchar(100) NOT NULL,
-  `cover` varchar(100) NOT NULL,
-  `foto` varchar(100) NOT NULL,
-  `descripcion` mediumtext NOT NULL,
+  `clave` varchar(100) CHARACTER SET latin1 NOT NULL,
+  `nombre` varchar(100) CHARACTER SET latin1 NOT NULL,
+  `cover` varchar(100) CHARACTER SET latin1 NOT NULL,
+  `descripcion` text CHARACTER SET latin1 NOT NULL,
   `precio` decimal(6,2) NOT NULL,
-  `cate` varchar(50) NOT NULL,
-  `resena` varchar(500) NOT NULL,
-  `url_page` varchar(150) NOT NULL,
-  `imagen1` varchar(100) NOT NULL,
-  `imagen2` varchar(100) NOT NULL,
-  `imagen3` varchar(100) NOT NULL,
-  `imagen4` varchar(100) NOT NULL,
-  `imagen5` varchar(100) NOT NULL,
-  `visible` tinyint(1) NOT NULL,
-  `alta` varchar(21) NOT NULL,
-  `fmod` varchar(21) NOT NULL,
-  `user` varchar(50) NOT NULL
+  `cate` varchar(50) CHARACTER SET latin1 NOT NULL,
+  `resena` text CHARACTER SET latin1 NOT NULL,
+  `url_page` varchar(150) CHARACTER SET latin1 NOT NULL,
+  `imagen1` varchar(100) CHARACTER SET latin1 NOT NULL,
+  `imagen2` varchar(100) CHARACTER SET latin1 NOT NULL,
+  `imagen3` varchar(100) CHARACTER SET latin1 NOT NULL,
+  `imagen4` varchar(100) CHARACTER SET latin1 NOT NULL,
+  `imagen5` varchar(100) CHARACTER SET latin1 NOT NULL,
+  `FT` varchar(100) CHARACTER SET latin1 NOT NULL,
+  `alta` varchar(21) CHARACTER SET latin1 NOT NULL,
+  `fmod` varchar(21) CHARACTER SET latin1 NOT NULL,
+  `user` varchar(50) CHARACTER SET latin1 NOT NULL,
+  `visible` tinyint(1) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `php_portafolio`
 --
 
-INSERT INTO `php_portafolio` (`ID`, `clave`, `nombre`, `cover`, `foto`, `descripcion`, `precio`, `cate`, `resena`, `url_page`, `imagen1`, `imagen2`, `imagen3`, `imagen4`, `imagen5`, `visible`, `alta`, `fmod`, `user`) VALUES
-(1, '', 'Betrec', '1-compressor.jpg', '', 'Descripcion', '0.00', 'Categoria', 'RESEÑA', '', 'be1.jpg', '', '', '', '', 1, '2018-01-07 21:10:52', '', 'admin');
+INSERT INTO `php_portafolio` (`ID`, `clave`, `nombre`, `cover`, `descripcion`, `precio`, `cate`, `resena`, `url_page`, `imagen1`, `imagen2`, `imagen3`, `imagen4`, `imagen5`, `FT`, `alta`, `fmod`, `user`, `visible`) VALUES
+(1, '', 'Ebook', 'ebook.jpg', '<div class=\"post-content m-t-sm\">\n<div class=\"post-gap-small\">P&aacute;gina web para promocionar edecanes, modelos, fot&oacute;grafos, escuelas y agencias relacionadas con la imagen y belleza para eventos.</div>\n<div class=\"post-gap-small\">&nbsp;</div>\n</div>\n<ul class=\"portfolio-details\">\n<li>\n<h5>Caracterisiticas</h5>\n<ul class=\"list list-skills icons list-unstyled list-inline\">\n<li><em class=\"fa fa-check-circle\"></em>P&aacute;gina Web</li>\n<li><em class=\"fa fa-check-circle\"></em>5 secciones</li>\n<li><em class=\"fa fa-check-circle\"></em>Responsiva</li>\n<li><em class=\"fa fa-check-circle\"></em>Formulario de contacto</li>\n<li><em class=\"fa fa-check-circle\"></em>P&aacute;gina administrable con panel AdminLTE</li>\n<li><em class=\"fa fa-check-circle\"></em>Desarrollada en PHPONIX-CRM</li>\n</ul>\n</li>\n<li>\n<h5>Tecnologias</h5>\n<p>PHP, MySQL, Bootstrap, JSON, Ajax, Javascript y Jquery.</p>\n</li>\n<li>\n<h5>Desarrollado por:</h5>\n<p>[:MULTIPORTAL:]</p>\n</li>\n</ul>', '0.00', 'Web_Page', '', 'http://ebook.webcindario.com', 'ebook.jpg', '', '', '', '', 'Mayo, 2016', '2018-01-07 21:10:52', '2021-02-09 02:34:05', 'admin', 1),
+(2, '', 'Trafisa', 'trafisa.jpg', '<div class=\"post-content m-t-sm\">\n<div class=\"post-gap-small\">P&aacute;gina web desarrollada para <strong>Trafisa</strong>&nbsp;empresa dedicada a la venta de transportadores industriales.</div>\n<div class=\"post-gap-small\">&nbsp;</div>\n</div>\n<ul class=\"portfolio-details\">\n<li>\n<h5>Caracterisiticas</h5>\n<ul class=\"list list-skills icons list-unstyled list-inline\">\n<li><em class=\"fa fa-check-circle\"></em>One page</li>\n<li><em class=\"fa fa-check-circle\"></em>Responsiva</li>\n<li><em class=\"fa fa-check-circle\"></em>Formulario de contacto</li>\n</ul>\n</li>\n<li>\n<h5>Tecnologias</h5>\n<p>PHP, MySQL, Bootstrap, Javascript y Jquery.</p>\n</li>\n<li>\n<h5>Desarrollado por:</h5>\n<p>[:MULTIPORTAL:] &amp; Key Agencia Digital</p>\n</li>\n</ul>', '0.00', 'One_Page', '', 'http://trafisa.com.mx/', 'trafisa.jpg', '', '', '', '', 'Junio, 2016', '2018-08-18 01:47:56', '2021-02-01 05:44:27', 'admin', 1),
+(3, '', 'Belcon', 'belcon.jpg', '<div class=\"post-content m-t-sm\">\r\n<div class=\"post-gap-small\">P&aacute;gina web desarrollada para&nbsp;<strong>Belcon</strong>&nbsp;empresa dedicada a la venta de transportadores industriales.</div>\r\n<div class=\"post-gap-small\">&nbsp;</div>\r\n</div>\r\n<ul class=\"portfolio-details\">\r\n<li>\r\n<h5>Caracterisiticas</h5>\r\n<ul class=\"list list-skills icons list-unstyled list-inline\">\r\n<li><em class=\"fa fa-check-circle\"></em>One Page</li>\r\n<li><em class=\"fa fa-check-circle\"></em>Responsiva</li>\r\n<li><em class=\"fa fa-check-circle\"></em>Formulario de contacto</li>\r\n</ul>\r\n</li>\r\n<li>\r\n<h5>Tecnologias</h5>\r\n<p>PHP, MySQL, Bootstrap, Javascript y Jquery.</p>\r\n</li>\r\n<li>\r\n<h5>Desarrollado por:</h5>\r\n<p>[:MULTIPORTAL:] &amp; Key Agencia Digital</p>\r\n</li>\r\n</ul>', '0.00', 'One_Page', '', 'http://belcon.com.mx/', 'belcon.jpg', '', '', '', '', 'Julio, 2016', '2018-08-18 01:52:11', '', 'admin', 1),
+(4, '', 'Decatalogo', 'decatalogo.jpg', '<div class=\"post-content m-t-sm\">\n<div class=\"post-gap-small\">P&aacute;gina web&nbsp;<strong>Decatalogo</strong>&nbsp;desarrollada para la venta de catalogos de ropa en linea.</div>\n<div class=\"post-gap-small\">&nbsp;</div>\n</div>\n<ul class=\"portfolio-details\">\n<li>\n<h5>Caracterisiticas</h5>\n<ul class=\"list list-skills icons list-unstyled list-inline\">\n<li><em class=\"fa fa-check-circle\"></em>One Page</li>\n<li><em class=\"fa fa-check-circle\"></em>Responsiva</li>\n<li><em class=\"fa fa-check-circle\"></em>Formulario de contacto</li>\n</ul>\n</li>\n<li>\n<h5>Tecnologias</h5>\n<p>PHP, MySQL, Bootstrap, Javascript y Jquery.</p>\n</li>\n<li>\n<h5>Desarrollado por:</h5>\n<p>[:MULTIPORTAL:]</p>\n</li>\n</ul>', '0.00', 'One_Page', '', 'https://decatalogo.webcindario.com/', 'decatalogo.jpg', '', '', '', '', 'Mayo, 2017', '2018-08-18 01:53:12', '2021-02-02 01:54:02', 'admin', 1),
+(5, '', 'Key Agencia Digital', 'keyagenciadigital.jpg', '<div class=\"post-content m-t-sm\">\r\n<div class=\"post-gap-small\">P&aacute;gina web desarrollada para&nbsp;<strong>Key Agencia Digital</strong>&nbsp;empresa dedicada a la publicidad digital e impresa, marketing digital, desarrollo de p&aacute;ginas web y posicionamiento web.</div>\r\n<div class=\"post-gap-small\">&nbsp;</div>\r\n</div>\r\n<ul class=\"portfolio-details\">\r\n<li>\r\n<h5>Caracterisiticas</h5>\r\n<ul class=\"list list-skills icons list-unstyled list-inline\">\r\n<li><em class=\"fa fa-check-circle\"></em>One Web</li>\r\n<li><em class=\"fa fa-check-circle\"></em>3 page, contacto y landingpage</li>\r\n<li><em class=\"fa fa-check-circle\"></em>Responsiva</li>\r\n<li><em class=\"fa fa-check-circle\"></em>Formulario de contacto</li>\r\n<li><em class=\"fa fa-check-circle\"></em>P&aacute;gina administrable con panel AdminLTE</li>\r\n<li><em class=\"fa fa-check-circle\"></em>Desarrollada en Wordpress y PHPONIX-CRM</li>\r\n</ul>\r\n</li>\r\n<li>\r\n<h5>Tecnologias</h5>\r\n<p>PHP, MySQL, Bootstrap, JSON, Ajax, Javascript y Jquery.</p>\r\n</li>\r\n<li>\r\n<h5>Desarrollado por:</h5>\r\n<p>[:MULTIPORTAL:] &amp; Key Agencia Digital</p>\r\n</li>\r\n</ul>', '0.00', 'One_Page', '', 'http://keyagenciadigital.com/', 'keyagenciadigital.jpg', '', '', '', '', 'Julio, 2017', '2018-08-19 19:59:44', '', 'admin', 1),
+(6, '', 'Samsung Healthcare', 'samsunghealthcare.jpg', '<div class=\"post-content m-t-sm\">\n<div class=\"post-gap-small\">P&aacute;gina web desarrollada para&nbsp;<strong>Samsung Healthcare</strong>&nbsp;empresa i<span>mportadora, distribuidora e integradora de equipo y mobiliario m&eacute;dico y hospitalario</span>.</div>\n<div class=\"post-gap-small\">&nbsp;</div>\n</div>\n<ul class=\"portfolio-details\">\n<li>\n<h5>Caracterisiticas</h5>\n<ul class=\"list list-skills icons list-unstyled list-inline\">\n<li><em class=\"fa fa-check-circle\"></em>P&aacute;gina Web</li>\n<li><em class=\"fa fa-check-circle\"></em>4 secciones, productos y buscador</li>\n<li><em class=\"fa fa-check-circle\"></em>Responsiva</li>\n<li><em class=\"fa fa-check-circle\"></em>Formulario de contacto</li>\n<li><em class=\"fa fa-check-circle\"></em>P&aacute;gina administrable con panel AdminLTE</li>\n<li><em class=\"fa fa-check-circle\"></em>Desarrollada en PHPONIX-CRM</li>\n</ul>\n</li>\n<li>\n<h5>Tecnologias</h5>\n<p>PHP, MySQL, Bootstrap, JSON, Ajax, Javascript y Jquery.</p>\n</li>\n<li>\n<h5>Desarrollado por:</h5>\n<p>[:MULTIPORTAL:] &amp; Key Agencia Digital</p>\n</li>\n</ul>', '0.00', 'Web_Page', '', 'http://samsung-healthcare.mx/', 'samsunghealthcare.jpg', '', '', '', '', 'Febrero, 2018', '2018-08-19 20:05:55', '2021-02-05 03:50:27', 'admin', 1),
+(7, '', 'HM Soldaduras Industriales', 'hmsoldadurasindustriales.jpg', '<div class=\"post-content m-t-sm\">\n<div class=\"post-gap-small\">P&aacute;gina web desarrollada para&nbsp;<strong>HM Soldaduras Industriales</strong>&nbsp;empresa dedicada a la venta de todo el material para soldar desde soldaduras especiales, gases industriales, abrasivos s&oacute;lidos, m&aacute;quinas de soldar, consumibles y equipo de seguridad.</div>\n<div class=\"post-gap-small\">&nbsp;</div>\n</div>\n<ul class=\"portfolio-details\">\n<li>\n<h5>Caracterisiticas</h5>\n<ul class=\"list list-skills icons list-unstyled list-inline\">\n<li><em class=\"fa fa-check-circle\"></em>P&aacute;gina Web</li>\n<li><em class=\"fa fa-check-circle\"></em>6 secciones, productos y buscador</li>\n<li><em class=\"fa fa-check-circle\"></em>Responsiva</li>\n<li><em class=\"fa fa-check-circle\"></em>Formulario de contacto</li>\n<li><em class=\"fa fa-check-circle\"></em>P&aacute;gina administrable con panel AdminLTE</li>\n<li><em class=\"fa fa-check-circle\"></em>Desarrollada en PHPONIX-CRM</li>\n</ul>\n</li>\n<li>\n<h5>Tecnologias</h5>\n<p>PHP, MySQL, Bootstrap, JSON, Ajax, Javascript y Jquery.</p>\n</li>\n<li>\n<h5>Desarrollado por:</h5>\n<p>[:MULTIPORTAL:] &amp; Key Agencia Digital</p>\n</li>\n</ul>', '0.00', 'Web_Page', '', 'http://hmsoldadurasindustriales.com/', 'hmsoldadurasindustriales.jpg', '', '', '', '', 'Mayo, 2018', '2018-08-19 20:09:03', '2021-02-05 03:58:46', 'admin', 1),
+(8, '', 'Estpro', 'estpro.jpg', '<div class=\"post-content m-t-sm\">\n<div class=\"post-gap-small\">P&aacute;gina web&nbsp;<span><strong>Estpro Ambiental, S.A. de C.V.</strong> empresa dedicada a</span>&nbsp;<span>Sistemas de Gesti&oacute;n Ambiental Seguridad e Higiene para la Industria</span>.</div>\n<div class=\"post-gap-small\">&nbsp;</div>\n</div>\n<ul class=\"portfolio-details\">\n<li>\n<h5>Caracterisiticas</h5>\n<ul class=\"list list-skills icons list-unstyled list-inline\">\n<li><em class=\"fa fa-check-circle\"></em>P&aacute;gina Web</li>\n<li><em class=\"fa fa-check-circle\"></em>5 secciones</li>\n<li><em class=\"fa fa-check-circle\"></em>Responsiva</li>\n<li><em class=\"fa fa-check-circle\"></em>Formulario de contacto</li>\n<li><em class=\"fa fa-check-circle\"></em>P&aacute;gina administrable con panel AdminLTE</li>\n<li><em class=\"fa fa-check-circle\"></em>Desarrollada en PHPONIX-CRM</li>\n</ul>\n</li>\n<li>\n<h5>Tecnologias</h5>\n<p>PHP, MySQL, Bootstrap, JSON, Ajax, Javascript y Jquery.</p>\n</li>\n<li>\n<h5>Desarrollado por:</h5>\n<p>[:MULTIPORTAL:] &amp; Key Agencia Digital</p>\n</li>\n</ul>', '0.00', 'Web_Page', '', 'http://estproambiental.com.mx/', 'estpro.jpg', '', '', '', '', 'Julio, 2018', '2018-08-19 20:13:00', '2021-02-05 03:19:26', 'admin', 1),
+(9, '', 'Fasco Infra Sistemas', 'fasco.jpg', '<div class=\"post-content m-t-sm\">\r\n<div class=\"post-gap-small\">P&aacute;gina web desarrollada para la Empresa <strong>Fasco Infra Sistemas</strong> dedicada a la venta de telecomunicaciones y fibra &oacute;ptica.</div>\r\n<div class=\"post-gap-small\">&nbsp;</div>\r\n</div>\r\n<ul class=\"portfolio-details\">\r\n<li>\r\n<h5>Caracterisiticas</h5>\r\n<ul class=\"list list-skills icons list-unstyled list-inline\">\r\n<li><em class=\"fa fa-check-circle\"></em>P&aacute;gina Web</li>\r\n<li><em class=\"fa fa-check-circle\"></em>5 secciones, productos</li>\r\n<li><em class=\"fa fa-check-circle\"></em>Responsiva</li>\r\n<li><em class=\"fa fa-check-circle\"></em>Formulario de contacto</li>\r\n<li><em class=\"fa fa-check-circle\"></em>P&aacute;gina administrable con panel AdminLTE</li>\r\n<li><em class=\"fa fa-check-circle\"></em>Desarrollada en PHPONIX-CRM</li>\r\n</ul>\r\n</li>\r\n<li>\r\n<h5>Tecnologias</h5>\r\n<p>PHP, MySQL, Bootstrap, JSON, Ajax, Javascript y Jquery.</p>\r\n</li>\r\n<li>\r\n<h5>Desarrollado por:</h5>\r\n<p>[:MULTIPORTAL:] &amp; Key Agencia Digital</p>\r\n</li>\r\n</ul>', '0.00', 'Web_Page', '', 'http://fascoinfrasistema.com.mx/', 'fasco.jpg', '', '', '', '', 'Septiembre, 2018', '2018-08-19 20:15:29', '', 'admin', 1),
+(10, '', 'ImprezaColor', 'Imprezacolor.jpg', '<div class=\"post-content m-t-sm\">\r\n<div class=\"post-gap-small\">P&aacute;gina web desarrollada para&nbsp;<strong>ImprezaColor</strong>&nbsp;empresa dedicada a la publicidad e imprenta digital.</div>\r\n<div class=\"post-gap-small\">&nbsp;</div>\r\n</div>\r\n<ul class=\"portfolio-details\">\r\n<li>\r\n<h5>Caracterisiticas</h5>\r\n<ul class=\"list list-skills icons list-unstyled list-inline\">\r\n<li><em class=\"fa fa-check-circle\"></em>One Web</li>\r\n<li><em class=\"fa fa-check-circle\"></em>Responsiva</li>\r\n<li><em class=\"fa fa-check-circle\"></em>Formulario de contacto</li>\r\n<li><em class=\"fa fa-check-circle\"></em>P&aacute;gina administrable con panel AdminLTE</li>\r\n<li><em class=\"fa fa-check-circle\"></em>Desarrollada en PHPONIX-CRM</li>\r\n</ul>\r\n</li>\r\n<li>\r\n<h5>Tecnologias</h5>\r\n<p>PHP, MySQL, Bootstrap, JSON, Ajax, Javascript y Jquery.</p>\r\n</li>\r\n<li>\r\n<h5>Desarrollado por:</h5>\r\n<p>[:MULTIPORTAL:] &amp; Key Agencia Digital</p>\r\n</li>\r\n</ul>', '0.00', 'One_Page', '', 'http://imprezacolor.mx', 'Imprezacolor.jpg', '', '', '', '', 'Marzo, 2019', '2019-06-16 23:05:13', '', 'admin', 1),
+(11, '', 'Fibrecen', 'Fibrecen.jpg', '<div class=\"post-content m-t-sm\">\r\n<div class=\"post-gap-small\">P&aacute;gina web desarrollada para&nbsp;<strong>Fibrecen</strong>&nbsp;empresa dedicada a la <span>venta de materiales como resinas, fibras de vidrio, gel coats, etc</span>.</div>\r\n<div class=\"post-gap-small\">&nbsp;</div>\r\n</div>\r\n<ul class=\"portfolio-details\">\r\n<li>\r\n<h5>Caracterisiticas</h5>\r\n<ul class=\"list list-skills icons list-unstyled list-inline\">\r\n<li><em class=\"fa fa-check-circle\"></em>P&aacute;gina Web</li>\r\n<li><em class=\"fa fa-check-circle\"></em>Responsiva</li>\r\n<li>Buscador de productos</li>\r\n<li><em class=\"fa fa-check-circle\"></em>Formulario de contacto</li>\r\n<li>Chat de Whatsapp</li>\r\n<li>API de Facebook y Youtube</li>\r\n<li><em class=\"fa fa-check-circle\"></em>P&aacute;gina administrable con panel AdminLTE</li>\r\n<li><em class=\"fa fa-check-circle\"></em>Desarrollada en PHPONIX-CRM</li>\r\n</ul>\r\n</li>\r\n<li>\r\n<h5>Tecnologias</h5>\r\n<p>PHP, MySQL, Bootstrap, JSON, Ajax, Javascript y Jquery.</p>\r\n</li>\r\n<li>\r\n<h5>Desarrollado por:</h5>\r\n<p>[:MULTIPORTAL:] &amp; Key Agencia Digital</p>\r\n</li>\r\n</ul>', '0.00', 'Web_Page', '', 'http://fibrecen.com.mx', 'Fibrecen.jpg', '', '', '', '', 'Febrero, 2019', '2019-06-16 23:05:13', '', 'admin', 1),
+(12, '', 'Ceo-Tech', 'ceo-tech.png', '<div class=\"post-content m-t-sm\">\r\n<div class=\"post-gap-small\">&nbsp;P&aacute;gina web desarrollada para la Empresa Ceo Tech dedicada <span>a proyectos de automatizaci&oacute;n</span>.</div>\r\n</div>\r\n<div class=\"post-gap\">&nbsp;</div>\r\n<ul class=\"portfolio-details\">\r\n<li>\r\n<h5>Caracterisiticas</h5>\r\n<ul class=\"list list-skills icons list-unstyled list-inline\">\r\n<li><em class=\"fa fa-check-circle\"></em>P&aacute;gina Web</li>\r\n<li><em class=\"fa fa-check-circle\"></em>6 secciones</li>\r\n<li><em class=\"fa fa-check-circle\"></em>Responsiva</li>\r\n<li><em class=\"fa fa-check-circle\"></em>Formulario de contacto</li>\r\n<li><em class=\"fa fa-check-circle\"></em>P&aacute;gina administrable con panel AdminLTE</li>\r\n<li><em class=\"fa fa-check-circle\"></em>Desarrollada en PHPONIX</li>\r\n</ul>\r\n</li>\r\n<li>\r\n<h5>Tecnologias</h5>\r\n<p>PHP, MySQL, Bootstrap, JSON, Ajax, Javascript y Jquery.</p>\r\n</li>\r\n<li>\r\n<h5>Desarrollado por:</h5>\r\n<p>[:MULTIPORTAL:] &amp; Key Agencia Digital</p>\r\n</li>\r\n</ul>', '0.00', 'Web_Page', '', 'http://ceo-tech.com.mx/', 'ceo-tech.png', '', '', '', '', 'Julio, 2019', '2019-08-12 05:46:19', '', 'admin', 1),
+(13, '', 'Percco', 'percco.jpg', '<div class=\"post-content m-t-sm\">\r\n<div class=\"post-gap-small\">P&aacute;gina web desarrollada para&nbsp;<strong>Percco</strong><span>&nbsp;una empresa que ofrece Fabricaci&oacute;n de l&iacute;neas de Pintura Electr&oacute;statica, Maquila de Pintura Electr&oacute;statica, Instalaci&oacute;n de Sistemas Contraincendios, Fabricaci&oacute;n de Naves Industriales, Transportadores Industriales as&iacute; como un Proceso de Manufactura; Soldadura, Corte y Doblez. Ofrecemos Mantenimiento y Refacciones.</span>.</div>\r\n<div class=\"post-gap-small\">&nbsp;</div>\r\n</div>\r\n<ul class=\"portfolio-details\">\r\n<li>\r\n<h5>Caracterisiticas</h5>\r\n<ul class=\"list list-skills icons list-unstyled list-inline\">\r\n<li><em class=\"fa fa-check-circle\"></em>P&aacute;gina Web</li>\r\n<li><em class=\"fa fa-check-circle\"></em>Responsiva</li>\r\n<li><em class=\"fa fa-check-circle\"></em>Formulario de contacto</li>\r\n<li><em class=\"fa fa-check-circle\"></em>P&aacute;gina administrable con panel AdminLTE</li>\r\n<li><em class=\"fa fa-check-circle\"></em>Desarrollada en PHPONIX-CRM</li>\r\n</ul>\r\n</li>\r\n<li>\r\n<h5>Tecnologias</h5>\r\n<p>PHP, MySQL, Bootstrap, JSON, <strong>Ajax</strong>, Javascript y Jquery.</p>\r\n</li>\r\n<li>\r\n<h5>Desarrollado por:</h5>\r\n<p>[:MULTIPORTAL:] &amp; Key Agencia Digital</p>\r\n</li>\r\n</ul>', '0.00', 'Web_Page', '', 'http://percco.com', 'percco.jpg', '', '', '', '', 'Marzo, 2019', '2019-06-16 23:05:13', '', 'admin', 1),
+(14, '', 'Century21 ekodesar', 'century21.jpg', '<div class=\"post-content m-t-sm\">\r\n<div class=\"post-gap-small\">&nbsp;</div>\r\n<p>Landingpage desarrollado para <strong>Century21 ekodesar</strong> para campa&ntilde;a promocional de residencias y terrenos.</p>\r\n</div>\r\n<div class=\"post-gap\">&nbsp;</div>\r\n<ul class=\"portfolio-details\">\r\n<li>\r\n<h5>Caracterisiticas</h5>\r\n<ul class=\"list list-skills icons list-unstyled list-inline\">\r\n<li><em class=\"fa fa-check-circle\"></em>LandingPage</li>\r\n<li><em class=\"fa fa-check-circle\"></em>Secciones con Banner, Formulario de registro, productos y pie de pagina de contacto&nbsp;</li>\r\n<li><em class=\"fa fa-check-circle\"></em>Responsiva</li>\r\n<li><em class=\"fa fa-check-circle\"></em>Boton de Whatsapp</li>\r\n</ul>\r\n</li>\r\n<li>\r\n<h5>Tecnologias</h5>\r\n<p>PHP, Javascript, Jquery, ajax y HTML5.</p>\r\n</li>\r\n<li>\r\n<h5>Desarrollado por:</h5>\r\n<p>[:MULTIPORTAL:] y Key Agencia Digital</p>\r\n</li>\r\n</ul>', '0.00', 'LandingPage', '', 'http://century21ekodesar.com', 'century21.jpg', '', '', '', '', 'Octubre, 2019', '2019-10-15 06:02:50', '', 'admin', 1),
+(15, '', 'Tramites Estpro', 'TramitesEstpro.jpg', '<div class=\"post-content m-t-sm\">\r\n<div class=\"post-gap-small\">&nbsp;</div>\r\n<p>Landingpage desarrollado para <strong>Tramites Estpro</strong> para campa&ntilde;a promocional de tramites legales.</p>\r\n</div>\r\n<div class=\"post-gap\">&nbsp;</div>\r\n<ul class=\"portfolio-details\">\r\n<li>\r\n<h5>Caracterisiticas</h5>\r\n<ul class=\"list list-skills icons list-unstyled list-inline\">\r\n<li><em class=\"fa fa-check-circle\"></em>LandingPage</li>\r\n<li><em class=\"fa fa-check-circle\"></em>Secciones con Banner, Formulario de registro, productos y pie de pagina de contacto&nbsp;</li>\r\n<li><em class=\"fa fa-check-circle\"></em>Responsiva</li>\r\n<li><em class=\"fa fa-check-circle\"></em>Boton de Whatsapp</li>\r\n</ul>\r\n</li>\r\n<li>\r\n<h5>Tecnologias</h5>\r\n<p>PHP, Javascript, Jquery, ajax y HTML5.</p>\r\n</li>\r\n<li>\r\n<h5>Desarrollado por:</h5>\r\n<p>[:MULTIPORTAL:] y Key Agencia Digital</p>\r\n</li>\r\n</ul>', '0.00', 'LandingPage', '', 'http://tramites.estproambiental.com.mx/', 'TramitesEstpro.jpg', '', '', '', '', 'Diciembre, 2019', '2021-01-19 01:24:06', '', 'admin', 1),
+(16, '', 'dgoba', 'Dgoba.jpg', '<div class=\"post-content m-t-sm\">\r\n<div class=\"post-gap-small\">P&aacute;gina web desarrollada para&nbsp;<strong>Goba</strong>&nbsp;empresa <span>importadora, distribuidora e integradora de equipo y mobiliario m&eacute;dico y hospitalario</span>.</div>\r\n<div class=\"post-gap-small\">&nbsp;</div>\r\n</div>\r\n<ul class=\"portfolio-details\">\r\n<li>\r\n<h5>Caracterisiticas</h5>\r\n<ul class=\"list list-skills icons list-unstyled list-inline\">\r\n<li><em class=\"fa fa-check-circle\"></em>P&aacute;gina Web</li>\r\n<li><em class=\"fa fa-check-circle\"></em>3 secciones: Home, productos y contacto</li>\r\n<li><em class=\"fa fa-check-circle\"></em>Responsiva</li>\r\n<li><em class=\"fa fa-check-circle\"></em>Formulario de contacto</li>\r\n<li><em class=\"fa fa-check-circle\"></em>P&aacute;gina administrable con panel AdminLTE</li>\r\n<li><em class=\"fa fa-check-circle\"></em>Desarrollada en PHPONIX-CRM</li>\r\n</ul>\r\n</li>\r\n<li>\r\n<h5>Tecnologias</h5>\r\n<p>PHP, MySQL, Bootstrap, JSON, Ajax, Javascript y Jquery.</p>\r\n</li>\r\n<li>\r\n<h5>Desarrollado por:</h5>\r\n<p>[:MULTIPORTAL:] &amp; Key Agencia Digital</p>\r\n</li>\r\n</ul>', '0.00', 'Web_Page', '', 'https://www.dgoba.com/', 'Dgoba.jpg', '', '', '', '', 'Junio, 2020', '2021-01-20 05:07:42', '', 'admin', 1),
+(17, '', 'Tienda Solein', 'TiendaSolein.jpg', '<div class=\"post-content m-t-sm\">\n<div class=\"post-gap-small\">P&aacute;gina desarrollada para venta en linea de productos para la construcci&oacute;n.</div>\n</div>\n<div class=\"post-gap\">&nbsp;</div>\n<ul class=\"portfolio-details\">\n<li>\n<h5>Caracterisiticas</h5>\n<ul class=\"list list-skills icons list-unstyled list-inline\">\n<li><em class=\"fa fa-check-circle\"></em>P&aacute;gina Web Ecommerce</li>\n<li><em class=\"fa fa-check-circle\"></em>Secciones Home, productos, blog y contacto</li>\n<li><em class=\"fa fa-check-circle\"></em>Responsive</li>\n<li><em class=\"fa fa-check-circle\"></em>Registro de usuarios para compra en linea</li>\n<li><em class=\"fa fa-check-circle\"></em>Desarrollada con Wordpress y Woocommerce</li>\n<li><em class=\"fa fa-check-circle\"></em>Pagos a trav&eacute;s de PayPal</li>\n</ul>\n</li>\n<li>\n<h5>Tecnologias</h5>\n<p>Wordpress, Woocommerce, PHP, MySQL, javascript.</p>\n</li>\n<li>\n<h5>Desarrollado&nbsp; para:</h5>\n<p>Dood</p>\n</li>\n</ul>', '0.00', 'Ecommerce', '', '#', 'TiendaSolein2.jpg', '', '', '', '', 'Septiembre, 2020', '2021-01-20 20:46:09', '2021-02-05 03:59:20', 'admin', 1);
 
 -- --------------------------------------------------------
 
@@ -1598,30 +1615,33 @@ CREATE TABLE `php_registros` (
 
 CREATE TABLE `php_servicios` (
   `ID` int(6) UNSIGNED NOT NULL,
-  `clave` varchar(100) NOT NULL,
-  `titulo` varchar(100) NOT NULL,
-  `cover` varchar(100) NOT NULL,
-  `descripcion` mediumtext NOT NULL,
+  `clave` varchar(100) CHARACTER SET latin1 NOT NULL,
+  `nombre` varchar(100) CHARACTER SET latin1 NOT NULL,
+  `cover` varchar(100) CHARACTER SET latin1 NOT NULL,
+  `descripcion` text CHARACTER SET latin1 NOT NULL,
   `precio` decimal(6,2) NOT NULL,
-  `cate` varchar(50) NOT NULL,
-  `url_page` varchar(150) NOT NULL,
-  `imagen1` varchar(100) NOT NULL,
-  `imagen2` varchar(100) NOT NULL,
-  `imagen3` varchar(100) NOT NULL,
-  `imagen4` varchar(100) NOT NULL,
-  `imagen5` varchar(100) NOT NULL,
-  `visible` tinyint(1) NOT NULL,
-  `alta` varchar(21) NOT NULL,
-  `fmod` varchar(21) NOT NULL,
-  `user` varchar(50) NOT NULL
+  `cate` varchar(50) CHARACTER SET latin1 NOT NULL,
+  `resena` text CHARACTER SET latin1 NOT NULL,
+  `url_page` varchar(150) CHARACTER SET latin1 NOT NULL,
+  `imagen1` varchar(100) CHARACTER SET latin1 NOT NULL,
+  `imagen2` varchar(100) CHARACTER SET latin1 NOT NULL,
+  `imagen3` varchar(100) CHARACTER SET latin1 NOT NULL,
+  `imagen4` varchar(100) CHARACTER SET latin1 NOT NULL,
+  `imagen5` varchar(100) CHARACTER SET latin1 NOT NULL,
+  `FT` varchar(100) CHARACTER SET latin1 NOT NULL,
+  `alta` varchar(21) CHARACTER SET latin1 NOT NULL,
+  `fmod` varchar(21) CHARACTER SET latin1 NOT NULL,
+  `user` varchar(50) CHARACTER SET latin1 NOT NULL,
+  `visible` tinyint(1) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `php_servicios`
 --
 
-INSERT INTO `php_servicios` (`ID`, `clave`, `titulo`, `cover`, `descripcion`, `precio`, `cate`, `url_page`, `imagen1`, `imagen2`, `imagen3`, `imagen4`, `imagen5`, `visible`, `alta`, `fmod`, `user`) VALUES
-(1, '', 'Horno', 'horno.jpg', '', '0.00', 'Seleccionar Categoria', '', '', '', '', '', '', 1, '', '', '');
+INSERT INTO `php_servicios` (`ID`, `clave`, `nombre`, `cover`, `descripcion`, `precio`, `cate`, `resena`, `url_page`, `imagen1`, `imagen2`, `imagen3`, `imagen4`, `imagen5`, `FT`, `alta`, `fmod`, `user`, `visible`) VALUES
+(1, '', 'Hornos de Curado', 'horno.jpg', '<p><span>Fabricamos y dise&ntilde;amos Hornos Hornos Continuos de Curado tipo Batch, Hornos Infrarojos y Hornos Ultravioleta.</span></p>', '0.00', 'Fabricación de Líneas de Pintura', '', '', 'horno.jpg', '', '', '', '', '', '2021-02-03 03:18:53', '2021-02-05 04:25:28', 'admin', 1),
+(2, '', 'Cabinas para pintura en Polvo', 'cabina.jpg', '<p><span>Producimos Continuas y de Batch, as&iacute; como cabinas portatiles en diferentes tama&ntilde;os y dise&ntilde;os.</span></p>', '0.00', 'Fabricación de Líneas de Pintura', '', '', '', '', '', '', '', '', '2021-02-03 03:23:32', '2021-02-05 03:55:40', 'admin', 1);
 
 -- --------------------------------------------------------
 
@@ -1676,7 +1696,7 @@ CREATE TABLE `php_signup` (
 --
 
 INSERT INTO `php_signup` (`ID`, `username`, `password`, `email`, `level`, `lastlogin`, `tema`, `nombre`, `apaterno`, `amaterno`, `foto`, `cover`, `tel`, `ext`, `fnac`, `fb`, `tw`, `puesto`, `ndepa`, `depa`, `empresa`, `adress`, `direccion`, `mpio`, `edo`, `pais`, `genero`, `exp`, `likes`, `filtro`, `zona`, `alta`, `actualizacion`, `page`, `nivel_oper`, `rol`, `codigo`, `intentos`, `activo`) VALUES
-(1, 'admin', 'c64f923f7f476f0b78716079452e7bdec4b2c016', 'multiportal@outlook.com', '-1', '2021-01-11 19:39:08', 'default', 'Guillermo', 'Jimenez', 'Lopez', 'sinfoto.png', '', '4421944950', 1, '0000-00-00', '', '', 'Programador', 0, '', 'Multiportal', '', '', '', '', '', 'M', '', 0, '0', '', '', 'admin2019xadmin79', '', 0, 0, '944950', '0', 1),
+(1, 'admin', 'c64f923f7f476f0b78716079452e7bdec4b2c016', 'multiportal@outlook.com', '-1', '2021-01-19 14:39:53', 'default', 'Guillermo', 'Jimenez', 'Lopez', 'sinfoto.png', '', '4421944950', 1, '0000-00-00', '', '', 'Programador', 0, '', 'Multiportal', '', '', '', '', '', 'M', '', 0, '0', '', '', 'admin2019xadmin79', '', 0, 0, '944950', '0', 1),
 (2, 'demo', '71cc541bd1ccb6670de3f8d40f425ffb7315fe7f', 'demo@gmail.com', '-1', '0000-00-00 00:00:00', 'default', 'Demo', 'Apaterno', 'Amaterno', 'sinfoto.png', 'sincover.jpg', '4421234567', 0, '0000-00-00', '', '', 'Director', 0, '', 'PHPONIX', '', '', '', '', '', 'M', '', 0, '0', '', '', 'demo2019xdemo2017', '', 0, 0, '234567', '0', 1),
 (3, 'usuario', '3c6e6ac5382f4e804e824c0d785b275252ddacb0', 'multiportal@outlook.com', '1', '0000-00-00 00:00:00', 'default', 'Usuario', 'Apaterno', 'Amaterno', 'sinfoto.png', '', '4421234567', 0, '0000-00-00', '', '', 'Usuario', 0, '', 'PHPONIX', '', '', '', '', '', 'M', '', 0, '0', '', '', 'usuario2019xuser79x', '', 0, 0, '234567', '0', 1),
 (4, 'ventas', '1d415500d481e0c1c238189c22ea057da663c1e7', 'ventas@gmail.com', '2', '0000-00-00 00:00:00', 'default', 'Ventas', 'Apaterno', 'Amaterno', 'sinfoto.png', 'sincover.jpg', '4421234567', 0, '0000-00-00', '', '', 'Gerente', 0, '', 'PHPONIX', '', '', '', '', '', 'M', '', 0, '0', '', '', 'ventas2019xventas', '', 0, 0, '234567', '0', 1);
@@ -2424,7 +2444,7 @@ ALTER TABLE `php_notificacion`
 -- AUTO_INCREMENT de la tabla `php_opciones`
 --
 ALTER TABLE `php_opciones`
-  MODIFY `ID` int(6) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
+  MODIFY `ID` int(6) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
 
 --
 -- AUTO_INCREMENT de la tabla `php_pages`
@@ -2436,7 +2456,7 @@ ALTER TABLE `php_pages`
 -- AUTO_INCREMENT de la tabla `php_portafolio`
 --
 ALTER TABLE `php_portafolio`
-  MODIFY `ID` int(6) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `ID` int(6) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT de la tabla `php_productos`
@@ -2502,7 +2522,7 @@ ALTER TABLE `php_registros`
 -- AUTO_INCREMENT de la tabla `php_servicios`
 --
 ALTER TABLE `php_servicios`
-  MODIFY `ID` int(6) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `ID` int(6) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `php_signup`
