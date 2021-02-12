@@ -2195,9 +2195,10 @@ global $host,$path_root;
 	</script>';
 }
 
-function ajaxCrud($campos,$th,$imas,$tinyMCE){
+function ajaxCrud($large,$campos,$th,$imas,$tinyMCE){
 global $page_url,$URL,$mod,$ext,$id,$idp,$idf,$opc,$form,$action,$ctrl;
 $tinyMCE=($tinyMCE==1)?'tinyMCE.triggerSave();':'';
+$lista=($large==1)?0:1;
 //CAMPOS print_r($th);
 $campos2=array();
 if($th!=''){
@@ -2207,9 +2208,9 @@ if($th!=''){
     }
     $campos1.='<th style="display:'.$display.';">Acciones</th>'."\n";
 }
-
 $rep1 = array('_','cion');
 $rep2 = array(' ','ci&oacute;n');
+//DATOS
 for($k=0;$k<count($campos2);$k++){
 	$class=($campos2[$k]=='nombre')?'text-left':'text-center';
 	if($campos2[$k]=='cover'){
@@ -2223,9 +2224,7 @@ for($k=0;$k<count($campos2);$k++){
 		$row2 .= '<td class="'.$class.'">${'.$campos2[$k].'}</td>';
 	}                        
 }
-
-
-
+//INPUT CAMPOS
 for($i=0;$i<count($campos);$i++){
 	$camposVal.=$campos[$i].': $("#'.$campos[$i].'").val(),'."\n";
 	$cam.=$campos[$i].',';
@@ -2236,9 +2235,9 @@ imagen3: $("#imagen3").val(),
 imagen4: $("#imagen4").val(),
 imagen5: $("#imagen5").val(),':'';
 $contenido='// JavaScript Document
-let dbAjaxCrud = localStorage.getItem(\'dbCrud\'); //Obtener datos de localStorage
+let dbAjaxCrud = localStorage.getItem("dbCrud_'.$mod.'"); //Obtener datos de localStorage
 dbAjaxCrud = JSON.parse(dbAjaxCrud); // Covertir a objeto
-var listado = 0;
+var listado = '.$lista.';
 //LISTADO
 
 function inicio(){
@@ -2249,14 +2248,14 @@ function inicio(){
     } else {
 		console.log("Vacio");
 		const valor = {
-			val: 0
+			val: listado
 		}
 		listar=[];
 		listar.push(valor);
-		localStorage.setItem(\'dbCrud\', JSON.stringify(listar));
+		localStorage.setItem("dbCrud_'.$mod.'", JSON.stringify(listar));
 		console.log(listado);		
 	}
-	dbAjaxCrud = localStorage.getItem(\'dbCrud\');
+	dbAjaxCrud = localStorage.getItem("dbCrud_'.$mod.'");
 	dbAjaxCrud = JSON.parse(dbAjaxCrud);
 }
 
@@ -2305,7 +2304,7 @@ $(document).ready(function () {
 	dbAjaxCrud[0] = {
 		val: 1
 	}
-	localStorage.setItem(\'dbCrud\', JSON.stringify(dbAjaxCrud));
+	localStorage.setItem("dbCrud_'.$mod.'", JSON.stringify(dbAjaxCrud));
 	listado = dbAjaxCrud[0].val;//listado = 1;
 	//console.log("listado1:"+listado);
     load(1);
@@ -2314,7 +2313,7 @@ $(document).ready(function () {
 	dbAjaxCrud[0] = {
 		val: 0
 	}
-	localStorage.setItem(\'dbCrud\', JSON.stringify(dbAjaxCrud));
+	localStorage.setItem("dbCrud_'.$mod.'", JSON.stringify(dbAjaxCrud));
 	listado = dbAjaxCrud[0].val;//listado = 0;
 	//console.log("listado0:"+listado);
 	load(1);
@@ -2428,6 +2427,17 @@ function imagenes(val) {
       console.log("Subido Correctamente");
     }
   });
+}
+
+function refrescar(){
+	sessionStorage.removeItem("dbCrud_'.$mod.'");
+	dbAjaxCrud[0] = {
+		val: listado
+	}
+	localStorage.setItem("dbCrud_'.$mod.'", JSON.stringify(dbAjaxCrud));
+	listado = dbAjaxCrud[0].val;//listado = 0;
+	//console.log("listado0:"+listado);
+	load(1);
 }
 ';
 crear_archivo('modulos/'.$mod.'/js/','ajax_'.$mod.'.js',$contenido,$path_file);
