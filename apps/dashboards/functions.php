@@ -579,4 +579,531 @@ global $mysqli,$DBprefix;
  	$query="SELECT * FROM ".$DBprefix.$tabla." ORDER BY ID ASC;";
 	crear_json($query,'bloques/webservices/rest/json/',$tabla.'.json');
 }
+
+/**FUNCIONES PARA MODULOS *//////////////////////////////////////////////////////////////////////////////////
+/**FUNCINES BACKEND PARA LOS MODULOS*/
+function btnVistas($large){
+global $page_url, $mod, $ext, $action, $opc, $username;
+$cond_opc = ($opc!='')?'&opc='.$opc : '';
+    sql_opciones('demo',$valor);
+    if ($_SESSION["username"] == 'admin' && $valor != 1) {
+        //$vistas = ($action != '' && $action == 'listado') ? '<i class="fa fa-list"></i> | <a href="' . $page_url . 'index.php?mod=' . $mod . '&ext=' . $ext . $cond_opc . '"><i class="fa fa-th-large"></i></a>' : '<a href="' . $page_url . 'index.php?mod=' . $mod . '&ext=' . $ext . $cond_opc . '&action=listado"><i class="fa fa-list"></i></a> | <i class="fa fa-th-large"></i>';
+        $vistas = '| <i class="fa fa-list btn-listado"></i> | <i class="fa fa-th-large btn-large"></i>';
+    }else{
+        $vistas = '| <i class="fa fa-list"></i> | <i class="fa fa-th-large"></i>';
+    }
+    if($large==1){echo $vistas;}
+}
+
+function cate_porta($cate){
+global $page_url,$tabla,$url_api;
+$url_api=url_api();
+$data = query_data($tabla, $url_api);
+    if ($data != '' & $data != NULL) {
+        $i = 0;
+        foreach ($data as $row) {
+            $i++;
+            $cat[] = $row['cate'];
+        }
+        $res = array_unique($cat); //print_r($res);
+        foreach ($res as $row => $dato) {
+            $cate1     = str_replace('_', ' ', $dato);
+            $seleccion = ($dato == $cate) ? 'selected' : '';
+            $selector1 .= '<option value="' . $dato . '" ' . $seleccion . '>' . $cate1 . '</option>';
+        }
+        $selector = '<select class="form-control" id="cate" name="cate"><option>[Elige una Categor&iacute;a]</option>' . $selector1 . '</select>';
+    }else{
+        $selector = '<div>Sin Selector</div>';
+    }
+    echo $selector;
+}
+
+function cate_porta_js($cate, $id_ctrl, $id_div){
+global $page_url,$tabla,$url_api;
+$url_api=url_api();
+$data = query_data($tabla, $url_api);
+    if ($data != '' & $data != NULL) {
+        $i = 0;
+        foreach ($data as $row) {
+            $i++;
+            $cat[] = $row['cate'];
+        }
+        $res = array_unique($cat); //print_r($res);
+        foreach ($res as $row => $dato) {
+            $cate1     = str_replace('_', ' ', $dato);
+            $seleccion = ($dato == $cate) ? 'selected' : '';
+            $selector1 .= '<option value="' . $dato . '" ' . $seleccion . '>' . $cate1 . '</option>';
+        }
+        $selector = '<select class="form-control" id="' . $id_ctrl . '" name="' . $id_ctrl . '"><option>[Elige una Categor&iacute;a]</option>' . $selector1 . '</select>';
+    } else {
+        $selector = '<div>Sin Selector</div>';
+    }
+echo '<script>
+function add_select_cate(val){
+	if(val==1){	
+		document.getElementById(\'' . $id_div . '\').innerHTML=\'<input type="text" class="form-control" id="' . $id_ctrl . '" name="' . $id_ctrl . '" value=""><div><a href="javascript:add_select_cate(0);">Cancelar</a></div>\';
+	}else{
+		document.getElementById(\'' . $id_div . '\').innerHTML=\'' . $selector . '<div><a href="javascript:add_select_cate(1);"><i class="fa fa-plus"></i> Agregar Categoria</a></div>\';
+	}
+}
+add_select_cate(0);
+</script>';
+}
+
+function file_ima($cover){
+global $page_url,$mod;
+    $cover = ($cover != '' && $cover != NULL) ? $cover : 'nodisponible1.jpg';
+    $edo = ($cover != '' && $cover != NULL && $cover!='nodisponible1.jpg') ? 'Cambiar' : 'Subir';
+    $btnBorrar = ($cover != '' && $cover != NULL && $cover!='nodisponible1.jpg') ? ' | <a href="javascript:borrar_ima(0,\''.$mod.'\');">Borrar</a>' : '';
+    $file = '<input type="hidden" class="form-control" id="cover" name="cover" value="'.$cover.'">
+    <img id="img" src="'.$page_url.'modulos/'.$mod.'/fotos/'.$cover.'" style="width:150px;" title="'.$cover.'"><br>
+    <a href="javascript:up(1);">'.$edo.' Imagen</a>'.$btnBorrar.'<div id="upload"></div>';
+    return $file;
+}
+
+function file_ima2($cover){
+global $page_url,$mod,$val;
+    $cover = ($cover != '' && $cover != NULL) ? $cover : 'nodisponible1.jpg';
+    $edo = ($cover != '' && $cover != NULL && $cover!='nodisponible1.jpg') ? 'Cambiar' : 'Subir';
+    $btnBorrar = ($cover != '' && $cover != NULL) ? ' | <a href="javascript:borrar_ima('.$val.',\''.$mod.'\');">Borrar</a>' : '';
+    $iden = ($val!='' && $val!=NULL)?'imagen'.$val:'cover';
+    $fun = ($val!='' && $val!=NULL)?'upima('.$val.')':'up(1)';
+    $file = '<input type="hidden" class="form-control" id="'.$iden.'" name="'.$iden.'" value="'.$cover.'">
+    <img id="img" src="'.$page_url.'modulos/'.$mod . '/fotos/'.$cover.'" style="width:150px;" title="'.$cover.'"><br>
+    <a href="javascript:'.$fun.';">'.$edo.' Imagen '.$val.'</a>'.$btnBorrar.'<div id="upload'.$val.'"></div>';
+    return $file;
+}
+
+function imagenes($array_ima){
+global $page_url, $mod;
+    for ($i = 1; $i <= 5; $i++) {
+        $ima = ($array_ima[$i]!= '')?'<img id="img'.$i.'" src="'.$page_url.'modulos/'.$mod.'/fotos/'.$array_ima[$i].'" style="width:150px;" title="'.$array_ima[$i].'"><br>' : '';
+        $edo = ($array_ima[$i]!= '')?'Cambiar' : 'Subir';
+        $btnBorrar = ($array_ima[$i]!= '')?' | <a href="javascript:borrar_ima('.$i.',\''.$mod.'\');">Borrar</a>' : '';
+        echo '
+		<div class="form-group">
+            <label for="ima' . $i . '">Imagen ' . $i . '</label>
+            <div id="ima'.$i.'">
+			    <input type="hidden" class="form-control" id="imagen'.$i.'" name="imagen'.$i.'" value="'.$array_ima[$i].'">
+			    ' . $ima . '
+                <a href="#" onclick="upima('.$i.');">'.$edo.' Imagen '.$i.'</a>'.$btnBorrar.'<div id="upload'.$i.'"></div>
+            </div> 
+		</div>';
+    }
+}
+
+function acciones(){
+global $page_url,$mod,$ext,$opc,$action,$tabla,$url_api;
+$tabla=table();
+$tabla=validacion_tabla($tabla);
+$id      = $_POST['ID']; //$nombre=$_POST['nombre'];
+$visible = $_POST['visible'];
+$c       = 0;
+    if ($visible == '') { //if($nombre=='' || $visible==''){
+        $error = "  *El campo esta vacio.\\n\\r";
+        $c++;
+    }
+    if ($visible == '') { //if($nombre=='' && $visible==''){
+        $error = "  *Los campos estan vacios.\\n\\r";
+        $c++;
+    }
+    if ($c > 0) {
+        $aviso = '
+		<div class="alert alert-danger alert-dismissible">
+			<button type="button" class="close" data-dismiss="alert" aria-hidden="true">x</button>
+			<h4><i class="icon fa fa-ban"></i> Error!</h4>' . $error . '
+		</div>';
+    } else {
+        if ($action == 'edit') {
+            $edi  = 'editado';
+            $save = update($id);
+        } else {
+            $edi  = 'agregado';
+            $save = insert();
+        }
+        $URL = $page_url . 'index.php?mod=' . $mod . '&ext=' . $ext;
+        recargar(5, $URL, $target);
+        validar_aviso($save, 'El Proyecto se ha ' . $edi . ' correctamente', 'No se puedo guardar intentelo nuevamente', $aviso);
+    }
+echo $aviso;
+}
+
+function listado($th,$btn_modal){
+global $mysqli,$DBprefix,$page_url,$mod,$opc,$action,$tabla,$url_api;
+$tabla=table();//echo '<div>mod:'.$mod.'|action:'.$action.'|opc:'.$opc.'</div>';
+$modo  = (isset($_REQUEST['mode']) && $_REQUEST['mode'] != NULL) ? $_REQUEST['mode'] : '';
+    if ($modo == 'ajax') {
+        $q=$_REQUEST['q'];
+        $buscar = (!empty($q))?" WHERE nombre LIKE '%{$q}%'":'';
+
+        $cond_opc  = ($opc != '') ? '&opc=' . $opc : '';
+        //las variables de paginación
+        $page      = (isset($_REQUEST['page']) && !empty($_REQUEST['page'])) ? $_REQUEST['page'] : 1;
+        $per_page  = 8; //la cantidad de registros que desea mostrar		
+        $adjacents = 1; //brecha entre páginas después de varios adyacentes
+        $offset    = ($page - 1) * $per_page;
+        //Cuenta el número total de filas de la tabla*/
+        $query = "SELECT * FROM ".$DBprefix.$tabla.$buscar."";
+        $data = ws_query_data($query,1,0,0);//print_r($data);
+        $numrows = count($data);
+        $total_pages = ceil($numrows / $per_page);
+        $reload = 'index.php';
+        $query = "SELECT * FROM ".$DBprefix.$tabla.$buscar." ORDER BY ID ASC LIMIT {$offset},{$per_page};";
+        $data = ws_query_data($query,1,0,0);//print_r($data);
+
+        if($numrows>0){$j=0;
+            //CAMPOS
+            $campos2=array();
+            if($th!=''){
+                foreach($th as $datos=>$value){
+                    $campos1.='<th class="text-center">'.$datos.'</th>'."\n";
+                    $campos2[].=$value;
+                }
+                $campos1.='<th style="display:'.$display.';">Acciones</th>'."\n";
+            }
+            //if($thc==1){echo '<thead><tr>'.$campos.'</tr></thead>'."\n";}
+            //DATOS
+            foreach($data as $row){$j++;
+                //$listado=$large='';
+                foreach($row as $datos=>$value){//echo '<td>'.$row[$datos].'</td>'."\n";
+                    $id        = $row['ID'];
+                    $nombre    = ($row['nombre'])?$row['nombre']:$row['titulo'];
+                    $cover     = ($row['cover']!='')?$row['cover'] : 'nodisponible.jpg';
+                    $visible   = $row['visible'];
+                    $tit_card  = ($row['codigo'])?'C&oacute;digo: <b>' . $row['codigo'] . '</b>':'ID: <b>' . $id . '</b>';
+                    $seleccion = ($visible == 0) ? '<span style="color:#e00;"><i class="fa fa-close" title="Desactivado"></i></span>' : '<span style="color:#0f0;"><i class="fa fa-check" title="Activo"></i></span>';
+                    $activo    = ($visible == 1) ? '<span class="label label-success">Activo</span>' : '<span class="label label-danger">Desactivado</span>';
+                    $row2='';
+                    for($k=0;$k<count($campos2);$k++){
+                        $class=($campos2[$k]=='nombre')?'text-left':'text-center';
+                        if($campos2[$k]=='cover'){
+                            $cover = ($row[$campos2[$k]] != '') ? $row[$campos2[$k]] : 'nodisponible.jpg';
+                            $row2 .= '<td class="'.$class.'"><img src="' . $page_url . 'modulos/' . $mod . '/fotos/' . $cover . '" alt="Product Image" class="img-rounded" width="60"></td>';                                    
+                        }elseif($campos2[$k]=='cate'){
+                            $row2 .= '<td class="'.$class.'">'.ucfirst(str_replace('_', ' ',$row[$campos2[$k]])).'</td>';
+                        }elseif($campos2[$k]=='visible'){
+                            $row2 .= '<td>'.$activo.'</td>';
+                        }else{
+                            $row2 .= '<td class="'.$class.'">'.$row[$campos2[$k]].'</td>';
+                        }                        
+                    }
+                }
+
+    $large.= '
+	<div class="col-md-3 col-xs-12">
+		<div class="box box-primary">
+			<div class="box-header with-border">
+                <h3 class="box-title">'.$tit_card.'</h3>
+				<span class="controles" id="' . $id . '">' . $seleccion . '
+                    <button class="btn btn-primary btn-edit" '.$btn_modal.'><i class="fa fa-edit"></i></button> | <button class="btn btn-danger btn-delete"><i class="fa fa-trash"></i></button>
+				</span>
+			</div>
+			<div class="box-body">
+				<div class="ima-size">
+					<img src="' . $page_url . 'modulos/' . $mod . '/fotos/' . $cover . '" class="img-responsive ima-size">
+				</div>
+				<div id="title"><strong>' . $nombre . '</strong></div>	
+			</div><!-- /.box-body -->
+		</div>
+	</div>';
+    $listado.='
+    <tr>'.$row2.'
+        <td id="'.$id.'">
+            <button class="btn btn-primary btn-edit" '.$btn_modal.'><i class="fa fa-edit"></i></button> | <button class="btn btn-danger btn-delete"><i class="fa fa-trash"></i></button>
+            <!--div class="btn-group pull-right">
+                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">Acciones <span class="fa fa-caret-down"></span></button>
+                <ul class="dropdown-menu">
+                    <li><a href="' . $page_url . 'index.php?mod=' . $mod . '&ext=admin/index' . $cond_opc . '&form=1&action=edit&id=' . $id . '"><i class="fa fa-edit"></i> Editar</a></li>
+                    <li><a href="#" portaid="' . $id . '" class="btnBorrar"><i class="fa fa-trash"></i> Borrar</a></li>
+                </ul>
+            </div><!-- /btn-group -->
+        </td>
+    </tr>';
+            } 
+
+            if($action=='listado' && !empty($action)){
+                echo '
+                <div class="box-body">                        
+                    <div class="table-responsive">
+                        <table class="table table-condensed table-hover table-striped ">
+                            <tbody>
+                            <tr>
+                            '.$campos1.'
+                            </tr>
+                            '.$listado.'
+                            </tbody>
+                        </table>
+                    </div>	
+                </div><!-- /.box-body -->';
+            }else{
+                echo '<div class="box-body">' . $large . '</div>';
+            }
+?>
+            <div class="box-footer clearfix">Mostrando <?php echo $ini = $id - ($j - 1);?> al <?php echo $id;?> de <?php echo $numrows;?> registros<?php echo paginate($reload, $page, $total_pages, $adjacents);?></div>
+<?php
+        }else{
+            echo '
+			<div class="alert alert-warning alert-dismissable">
+              <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+              <h4>Error</h4> No hay datos para mostrar.
+            </div>';
+        }
+    }    
+}
+
+/**AJAX CRUD */
+function ajaxCrud($large,$campos,$th,$imas,$tinyMCE){
+global $page_url,$URL,$mod,$ext,$id,$idp,$idf,$opc,$form,$action,$ctrl;
+$tinyMCE=($tinyMCE==1)?'tinyMCE.triggerSave();':'';
+$lista=($large==1)?0:1;
+//CAMPOS print_r($th);
+$campos2=array();
+if($th!=''){
+    foreach($th as $datos=>$value){
+        $campos1.='<th class="text-center">'.$datos.'</th>'."\n";
+        $campos2[].=$value;
+    }
+    $campos1.='<th style="display:'.$display.';">Acciones</th>'."\n";
+}
+$rep1 = array('_','cion');
+$rep2 = array(' ','ci&oacute;n');
+//DATOS
+for($k=0;$k<count($campos2);$k++){
+	$class=($campos2[$k]=='nombre')?'text-left':'text-center';
+	if($campos2[$k]=='cover'){
+		$cover = ($campos2[$k] != '')? '${'.$campos2[$k].'}' : 'nodisponible.jpg';
+		$row2 .= '<td><img src="./modulos/' . $mod . '/fotos/'.$cover.'" alt="Product Image" class="img-rounded" width="60"></td>';                                    
+	}elseif($campos2[$k]=='cate'){
+		$row2 .= '<td class="'.$class.'">${'.$campos2[$k].'}</td>';
+	}elseif($campos2[$k]=='visible'){
+		$row2 .= '<td>${sel}</td>';
+	}else{
+		$row2 .= '<td class="'.$class.'">${'.$campos2[$k].'}</td>';
+	}                        
+}
+//INPUT CAMPOS
+for($i=0;$i<count($campos);$i++){
+	$camposVal.=$campos[$i].': $("#'.$campos[$i].'").val(),'."\n";
+	$cam.=$campos[$i].',';
+}
+$imas=($imas==1)?'imagen1: $("#imagen1").val(),
+imagen2: $("#imagen2").val(),
+imagen3: $("#imagen3").val(),
+imagen4: $("#imagen4").val(),
+imagen5: $("#imagen5").val(),':'';
+$contenido='// JavaScript Document
+let dbAjaxCrud = localStorage.getItem("dbCrud_'.$mod.'"); //Obtener datos de localStorage
+dbAjaxCrud = JSON.parse(dbAjaxCrud); // Covertir a objeto
+var listado = '.$lista.';
+//LISTADO
+
+function inicio(){
+    if (dbAjaxCrud !== null) {
+		//console.log(dbAjaxCrud);
+		listado = dbAjaxCrud[0].val;
+		console.log("listado:"+listado);
+    } else {
+		console.log("Vacio");
+		const valor = {
+			val: listado
+		}
+		listar=[];
+		listar.push(valor);
+		localStorage.setItem("dbCrud_'.$mod.'", JSON.stringify(listar));
+		console.log(listado);		
+	}
+	dbAjaxCrud = localStorage.getItem("dbCrud_'.$mod.'");
+	dbAjaxCrud = JSON.parse(dbAjaxCrud);
+}
+
+function load(page,q) {
+  inicio();
+  let action = (listado == 1) ? \'&action=listado\' : \'\';
+  var parametros = {
+    "mode": "ajax",
+	"page": page,
+	"q": q
+  };
+  if (listado == 1) {
+    $(".btn-listado").removeClass(\'activar-listado\');
+    $(".btn-large").removeClass(\'btn-blue\');
+    $(".btn-listado").addClass(\'btn-blue\');
+    $(".btn-large").addClass(\'activar-large\');
+  } else {
+    $(".btn-listado").removeClass(\'btn-blue\');
+    $(".btn-large").removeClass(\'activar-large\');
+    $(".btn-listado").addClass(\'activar-listado\');
+    $(".btn-large").addClass(\'btn-blue\');
+  }
+
+  $("#loader").fadeIn(\'slow\');
+  $.ajax({
+    url: \'modulos/'.$mod.'/admin/backend.php?mod='.$mod.'\' + action,
+    data: parametros,
+    beforeSend: function (objeto) {
+      $("#loader").html("<img src=\'apps/dashboards/loader.gif\'>");
+    },
+    success: function (data) {
+      $(".outer_div").html(data);
+      $("#loader").html("");
+    }
+  });
+}
+
+$(document).ready(function () {
+  // Global Settings   
+  console.log(\'jQuery:ajaxCrud esta funcionando\');
+  let edit = false;
+  load(1);
+
+  //BOTONES VISTAS
+  $(document).on(\'click\', \'.activar-listado\', function () {	
+	dbAjaxCrud[0] = {
+		val: 1
+	}
+	localStorage.setItem("dbCrud_'.$mod.'", JSON.stringify(dbAjaxCrud));
+	listado = dbAjaxCrud[0].val;//listado = 1;
+	//console.log("listado1:"+listado);
+    load(1);
+  });
+  $(document).on(\'click\', \'.activar-large\', function () {	  
+	dbAjaxCrud[0] = {
+		val: 0
+	}
+	localStorage.setItem("dbCrud_'.$mod.'", JSON.stringify(dbAjaxCrud));
+	listado = dbAjaxCrud[0].val;//listado = 0;
+	//console.log("listado0:"+listado);
+	load(1);
+  });
+
+  //AGREGAR/EDITAR
+  $("#form1").submit(function (e) {
+    e.preventDefault();
+    '.$tinyMCE.'
+    const postData = {
+'.$camposVal.$imas.'
+      visible: $("#visible").val(),
+      ID: $("#id").val()
+    };
+    //const url = edit === false ? \'modulos/'.$mod.'/admin/backend.php?mod='.$mod.'&ext=admin/index&action=add\' : \'modulos/'.$mod.'/admin/backend.php?mod='.$mod.'&ext=admin/index&action=edit\';
+    let edo = ($("#id").val() != \'\') ? \'edit\' : \'add\';
+    const url = \'modulos/'.$mod.'/admin/backend.php?mod='.$mod.'&ext=admin/index&action=\' + edo;
+    console.log(postData, url);
+    $.post(url, postData, function (response) {
+      //console.log(response);
+      console.log("Se ha " + edo + " el registro.");
+      $("#aviso").html(response).fadeIn("slow");
+      $("#aviso").fadeOut(6000);
+      //$("form1").trigger(\'reset\');//listar();//edit = false;
+    });
+  });
+
+  //BOTON BORRAR
+  $(document).on(\'click\', \'.btn-edit\', function () {
+    const element = $(this)[0].parentElement;
+	const id = $(element).attr(\'id\');
+	window.location.href="index.php?mod='.$mod.'&ext=admin/index'.$cond_opc.'&form=1&action=edit&id="+id;
+  });
+
+  //BOTON BORRAR
+  $(document).on(\'click\', \'.btn-delete\', function () {
+    const element = $(this)[0].parentElement;
+    const id = $(element).attr(\'id\');
+    Swal.fire({
+      title: \'¿Esta seguro de eliminar el proyecto (\' + id + \')?\',
+      text: "¡Esta operación no se puede revertir!",
+      icon: \'warning\',
+      showCancelButton: true,
+      confirmButtonColor: \'#d33\',
+      cancelButtonColor: \'#3085d6\',
+      confirmButtonText: \'Borrar\'
+    }).then((result) => {
+      if (result.value) {
+        $.post(\'modulos/'.$mod.'/admin/backend.php?action=delete\', {
+          id
+        }, (response) => {
+          console.log(response);
+          load(1);
+        });
+        Swal.fire(\'¡Eliminado!\', \'El proyecto ha sido eliminado.\', \'success\')
+      }
+    })
+  });
+
+  //SUBIR COVER
+  $(document).on(\'click\', \'#Aceptar\', function (e) {
+    e.preventDefault();
+    var frmData = new FormData;
+    frmData.append("userfile", $("input[name=userfile]")[0].files[0]);
+    //console.log(frmData);
+    $.ajax({
+      url: \'modulos/'.$mod.'/admin/backend.php?mod='.$mod.'&action=subir_cover\',
+      type: \'POST\',
+      data: frmData,
+      processData: false,
+      contentType: false,
+      cache: false,
+      beforeSend: function (data) {
+        $("#imagen").html("Subiendo Imagen");
+      },
+      success: function (data) {
+        //console.log(data);
+        $("#imagen").html(data);
+        $(".alert-dismissible").delay(4000).fadeOut("slow");
+        console.log("Subido Correctamente");
+      }
+    });
+    //return false;
+  });
+
+  //BUSCAR
+  $("#q").keyup(function (e) {
+    var buscar = $("#q").val();
+    if (buscar!="") {
+      load(1,buscar);
+    }else{
+      load(1);
+    }
+  });
+
+});
+
+function imagenes(val) {
+  console.log(\'Imagen: \' + val);
+  let file = \'userfile\' + val;
+  var frmData = new FormData;
+  frmData.append("userfile", $("input[name=userfile" + val + "]")[0].files[0]);
+  //console.log(frmData);
+  $.ajax({
+    url: \'modulos/'.$mod.'/admin/backend.php?mod='.$mod.'&action=subir_cover&val=\' + val,
+    type: \'POST\',
+    data: frmData,
+    processData: false,
+    contentType: false,
+    cache: false,
+    beforeSend: function (data) {
+      $("#ima" + val).html("Subiendo Imagen");
+    },
+    success: function (data) {
+      //console.log(data);
+      $("#ima" + val).html(data);
+      $(".alert-dismissible").delay(4000).fadeOut("slow");
+      console.log("Subido Correctamente");
+    }
+  });
+}
+
+function refrescar(){
+	sessionStorage.removeItem("dbCrud_'.$mod.'");
+	dbAjaxCrud[0] = {
+		val: listado
+	}
+	localStorage.setItem("dbCrud_'.$mod.'", JSON.stringify(dbAjaxCrud));
+	listado = dbAjaxCrud[0].val;//listado = 0;
+	//console.log("listado0:"+listado);
+	load(1);
+}
+';
+crear_archivo('modulos/'.$mod.'/js/','ajax_'.$mod.'.js',$contenido,$path_file);
+}
 ?>
