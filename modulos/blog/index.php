@@ -21,6 +21,6 @@
 </style>
 <div class="container">
 	<div class="col-lg-12 col-xs-12 blog"><h2><stong>BLOG</strong></h2></div>
-	<?php item_blog();?>
+	<?php blog();?>
     <div class="col-lg-12 col-xs-12 space"></div>
 </div>
