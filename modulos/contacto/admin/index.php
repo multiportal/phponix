@@ -331,18 +331,17 @@ echo '
 	default:
 
 if(isset($_POST['Guardar'])){
-$direc=htmlentities($_POST['direc'], ENT_COMPAT,'ISO-8859-1', true);
+$direc=$_POST['direc'];
 //$webMail=$_POST['webMail'];
 $contactMail=$_POST['contactMail'];
 $tel1=$_POST['tel'];
-
 $CoR=$_POST['CoR'];
 $CoE=$_POST['CoE'];
 $BCC=$_POST['BCC'];
 $CoP=$_POST['CoP'];
+html_iso_direc($direc);
 
 	$save=mysqli_query($mysqli,"UPDATE ".$DBprefix."config SET direc='{$direc}', contactMail='{$contactMail}', CoR='{$CoR}', CoE='{$CoE}', BCC='{$BCC}', CoP='{$CoP}', tel='{$tel1}' WHERE ID=1;") or print mysqli_error($mysqli);
-	//validar_aviso($save,'mensaje_bien','mensaje_mal',&$aviso)
 	validar_aviso($save,'Se ha guardo correctamente','No se puedo guardar intentelo nuevamente',$aviso);
 	//$URL=$page_url.'index.php?mod='.$mod.'&ext='.$ext.'&opc='.$opc;
 	recargar(3,$URL,$target);

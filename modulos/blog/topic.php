@@ -64,26 +64,6 @@ if($row){
               <div class="cancel-comment-reply">
                 <a rel="nofollow" id="cancel-comment-reply-link" href="/que-concentrador-de-oxigeno-escoger-aqui-un-articulo-sobre-everflo-vs-millenium/#respond" style="display:none;">Clic para cancelar respuesta.</a>				
               </div>
-              <!--?php include 'form_coment.php';?-->
-              <!--script src="https://code.jquery.com/jquery-1.11.2.min.js"></script-->
-              <!--script>
-               var $ = jQuery.noConflict();
-                   $(document).on('ready',function(){
-                     $('#btn-ingresar').click(function(e){
-                	     e.preventDefault();
-                       var url = "<?php echo $page_url;?>modulos/blog/form_coment.php";                                      
-                       $.ajax({                        
-                          type: "POST",                 
-                          url: url,                    
-                          data: $("#form_coment").serialize(),
-                          success: function(data){
-                           $('#form_coment_div').html(data);
-                		      $('#form_coment').trigger("reset");           
-                          }
-                        });
-                     });
-                   });    
-              </script-->
               <form id="form_coment" method="POST">
                 <div class="row">
                   <div class="lm-col-6">
@@ -112,11 +92,9 @@ if($row){
               </form>
               <div id="aviso"></div>
               <div id="form_coment_div">
-                <div class="lm-col-12">
-                 
+                <div class="lm-col-12">                 
                   <div id="contenido">
-                    <h3>Refrescar una div tag con Ajax</h3>
-                    // Aqui el Div en el que se coloca el contenido de comentarios.php
+                    // Aqui el Div en el que se coloca el contenido de comentarios
                     <div name="timediv" id="timediv"></div>
                   </div>
                 </div>

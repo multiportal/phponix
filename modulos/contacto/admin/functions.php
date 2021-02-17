@@ -1,4 +1,11 @@
 <?php
+function html_iso_direc(&$direc){
+global $chartset;
+ if($chartset=='iso-8859-1'){
+	$direc = htmlentities($direc, ENT_COMPAT,'ISO-8859-1', true);
+ }else{$direc = htmlentities($direc);}
+}
+
 function html_iso_contacto(&$nombre,&$email,&$subject,&$msj){
 global $chartset;
  if($chartset=='iso-8859-1'){

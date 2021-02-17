@@ -1,5 +1,6 @@
 <?php 
 include 'apps/dashboards/functions.php';
+header('Content-Type: text/html; charset='.$chartset);
 open_page_LTE();
 ?>
 <!-- Site wrapper -->
@@ -15,7 +16,7 @@ open_page_LTE();
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
 
-	<?php echo bodymodulos();?>
+	<?php bodymodulos();?>
 
   </div>
   <!-- /.content-wrapper -->

@@ -24,7 +24,7 @@ switch(true){
 if($_POST['Guardar']){
 $nom=$_POST['nom'];
 $modulo=$_POST['modulo'];
-$des=$_POST['des'];
+$des=htmlentities($_POST['des']);
 $nivel=$_POST['nivel'];
 $home=$_POST['home'];
 $activo=$_POST['activo'];
@@ -162,7 +162,7 @@ $visible=$reg['visible'];
 if($_POST['Guardar']){
 $nom=$_POST['nom'];
 $modulo=$_POST['modulo'];
-$des=$_POST['des'];
+$des=htmlentities($_POST['des']);
 $nivel=$_POST['nivel'];
 $home=$_POST['home'];
 $activo=$_POST['activo'];
