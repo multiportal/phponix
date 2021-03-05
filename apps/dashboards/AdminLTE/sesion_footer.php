@@ -376,12 +376,11 @@ if($mod=='sys' && $ext=='opciones'){
   }
 }
 
-/*ADMINNISTRACION AJAX*/
+/*ADMINISTRACION AJAX*/
 if($mod!='' && $ext=='admin/index'){
-  $path_file='modulos/'.$mod.'/js/ajax_'.$mod.'.js';
-  if(file_exists($path_file)){
-	echo '<script src="'.$page_url.$path_file.'?v='.time().'"></script>';
-  }
+  $op=($opc!='' && $opc!=NULL)?'_'.$opc:'';
+  $path_file='modulos/'.$mod.'/js/ajax_'.$mod.$op.'.js';
+  if(file_exists($path_file)){echo '<script src="'.$page_url.$path_file.'?v='.time().'"></script>';}
 }
 ?>
 
