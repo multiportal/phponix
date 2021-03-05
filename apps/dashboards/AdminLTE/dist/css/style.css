@@ -4,6 +4,7 @@
 .ima-size{height:145px; text-align:center; margin:0 auto;}
 .controles{float:right;font-size:20px;}
 #aviso{position:fixed; z-index:1000; top:80px; right:10px; display:none;}
-.activar-listado,.activar-large{color:#444;cursor:default;}
+.activar-listado,.activar-large{color:#3c8dbc;cursor:default;}
 .activar-listado:hover,.activar-large:hover{color:#3c8dbc;cursor:pointer;;}
-.btn-blue{color:#3c8dbc;cursor:default;}
+.btn-blue{color:#444;cursor:default;}
+.btn-gris{color:#444;cursor:default;}

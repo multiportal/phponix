@@ -415,7 +415,7 @@ global $conec,$DBprefix,$tabla;
 
 //UPDATE
 function update($id){
-global $conec,$DBprefix,$tabla;
+global $conec,$DBprefix,$tabla,$chartset;
     $input = $_POST; 
     $postId = $id; 
     $fields = getParams($input); //echo $fields;//exit();
@@ -2153,7 +2153,7 @@ global $page_url,$path_root,$path_tema,$page_name;
 }
 
 function icon(){
-global $page_url,$path_tema,$page_name;
+global $page_url,$path_tema,$page_name,$title,$description;
 	echo '<meta name="'.$page_name.'" content="Add to Home">
 	'.crear_manifest().'
 	<link  rel = "apple-touch-icon"  tallas = "57x57"  href = "'.$page_url.'bloques/WPA/icon/apple-icon-57x57.png" > 
@@ -2180,6 +2180,13 @@ global $page_url,$path_tema,$page_name;
 	<link rel="apple-touch-icon-precomposed" href="'.$page_url.'bloques/WPA/icon/apple-icon-152x152.png">
 	<meta name="apple-mobile-web-app-capable" content="yes">
 	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+	<!-- SOCIAL MEDIA META -->
+	<meta property="og:description" content="'.$description.'">
+	<meta property="og:image" content="'.$page_url.'bloques/WPA/icon/apple-icon-180x180.png">
+	<meta property="og:site_name" content="'.$page_name.'">
+	<meta property="og:title" content="'.$title.'">
+	<meta property="og:type" content="website">
+	<meta property="og:url" content="'.$dominio.'">
 	';
 }
 

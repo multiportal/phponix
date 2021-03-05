@@ -728,6 +728,20 @@ $c       = 0;
 echo $aviso;
 }
 
+function categoria($ID_cate){
+$tabla='productos_cate';
+$data = query_data($tabla, $url_api=NULL);
+    if ($data != '' & $data != NULL) {
+        foreach ($data as $campo => $dato) {
+            $ID=$dato['ID'];
+            if($ID==$ID_cate){
+              $categoria=$dato['categoria'];
+            }
+        }
+        return $categoria;
+    }    
+}
+
 function listado($th,$btn_modal){
 global $mysqli,$DBprefix,$page_url,$mod,$opc,$action,$tabla,$url_api;
 $tabla=table();//echo '<div>mod:'.$mod.'|action:'.$action.'|opc:'.$opc.'</div>';
@@ -759,7 +773,7 @@ $modo  = (isset($_REQUEST['mode']) && $_REQUEST['mode'] != NULL) ? $_REQUEST['mo
                     $campos1.='<th class="text-center">'.$datos.'</th>'."\n";
                     $campos2[].=$value;
                 }
-                $campos1.='<th style="display:'.$display.';">Acciones</th>'."\n";
+                $campos1.='<th style="display:'.$display.';width:100px;">Acciones</th>'."\n";
             }
             //if($thc==1){echo '<thead><tr>'.$campos.'</tr></thead>'."\n";}
             //DATOS
@@ -779,7 +793,10 @@ $modo  = (isset($_REQUEST['mode']) && $_REQUEST['mode'] != NULL) ? $_REQUEST['mo
                         if($campos2[$k]=='cover'){
                             $cover = ($row[$campos2[$k]] != '') ? $row[$campos2[$k]] : 'nodisponible.jpg';
                             $row2 .= '<td class="'.$class.'"><img src="' . $page_url . 'modulos/' . $mod . '/fotos/' . $cover . '" alt="Product Image" class="img-rounded" width="60"></td>';                                    
-                        }elseif($campos2[$k]=='cate'){
+                          }elseif($campos2[$k]=='ID_cate'){
+                            $ID_cate=$row[$campos2[$k]];
+                            $row2 .= '<td class="'.$class.'">'.$ID_cate.'</td>';
+                          }elseif($campos2[$k]=='cate'){
                             $row2 .= '<td class="'.$class.'">'.ucfirst(str_replace('_', ' ',$row[$campos2[$k]])).'</td>';
                         }elseif($campos2[$k]=='visible'){
                             $row2 .= '<td>'.$activo.'</td>';
@@ -863,7 +880,7 @@ if($th!=''){
         $campos1.='<th class="text-center">'.$datos.'</th>'."\n";
         $campos2[].=$value;
     }
-    $campos1.='<th style="display:'.$display.';">Acciones</th>'."\n";
+    $campos1.='<th style="display:'.$display.';width:100px;">Acciones</th>'."\n";
 }
 $rep1 = array('_','cion');
 $rep2 = array(' ','ci&oacute;n');
