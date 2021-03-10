@@ -1,5 +1,6 @@
 <?php 
 if(isset($_SESSION["username"])){
+  $active=($mod=='dashboard')?' active':'';
 ?>
 <aside class="main-sidebar">
     <!-- sidebar: style can be found in sidebar.less -->
@@ -29,7 +30,7 @@ if(isset($_SESSION["username"])){
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu">
         <li class="header">MENU</li>
-        <li class="treeview">
+        <li class="treeview<?php echo $active;?>">
           <a href="<?php echo $page_url.'index.php?mod=dashboard';?>">
             <i class="fa fa-dashboard"></i> <span>Dashboard</span>
             <!--span class="pull-right-container">

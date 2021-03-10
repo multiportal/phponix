@@ -242,7 +242,7 @@ echo '</ol>';
 }
 
 function menu_mod($tab_m,$niv){
-global $mysqli,$DBprefix,$nivel,$page_url;
+global $mysqli,$DBprefix,$nivel,$URL,$page_url,$mod,$ext;
 user_login($ID_login,$username,$email_login,$nivel_login,$last_login,$tema_login,$nombre_login,$apaterno_login,$amaterno_login,$foto_login,$cover_login,$tel_login,$ext_login,$fnac_login,$fb_login,$tw_login,$puesto_login,$ndepa_login,$depa_login,$empresa_login,$adress_login,$direccion_login,$mpio_login,$edo_login,$edo_login,$genero_login,$exp_login,$like_login,$filtro_login,$zona_login,$alta_login,$actualizacion_login,$page_login,$nivel_oper_login,$rol_login);
 switch(true){
 	case($tab_m=='modulos');
@@ -259,16 +259,16 @@ switch(true){
 	break;
 }
 $sql=mysqli_query($mysqli,"SELECT * FROM ".$DBprefix.$tab_m." WHERE {$niv_mod} AND visible=1 ORDER BY {$nom_m_a} ASC;") or print mysqli_error($mysqli); 
-while($row=mysqli_fetch_array($sql)){$id_m=$row['ID'];$nombre=$row[$nom_m_a];$icono=$row['icono'];$link=$row['link'];
+while($row=mysqli_fetch_array($sql)){$id_m=$row['ID'];$nombre=$row[$nom_m_a];$icono=$row['icono'];$link=$row['link'];$m=$row['modulo'];
 	$sql1=mysqli_query($mysqli,"SELECT * FROM ".$DBprefix."menu_admin WHERE ({$ID_m_a}='{$id_m}') AND {$niv_mod2} AND visible=1;") or print mysqli_error($mysqli); 
-	$top_menu='';
+	$top_menu='';$active=($mod==$m)?' active':'';
 	while($row1=mysqli_fetch_array($sql1)){$id_sub=$row1[$ID_m_a];$nombre_a=$row1['nom_menu'];$icono_a=$row1['icono'];$link_a=$row1['link'];
-		$link_a=($link_a=='')?'#':$page_url.$link_a;
-		$top_menu.='<li><a href="'.$link_a.'"><i class="fa '.$icono_a.'"></i> '.$nombre_a.'</a></li>';
-	}
+    $link_a=($link_a=='')?'#':$page_url.$link_a;$active2=($URL==$link_a)?' class="active"':'';
+		$top_menu.='<li'.$active2.'><a href="'.$link_a.'"><i class="fa '.$icono_a.'"></i> '.$nombre_a.'</a></li>';
+  }  
 	if($id_sub==$id_m){
 		$menu_modulos.='
-		<li class="treeview">
+		<li class="treeview'.$active.'">
           <a href="#">
             <i class="fa '.$icono.'"></i> <span>'.$nombre.'</span>
             <span class="pull-right-container">
@@ -282,8 +282,7 @@ while($row=mysqli_fetch_array($sql)){$id_m=$row['ID'];$nombre=$row[$nom_m_a];$ic
 		';
 	}else{
 		$link=($link=='')?'#':$page_url.$link.$aindex;
-		//$menu_modulos.='<li><a href="'.$page_url.$link.$aindex.'"><i class="fa '.$icono.'"></i> <span>'.$nombre.'</span></a></li>';
-		$menu_modulos.='<li><a href="'.$link.'"><i class="fa '.$icono.'"></i> <span>'.$nombre.'</span></a></li>'; 
+		$menu_modulos.='<li class="'.$active.'"><a href="'.$link.'"><i class="fa '.$icono.'"></i> <span>'.$nombre.'</span></a></li>'; 
 	}
 }
 echo $menu_modulos;
@@ -595,61 +594,6 @@ $cond_opc = ($opc!='')?'&opc='.$opc : '';
     if($large==1){echo $vistas;}
 }
 
-function cate_porta($cate){
-global $page_url,$tabla,$url_api;
-$url_api=url_api();
-$data = query_data($tabla, $url_api);
-    if ($data != '' & $data != NULL) {
-        $i = 0;
-        foreach ($data as $row) {
-            $i++;
-            $cat[] = $row['cate'];
-        }
-        $res = array_unique($cat); //print_r($res);
-        foreach ($res as $row => $dato) {
-            $cate1     = str_replace('_', ' ', $dato);
-            $seleccion = ($dato == $cate) ? 'selected' : '';
-            $selector1 .= '<option value="' . $dato . '" ' . $seleccion . '>' . $cate1 . '</option>';
-        }
-        $selector = '<select class="form-control" id="cate" name="cate"><option>[Elige una Categor&iacute;a]</option>' . $selector1 . '</select>';
-    }else{
-        $selector = '<div>Sin Selector</div>';
-    }
-    echo $selector;
-}
-
-function cate_porta_js($cate, $id_ctrl, $id_div){
-global $page_url,$tabla,$url_api;
-$url_api=url_api();
-$data = query_data($tabla, $url_api);
-    if ($data != '' & $data != NULL) {
-        $i = 0;
-        foreach ($data as $row) {
-            $i++;
-            $cat[] = $row['cate'];
-        }
-        $res = array_unique($cat); //print_r($res);
-        foreach ($res as $row => $dato) {
-            $cate1     = str_replace('_', ' ', $dato);
-            $seleccion = ($dato == $cate) ? 'selected' : '';
-            $selector1 .= '<option value="' . $dato . '" ' . $seleccion . '>' . $cate1 . '</option>';
-        }
-        $selector = '<select class="form-control" id="' . $id_ctrl . '" name="' . $id_ctrl . '"><option>[Elige una Categor&iacute;a]</option>' . $selector1 . '</select>';
-    } else {
-        $selector = '<div>Sin Selector</div>';
-    }
-echo '<script>
-function add_select_cate(val){
-	if(val==1){	
-		document.getElementById(\'' . $id_div . '\').innerHTML=\'<input type="text" class="form-control" id="' . $id_ctrl . '" name="' . $id_ctrl . '" value=""><div><a href="javascript:add_select_cate(0);">Cancelar</a></div>\';
-	}else{
-		document.getElementById(\'' . $id_div . '\').innerHTML=\'' . $selector . '<div><a href="javascript:add_select_cate(1);"><i class="fa fa-plus"></i> Agregar Categoria</a></div>\';
-	}
-}
-add_select_cate(0);
-</script>';
-}
-
 function file_ima($cover){
 global $page_url,$mod;
     $cover = ($cover != '' && $cover != NULL) ? $cover : 'nodisponible1.jpg';
@@ -694,6 +638,7 @@ global $page_url, $mod;
 
 function acciones(){
 global $page_url,$mod,$ext,$opc,$action,$tabla,$url_api;
+$cond_opc=($opc!='')?'&opc='.$opc:'';
 $tabla=table();
 $tabla=validacion_tabla($tabla);
 $id      = $_POST['ID']; //$nombre=$_POST['nombre'];
@@ -721,36 +666,23 @@ $c       = 0;
             $edi  = 'agregado';
             $save = insert();
         }
-        $URL = $page_url . 'index.php?mod=' . $mod . '&ext=' . $ext;
+        $URL = $page_url . 'index.php?mod=' . $mod . '&ext=' . $ext.$cond_opc;
         recargar(5, $URL, $target);
-        validar_aviso($save, 'El Proyecto se ha ' . $edi . ' correctamente', 'No se puedo guardar intentelo nuevamente', $aviso);
+        validar_aviso($save, 'El registro se ha ' . $edi . ' correctamente', 'No se puedo guardar intentelo nuevamente', $aviso);
     }
 echo $aviso;
-}
-
-function categoria($ID_cate){
-$tabla='productos_cate';
-$data = query_data($tabla, $url_api=NULL);
-    if ($data != '' & $data != NULL) {
-        foreach ($data as $campo => $dato) {
-            $ID=$dato['ID'];
-            if($ID==$ID_cate){
-              $categoria=$dato['categoria'];
-            }
-        }
-        return $categoria;
-    }    
 }
 
 function listado($th,$btn_modal){
 global $mysqli,$DBprefix,$page_url,$mod,$opc,$action,$tabla,$url_api;
 $tabla=table();//echo '<div>mod:'.$mod.'|action:'.$action.'|opc:'.$opc.'</div>';
+$b=($opc!='')?$opc:'nombre';
+$cond_opc  = ($opc != '') ? '&opc=' . $opc : '';
 $modo  = (isset($_REQUEST['mode']) && $_REQUEST['mode'] != NULL) ? $_REQUEST['mode'] : '';
     if ($modo == 'ajax') {
         $q=$_REQUEST['q'];
-        $buscar = (!empty($q))?" WHERE nombre LIKE '%{$q}%'":'';
+        $buscar = (!empty($q))?" WHERE {$b} LIKE '%{$q}%'":'';
 
-        $cond_opc  = ($opc != '') ? '&opc=' . $opc : '';
         //las variables de paginación
         $page      = (isset($_REQUEST['page']) && !empty($_REQUEST['page'])) ? $_REQUEST['page'] : 1;
         $per_page  = 8; //la cantidad de registros que desea mostrar		
@@ -873,7 +805,7 @@ $modo  = (isset($_REQUEST['mode']) && $_REQUEST['mode'] != NULL) ? $_REQUEST['mo
 function ajaxCrud($large,$campos,$th,$imas,$tinyMCE){
 global $page_url,$URL,$mod,$ext,$id,$idp,$idf,$opc,$form,$action,$ctrl;
 $mod_opc=($opc!='' & $opc!=NULL)?$mod.'_'.$opc:$mod;
-$cond_opc = ($opc!='') ? '&opc=' . $opc : '';
+$cond_opc = ($opc!='') ? '&opc='.$opc : '';
 $tinyMCE=($tinyMCE==1)?'tinyMCE.triggerSave();':'';
 $lista=($large==1)?0:1;
 //CAMPOS print_r($th);
@@ -958,7 +890,7 @@ function load(page,q) {
 
   $("#loader").fadeIn(\'slow\');
   $.ajax({
-    url: \'modulos/'.$mod.'/admin/backend.php?mod='.$mod.'&opc='.$opc.'\' + action,
+    url: \'modulos/'.$mod.'/admin/backend.php?mod='.$mod.$cond_opc.'\' + action,
     data: parametros,
     beforeSend: function (objeto) {
       $("#loader").html("<img src=\'apps/dashboards/loader.gif\'>");
@@ -1005,9 +937,9 @@ $(document).ready(function () {
       visible: $("#visible").val(),
       ID: $("#id").val()
     };
-    //const url = edit === false ? \'modulos/'.$mod.'/admin/backend.php?mod='.$mod.'&ext=admin/index&action=add\' : \'modulos/'.$mod.'/admin/backend.php?mod='.$mod.'&ext=admin/index&action=edit\';
+    //const url = edit === false ? \'modulos/'.$mod.'/admin/backend.php?mod='.$mod.'&ext=admin/index'.$cond_opc.'&action=add\' : \'modulos/'.$mod.'/admin/backend.php?mod='.$mod.'&ext=admin/index'.$cond_opc.'&action=edit\';
     let edo = ($("#id").val() != \'\') ? \'edit\' : \'add\';
-    const url = \'modulos/'.$mod.'/admin/backend.php?mod='.$mod.'&ext=admin/index&action=\' + edo;
+    const url = \'modulos/'.$mod.'/admin/backend.php?mod='.$mod.'&ext=admin/index'.$cond_opc.'&action=\' + edo;
     console.log(postData, url);
     $.post(url, postData, function (response) {
       //console.log(response);
@@ -1030,7 +962,7 @@ $(document).ready(function () {
     const element = $(this)[0].parentElement;
     const id = $(element).attr(\'id\');
     Swal.fire({
-      title: \'¿Esta seguro de eliminar el proyecto (\' + id + \')?\',
+      title: \'¿Esta seguro de eliminar el registro (\' + id + \')?\',
       text: "¡Esta operación no se puede revertir!",
       icon: \'warning\',
       showCancelButton: true,
@@ -1045,7 +977,7 @@ $(document).ready(function () {
           console.log(response);
           load(1);
         });
-        Swal.fire(\'¡Eliminado!\', \'El proyecto ha sido eliminado.\', \'success\')
+        Swal.fire(\'¡Eliminado!\', \'El registro ha sido eliminado.\', \'success\')
       }
     })
   });
