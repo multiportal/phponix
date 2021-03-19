@@ -95,7 +95,8 @@ $vhref 		= (isset($_GET['vhref']))?$_GET['vhref']:''; //Variable de seguimiento.
 //$tabla      = (isset($_GET['tabla']))?$_GET['tabla']:'';//Variable de Tabla. 
 
 
-//$token=bin2hex(random_bytes(64));
+//$token=bin2hex(random_bytes(64));$token=sha1(uniqid(rand(),true));
+$ran_url = substr(md5(microtime()), rand(0,26), 5);//Generador Random de 5 caracteres
 $ver_file=($host=='localhost')?'ver='.$time:'ver='.$date;
 $path_jsonDB='bloques/webservices/rest/json/';
 $path_jsonWS='bloques/ws/t/?t=';
@@ -1522,8 +1523,10 @@ if($sal){
 				default:
 					$URL_log=$page_url.'admin/';
 				break;
-			}
+			}			
 
+			$token = sha1(uniqid(rand(),true));
+			setcookie("token",$token,time()+(60+60+24+31),"/");
 			$form_login=recargar($seg=3,$URL_log,'').'
 				<div class="container">
 					<header>

@@ -580,6 +580,38 @@ global $mysqli,$DBprefix;
 }
 
 /**FUNCIONES PARA MODULOS *//////////////////////////////////////////////////////////////////////////////////
+function cate_porta_js($cate, $id_ctrl, $id_div){
+global $page_url,$tabla,$url_api;
+$url_api=url_api();
+$data = query_data($tabla, $url_api);
+    if ($data != '' & $data != NULL) {
+        $i = 0;
+        foreach ($data as $row) {
+            $i++;
+            $cat[] = $row['cate'];
+        }
+        $res = array_unique($cat); //print_r($res);
+        foreach ($res as $row => $dato) {
+            $cate1     = str_replace('_', ' ', $dato);
+            $seleccion = ($dato == $cate) ? 'selected' : '';
+            $selector1 .= '<option value="' . $dato . '" ' . $seleccion . '>' . $cate1 . '</option>';
+        }
+        $selector = '<select class="form-control" id="' . $id_ctrl . '" name="' . $id_ctrl . '"><option>[Elige una Categor&iacute;a]</option>' . $selector1 . '</select>';
+    } else {
+        $selector = '<div>Sin Selector</div>';
+    }
+echo '<script>
+function add_select_cate(val){
+	if(val==1){	
+		document.getElementById(\'' . $id_div . '\').innerHTML=\'<input type="text" class="form-control" id="' . $id_ctrl . '" name="' . $id_ctrl . '" value=""><div><a href="javascript:add_select_cate(0);">Cancelar</a></div>\';
+	}else{
+		document.getElementById(\'' . $id_div . '\').innerHTML=\'' . $selector . '<div><a href="javascript:add_select_cate(1);"><i class="fa fa-plus"></i> Agregar Categoria</a></div>\';
+	}
+}
+add_select_cate(0);
+</script>';
+}
+
 /**FUNCINES BACKEND PARA LOS MODULOS*/
 function btnVistas($large){
 global $page_url, $mod, $ext, $action, $opc, $username;

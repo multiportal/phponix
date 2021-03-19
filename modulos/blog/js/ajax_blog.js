@@ -114,7 +114,7 @@ fecha: $("#fecha").val(),
     });
   });
 
-  //BOTON BORRAR
+  //BOTON EDITAR
   $(document).on('click', '.btn-edit', function () {
     const element = $(this)[0].parentElement;
 	const id = $(element).attr('id');
@@ -126,7 +126,7 @@ fecha: $("#fecha").val(),
     const element = $(this)[0].parentElement;
     const id = $(element).attr('id');
     Swal.fire({
-      title: '¿Esta seguro de eliminar el proyecto (' + id + ')?',
+      title: '¿Esta seguro de eliminar el registro (' + id + ')?',
       text: "¡Esta operación no se puede revertir!",
       icon: 'warning',
       showCancelButton: true,
@@ -141,7 +141,7 @@ fecha: $("#fecha").val(),
           console.log(response);
           load(1);
         });
-        Swal.fire('¡Eliminado!', 'El proyecto ha sido eliminado.', 'success')
+        Swal.fire('¡Eliminado!', 'El registro ha sido eliminado.', 'success')
       }
     })
   });
