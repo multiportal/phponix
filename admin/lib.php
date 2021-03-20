@@ -3,10 +3,16 @@
 Author: Guillermo Jiménez López
 Author URI: https://www.multiportal.com.mx
 SISTEMA PHPONIX
-Version Actual: 2.8.1
+Version Actual: 2.8.2
 F.Creación: 26/03/2015
-F.Modficación: 06/02/2021
+F.Modficación: 20/03/2021
 Descripción: Aplicación web multiproposito.
+/**********************************************************
+v.2.8.2 - TOKEN
+-Seguridad: Se agrego Token(Funcional!!!)
+/**********************************************************
+v.2.8.1 - API
+-Se creo API Rest General (/api)
 /**********************************************************
 v.2.8.0 - TOKEN  
 -Seguridad: Se agrego Token(variable no funciona)
@@ -14,8 +20,10 @@ v.2.8.0 - TOKEN
 -Se agrego varible para archivos css y js:$ver_file
 -Se agrego Path para consultas JSON ($path_jsonWS,$path_jsonDB;)
 -Transformacion de modulos a AJAX
-1-MODULO: 
-2-MODULO:
+1-MODULO: Servicios 
+2-MODULO: Portafolio
+3-MODULO: Productos
+4-MODULO: Blog
 *Preparación para las WPA
 **Nuevas Funcionalidades
 /**********************************************************
@@ -94,9 +102,7 @@ $idf 		= (isset($_GET['idf']))?$_GET['idf']:'';//Variable bandera
 $vhref 		= (isset($_GET['vhref']))?$_GET['vhref']:''; //Variable de seguimiento.
 //$tabla      = (isset($_GET['tabla']))?$_GET['tabla']:'';//Variable de Tabla. 
 
-
-//$token=bin2hex(random_bytes(64));$token=sha1(uniqid(rand(),true));
-$ran_url = substr(md5(microtime()), rand(0,26), 5);//Generador Random de 5 caracteres
+//$token=bin2hex(random_bytes(64));
 $ver_file=($host=='localhost')?'ver='.$time:'ver='.$date;
 $path_jsonDB='bloques/webservices/rest/json/';
 $path_jsonWS='bloques/ws/t/?t=';
@@ -1466,11 +1472,12 @@ if($sal){
 	$os=$info['os'];
 	$code=$_POST['code'];
 
+	if(isset($code)){
+		$sql=mysqli_query($mysqli,"INSERT INTO ".$DBprefix."access (user,ip,navegador,os,code,fecha) VALUES ('{$U}','{$ip}','{$navegador}','{$os}','{$code}','{$date}');") or print mysqli_error($mysqli);
+	}
+
 	$sql=mysqli_query($mysqli,"SELECT * FROM ".$DBprefix."access WHERE (user='{$login}' && ip='{$ip}' && navegador='{$navegador}' && os='{$os}') OR (user='{$login}' && code='{$code}');") or print mysqli_error($mysqli);
 	if(mysqli_num_rows($sql)){
-		if(isset($code)){
-			$sql=mysqli_query($mysqli,"INSERT INTO ".$DBprefix."access (user,ip,navegador,os,code,fecha) VALUES ('{$U}','{$ip}','{$navegador}','{$os}','{$code}','{$date}');") or print mysqli_error($mysqli);
-		}
 	/*PASSWORD*********/
 		$sql=mysqli_query($mysqli,"SELECT * FROM ".$DBprefix."signup WHERE username='{$login}' && password='{$pass1}';") or print mysqli_error($mysqli); 
     	if(mysqli_num_rows($sql)){
@@ -1525,7 +1532,8 @@ if($sal){
 				break;
 			}			
 
-			$token = sha1(uniqid(rand(),true));
+			$token = Token();
+			$sql=mysqli_query($mysqli,"INSERT INTO ".$DBprefix."token (ID_user,Token,Estado,Fecha) VALUES ('{$_SESSION["ID"]}','{$token}','Activo','{$date}');") or print mysqli_error($mysqli);			
 			setcookie("token",$token,time()+(60+60+24+31),"/");
 			$form_login=recargar($seg=3,$URL_log,'').'
 				<div class="container">
@@ -2205,6 +2213,16 @@ function cadena_replace(&$replace1,&$replace2){
 	$replace1=array(' ','.',',','(',')','/','"','á','é','í','ó','ú','&aacute;','&eacute;','&iacute;','&oacute;','&uacute;','Á','É','Í','Ó','Ú','&Aacute;','&Eacute;','&Iacute;','&Oacute;','&Uacute;','ñ','Ñ','&ntilde;','&Ntilde;','&','amp;');
 	$replace2=array('-','-','-','-','-','-','-','a','e','i','o','u','a','e','i','o','u','A','E','I','O','U','A','E','I','O','U','n','N','n','N','','');
 }*/
+
+function Token(){
+	$token=sha1(uniqid(rand(),true));//Generador de Token
+	return $token;
+}
+
+function RanUrl(){
+	$ran_url = substr(md5(microtime()), rand(0,26), 5);//Generador Random de 5 caracteres
+	return $ran_url;
+}
 
 function ssl(){
 global $host,$path_root;

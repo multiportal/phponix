@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 17-02-2021 a las 05:51:07
+-- Tiempo de generación: 20-03-2021 a las 22:31:53
 -- Versión del servidor: 10.1.38-MariaDB
 -- Versión de PHP: 7.3.2
 
@@ -43,12 +43,7 @@ CREATE TABLE `php_access` (
 --
 
 INSERT INTO `php_access` (`ID`, `user`, `ip`, `navegador`, `os`, `code`, `fecha`) VALUES
-(1, 'admin', '127.0.0.5', 'CHROME', 'WIN', '944950', '2019-06-06 03:35:27'),
-(2, 'usuario', '127.0.0.1', 'CHROME', 'WIN', '234567', '2019-06-06 03:35:27'),
-(4, 'demo', '127.0.0.1', 'CHROME', 'WIN', '234567', '2019-06-06 03:35:27'),
-(5, 'ventas', '127.0.0.1', 'CHROME', 'WIN', '234567', '2019-06-06 03:35:27'),
-(6, 'admin', '192.168.0.3', 'CHROME', 'ANDROID', '944950', '2020-06-19 19:43:41'),
-(7, 'admin', '127.0.0.1', 'CHROME', 'WIN', '944950', '2020-09-06 21:11:43');
+(1, 'admin', '127.0.0.1', 'CHROME', 'WIN', '944950', '2021-03-20 17:22:48');
 
 -- --------------------------------------------------------
 
@@ -103,7 +98,7 @@ CREATE TABLE `php_blog` (
 --
 
 INSERT INTO `php_blog` (`ID`, `cover`, `titulo`, `descripcion`, `contenido`, `cate`, `tag`, `autor`, `fmod`, `fecha`, `visible`) VALUES
-(1, 'blog_FO_petrolera.jpg', 'Mi primer blog', 'Si vives con EPOC, tener una fuente de oxígeno confiable es importante para mantener...', '<p>Si vives con EPOC, tener una fuente de ox&iacute;geno confiable es importante para mantener tu calidad de vida. Sin embargo, existen tantos tipos diferentes de concentradores de ox&iacute;geno en el mercado hoy en d&iacute;a, que puede ser dif&iacute;cil elegir el que mejor se adapte a sus necesidades. A medida que esta tecnolog&iacute;a contin&uacute;a avanzando, aparecen caracter&iacute;sticas m&aacute;s nuevas y opciones m&aacute;s c&oacute;modas, &iexcl;y desea aprovecharlas al m&aacute;ximo!</p>\n<p>La buena noticia es que hay m&aacute;s opciones para la terapia de ox&iacute;geno disponibles para ti; a continuaci&oacute;n, hemos recopilado informaci&oacute;n excelente sobre los dos principales concentradores de oxigeno dom&eacute;sticos de Philips Respironics:</p>\n<table>\n<tbody>\n<tr>\n<td width=\"299\"><strong>EVERFLO</strong>\n<p>&nbsp;</p>\n<p>El concentrador de ox&iacute;geno EverFlo de 5 litros es una m&aacute;quina silenciosa, liviana y compacta que es menos llamativa que muchas otras.</p>\n<p>Los usuarios pueden comprar el modelo est&aacute;ndar, o el que tiene un indicador de porcentaje de ox&iacute;geno (OPI) y usa ultrasonido para medir el flujo de ox&iacute;geno.</p>\n<p>Los controles se encuentran en el lado delantero izquierdo de la m&aacute;quina y una perilla de rodillo controla el medidor de flujo de ox&iacute;geno empotrado en el centro. Una botella de humidificador se puede conectar a la parte posterior izquierda de la m&aacute;quina con velcro. &iexcl;El tubo se conecta f&aacute;cilmente a la c&aacute;nula de metal encima del interruptor de encendido, y tambi&eacute;n se pueden almacenar tubos adicionales en el interior.</p>\n<p>&iexcl;EverFlo 5L pesa 14 kgs y entrega ox&iacute;geno a .5-5 LPM con una concentraci&oacute;n de ox&iacute;geno de hasta 95% en todas las velocidades de flujo. La m&aacute;quina mide 58 cm de profundidad.</p>\n<p>El concentrador EverFlo de 5L viene con una garant&iacute;a est&aacute;ndar de 1 a&ntilde;o.</p>\n</td>\n<td width=\"299\"><strong>MILLENNIUM</strong>\n<p>&nbsp;</p>\n<p>El concentrador de ox&iacute;geno Millenium proporciona hasta 10 LPM de ox&iacute;geno, d&aacute;ndole las especificaciones de una unidad de &ldquo;alto flujo&rdquo;.</p>\n<p>El concentrador de ox&iacute;geno est&aacute; disponible en dos modelos: el modelo est&aacute;ndar y uno dise&ntilde;ado con un indicador de porcentaje de ox&iacute;geno (OPI), una funci&oacute;n que utiliza tecnolog&iacute;a de ultrasonido para medir el flujo de ox&iacute;geno.</p>\n<p>El dise&ntilde;o rectangular blanco es fuerte y resistente, y cuatro ruedas grandes (junto con un asa insertada en la parte superior) lo hacen bastante f&aacute;cil de mover.</p>\n<p>Este concentrador tiene una v&aacute;lvula SMC de &ldquo;ciclo seguro&rdquo;, dise&ntilde;ada espec&iacute;ficamente para manejar los mayores flujos de presi&oacute;n necesarios para una m&aacute;quina de 10 LPM. Millenium tambi&eacute;n est&aacute; dise&ntilde;ado con un compresor de doble cabezal equipado para impulsar m&aacute;s aire a trav&eacute;s de los lechos de tamices de la m&aacute;quina para eliminar el nitr&oacute;geno.</p>\n<p>Philips Respironics &ldquo;Millennium&rdquo; viene con una garant&iacute;a est&aacute;ndar de un a&ntilde;o.</p>\n</td>\n</tr>\n<tr>\n<td colspan=\"2\" width=\"599\"><strong>Caracter&iacute;sticas y Beneficios</strong></td>\n</tr>\n<tr>\n<td width=\"299\">Silencioso y f&aacute;cil de usar\n<p>&nbsp;</p>\n<p>Controles claros y visibles</p>\n<p>Dise&ntilde;o ergon&oacute;mico: rueda f&aacute;cilmente</p>\n<p>Peso ligero de 14 kg</p>\n<p>Medidor de flujo empotrado para proteger contra la rotura</p>\n<p>Velcro asegura la botella del humidificador en la m&aacute;quina</p>\n<p>Proporciona ox&iacute;geno a .5-5 LPM con 95% de ox&iacute;geno</p>\n<p>Alarmas de seguridad por fallas</p>\n<p>Garant&iacute;a de producto de tres a&ntilde;os</p>\n</td>\n<td width=\"299\">F&aacute;cil de usar: los controles son claros y visibles\n<p>&nbsp;</p>\n<p>Pesa 24 kg</p>\n<p>Indicador de Porcentaje de Ox&iacute;geno (OPI) se puede agregar en</p>\n<p>Proporciona ox&iacute;geno a 1-10 LPM al 96% de ox&iacute;geno</p>\n<p>Alarmas de seguridad por fallas y bajo porcentaje de ox&iacute;geno</p>\n<p>Menos partes m&oacute;viles que otros concentradores</p>\n<p>Garant&iacute;a est&aacute;ndar de un a&ntilde;o</p>\n</td>\n</tr>\n<tr>\n<td colspan=\"2\" width=\"599\"><strong>Pros</strong></td>\n</tr>\n<tr>\n<td width=\"299\">Funcionamiento silencioso y sonido silencioso cuando se inicia (45 db)\n<p>&nbsp;</p>\n<p>F&aacute;cil de usar</p>\n<p>Confiable y ligero</p>\n<p>Port&aacute;til y f&aacute;cil de mover</p>\n<p>Consumo de energ&iacute;a de 350 w</p>\n<p>&nbsp;</p>\n</td>\n<td width=\"299\">Bien hecho y f&aacute;cil de configurar\n<p>&nbsp;</p>\n<p>Robusto, confiable y de bajo mantenimiento</p>\n<p>Produce hasta 10 LPM de ox&iacute;geno</p>\n</td>\n</tr>\n<tr>\n<td colspan=\"2\" width=\"599\"><strong>Contras</strong></td>\n</tr>\n<tr>\n<td width=\"299\">Bip fuerte cuando se inicia\n<p>&nbsp;</p>\n<p>Baja altitud de trabajo</p>\n<p>Produce hasta 5 LPM de ox&iacute;geno</p>\n</td>\n<td width=\"299\">Demasiado ruidoso para algunos usuarios (50 db)\n<p>&nbsp;</p>\n<p>Pesa 24 kg</p>\n<p>Tiene m&aacute;s potencia de la que muchos usuarios necesitan</p>\n<p>Consumo de energ&iacute;a de 600 w</p>\n<p><strong>&nbsp;</strong></p>\n</td>\n</tr>\n</tbody>\n</table>\n<p>La elecci&oacute;n de los dispositivos de administraci&oacute;n de ox&iacute;geno depende del requerimiento del paciente, la eficacia del dispositivo, la fiabilidad, la facilidad de aplicaci&oacute;n terap&eacute;utica y la aceptaci&oacute;n del paciente. <a href=\"http://samsung-healthcare.mx/contacto\"><span style=\"text-decoration: underline;\">Para m&aacute;s informaci&oacute;n sobre la elecci&oacute;n de su concentrador de ox&iacute;geno no dude en contactarnos.</span></a></p>', 'Sin Categoría', 'EPOC, Oxígeno', 'admin', '2021-02-17 05:14:00', '2017-01-18 14:05:23', 1);
+(1, 'blog_FO_petrolera.jpg', 'Mi primer blog', 'Si vives con EPOC, tener una fuente de oxigeno confiable es importante para mantener...', '<p>Si vives con EPOC, tener una fuente de ox&iacute;geno confiable es importante para mantener tu calidad de vida. Sin embargo, existen tantos tipos diferentes de concentradores de ox&iacute;geno en el mercado hoy en d&iacute;a, que puede ser dif&iacute;cil elegir el que mejor se adapte a sus necesidades. A medida que esta tecnolog&iacute;a contin&uacute;a avanzando, aparecen caracter&iacute;sticas m&aacute;s nuevas y opciones m&aacute;s c&oacute;modas, &iexcl;y desea aprovecharlas al m&aacute;ximo!</p>\n<p>La buena noticia es que hay m&aacute;s opciones para la terapia de ox&iacute;geno disponibles para ti; a continuaci&oacute;n, hemos recopilado informaci&oacute;n excelente sobre los dos principales concentradores de oxigeno dom&eacute;sticos de Philips Respironics:</p>\n<table>\n<tbody>\n<tr>\n<td width=\"299\"><strong>EVERFLO</strong>\n<p>&nbsp;</p>\n<p>El concentrador de ox&iacute;geno EverFlo de 5 litros es una m&aacute;quina silenciosa, liviana y compacta que es menos llamativa que muchas otras.</p>\n<p>Los usuarios pueden comprar el modelo est&aacute;ndar, o el que tiene un indicador de porcentaje de ox&iacute;geno (OPI) y usa ultrasonido para medir el flujo de ox&iacute;geno.</p>\n<p>Los controles se encuentran en el lado delantero izquierdo de la m&aacute;quina y una perilla de rodillo controla el medidor de flujo de ox&iacute;geno empotrado en el centro. Una botella de humidificador se puede conectar a la parte posterior izquierda de la m&aacute;quina con velcro. &iexcl;El tubo se conecta f&aacute;cilmente a la c&aacute;nula de metal encima del interruptor de encendido, y tambi&eacute;n se pueden almacenar tubos adicionales en el interior.</p>\n<p>&iexcl;EverFlo 5L pesa 14 kgs y entrega ox&iacute;geno a .5-5 LPM con una concentraci&oacute;n de ox&iacute;geno de hasta 95% en todas las velocidades de flujo. La m&aacute;quina mide 58 cm de profundidad.</p>\n<p>El concentrador EverFlo de 5L viene con una garant&iacute;a est&aacute;ndar de 1 a&ntilde;o.</p>\n</td>\n<td width=\"299\"><strong>MILLENNIUM</strong>\n<p>&nbsp;</p>\n<p>El concentrador de ox&iacute;geno Millenium proporciona hasta 10 LPM de ox&iacute;geno, d&aacute;ndole las especificaciones de una unidad de &ldquo;alto flujo&rdquo;.</p>\n<p>El concentrador de ox&iacute;geno est&aacute; disponible en dos modelos: el modelo est&aacute;ndar y uno dise&ntilde;ado con un indicador de porcentaje de ox&iacute;geno (OPI), una funci&oacute;n que utiliza tecnolog&iacute;a de ultrasonido para medir el flujo de ox&iacute;geno.</p>\n<p>El dise&ntilde;o rectangular blanco es fuerte y resistente, y cuatro ruedas grandes (junto con un asa insertada en la parte superior) lo hacen bastante f&aacute;cil de mover.</p>\n<p>Este concentrador tiene una v&aacute;lvula SMC de &ldquo;ciclo seguro&rdquo;, dise&ntilde;ada espec&iacute;ficamente para manejar los mayores flujos de presi&oacute;n necesarios para una m&aacute;quina de 10 LPM. Millenium tambi&eacute;n est&aacute; dise&ntilde;ado con un compresor de doble cabezal equipado para impulsar m&aacute;s aire a trav&eacute;s de los lechos de tamices de la m&aacute;quina para eliminar el nitr&oacute;geno.</p>\n<p>Philips Respironics &ldquo;Millennium&rdquo; viene con una garant&iacute;a est&aacute;ndar de un a&ntilde;o.</p>\n</td>\n</tr>\n<tr>\n<td colspan=\"2\" width=\"599\"><strong>Caracter&iacute;sticas y Beneficios</strong></td>\n</tr>\n<tr>\n<td width=\"299\">Silencioso y f&aacute;cil de usar\n<p>&nbsp;</p>\n<p>Controles claros y visibles</p>\n<p>Dise&ntilde;o ergon&oacute;mico: rueda f&aacute;cilmente</p>\n<p>Peso ligero de 14 kg</p>\n<p>Medidor de flujo empotrado para proteger contra la rotura</p>\n<p>Velcro asegura la botella del humidificador en la m&aacute;quina</p>\n<p>Proporciona ox&iacute;geno a .5-5 LPM con 95% de ox&iacute;geno</p>\n<p>Alarmas de seguridad por fallas</p>\n<p>Garant&iacute;a de producto de tres a&ntilde;os</p>\n</td>\n<td width=\"299\">F&aacute;cil de usar: los controles son claros y visibles\n<p>&nbsp;</p>\n<p>Pesa 24 kg</p>\n<p>Indicador de Porcentaje de Ox&iacute;geno (OPI) se puede agregar en</p>\n<p>Proporciona ox&iacute;geno a 1-10 LPM al 96% de ox&iacute;geno</p>\n<p>Alarmas de seguridad por fallas y bajo porcentaje de ox&iacute;geno</p>\n<p>Menos partes m&oacute;viles que otros concentradores</p>\n<p>Garant&iacute;a est&aacute;ndar de un a&ntilde;o</p>\n</td>\n</tr>\n<tr>\n<td colspan=\"2\" width=\"599\"><strong>Pros</strong></td>\n</tr>\n<tr>\n<td width=\"299\">Funcionamiento silencioso y sonido silencioso cuando se inicia (45 db)\n<p>&nbsp;</p>\n<p>F&aacute;cil de usar</p>\n<p>Confiable y ligero</p>\n<p>Port&aacute;til y f&aacute;cil de mover</p>\n<p>Consumo de energ&iacute;a de 350 w</p>\n<p>&nbsp;</p>\n</td>\n<td width=\"299\">Bien hecho y f&aacute;cil de configurar\n<p>&nbsp;</p>\n<p>Robusto, confiable y de bajo mantenimiento</p>\n<p>Produce hasta 10 LPM de ox&iacute;geno</p>\n</td>\n</tr>\n<tr>\n<td colspan=\"2\" width=\"599\"><strong>Contras</strong></td>\n</tr>\n<tr>\n<td width=\"299\">Bip fuerte cuando se inicia\n<p>&nbsp;</p>\n<p>Baja altitud de trabajo</p>\n<p>Produce hasta 5 LPM de ox&iacute;geno</p>\n</td>\n<td width=\"299\">Demasiado ruidoso para algunos usuarios (50 db)\n<p>&nbsp;</p>\n<p>Pesa 24 kg</p>\n<p>Tiene m&aacute;s potencia de la que muchos usuarios necesitan</p>\n<p>Consumo de energ&iacute;a de 600 w</p>\n<p><strong>&nbsp;</strong></p>\n</td>\n</tr>\n</tbody>\n</table>\n<p>La elecci&oacute;n de los dispositivos de administraci&oacute;n de ox&iacute;geno depende del requerimiento del paciente, la eficacia del dispositivo, la fiabilidad, la facilidad de aplicaci&oacute;n terap&eacute;utica y la aceptaci&oacute;n del paciente. <a href=\"http://samsung-healthcare.mx/contacto\"><span style=\"text-decoration: underline;\">Para m&aacute;s informaci&oacute;n sobre la elecci&oacute;n de su concentrador de ox&iacute;geno no dude en contactarnos.</span></a></p>', 'Sin Categoria', 'EPOC, Oxígeno', 'admin', '2021-03-20 21:47:32', '2017-01-18 14:05:23', 1);
 
 -- --------------------------------------------------------
 
@@ -950,7 +945,7 @@ INSERT INTO `php_menu_admin` (`ID`, `nom_menu`, `icono`, `link`, `nivel`, `ID_me
 (12, 'Mensajes', 'fa-envelope', 'index.php?mod=mailbox', 1, 0, 14, 1),
 (13, 'Editar', 'fa-home', 'index.php?mod=Home&ext=admin/index', 1, 0, 5, 1),
 (14, 'Menu Web', 'fa-list', 'index.php?mod=Home&ext=admin/index&opc=menu_web', 1, 0, 5, 1),
-(15, 'Admin productos', 'fa-shopping-cart', 'index.php?mod=productos&ext=admin/index&opc=producto', 1, 0, 17, 1),
+(15, 'Admin productos', 'fa-shopping-cart', 'index.php?mod=productos&ext=admin/index', 1, 0, 17, 1),
 (16, 'Categoria de productos', 'fa-folder-open', 'index.php?mod=productos&ext=admin/index&opc=categoria', 1, 0, 17, 1),
 (17, 'Subcategoria de productos', 'fa-folder-open-o', 'index.php?mod=productos&ext=admin/index&opc=subcategoria', 1, 0, 17, 1),
 (18, 'Config. Gmaps', 'fa-gear', 'index.php?mod=gmaps&ext=admin/index', 1, 0, 18, 1),
@@ -991,8 +986,8 @@ CREATE TABLE `php_menu_web` (
 INSERT INTO `php_menu_web` (`ID`, `menu`, `url`, `modulo`, `ext`, `ord`, `subm`, `ima_top`, `tit_sec`, `des_sec`, `visible`) VALUES
 (1, 'Inicio', 'index.php', 'Home', '', '1', '', 'gris.png', '', '', 0),
 (2, 'Nosotros', '#', 'nosotros', '', '2', '', 'gris.png', '', '', 0),
-(3, 'Portafolio', 'portafolio/', 'portafolio', '', '3', '', '', '', '', 0),
-(4, 'Blog', 'blog/', 'blog', '', '4', '', 'gris.png', '', '', 0),
+(3, 'Descargas', 'descargas/', 'descargas', '', '3', '', 'gris.png', '', '', 0),
+(4, 'Blog', 'blog/', 'blog', '', '4', '', 'gris.png', 'Blog', '', 1),
 (5, 'Contacto', 'contacto/', 'contacto', '', '5', '', '', '', '', 1);
 
 -- --------------------------------------------------------
@@ -1050,21 +1045,21 @@ INSERT INTO `php_modulos` (`ID`, `nombre`, `modulo`, `description`, `dashboard`,
 (5, 'Home', 'Home', 'Administración y gestión del Home.', 0, 0, 1, 1, 1, 'false', 'fa-home', 'index.php?mod=Home'),
 (6, 'Usuarios', 'usuarios', 'Administación y gestión de usuarios.', 0, -1, 0, 1, 1, 'false', 'fa-users', 'index.php?mod=usuarios'),
 (7, 'Nosotros', 'nosotros', 'Administración del contenido del modulo de nosotros.', 0, 0, 0, 1, 1, 'false', 'fa-users', 'index.php?mod=nosotros'),
-(8, 'Portafolio', 'portafolio', 'Administraci&oacute;n y gesti&oacute;n del portafolio.', 0, 0, 0, 0, 0, 'false', 'fa-briefcase', 'index.php?mod=portafolio'),
+(8, 'Portafolio', '', 'Administraci&oacute;n y gesti&oacute;n del portafolio.', 0, 0, 0, 0, 0, 'false', 'fa-briefcase', 'index.php?mod=portafolio'),
 (9, 'Blog', 'blog', 'Administraci&oacute;n del contenido del modulo de blog.', 0, 0, 0, 1, 1, 'false', 'fa-comments', 'index.php?mod=blog'),
 (10, 'Contacto', 'contacto', 'Consultas del modulo de contacto.', 0, 0, 0, 1, 1, 'false', 'fa-map-marker', 'index.php?mod=contacto'),
 (11, 'Sistema', 'sys', 'Configuraci&oacute;n y administraci&oacute;n del sistema.', 1, -1, 0, 1, 1, 'false', 'fa-gear', 'index.php?mod=sys'),
 (12, 'Estadistica', 'estadisticas', 'Estadisticas de trafico. ', 0, -1, 0, 1, 1, 'false', 'fa-bar-chart', 'index.php?mod=estadisticas'),
 (13, 'Formularios', 'forms', 'Administracion de Formularios para la web.', 1, 1, 0, 0, 0, 'false', 'fa-pencil-square-o', 'index.php?mod=forms'),
 (14, 'Mailbox', 'mailbox', 'Mailbox de formularios', 1, 1, 0, 1, 1, 'false', ' fa-envelope', 'index.php?mod=mailbox'),
-(15, 'Ecommerce', 'ecommerce', 'Administración y gestión del modulo ecommerce.', 0, 1, 0, 0, 0, 'false', 'fa-shopping-cart', 'index.php?mod=ecommerce'),
+(15, 'Ecommerce', 'ecommerce', 'Administraci&oacute;n y gesti&oacute;n del modulo ecommerce.', 0, 1, 0, 0, 0, 'false', 'fa-shopping-cart', 'index.php?mod=ecommerce'),
 (16, 'Marketing', 'marketing', '', 0, 1, 0, 0, 0, 'false', 'fa-globe', 'index.php?mod=marketing'),
-(17, 'Productos', 'productos', 'Administración de productos', 0, 1, 0, 0, 1, 'false', 'fa-shopping-cart', 'index.php?mod=productos'),
-(18, 'Gmaps', 'gmaps', 'Mapas de Google', 0, 0, 0, 0, 1, 'false', 'fa-map', 'index.php?mod=gmaps'),
+(17, 'Productos', 'productos', 'Administraci&oacute;n de productos', 0, 1, 0, 0, 0, 'false', 'fa-shopping-cart', 'index.php?mod=productos'),
+(18, 'Gmaps', 'gmaps', 'Mapas de Google', 0, 0, 0, 1, 1, 'false', 'fa-map', 'index.php?mod=gmaps'),
 (19, 'Chat', 'chat', 'Administración del modulo chat.', 0, 1, 0, 0, 1, 'false', 'fa-commenting', 'index.php?mod=chat'),
 (20, 'Directorio', 'directorio', 'Administrador del modulo de Directorio.', 0, 1, 0, 0, 0, 'false', 'fa-globe', 'index.php?mod=directorio'),
-(21, 'descargas', 'descargas', 'Administrador del modulo descargas', 0, 1, 0, 0, 0, 'false', 'fa-download', 'index.php?mod=descargas'),
-(22, 'Servicios', 'servicios', 'Administrador del modulo servicios', 0, 0, 0, 0, 1, 'false', 'fa-briefcase', 'index.php?mod=servicios');
+(21, 'descargas', '', 'Administrador del modulo descargas', 0, 1, 0, 0, 0, 'false', 'fa-download', 'index.php?mod=descargas'),
+(22, 'Servicios', '', 'Administrador del modulo servicios', 0, 0, 0, 0, 0, 'false', 'fa-briefcase', 'index.php?mod=servicios');
 
 -- --------------------------------------------------------
 
@@ -1318,7 +1313,7 @@ CREATE TABLE `php_productos` (
   `imagen3` varchar(100) NOT NULL,
   `imagen4` varchar(100) NOT NULL,
   `imagen5` varchar(100) NOT NULL,
-  `cate` varchar(50) NOT NULL,
+  `cate` varchar(100) NOT NULL,
   `resena` mediumtext NOT NULL,
   `nuevo` tinyint(1) NOT NULL,
   `promo` tinyint(1) NOT NULL,
@@ -1343,18 +1338,18 @@ CREATE TABLE `php_productos` (
 --
 
 INSERT INTO `php_productos` (`ID`, `codigo`, `clave`, `nombre`, `titulo`, `cover`, `foto`, `descripcion`, `marca`, `modelo`, `tipo`, `precio`, `moneda`, `unidad`, `peso`, `color`, `medidas`, `stock`, `serie`, `lote`, `ID_cate`, `ID_sub_cate`, `ID_sub_cate2`, `ID_marca`, `url_name`, `imagen1`, `imagen2`, `imagen3`, `imagen4`, `imagen5`, `cate`, `resena`, `nuevo`, `promo`, `descuento`, `clasificacion`, `tags`, `land`, `file`, `pdf1`, `pdf2`, `pdf3`, `pdf4`, `pdf5`, `alta`, `fmod`, `user`, `visible`) VALUES
-(1, '01010127', '01010127', 'Máquina embisagradora', '', 'nodisponible.jpg', '', 'Descripción Corta Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.', '', '', '', '125215.50', 'MNX', 'PZ', '', '', '', 0, '', '', 1, 1, 0, 0, '', 'nodisponible.jpg', 'nodisponible.jpg', '', '', '', '1', '<p><span>Incluye broquero con 3 brocas de 35mm y 10mm de diametro por 57mm de largo. Alimentaci&oacute;n el&eacute;ctrica de 230V. Funcionamiento autom&aacute;tico para panel m&aacute;ximo de 30mm. Descarga la ficha t&eacute;cnica para conocer m&aacute;s de esta maquina.</span></p>', 0, 0, '', '', '', 0, '', '', '', '', '', '', '2019-01-14 11:49:53', '', 'admin', 1),
-(2, '01010128', '01010128', 'Máquina embisagradora con broca', '', 'nodisponible.jpg', '', 'Descripci&oacute;n Corta. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.', '', '', '', '19033.00', 'MXN', 'PZ', '', '', '', 0, '', '', 1, 1, 0, 0, '', 'nodisponible.jpg', 'nodisponible.jpg', 'nodisponible.jpg', 'nodisponible.jpg', '', '1', '<p>Haz crecer tu empresa con herramientas de calidad, funcionales y de manejo f&aacute;cil. Descubre todo lo que tenemos para ti</p>\r\n<p><br /><span>CARACTER&Iacute;STICAS</span></p>\r\n<table border=\"0\">\r\n<tbody>\r\n<tr>\r\n<td>C&oacute;digo</td>\r\n<td>01010128</td>\r\n</tr>\r\n<tr>\r\n<td>UM</td>\r\n<td>pz</td>\r\n</tr>\r\n<tr>\r\n<td>Material</td>\r\n<td>Acero</td>\r\n</tr>\r\n<tr>\r\n<td>Acabados</td>\r\n<td>Azul con naranja</td>\r\n</tr>\r\n<tr>\r\n<td>Medida</td>\r\n<td>&nbsp;</td>\r\n</tr>\r\n</tbody>\r\n</table>\r\n<p>&nbsp;</p>\r\n<p class=\"sbit_caract100\">Alimentaci&oacute;n el&eacute;ctrica de 127V. Ideal para bisagras FGV, SALICE y ECO, Regleta con ajuste (K) 2mm a 12mm, profundidad m&aacute;xima de perforaci&oacute;n 60mm. Descarga la ficha t&eacute;cnica para conocer m&aacute;s de esta maquina.</p>', 0, 0, '', '', '', 0, '', '', '', '', '', '', '2019-01-16 07:54:05', '', 'admin', 1),
-(3, '01020025', '01020025', 'Punta phillips no.2', '', 'nodisponible.jpg', '', 'Descripci&oacute;n Corta. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.', '', '', '', '10.50', 'MXN', 'PZ', '', '', '', 0, '', '', 1, 2, 0, 0, '', 'nodisponible.jpg', '', '', '', '', '1', '<p>Optimiza tus ensambles con las puntas que tenemos para ti</p>\r\n<p><br /><span>CARACTER&Iacute;STICAS</span></p>\r\n<table border=\"0\">\r\n<tbody>\r\n<tr>\r\n<td>C&oacute;digo</td>\r\n<td>01020025</td>\r\n</tr>\r\n<tr>\r\n<td>UM</td>\r\n<td>PZA</td>\r\n</tr>\r\n<tr>\r\n<td>Material</td>\r\n<td>Acero</td>\r\n</tr>\r\n<tr>\r\n<td>Acabados</td>\r\n<td>Satinado</td>\r\n</tr>\r\n<tr>\r\n<td>Medida</td>\r\n<td>51mm</td>\r\n</tr>\r\n</tbody>\r\n</table>\r\n<p>&nbsp;</p>\r\n<p>&nbsp;</p>\r\n<p class=\"sbit_caract100\">Punta de cruz que permite utilizarlo en la mayoria de torniller&iacute;a.</p>', 0, 0, '', '', '', 0, '', '', '', '', '', '', '2019-01-16 12:55:21', '', 'admin', 1),
-(4, '08030264', '08030264', 'Manija de baño', '', 'pro1.1.png', '', 'Descripción Corta', 'Elco', 'Modelo rectángular-liso satinado', '', '30.00', 'MXN', 'PZ', '', '', '', 0, '', '', 10, 36, 0, 9, '', 'Manijas.png', 'Manijas.png', 'Manijas.png', 'Manijas.png', '', '10', '<p>Rese&ntilde;a</p>', 1, 0, '', '', '', 0, '', '', '', '', '', '', '2019-02-08 09:02:06', '2019-03-04 12:05:28', 'admin', 1),
-(5, '08030273', '08030273', 'Manija de entrada modelo bola llave/mariposa Inox', '', 'pro1.2.png', '', 'Descripcion', '', '', '', '0.00', 'MXN', 'PZ', '', '', '', 0, '', '', 10, 32, 0, 0, '', 'pro1.2.png', '', '', '', '', '10', '', 1, 0, '', '', '', 0, '', '', '', '', '', '', '2019-02-08 09:11:21', '', 'admin', 1),
-(6, '08050037', '08050037', 'Tope magnético para puerta', '', 'pro1.3.png', '', 'Descripcion', '', '', '', '0.00', 'MXN', 'PZ', '', '', '', 0, '', '', 10, 33, 0, 0, '', 'pro1.3.png', '', '', '', '', '10', '', 1, 0, '', '', '', 0, '', '', '', '', '', '', '2019-02-08 09:13:35', '', 'admin', 1),
-(7, '08080001', '08080001', 'Corredizo colgante inos 304 p/puerta de madera L=200mm Rodamiento sencillo', '', 'pro1.4.png', '', 'Descripcion', '', '', '', '0.00', 'MXN', 'PZ', '', '', '', 0, '', '', 3, 14, 0, 0, '', 'pro1.4.png', '', '', '', '', '3', '', 1, 0, '', '', '', 0, '', '', '', '', '', '', '2019-02-08 09:16:17', '', 'admin', 1),
-(8, '08080003', '08080003', 'Corredizo colgante inox 304 p/puerta de cristal L=200mm Rodamiento sencillo', '', 'pro1.5.png', '', 'Descripcion', '', '', '', '0.00', 'MXN', 'PZ', '', '', '', 0, '', '', 3, 12, 0, 0, '', 'pro1.5.png', '', '', '', '', '3', '', 1, 0, '', '', '', 0, '', '', '', '', '', '', '2019-02-08 09:18:53', '', 'admin', 1),
-(9, '12130050', '12130050', 'Dispensador doble para baño', '', 'pro2.1.png', '', 'Descripcion', '', '', '', '1.00', 'MXN', 'PZ', '', '', '', 0, '', '', 12, 44, 0, 0, '', 'pro2.1.png', '', '', '', '', '12', '', 0, 1, '', '', '', 0, '', '', '', '', '', '', '2019-02-08 12:17:14', '', 'admin', 1),
-(10, '12130058', '12130058', 'Dispensador de jabón para baño', '', 'pro2.2.png', '', 'Descripcion', '', '', '', '0.00', 'MXN', 'PZ', '', '', '', 0, '', '', 12, 44, 0, 0, '', 'pro2.2.png', '', '', '', '', '12', '', 0, 1, '', '', '', 0, '', '', '', '', '', '', '2019-02-08 12:31:20', '', 'admin', 1),
-(11, '12130040', '12130040', 'Toallero doble 616mm Latón Cromado', '', 'pro2.3.png', '', 'Descripcion', '', '', '', '0.00', 'MXN', 'PZ', '', '', '', 0, '', '', 12, 44, 0, 0, '', 'pro2.3.png', '', '', '', '', '12', '', 0, 1, '', '', '', 0, '', '', '', '', '', '', '2019-02-08 12:33:08', '', 'admin', 1),
-(12, '12130043', '12130043', 'Cepillero base rect. c/vaso de cristal latón cromado', '', 'pro2.4.png', '', 'Descripcion', '', '', '', '0.00', 'MXN', 'PZ', '', '', '', 0, '', '', 12, 44, 0, 0, '', 'pro2.4.png', '', '', '', '', '12', '', 0, 1, '', '', '', 0, '', '', '', '', '', '', '2019-02-08 12:34:48', '', 'admin', 1);
+(1, '01010127', '01010127', 'Máquina embisagradora', '', 'nodisponible.jpg', '', '', '', '', '', '125215.50', 'MXN', 'PZ', '', '', '', 0, '', '', 1, 1, 0, 0, '', 'nodisponible.jpg', 'nodisponible.jpg', '', '', '', 'Maquinaria y herramientas', '', 0, 0, '', '', '', 0, '', '', '', '', '', '', '2019-01-14 11:49:53', '2021-03-06 23:57:34', 'admin', 1),
+(2, '01010128', '01010128', 'Máquina embisagradora con broca', '', 'nodisponible.jpg', '', '<p>Haz crecer tu empresa con herramientas de calidad, funcionales y de manejo f&aacute;cil. Descubre todo lo que tenemos para ti</p>\n<p><br /><span>CARACTER&Iacute;STICAS</span></p>\n<table border=\"0\">\n<tbody>\n<tr>\n<td>C&oacute;digo</td>\n<td>01010128</td>\n</tr>\n<tr>\n<td>UM</td>\n<td>pz</td>\n</tr>\n<tr>\n<td>Material</td>\n<td>Acero</td>\n</tr>\n<tr>\n<td>Acabados</td>\n<td>Azul con naranja</td>\n</tr>\n<tr>\n<td>Medida</td>\n<td>&nbsp;</td>\n</tr>\n</tbody>\n</table>\n<p>&nbsp;</p>\n<p class=\"sbit_caract100\">Alimentaci&oacute;n el&eacute;ctrica de 127V. Ideal para bisagras FGV, SALICE y ECO, Regleta con ajuste (K) 2mm a 12mm, profundidad m&aacute;xima de perforaci&oacute;n 60mm. Descarga la ficha t&eacute;cnica para conocer m&aacute;s de esta maquina.</p>', '', '', '', '19033.00', 'MXN', 'PZ', '', '', '', 0, '', '', 1, 1, 0, 0, '', 'nodisponible.jpg', '', '', '', '', 'Maquinaria y herramientas', 'Descripción Corta', 0, 0, '', '', '', 0, '', '', '', '', '', '', '2019-01-16 07:54:05', '2021-02-26 00:00:09', 'admin', 1),
+(3, '01020025', '01020025', 'Punta phillips no.2', '', 'nodisponible.jpg', '', '<p>Optimiza tus ensambles con las puntas que tenemos para ti</p>\n<p><br /><span>CARACTER&Iacute;STICAS</span></p>\n<table border=\"0\">\n<tbody>\n<tr>\n<td>C&oacute;digo</td>\n<td>01020025</td>\n</tr>\n<tr>\n<td>UM</td>\n<td>PZA</td>\n</tr>\n<tr>\n<td>Material</td>\n<td>Acero</td>\n</tr>\n<tr>\n<td>Acabados</td>\n<td>Satinado</td>\n</tr>\n<tr>\n<td>Medida</td>\n<td>51mm</td>\n</tr>\n</tbody>\n</table>\n<p>&nbsp;</p>\n<p>&nbsp;</p>\n<p class=\"sbit_caract100\">Punta de cruz que permite utilizarlo en la mayoria de torniller&iacute;a.</p>', '', '', '', '10.50', 'MXN', 'PZ', '', '', '', 0, '', '', 1, 2, 0, 0, '', 'nodisponible.jpg', '', '', '', '', 'Maquinaria y herramientas', 'Descripción corta', 0, 0, '', '', '', 0, '', '', '', '', '', '', '2019-01-16 12:55:21', '2021-02-25 23:59:19', 'admin', 1),
+(4, '08030264', '08030264', 'Manija de baño', '', 'pro1.1.png', '', '<p><strong>Lorem Ipsum</strong><span>&nbsp;is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s</span></p>', 'Elco', 'Modelo rectángular-liso satinado', '', '30.00', 'MXN', 'PZ', '', '', '', 0, '', '', 10, 36, 0, 9, '', 'Manijas.png', '', '', '', '', 'Chapas y cerraduras', 'Descripción corta', 1, 0, '', '', '', 0, '', '', '', '', '', '', '2019-02-08 09:02:06', '2021-03-07 01:41:00', 'admin', 1),
+(5, '08030273', '08030273', 'Manija de entrada modelo bola llave/mariposa Inox', '', 'pro1.2.png', '', '<p>Descripcion</p>', '', '', '', '0.00', 'MXN', 'PZ', '', '', '', 0, '', '', 10, 32, 0, 0, '', 'pro1.2.png', '', '', '', '', 'Chapas y cerraduras', '', 1, 0, '', '', '', 0, '', '', '', '', '', '', '2019-02-08 09:11:21', '2021-02-25 23:09:05', 'admin', 1),
+(6, '08050037', '08050037', 'Tope magnético para puerta', '', 'pro1.3.png', '', '<p>Descripcion</p>', '', '', '', '0.00', 'MXN', 'PZ', '', '', '', 0, '', '', 10, 33, 0, 0, '', 'pro1.3.png', '', '', '', '', 'Chapas y cerraduras', '', 1, 0, '', '', '', 0, '', '', '', '', '', '', '2019-02-08 09:13:35', '2021-02-25 23:10:55', 'admin', 1),
+(7, '08080001', '08080001', 'Corredizo colgante inos 304 p/puerta de madera L=200mm Rodamiento sencillo', '', 'pro1.4.png', '', '<p>Descripcion</p>', '', '', '', '0.00', 'MXN', 'PZ', '', '', '', 0, '', '', 3, 14, 0, 0, '', 'pro1.4.png', '', '', '', '', 'Correderas', '', 1, 0, '', '', '', 0, '', '', '', '', '', '', '2019-02-08 09:16:17', '2021-02-25 23:08:29', 'admin', 1),
+(8, '08080003', '08080003', 'Corredizo colgante inox 304 p/puerta de cristal L=200mm Rodamiento sencillo', '', 'pro1.5.png', '', '<p>Descripcion</p>', '', '', '', '0.00', 'MXN', 'PZ', '', '', '', 0, '', '', 3, 12, 0, 0, '', 'pro1.5.png', '', '', '', '', 'Correderas', '', 1, 0, '', '', '', 0, '', '', '', '', '', '', '2019-02-08 09:18:53', '2021-02-25 23:07:46', 'admin', 1),
+(9, '12130050', '12130050', 'Dispensador doble para baño', '', 'pro2.1.png', '', '<p>Descripcion</p>', '', '', '', '1.00', 'MXN', 'PZ', '', '', '', 0, '', '', 12, 44, 0, 0, '', 'pro2.1.png', '', '', '', '', 'Accesorios de cocina y baño', '', 0, 1, '', '', '', 0, '', '', '', '', '', '', '2019-02-08 12:17:14', '2021-02-25 23:04:52', 'admin', 1),
+(10, '12130058', '12130058', 'Dispensador de jabón para baño', '', 'pro2.2.png', '', '<p>Descripcion</p>', '', '', '', '0.00', 'MXN', 'PZ', '', '', '', 0, '', '', 12, 44, 0, 0, '', 'pro2.2.png', '', '', '', '', 'Accesorios de cocina y baño', '', 0, 1, '', '', '', 0, '', '', '', '', '', '', '2019-02-08 12:31:20', '2021-02-25 23:05:49', 'admin', 1),
+(11, '12130040', '12130040', 'Toallero doble 616mm Latón Cromado', '', 'pro2.3.png', '', '<p>Descripcion</p>', '', '', '', '0.00', 'MXN', 'PZ', '', '', '', 0, '', '', 12, 44, 0, 0, '', 'pro2.3.png', '', '', '', '', 'Accesorios de cocina y baño', '', 0, 1, '', '', '', 0, '', '', '', '', '', '', '2019-02-08 12:33:08', '2021-02-25 23:06:26', 'admin', 1),
+(12, '12130043', '12130043', 'Cepillero base rect. c/vaso de cristal latón cromado', '', 'pro2.4.png', '', '<p>Descripcion</p>', '', '', '', '0.00', 'MXN', 'PZ', '', '', '', 0, '', '', 12, 44, 0, 0, '', 'pro2.4.png', '', '', '', '', 'Accesorios de cocina y baño', '', 0, 1, '', '', '', 0, '', '', '', '', '', '', '2019-02-08 12:34:48', '2021-02-25 23:07:04', 'admin', 1);
 
 -- --------------------------------------------------------
 
@@ -1376,7 +1371,7 @@ CREATE TABLE `php_productos_cate` (
 --
 
 INSERT INTO `php_productos_cate` (`ID`, `categoria`, `ord`, `cover`, `descripcion`, `visible`) VALUES
-(1, 'Maquinaria y herramientas', '01', 'nodisponible.jpg', '', 1),
+(1, 'Maquinaria y herramientas', '01', 'nodisponible.jpg', '<p>Descripci&oacute;n de categor&iacute;a</p>', 1),
 (2, 'Accesorios para gabinete', '02', 'nodisponible.jpg', '', 1),
 (3, 'Correderas', '03', 'nodisponible.jpg', '', 1),
 (4, 'Jaladeras y botones', '04', 'nodisponible.jpg', '', 1),
@@ -1388,7 +1383,7 @@ INSERT INTO `php_productos_cate` (`ID`, `categoria`, `ord`, `cover`, `descripcio
 (10, 'Chapas y cerraduras', '10', 'nodisponible.jpg', '', 1),
 (11, 'Accesorios para closet', '11', 'nodisponible.jpg', '', 1),
 (12, 'Accesorios de cocina y baño', '12', 'nodisponible.jpg', '', 1),
-(13, 'Buzones', '13', '', '', 1);
+(13, 'Buzones', '13', 'nodisponible.jpg', '<p>Descripci&oacute;n</p>', 1);
 
 -- --------------------------------------------------------
 
@@ -1642,7 +1637,7 @@ CREATE TABLE `php_servicios` (
 
 INSERT INTO `php_servicios` (`ID`, `clave`, `nombre`, `cover`, `descripcion`, `precio`, `cate`, `resena`, `url_page`, `imagen1`, `imagen2`, `imagen3`, `imagen4`, `imagen5`, `FT`, `alta`, `fmod`, `user`, `visible`) VALUES
 (1, '', 'Hornos de Curado', 'horno.jpg', '<p><span>Fabricamos y dise&ntilde;amos Hornos Hornos Continuos de Curado tipo Batch, Hornos Infrarojos y Hornos Ultravioleta.</span></p>', '0.00', 'Fabricación de Líneas de Pintura', '', '', 'horno.jpg', '', '', '', '', '', '2021-02-03 03:18:53', '2021-02-05 04:25:28', 'admin', 1),
-(2, '', 'Cabinas para pintura en Polvo', 'cabina.jpg', '<p><span>Producimos Continuas y de Batch, as&iacute; como cabinas portatiles en diferentes tama&ntilde;os y dise&ntilde;os.</span></p>', '0.00', 'Fabricación de Líneas de Pintura', '', '', '', '', '', '', '', '', '2021-02-03 03:23:32', '2021-02-05 03:55:40', 'admin', 1);
+(2, '', 'Cabinas para pintura en Polvo', 'cabina.jpg', '<p><span>Producimos Continuas y de Batch, as&iacute; como cabinas portatiles en diferentes tama&ntilde;os y dise&ntilde;os.</span></p>', '0.00', 'Fabricación de Líneas de Pintura', '', '', '', '', '', '', '', '', '2021-02-03 03:23:32', '2021-03-08 04:06:20', 'admin', 1);
 
 -- --------------------------------------------------------
 
@@ -1689,6 +1684,7 @@ CREATE TABLE `php_signup` (
   `rol` int(2) NOT NULL,
   `codigo` varchar(6) NOT NULL,
   `intentos` varchar(2) NOT NULL,
+  `status` varchar(50) NOT NULL,
   `activo` tinyint(1) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
@@ -1696,11 +1692,11 @@ CREATE TABLE `php_signup` (
 -- Volcado de datos para la tabla `php_signup`
 --
 
-INSERT INTO `php_signup` (`ID`, `username`, `password`, `email`, `level`, `lastlogin`, `tema`, `nombre`, `apaterno`, `amaterno`, `foto`, `cover`, `tel`, `ext`, `fnac`, `fb`, `tw`, `puesto`, `ndepa`, `depa`, `empresa`, `adress`, `direccion`, `mpio`, `edo`, `pais`, `genero`, `exp`, `likes`, `filtro`, `zona`, `alta`, `actualizacion`, `page`, `nivel_oper`, `rol`, `codigo`, `intentos`, `activo`) VALUES
-(1, 'admin', 'c64f923f7f476f0b78716079452e7bdec4b2c016', 'multiportal@outlook.com', '-1', '2021-01-19 14:39:53', 'default', 'Guillermo', 'Jimenez', 'Lopez', 'sinfoto.png', '', '4421944950', 1, '0000-00-00', '', '', 'Programador', 0, '', 'Multiportal', '', '', '', '', '', 'M', '', 0, '0', '', '', 'admin2019xadmin79', '', 0, 0, '944950', '0', 1),
-(2, 'demo', '71cc541bd1ccb6670de3f8d40f425ffb7315fe7f', 'demo@gmail.com', '-1', '0000-00-00 00:00:00', 'default', 'Demo', 'Apaterno', 'Amaterno', 'sinfoto.png', 'sincover.jpg', '4421234567', 0, '0000-00-00', '', '', 'Director', 0, '', 'PHPONIX', '', '', '', '', '', 'M', '', 0, '0', '', '', 'demo2019xdemo2017', '', 0, 0, '234567', '0', 1),
-(3, 'usuario', '3c6e6ac5382f4e804e824c0d785b275252ddacb0', 'multiportal@outlook.com', '1', '0000-00-00 00:00:00', 'default', 'Usuario', 'Apaterno', 'Amaterno', 'sinfoto.png', '', '4421234567', 0, '0000-00-00', '', '', 'Usuario', 0, '', 'PHPONIX', '', '', '', '', '', 'M', '', 0, '0', '', '', 'usuario2019xuser79x', '', 0, 0, '234567', '0', 1),
-(4, 'ventas', '1d415500d481e0c1c238189c22ea057da663c1e7', 'ventas@gmail.com', '2', '0000-00-00 00:00:00', 'default', 'Ventas', 'Apaterno', 'Amaterno', 'sinfoto.png', 'sincover.jpg', '4421234567', 0, '0000-00-00', '', '', 'Gerente', 0, '', 'PHPONIX', '', '', '', '', '', 'M', '', 0, '0', '', '', 'ventas2019xventas', '', 0, 0, '234567', '0', 1);
+INSERT INTO `php_signup` (`ID`, `username`, `password`, `email`, `level`, `lastlogin`, `tema`, `nombre`, `apaterno`, `amaterno`, `foto`, `cover`, `tel`, `ext`, `fnac`, `fb`, `tw`, `puesto`, `ndepa`, `depa`, `empresa`, `adress`, `direccion`, `mpio`, `edo`, `pais`, `genero`, `exp`, `likes`, `filtro`, `zona`, `alta`, `actualizacion`, `page`, `nivel_oper`, `rol`, `codigo`, `intentos`, `status`, `activo`) VALUES
+(1, 'admin', 'c64f923f7f476f0b78716079452e7bdec4b2c016', 'multiportal@outlook.com', '-1', '2021-03-20 13:46:57', 'default', 'Guillermo', 'Jimenez', 'Lopez', 'sinfoto.png', '', '4421944950', 1, '0000-00-00', '', '', 'Programador', 0, '', 'Multiportal', '', '', '', '', '', 'M', '', 0, '0', '', '', 'admin2019xadmin79', '', 0, 0, '944950', '0', 'offline', 1),
+(2, 'demo', '71cc541bd1ccb6670de3f8d40f425ffb7315fe7f', 'demo@gmail.com', '-1', '0000-00-00 00:00:00', 'default', 'Demo', 'Apaterno', 'Amaterno', 'sinfoto.png', 'sincover.jpg', '4421234567', 0, '0000-00-00', '', '', 'Director', 0, '', 'PHPONIX', '', '', '', '', '', 'M', '', 0, '0', '', '', 'demo2019xdemo2017', '', 0, 0, '234567', '0', 'offline', 1),
+(3, 'usuario', '3c6e6ac5382f4e804e824c0d785b275252ddacb0', 'multiportal@outlook.com', '1', '0000-00-00 00:00:00', 'default', 'Usuario', 'Apaterno', 'Amaterno', 'sinfoto.png', '', '4421234567', 0, '0000-00-00', '', '', 'Usuario', 0, '', 'PHPONIX', '', '', '', '', '', 'M', '', 0, '0', '', '', 'usuario2019xuser79x', '', 0, 0, '234567', '0', 'offline', 1),
+(4, 'ventas', '1d415500d481e0c1c238189c22ea057da663c1e7', 'ventas@gmail.com', '2', '0000-00-00 00:00:00', 'default', 'Ventas', 'Apaterno', 'Amaterno', 'sinfoto.png', 'sincover.jpg', '4421234567', 0, '0000-00-00', '', '', 'Gerente', 0, '', 'PHPONIX', '', '', '', '', '', 'M', '', 0, '0', '', '', 'ventas2019xventas', '', 0, 0, '234567', '0', 'offline', 1);
 
 -- --------------------------------------------------------
 
@@ -1724,7 +1720,8 @@ CREATE TABLE `php_slider` (
 --
 
 INSERT INTO `php_slider` (`ID`, `ima`, `tit1`, `tit2`, `btn_nom`, `url`, `tema_slider`, `visible`) VALUES
-(1, 'home.jpg', 'Slider1', '', 'Boton', '', 'default', 0);
+(1, 'home.jpg', 'Slider1', '', 'Boton', '', 'default', 0),
+(2, 'slide-bg.jpg', 'bg1', '', '', '', 'porto', 1);
 
 -- --------------------------------------------------------
 
@@ -1758,9 +1755,7 @@ CREATE TABLE `php_temas` (
 --
 
 INSERT INTO `php_temas` (`ID`, `tema`, `subtema`, `selec`, `nivel`) VALUES
-(1, 'default', '', 1, '0'),
-(3, 'phponix', '', 0, '0'),
-(4, 'blue', '', 0, '0');
+(1, 'default', '', 1, '1');
 
 -- --------------------------------------------------------
 
@@ -1786,6 +1781,20 @@ INSERT INTO `php_testimonios` (`ID`, `cover`, `pro`, `comentario`, `visible`) VA
 (3, 'testimonial_person3.jpg', 'Ingeniera Industrial', 'Super recomendado, la atenci&oacute;n es buenisima y te ayudan con cualquier duda.', 1),
 (4, 'TESTIMONIO01.png', 'Emprendedor', 'Excelente curso introducci&oacute;n a los materiales compuestos, muchas gracias.', 1),
 (5, 'testimonio02.png', 'Emprendedor', 'Excelente curso de Mesas Ep&oacute;xicas en Parota y Cristal Templado.  &iexcl;No dejen pasar la oportunidad de tomar este curso!', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `php_token`
+--
+
+CREATE TABLE `php_token` (
+  `ID` int(9) UNSIGNED NOT NULL,
+  `ID_user` int(6) NOT NULL,
+  `Token` varchar(100) NOT NULL,
+  `Estado` varchar(20) NOT NULL,
+  `Fecha` varchar(22) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -2222,6 +2231,12 @@ ALTER TABLE `php_testimonios`
   ADD PRIMARY KEY (`ID`);
 
 --
+-- Indices de la tabla `php_token`
+--
+ALTER TABLE `php_token`
+  ADD PRIMARY KEY (`ID`);
+
+--
 -- Indices de la tabla `php_vcard`
 --
 ALTER TABLE `php_vcard`
@@ -2253,7 +2268,7 @@ ALTER TABLE `php_visitas`
 -- AUTO_INCREMENT de la tabla `php_access`
 --
 ALTER TABLE `php_access`
-  MODIFY `ID` int(9) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `ID` int(9) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `php_api_version`
@@ -2535,7 +2550,7 @@ ALTER TABLE `php_signup`
 -- AUTO_INCREMENT de la tabla `php_slider`
 --
 ALTER TABLE `php_slider`
-  MODIFY `ID` int(6) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `ID` int(6) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `php_tareas`
@@ -2547,13 +2562,19 @@ ALTER TABLE `php_tareas`
 -- AUTO_INCREMENT de la tabla `php_temas`
 --
 ALTER TABLE `php_temas`
-  MODIFY `ID` int(3) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `ID` int(3) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `php_testimonios`
 --
 ALTER TABLE `php_testimonios`
   MODIFY `ID` int(9) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT de la tabla `php_token`
+--
+ALTER TABLE `php_token`
+  MODIFY `ID` int(9) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `php_vcard`
