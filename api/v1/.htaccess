@@ -1,0 +1,27 @@
+<IfModule mod_rewrite.c>
+# Activar RewriteEngine
+RewriteEngine on
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d 
+# Reescribir la URL solicitada por el usuario
+#   Entrada:  NOMBRE/
+#   Salida:   index.php?mod=NOMBRE
+RewriteRule ^(\w+)/?$ index.php?tabla=$1
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d 
+RewriteRule ^(\w+)/(\w+)/?$ index.php?tabla=$1&id=$2
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d 
+# RewriteRule ^(\w+)/(\w+)/(\w+)/?$ index.php?mod=$1&ext=$2&id=$3
+# RewriteRule ^(\w+)/(\w+)/([0-9]+)\-([a-zA-Z0-9-]*)/?$ index.php?mod=$1&ext=$2&id=$3
+</IfModule>
+
+
+#<FilesMatch "\.(ttf|otf|eot|woff|woff2)$">
+#  <IfModule mod_headers.c>
+#    Header set Access-Control-Allow-Origin "*"
+#  </IfModule>
+#</FilesMatch>

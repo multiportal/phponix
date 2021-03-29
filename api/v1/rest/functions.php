@@ -1,10 +1,10 @@
 <?php
 //include_once '../admin/conexion/PDO.php';
-include '../admin/scfg.php';
+include '../../admin/scfg.php';
 //Funcion para quitar los Notice (Avisos) de PHP7
 //error_reporting(E_ALL & ~E_DEPRECATED & ~E_STRICT & ~E_WARNING & ~E_NOTICE);//$host	 = $_SERVER['HTTP_HOST'];$dominio = 'http://'.$host.'/';
 //Variables
-$bootstrap='<link href="../assets/bootstrap/b-4.5.0/css/bootstrap.css" rel="stylesheet" type="text/css">'."\r\n";
+$bootstrap='<link href="../../assets/bootstrap/b-4.5.0/css/bootstrap.css" rel="stylesheet" type="text/css">'."\r\n";
 $tabla=(isset($_GET['tabla']))?$_GET['tabla']:'';//exit();
 $id=(isset($_GET['id']))?$_GET['id']:'';
 validacion_tabla();

@@ -5,22 +5,46 @@ include 'functions.php';
 
 switch(true){
 	case($action=='comentarios'):
+		$i=0;
 		$IDB=$_REQUEST['IDB'];
 		$tabla='blog_coment';
 		$data = query_data($tabla,$url_api=NULL);
-		foreach ($data as $row) {
+		foreach ($data as $row) {$i++;
 			$ID=$row['ID'];
 			$id_b=$row['id_b'];
 			$visible=$row['visible'];
 			if($visible==1 && $id_b==$IDB){
-				echo'
-				<div id="cont-coment">
-					<div>'.$row['nombre'].' ['.$row['fecha'].']</div>
-					<div>'.$row['comentario'].'</div>
-				</div>
-				<hr>';
+				if($tema=='porto'){
+					$comentarios.='
+						<li>
+                           <div class="comment">
+                              <div class="img-thumbnail img-thumbnail-no-borders d-none d-sm-block">
+                                 <img class="avatar" alt="" src="'.$page_url.'modulos/blog/fotos/sinfoto.png">
+                              </div>
+                              <div class="comment-block">
+                                 <div class="comment-arrow"></div>
+                                 <span class="comment-by">
+                                 <strong>'.$row['nombre'].'</strong>
+                                 <span class="float-right">
+                                 <span> <a href="#"><i class="fas fa-reply"></i> Reply</a></span>
+                                 </span>
+                                 </span>
+                                 <p>'.$row['comentario'].'</p>
+                                 <span class="date float-right">'.$row['fecha'].'</span>
+                              </div>
+                           </div>
+                        </li>
+					';
+				}else{
+					$comentarios.='
+					<div id="cont-coment">
+						<div>'.$row['nombre'].' ['.$row['fecha'].']</div>
+						<div>'.$row['comentario'].'</div>
+					</div>
+					<hr>';
+				}
 			}
-
+			echo '<h4 class="mb-3">Comentarios ('.$i.')</h4>'.$comentarios;
 		}
 	break;
 	case($action=='addcoment'):

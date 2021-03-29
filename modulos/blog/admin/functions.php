@@ -24,7 +24,7 @@ global $chartset;
 }
 /** FRONTEND */ ////////////////////////////////////////////////////////////////////////////////////
 function blog(){
-global $page_url,$mod,$tabla,$url_api;
+global $tema,$page_url,$mod,$tabla,$url_api;
 $url_api=url_api();
 $topic='topic';
 sql_opciones('link_var', $valor);
@@ -48,18 +48,42 @@ usort($data, function($b, $a){return strnatcmp($a['ID'], $b['ID']);}); //Orden p
 
                 if ($_GET['tema_previo'] != '') {$tema_p = '&tema_previo=' . $_GET['tema_previo'];}
                 $link_zp = ($tema_p != '' || $valor == 1) ? $page_url . 'index.php?mod='.$mod.'&ext='.$topic.'&id=' . $ID . $tema_p : $page_url.$mod.'/'.$topic.'/' . $ID . '-' . $titulo1;
-                echo '<!--[' . $i . '] -' . $ID . '-->
-                <div class="col-lg-4 col-xs-12 h-item">
-                    <div class="titb"><h3><strong>'.$titulo.'</strong></h3></div>
-                    <p class="new-font"><!--span class="glyphicon glyphicon-calendar" aria-hidden="true"></span--> <a href="'.$link_zp.'" class="fontB">'.$fecha.'</a> por <a href="" class="fontB">'.$autor.'</a></p>
-                    <img src="'.$page_url.'modulos/'.$mod.'/fotos/'.$cover.'" alt="'.$tag.'" class="img-resp">
-                    <!--div class="div-clear"><p>&nbsp;</p></div-->
-                    <div class="new-font2">'.$des.'</div>
-                    <!--div class="div-clear"><p>&nbsp;</p></div-->
-                    <div class="text-right"><a href="'.$link_zp.'" class="btn_azul">Ver Más</a></div>
-                    <!--div class="div-clear"><p>&nbsp;</p></div-->
-                </div>
-                ';
+if($tema=='porto'){
+echo '<!--[' . $i . '] -' . $ID . '-->
+<div class="col-md-4">
+  <article class="post post-medium border-0 pb-0 mb-5">
+    <div class="post-image">
+        <a href="'.$link_zp.'">
+            <img src="'.$page_url.'modulos/'.$mod.'/fotos/'.$cover.'" class="img-fluid img-thumbnail img-thumbnail-no-borders rounded-0" alt="" />
+        </a>
+    </div>
+    <div class="post-content">
+        <h2 class="font-weight-semibold text-5 line-height-6 mt-3 mb-2"><a href="'.$link_zp.'">'.$titulo.'</a></h2>
+        <p>'.$des.'</p>
+        <div class="post-meta">
+            <span><i class="far fa-user"></i> Por <a href="#">'.$autor.'</a> </span>
+            <span><i class="far fa-folder"></i> '.$tag.'</span>
+            <span><i class="far fa-comments"></i> <a href="#">12 Comentarios</a></span>
+            <span class="d-block mt-2"><a href="'.$link_zp.'" class="btn btn-xs btn-light text-1 text-uppercase">Leer Más</a></span>
+        </div>
+    </div>
+  </article>
+</div>
+';
+}else{
+    echo '<!--[' . $i . '] -' . $ID . '-->
+    <div class="col-lg-4 col-xs-12 h-item">
+        <div class="titb"><h3><strong>'.$titulo.'</strong></h3></div>
+        <p class="new-font"><!--span class="glyphicon glyphicon-calendar" aria-hidden="true"></span--> <a href="'.$link_zp.'" class="fontB">'.$fecha.'</a> por <a href="" class="fontB">'.$autor.'</a></p>
+        <img src="'.$page_url.'modulos/'.$mod.'/fotos/'.$cover.'" alt="'.$tag.'" class="img-resp">
+        <!--div class="div-clear"><p>&nbsp;</p></div-->
+        <div class="new-font2">'.$des.'</div>
+        <!--div class="div-clear"><p>&nbsp;</p></div-->
+        <div class="text-right"><a href="'.$link_zp.'" class="btn_azul">Ver Más</a></div>
+        <!--div class="div-clear"><p>&nbsp;</p></div-->
+    </div>
+    ';
+}
             }
         }
         if ($ID == '' || $ID == NULL) {

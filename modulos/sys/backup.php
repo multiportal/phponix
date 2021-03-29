@@ -56,7 +56,7 @@ global $mysqli,$DBprefix,$mod,$ext,$vhref,$ip,$host,$page_url,$url,$URL,$year,$m
             $return.= 'INSERT INTO '.$table.' VALUES(';
             for($j=0; $j<$num_fields; $j++){
                $row[$j] = addslashes($row[$j]);
-               $row[$j] = preg_replace("\n","\\n",$row[$j]);
+               $row[$j] = str_replace("\n","\\n",$row[$j]);
                if (isset($row[$j])) { $return.= '"'.$row[$j].'"' ; } else { $return.= '""'; }
                if ($j<($num_fields-1)) { $return.= ','; }
             }
@@ -68,7 +68,7 @@ global $mysqli,$DBprefix,$mod,$ext,$vhref,$ip,$host,$page_url,$url,$URL,$year,$m
 
 ############## Fecha y carpeta de salida
  $bak_dir = "modulos/sys/backups";
- $db_name=$database;
+ $db_name=DB_DB;
  $fecha_hoy = date("Ymd-His");
  $archivo='/db-backup-'.$db_name.'-'.$fecha_hoy.'.sql';
  //save file

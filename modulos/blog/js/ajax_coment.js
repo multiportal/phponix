@@ -1,7 +1,5 @@
-
 var $ = jQuery.noConflict();
-$(document).ready(function () {
-    
+$(document).ready(function () {    
     cargar();
     
     function cargar(){

@@ -210,7 +210,7 @@
 									data-x="center"
 									data-y="center" data-voffset="['85','85','85','140']"
 									data-fontsize="['18','18','18','40']"
-									data-lineheight="['26','26','26','45']">Administra tu página web rapidamente.</div>
+									data-lineheight="['26','26','26','45']">Administra tu página web rápidamente.</div>
 
 							</li>
 						</ul>
