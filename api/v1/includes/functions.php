@@ -1,46 +1,14 @@
-<?php
-//include_once '../admin/conexion/PDO.php';
-include '../../admin/scfg.php';
-//Funcion para quitar los Notice (Avisos) de PHP7
-//error_reporting(E_ALL & ~E_DEPRECATED & ~E_STRICT & ~E_WARNING & ~E_NOTICE);//$host	 = $_SERVER['HTTP_HOST'];$dominio = 'http://'.$host.'/';
-//Variables
-$bootstrap='<link href="../../assets/bootstrap/b-4.5.0/css/bootstrap.css" rel="stylesheet" type="text/css">'."\r\n";
-$tabla=(isset($_GET['tabla']))?$_GET['tabla']:'';//exit();
-$id=(isset($_GET['id']))?$_GET['id']:'';
-validacion_tabla();
-
-//CONEXION
-function conexion(){
-$mysqli = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_DB); //conexión ala base de datos por medio de misqli poo
-    if($mysqli->connect_errno > 0){ //si retorna algun error
-        return("Imposible conectarse con la base de datos [" . $mysqli->connect_error . "]"); //se muestra el error
-    }else{ //si no retorna el error
-        $mysqli->query("SET NAMES 'utf8'"); //codifica las consultas a utf-8
-        return $mysqli; //retorna la conexión a la base de datos mysql
-    }
-}
-
-//CONEXION PDO
-function connect(){
-    try {
-        $mysqli = new PDO("mysql:host=".DB_HOST.";dbname=".DB_DB.";charset=utf8mb4", DB_USER, DB_PASSWORD);
-        // set the PDO error mode to exception
-        $mysqli->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        return $mysqli;
-    } catch (PDOException $exception) {
-        exit($exception->getMessage());
-    }
-}
-$conec=connect();
+<?php 
 
 //Validación
-function validacion_tabla(){
+function validacion_tabla($tabla){
 global $mysqli,$DBprefix,$tabla,$bootstrap;
 $mysqli=conexion();
     if($tabla!='signup' && $tabla!=NULL){
-        $sql = mysqli_query($mysqli,"DESCRIBE ".$DBprefix.$tabla.";");
+        $tabla = ($tabla==$DBprefix.'signup')?$tabla:$DBprefix.$tabla;        
+        $sql = mysqli_query($mysqli,"DESCRIBE ".$tabla.";");
         if($sql){
-            return $tabla=($tabla==$DBprefix.'signup')?$tabla:$DBprefix.$tabla;
+            return $tabla;//$tabla=($tabla==$DBprefix.'signup')?$tabla:$DBprefix.$tabla;
         }else{
             echo $bootstrap.'<div class="alert alert-danger"><b>ERROR:</b> La Tabla no existe.<div>';exit();
         }
@@ -48,7 +16,8 @@ $mysqli=conexion();
         echo $bootstrap.'<div class="alert alert-warning"><b>PRECAUCIÓN:</b> No hay datos que mostrar<div>';exit();
     }
 }
-
+validacion_tabla($tabla);
+//FUNCIONES CRUD
 //Obtener campos para insert
 function getCampos($input){
     $filterParams = [];
@@ -99,8 +68,8 @@ global $conec, $tabla;
 
 //STORE
 function store($id){
-global $conec, $tabla;
-    $sql = $conec->prepare("SELECT * FROM $tabla where ID=:id");
+global $conec, $tabla, $IdT;
+    $sql = $conec->prepare("SELECT * FROM $tabla where $IdT=:id");
     $sql->bindValue(':id', $id);
     $sql->execute();
     $json=$sql->fetch(PDO::FETCH_ASSOC);
@@ -112,7 +81,7 @@ global $conec, $tabla;
 
 //INSERT
 function insert(){
-global $conec,$tabla;
+global $conec,$tabla,$_POST;
     $input = $_POST;
     $campos = getCampos($input); //echo $campos;
     $valores = getValores($input); //echo $valores;
@@ -131,11 +100,11 @@ global $conec,$tabla;
 
 //UPDATE
 function update($id){
-global $conec,$tabla;
-    $input = $_POST;//print_r($input); 
+global $conec,$tabla,$_PUT,$IdT;
+    $input = $_PUT;
     $postId = $id; 
     $fields = getParams($input); //echo $fields;//exit();
-    $sql = "UPDATE $tabla SET $fields WHERE ID='$postId'";
+    $sql = "UPDATE $tabla SET $fields WHERE $IdT='$postId'";
     $statement = $conec->prepare($sql);
     bindAllValues($statement, $input);
     $statement->execute();
@@ -146,11 +115,23 @@ global $conec,$tabla;
 
 //DELETE
 function delete($id){
-global $conec,$tabla;
-    $statement = $conec->prepare("DELETE FROM $tabla where ID=:id");
+global $conec,$tabla,$IdT;
+    $statement = $conec->prepare("DELETE FROM $tabla where $IdT=:id");
     $statement->bindValue(':id', $id);
     $statement->execute();
     header("HTTP/1.1 200 OK");
-    echo 'El registro '.$id.' ha sido eliminado.';  
+    header('Content-Type: application/json');
+    $resultado['mensaje']='El registro '.$id.' ha sido eliminado.'; 
+    echo json_encode($resultado);
 }
- ?>
+
+//ERROR
+function Error($error){
+    header('Content-Type: application/json');
+    $resultado['mensaje']=$error;
+    echo json_encode($resultado);
+}
+//ERROR
+$Error_id='No existe ID!';
+$Error_msj ='';
+?>

@@ -1,10 +1,10 @@
 <?php
-function buscar_archivo1($path_file,&$val){
- $val=(file_exists($path_file))?1:0;
+function buscar_archivo1($path_file){
+ return $val=(file_exists($path_file))?1:0;
 }
 $path_file = '../../admin/scfg.php';
-buscar_archivo1($path_file,$val);
-if($val==1){
+$ex_scfg = buscar_archivo1($path_file);
+if($ex_scfg==1){
     include '../../admin/scfg.php';
 }else{
     include 'scfg.php';

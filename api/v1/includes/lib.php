@@ -48,9 +48,8 @@ $URL        = $dominio1.$pag_url;			//Se obtiene la url completa, incluyendo var
 $host_dom   = 'https://'.$host.'/';
 $host_dominio = ($dominio==$host_dom)?'https://'.$host.'/':'http://'.$host.'/';
 
-$path_root=sql_opc('config','path_root','ID',1);//$page_url=($mod=='Home')?$URL:$dominio.$path_root;
-$page_url=$dominio.$path_root;
-$page_url=sql_opc('config','page_url','ID',1);
+$path_root  = ($ex_scfg!=1)?$path_root:sql_opc('config','path_root','ID',1);
+$page_url   = ($ex_scfg!=1)?$dominio.$path_root:sql_opc('config','page_url','ID',1); //$page_url=($mod=='Home')?$URL:$dominio.$path_root;
 
 /*---VARIABLES DE PAGINA---*/
 $meta_chartset='<!--Caracteres-->'."\r\n".'<meta charset="utf-8">'."\r\n".'';
@@ -78,4 +77,27 @@ global $mysqli,$DBprefix;//$mysqli=conexion();
     return $dato;
 }
 
+function Identificador(){
+global $tabla;
+    switch (true) {
+        case ($tabla=='citas'):
+            $ID='CitaId';
+        break;
+        case ($tabla=='pacientes'):
+            $ID='PacienteId';
+        break;
+        case ($tabla=='usuarios'):
+            $ID='UsuarioId';
+        break;
+        case ($tabla=='usuarios_token'):
+            $ID='TokenId';
+        break;
+        default:
+            $ID='ID';
+        break;
+    }
+    return $ID;
+}
+
+$IdT=Identificador();
 ?>

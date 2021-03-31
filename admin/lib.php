@@ -10,6 +10,7 @@ Descripción: Aplicación web multiproposito.
 /**********************************************************
 v.2.8.2 - TOKEN
 -Seguridad: Se agrego Token(Funcional!!!)
+-CAMBIO DE DIAGONAL AL FINAL EN $pag_url & $path_root
 /**********************************************************
 v.2.8.1 - API
 -Se creo API Rest General (/api)
@@ -78,13 +79,16 @@ $day		= date('d');
 $time		= date('Gis');
 $fecha		= date('Y-m-d');
 $date		= date("Y-m-d H:i:s");
+$serv_proto = (isset($_SERVER['SERVER_PROTOCOL']))?$_SERVER['SERVER_PROTOCOL']:''; //Protocolo de Internet
+//$protocol = stripos($_SERVER['SERVER_PROTOCOL'],'https') === true ? 'https://' : 'http://'; //Protocolo de Internet
+$protocol   = (isset($_SERVER['HTTPS']))?'https://':'http://';  //Protocolo de Internet
 $host		= $_SERVER['HTTP_HOST'];			//Nombre del dominio (dominio.com).
 $ip_address = $_SERVER['REMOTE_ADDR'];			//Se obtiene la direccion ip del visitante de la pagina web.
 $ip			= ($ip_address!='' && $ip_address!=NULL && $ip_address!='::1')?$ip_address:gethostbyname($host);
 $IPv4 		= ip2long($ip);						//Direccion IPv4 
-$pag_self 	= $_SERVER['PHP_SELF'];			//Se obtiene el nombre de la pagina.
-$pag_url 	= $_SERVER['REQUEST_URI'];		//Se obtiene el nombre de la pagina incluyendo variables.
-$pag_name 	= basename($_SERVER['PHP_SELF']);
+$pag_self 	= $_SERVER['PHP_SELF'];			    //Se obtiene la raiz y el nombre de la pagina.
+$pag_url 	= $_SERVER['REQUEST_URI'];		    //Se obtiene la url de la pagina incluyendo variables.
+$pag_name 	= basename($_SERVER['PHP_SELF']);   //Nombre de la pagina.
 $refer 		= (isset($_SERVER['HTTP_REFERER']))?$_SERVER['HTTP_REFERER']:'';
 /*VARIABLES GET*/
 $mod 		= (isset($_GET['mod']))?$_GET['mod']:'Home';
@@ -100,13 +104,23 @@ $idp 		= (isset($_GET['id']))?$_GET['id']:'';//Variable de id producto
 $idm		= (isset($_GET['idm']))?$_GET['idm']:'';//Variable de id para mail en formularios de contacto
 $idf 		= (isset($_GET['idf']))?$_GET['idf']:'';//Variable bandera
 $vhref 		= (isset($_GET['vhref']))?$_GET['vhref']:''; //Variable de seguimiento.
-//$tabla      = (isset($_GET['tabla']))?$_GET['tabla']:'';//Variable de Tabla. 
+$tabla      = (isset($_GET['tabla']))?$_GET['tabla']:'';//Variable de Tabla. 
 
-//$token=bin2hex(random_bytes(64));
-$ver_file=($host=='localhost')?'ver='.$time:'ver='.$date;
-$path_jsonDB='bloques/webservices/rest/json/';
-$path_jsonWS='bloques/ws/t/?t=';
+//$token = bin2hex(random_bytes(64));
+$ver_file   = ($host=='localhost')?'ver='.$time:'ver='.$date;
+$path_mod   = 'modulos/'.$mod.'/';
+$path_jsonDB= 'bloques/webservices/rest/json/';
+$path_jsonWS= 'bloques/ws/t/?t=';
 date_default_timezone_set("America/Mexico_City");
+
+$dominio    = $protocol.$host.'/';          //Dominio Estructurado
+$dominio1   = $protocol.$host;              //Dominio Simple
+$url        = $dominio1.$pag_self;			//Se obtiene la url de la pagina.
+$URL        = $dominio1.$pag_url;			//Se obtiene la url completa, incluyendo variables.
+
+$host_dom   = 'https://'.$host.'/';
+$host_dominio = ($dominio==$host_dom)?'https://'.$host.'/':'http://'.$host.'/';
+
 //--FUNCIONES SISTEMA-///////////////////////////////////////////////////////////////////////////////
 /*CONFIGURACION*/
 $sql=mysqli_query($mysqli,"SELECT * FROM ".$DBprefix."config WHERE ID='1';") or print mysqli_error($mysqli); 
@@ -148,15 +162,11 @@ if($row=mysqli_fetch_array($sql)){
 	$ver_web=$row['version'];
 }
 
-//$dominio=$dominio.'/';$page_url=$page_url.'/';
-$host_dom='https://'.$host;
-$host_dominio=($dominio==$host_dom.'/')?'https://'.$host:'http://'.$host;
-//echo $dominio.' = '.$host_dom;
-$url=$host_dominio.$pag_self;			//Se obtiene la url de la pagina.
-$URL=$host_dominio.$pag_url;			//Se obtiene la url completa, incluyendo variables.
-/*Var Servidor en modo seguro*/
-//$page_url=(isset($_SERVER['HTTPS']))?'https://'.$host.$path_root.'/':'http://'.$host.$path_root.'/';
-if(isset($_SERVER['HTTPS'])){$page_url='https://'.$host.$path_root.'/';}else{$page_url=$host_dominio.$path_root.'/';}
+$path_root=sql_opc('config','path_root','ID',1);
+/*Var Servidor en modo seguro*/ //$page_url=$dominio.$path_root; //$page_url=($mod=='Home')?$URL:$dominio.$path_root;
+$page_url=(isset($_SERVER['HTTPS']))?'https://'.$host.$path_root:$host_dominio.$path_root;
+/***************************** CAMBIO DE DIAGONAL AL FINAL EN $pag_url ***************************/
+
 /*Meta*/
 $meta_chartset='
 <!--Caracteres-->
@@ -291,34 +301,18 @@ global $mysqli,$DBprefix;
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////
 
-function conecta(){
-$mysqli = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_DB); //conexión ala base de datos por medio de misqli poo
-  if($mysqli->connect_errno > 0){ //si retorna algun error
- 	return("Imposible conectarse con la base de datos [" . $mysqli->connect_error . "]"); //se muestra el error
-  }else{ //si no retorna el error
- 	$mysqli->query("SET NAMES 'utf8'"); //codifica las consultas a utf-8
- 	return $mysqli; //retorna la conexión a la base de datos mysql
-  }
-}
-
-//CONEXION PDO
-function connect(){
-    try {
-        $mysqli = new PDO("mysql:host=".DB_HOST.";dbname=".DB_DB.";charset=utf8mb4", DB_USER, DB_PASSWORD);
-        // set the PDO error mode to exception
-        $mysqli->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        return $mysqli;
-    } catch (PDOException $exception) {
-        exit($exception->getMessage());
-    }
-}
-$conec=connect();
 
 //Validación
 function validacion_tabla($tabla){
 global $bootstrap,$DBprefix;
+$mysqli=conexion();
     if($tabla!='signup' && $tabla!=NULL){
-        return $tabla=($tabla==$DBprefix.'signup')?$tabla:$DBprefix.$tabla;
+        $sql = mysqli_query($mysqli,"DESCRIBE ".$DBprefix.$tabla.";");
+        if($sql){
+            return $tabla=($tabla==$DBprefix.'signup')?$tabla:$DBprefix.$tabla;
+        }else{
+            echo $bootstrap.'<div class="alert alert-danger"><b>ERROR:</b> La Tabla no existe.<div>';exit();
+        }
     }else{
         echo $bootstrap.'<div class="alert alert-warning"><b>PRECAUCIÓN:</b> No hay datos que mostrar<div>';exit();
     }
@@ -1212,14 +1206,14 @@ global $ID_mod,$nombre_mod,$modulo_mod,$description_mod,$dashboard_mod,$nivel_mo
 global $style,$font_awesome,$bootstrap,$bootstrapjs,$javascript,$jQuery,$jQuery10,$base_target,$back;
 global $BLOCK,$path_dashboard,$slide;
 global $host_dominio;
-if($url==$host_dominio.$path_root.'/' || $url==$host_dominio.$path_root.'/index.php' && $cont_tema!=0){
+if($url==$host_dominio.$path_root || $url==$host_dominio.$path_root.'index.php' && $cont_tema!=0){
 		//echo 'Ruta del tema: /'.$path_tema.'index.php';
 		include ('./'.$path_tema.'index.php');
 		
 	}
 	else{
 		basic_page();
-		echo '<div>'.$url.' = '.$host_dominio.$path_root.'/index.php</div>';
+		echo '<div>'.$url.' = '.$host_dominio.$path_root.'index.php</div>';
 		echo 'Ruta del tema: /'.$path_tema.'index.php';
 		echo '<div class="alert">La pagina no existe! <span>'.$avi.'</span> '.$back.' </div>';
 	}	
@@ -1290,7 +1284,7 @@ global $style,$font_awesome,$bootstrap,$bootstrapjs,$javascript,$jQuery,$jQuery1
 global $BLOCK,$path_dashboard,$slide;
 global $host_dominio;
 user_login($ID_login,$username,$email_login,$nivel_login,$last_login,$tema_login,$nombre_login,$apaterno_login,$amaterno_login,$foto_login,$cover_login,$tel_login,$ext_login,$fnac_login,$fb_login,$tw_login,$puesto_login,$ndepa_login,$depa_login,$empresa_login,$adress_login,$direccion_login,$mpio_login,$edo_login,$genero_login,$exp_login,$like_login,$filtro_login,$zona_login,$alta_login,$actualizacion_login,$page_login,$nivel_oper_login,$rol_login);
-  if($url==$host_dominio.$path_root.'/index.php' && $mod!='' && $mod!=NULL){
+  if($url==$host_dominio.$path_root.'index.php' && $mod!='' && $mod!=NULL){
 	if($mod!=$qmod && $activo_mod!=1){
 		echo '<div id="alert-system"><div class="alert">El modulo no existe o no esta activo! '.$back.'</div></div>';
 	}else{
@@ -2095,7 +2089,7 @@ self.addEventListener(\'install\', function(event) {
   console.log(\'[Service Worker] Instalando Service Worker (sw.js)...\', event);
   event.waitUntil(
 	caches.open(\'static\').then(function(cache) {
-	  cache.addAll([\''.$path_root.'/\', \''.$path_root.'/index.php\', \''.$path_root.'/bloques/WPA/manifest.json\',\''.$path_root.'/bloques/WPA/appCon.js\']);
+	  cache.addAll([\''.$path_root.'\', \''.$path_root.'index.php\', \''.$path_root.'bloques/WPA/manifest.json\',\''.$path_root.'bloques/WPA/appCon.js\']);
 	})
   );
 });
@@ -2112,7 +2106,7 @@ self.addEventListener(\'fetch\', function(event) {//console.log(event.request.ur
 		} else {
 		  return fetch(event.request).then(function(res) {
 			return caches.open(\'dynamic\').then(function(cache) {
-			  //cache.put(event.request.url, res.clone()).then(()=>{cache.delete(\''.$path_root.'/admin/\');});
+			  //cache.put(event.request.url, res.clone()).then(()=>{cache.delete(\''.$path_root.'admin/\');});
 			  cache.put(event.request.url, res.clone()).then(()=>{cache.delete(event.request.url);});
 			  return res;
 			});
@@ -2134,7 +2128,7 @@ function crear_appCon($path_wpa){
 global $page_url,$path_root,$path_tema,$pag_name;
 $contenido='//appCon.js index.php
 if (\'serviceWorker\' in navigator) {
-	navigator.serviceWorker.register(\''.$path_root.'/sw.js\').then(function(registration) {
+	navigator.serviceWorker.register(\''.$path_root.'sw.js\').then(function(registration) {
 		console.log(
 		  \'Service Worker registro correcto con scope: \',
 		  registration.scope

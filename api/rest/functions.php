@@ -38,9 +38,10 @@ function validacion_tabla(){
 global $mysqli,$DBprefix,$tabla,$bootstrap;
 $mysqli=conexion();
     if($tabla!='signup' && $tabla!=NULL){
-        $sql = mysqli_query($mysqli,"DESCRIBE ".$DBprefix.$tabla.";");
+        $tabla = ($tabla==$DBprefix.'signup')?$tabla:$DBprefix.$tabla;        
+        $sql = mysqli_query($mysqli,"DESCRIBE ".$tabla.";");
         if($sql){
-            return $tabla=($tabla==$DBprefix.'signup')?$tabla:$DBprefix.$tabla;
+            return $tabla;//$tabla=($tabla==$DBprefix.'signup')?$tabla:$DBprefix.$tabla;
         }else{
             echo $bootstrap.'<div class="alert alert-danger"><b>ERROR:</b> La Tabla no existe.<div>';exit();
         }
