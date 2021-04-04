@@ -16,7 +16,7 @@ $mysqli=conexion();
         echo $bootstrap.'<div class="alert alert-warning"><b>PRECAUCIÓN:</b> No hay datos que mostrar<div>';exit();
     }
 }
-validacion_tabla($tabla);
+
 //FUNCIONES CRUD
 //Obtener campos para insert
 function getCampos($input){
@@ -46,11 +46,11 @@ function getParams($input){
 }
 
 //Asociar todos los parametros a un sql
-function bindAllValues($statement, $params){
+function bindAllValues($sql, $params){
 	foreach($params as $param => $value){
-		$statement->bindValue(':'.$param, $value);
+		$sql->bindValue(':'.$param, $value);
 	}
-	return $statement;
+	return $sql;
 }
 
 //INDEX
@@ -86,9 +86,9 @@ global $conec,$tabla,$_POST;
     $campos = getCampos($input); //echo $campos;
     $valores = getValores($input); //echo $valores;
     $sql = "INSERT INTO $tabla ($campos) VALUES ($valores)";
-    $statement = $conec->prepare($sql);
-    bindAllValues($statement, $input);
-    $statement->execute();
+    $sql = $conec->prepare($sql);
+    bindAllValues($sql, $input);
+    $sql->execute();
     $postId = $conec->lastInsertId();
     if($postId){
       //$input['id'] = $postId;
@@ -105,9 +105,9 @@ global $conec,$tabla,$_PUT,$IdT;
     $postId = $id; 
     $fields = getParams($input); //echo $fields;//exit();
     $sql = "UPDATE $tabla SET $fields WHERE $IdT='$postId'";
-    $statement = $conec->prepare($sql);
-    bindAllValues($statement, $input);
-    $statement->execute();
+    $sql = $conec->prepare($sql);
+    bindAllValues($sql, $input);
+    $sql->execute();
     header("HTTP/1.1 200 OK");
     header('Content-Type: application/json');
     echo json_encode($input);
@@ -116,13 +116,58 @@ global $conec,$tabla,$_PUT,$IdT;
 //DELETE
 function delete($id){
 global $conec,$tabla,$IdT;
-    $statement = $conec->prepare("DELETE FROM $tabla where $IdT=:id");
-    $statement->bindValue(':id', $id);
-    $statement->execute();
+    $sql = $conec->prepare("DELETE FROM $tabla where $IdT=:id");
+    $sql->bindValue(':id', $id);
+    $sql->execute();
     header("HTTP/1.1 200 OK");
     header('Content-Type: application/json');
     $resultado['mensaje']='El registro '.$id.' ha sido eliminado.'; 
     echo json_encode($resultado);
+}
+
+//LOGIN
+function login(){
+global $conec,$DBprefix,$date,$_POST;
+    $tabla='signup';
+    $U=(isset($_POST['username']))?$_POST['username']:'';
+    $P=(isset($_POST['password']))?$_POST['password']:'';
+    $input=$_POST;
+    $login = htmlspecialchars(trim($U));
+    $pass = trim($P);
+    $pass1 = ($pass=='123456')?$pass:sha1(md5($pass));// Encriptamos "Ciframos" el password
+    
+    $sql = $conec->prepare("SELECT * FROM $DBprefix$tabla WHERE username=:username && password=:password");
+    $sql->bindValue(':username', $U);
+    $sql->bindValue(':password', $pass1);
+    $sql->execute();
+    $sesid=$sql->fetch(PDO::FETCH_ASSOC);
+    $ID = $sesid['ID'];
+    $us = $sesid['username'];
+    $pa = $sesid['password'];
+    if($us==$U || $pa==$P){
+        $tabla='token';
+        $token = sha1(uniqid(rand(),true));//Generador de Token //Token();
+        $tok = "INSERT INTO $DBprefix$tabla (ID_user,Token,Estado,Fecha) VALUES ('{$ID}','{$token}','Activo','{$date}')";
+        $tok = $conec->prepare($tok);
+        $tok->execute();
+        if($tok){
+            $sqlt = $conec->prepare("SELECT * FROM $DBprefix$tabla WHERE ID_user=:ID_user && Estado='Activo' ORDER BY ID DESC");
+            $sqlt->bindValue(':ID_user', $ID);
+            $sqlt->execute();
+            $json=$sqlt->fetch(PDO::FETCH_ASSOC);
+            $data[]=$json;
+            $token=$json['Token'];
+            setcookie("token",$token,time()+(60+60+24+31),"/");
+            header("HTTP/1.1 200 OK");
+            header('Content-Type: application/json');
+            $resultado['IDU']=$ID;
+            $resultado['mensaje']='OK';
+            $resultado['token']=$token;
+            echo json_encode($resultado);
+        }
+    }else{
+        Error('ERROR: El usuario o password es incorrecto');
+    }
 }
 
 //ERROR
@@ -131,7 +176,11 @@ function Error($error){
     $resultado['mensaje']=$error;
     echo json_encode($resultado);
 }
+//MENSAJES
+$msj_test='Mensaje de prueba';
+$msj_ok='ok';
+$msj_login='Usted esta en el Login';
 //ERROR
 $Error_id='No existe ID!';
-$Error_msj ='';
+$Error_msj ='La consulta no se ejecuto';
 ?>

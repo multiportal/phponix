@@ -1,6 +1,6 @@
 <?php 
 include_once 'includes/conexion.php';
-
+validacion_tabla($tabla);
 header("Access-Control-Allow-Origin: *");
 header('Access-Control-Allow-Credentials: true');
 header('Access-Control-Allow-Methods: PUT, GET, POST, DELETE, OPTIONS');
