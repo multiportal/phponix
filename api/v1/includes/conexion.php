@@ -10,6 +10,9 @@ if($ex_scfg==1){
     include 'scfg.php';
 }
 
+$tab_signup = ($ex_scfg==1)?$DBprefix.'signup':'signup';
+$tab_token = ($ex_scfg==1)?$DBprefix.'token':'token';
+
 //CONEXION MYSQLI
 function conexion(){
 $mysqli = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_DB); //conexión ala base de datos por medio de misqli poo

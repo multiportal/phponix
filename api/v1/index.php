@@ -30,6 +30,7 @@ switch ($_SERVER['REQUEST_METHOD']) {
     }
   break;
   case 'DELETE':
+    $_DEL = json_decode(file_get_contents('php://input'),true);
     if(isset($_GET['id'])){
       delete($id);
     }else{

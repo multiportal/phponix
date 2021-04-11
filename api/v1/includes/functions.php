@@ -1,4 +1,27 @@
 <?php 
+//Campo ID
+function Identificador(){
+global $tabla;
+    switch (true) {
+        case ($tabla=='citas'):
+            $ID='CitaId';
+        break;
+        case ($tabla=='pacientes'):
+            $ID='PacienteId';
+        break;
+        case ($tabla=='usuarios'):
+            $ID='UsuarioId';
+        break;
+        case ($tabla=='usuarios_token'):
+            $ID='TokenId';
+        break;
+        default:
+            $ID='ID';
+        break;
+    }
+    return $ID;
+}
+$IdT=Identificador();
 
 //Validación
 function validacion_tabla($tabla){
@@ -53,6 +76,27 @@ function bindAllValues($sql, $params){
 	return $sql;
 }
 
+//Reformater Array
+function formatearPost($key){
+    foreach($key as $row => $dato){
+        if($row!='token'){
+            $input[$row]=$dato;
+        }
+    }
+    return $input;
+}
+
+//Verificar Token
+function verificarToken($token){
+global $conec,$DBprefix,$tab_token;
+    //$tabla='token';
+    $sql = $conec->prepare("SELECT * FROM $tab_token WHERE Token=:token AND Estado='Activo' ORDER BY ID DESC");
+    $sql->bindValue(':token', $token);
+    $sql->execute();
+    $json=$sql->fetch(PDO::FETCH_ASSOC);
+    return $json;
+}
+
 //INDEX
 function all(){
 global $conec, $tabla;
@@ -69,7 +113,7 @@ global $conec, $tabla;
 //STORE
 function store($id){
 global $conec, $tabla, $IdT;
-    $sql = $conec->prepare("SELECT * FROM $tabla where $IdT=:id");
+    $sql = $conec->prepare("SELECT * FROM $tabla WHERE $IdT=:id");
     $sql->bindValue(':id', $id);
     $sql->execute();
     $json=$sql->fetch(PDO::FETCH_ASSOC);
@@ -82,53 +126,71 @@ global $conec, $tabla, $IdT;
 //INSERT
 function insert(){
 global $conec,$tabla,$_POST;
-    $input = $_POST;
-    $campos = getCampos($input); //echo $campos;
-    $valores = getValores($input); //echo $valores;
-    $sql = "INSERT INTO $tabla ($campos) VALUES ($valores)";
-    $sql = $conec->prepare($sql);
-    bindAllValues($sql, $input);
-    $sql->execute();
-    $postId = $conec->lastInsertId();
-    if($postId){
-      //$input['id'] = $postId;
-      header("HTTP/1.1 200 OK");
-      header('Content-Type: application/json');
-      echo json_encode($input);
+    $token = $_POST['token'];
+    $input = formatearPost($_POST);
+    $validar = verificarToken($token);
+    if($validar!=NULL){        
+        $campos = getCampos($input); //echo $campos;
+        $valores = getValores($input); //echo $valores;
+        $sql = "INSERT INTO $tabla ($campos) VALUES ($valores)";
+        $sql = $conec->prepare($sql);
+        bindAllValues($sql, $input);
+        $sql->execute();
+        $postId = $conec->lastInsertId();
+        if($postId){
+          $input['id'] = $postId; //$input['token'] = $token;
+          header("HTTP/1.1 200 OK");
+          header('Content-Type: application/json');
+          echo json_encode($input);
+        }
+    }else{
+        Error('ERROR: La sesión a caducado');
     }    
 }
 
 //UPDATE
 function update($id){
 global $conec,$tabla,$_PUT,$IdT;
-    $input = $_PUT;
     $postId = $id; 
-    $fields = getParams($input); //echo $fields;//exit();
-    $sql = "UPDATE $tabla SET $fields WHERE $IdT='$postId'";
-    $sql = $conec->prepare($sql);
-    bindAllValues($sql, $input);
-    $sql->execute();
-    header("HTTP/1.1 200 OK");
-    header('Content-Type: application/json');
-    echo json_encode($input);
+    $token = $_PUT['token'];
+    $input = formatearPost($_PUT);
+    $validar = verificarToken($token);
+    if($validar!=NULL){
+        $fields = getParams($input); //echo $fields;//exit();
+        $sql = "UPDATE $tabla SET $fields WHERE $IdT='$postId'";
+        $sql = $conec->prepare($sql);
+        bindAllValues($sql, $input);
+        $sql->execute();
+        header("HTTP/1.1 200 OK");
+        header('Content-Type: application/json');
+        echo json_encode($input);
+    }else{
+        Error('ERROR: La sesión a caducado');
+    }    
 }
 
 //DELETE
 function delete($id){
-global $conec,$tabla,$IdT;
-    $sql = $conec->prepare("DELETE FROM $tabla where $IdT=:id");
-    $sql->bindValue(':id', $id);
-    $sql->execute();
-    header("HTTP/1.1 200 OK");
-    header('Content-Type: application/json');
-    $resultado['mensaje']='El registro '.$id.' ha sido eliminado.'; 
-    echo json_encode($resultado);
+global $conec,$tabla,$_DEL,$IdT;
+    $token = $_DEL['token'];
+    $validar = verificarToken($token);
+    if($validar!=NULL){
+        $sql = $conec->prepare("DELETE FROM $tabla where $IdT=:id");
+        $sql->bindValue(':id', $id);
+        $sql->execute();
+        header("HTTP/1.1 200 OK");
+        header('Content-Type: application/json');
+        $resultado['mensaje']='El registro '.$id.' ha sido eliminado.'; 
+        echo json_encode($resultado);
+    }else{
+        Error('ERROR: La sesión a caducado');
+    }
 }
 
 //LOGIN
 function login(){
-global $conec,$DBprefix,$date,$_POST;
-    $tabla='signup';
+global $conec,$DBprefix,$tab_signup,$tab_token,$date,$_POST;
+    //$tabla='signup';
     $U=(isset($_POST['username']))?$_POST['username']:'';
     $P=(isset($_POST['password']))?$_POST['password']:'';
     $input=$_POST;
@@ -136,7 +198,7 @@ global $conec,$DBprefix,$date,$_POST;
     $pass = trim($P);
     $pass1 = ($pass=='123456')?$pass:sha1(md5($pass));// Encriptamos "Ciframos" el password
     
-    $sql = $conec->prepare("SELECT * FROM $DBprefix$tabla WHERE username=:username && password=:password");
+    $sql = $conec->prepare("SELECT * FROM $tab_signup WHERE username=:username && password=:password");
     $sql->bindValue(':username', $U);
     $sql->bindValue(':password', $pass1);
     $sql->execute();
@@ -145,13 +207,13 @@ global $conec,$DBprefix,$date,$_POST;
     $us = $sesid['username'];
     $pa = $sesid['password'];
     if($us==$U || $pa==$P){
-        $tabla='token';
+        //$tabla='token';
         $token = sha1(uniqid(rand(),true));//Generador de Token //Token();
-        $tok = "INSERT INTO $DBprefix$tabla (ID_user,Token,Estado,Fecha) VALUES ('{$ID}','{$token}','Activo','{$date}')";
+        $tok = "INSERT INTO $tab_token (ID_user,Token,Estado,Fecha) VALUES ('{$ID}','{$token}','Activo','{$date}')";
         $tok = $conec->prepare($tok);
         $tok->execute();
         if($tok){
-            $sqlt = $conec->prepare("SELECT * FROM $DBprefix$tabla WHERE ID_user=:ID_user && Estado='Activo' ORDER BY ID DESC");
+            $sqlt = $conec->prepare("SELECT * FROM $tab_token WHERE ID_user=:ID_user && Estado='Activo' ORDER BY ID DESC");
             $sqlt->bindValue(':ID_user', $ID);
             $sqlt->execute();
             $json=$sqlt->fetch(PDO::FETCH_ASSOC);
@@ -163,6 +225,7 @@ global $conec,$DBprefix,$date,$_POST;
             $resultado['IDU']=$ID;
             $resultado['mensaje']='OK';
             $resultado['token']=$token;
+            $resultado['VerifcarToken']=verificarToken($token);
             echo json_encode($resultado);
         }
     }else{
