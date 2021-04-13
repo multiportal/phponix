@@ -37,8 +37,8 @@ $conec=connect();
 function validacion_tabla(){
 global $mysqli,$DBprefix,$tabla,$bootstrap;
 $mysqli=conexion();
-    if($tabla!='signup' && $tabla!=NULL){
-        $tabla = ($tabla==$DBprefix.'signup')?$tabla:$DBprefix.$tabla;        
+    if($tabla!='signup' && $tabla!='token' && $tabla!=NULL){
+        $tabla = ($tabla==$DBprefix.'signup' || $tabla==$DBprefix.'token')?$tabla:$DBprefix.$tabla;        
         $sql = mysqli_query($mysqli,"DESCRIBE ".$tabla.";");
         if($sql){
             return $tabla;//$tabla=($tabla==$DBprefix.'signup')?$tabla:$DBprefix.$tabla;

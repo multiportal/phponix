@@ -25,10 +25,11 @@ $IdT=Identificador();
 
 //Validación
 function validacion_tabla($tabla){
-global $mysqli,$DBprefix,$tabla,$bootstrap;
+global $mysqli,$DBprefix,$tabla,$bootstrap,$ex_scfg;
 $mysqli=conexion();
-    if($tabla!='signup' && $tabla!=NULL){
-        $tabla = ($tabla==$DBprefix.'signup')?$tabla:$DBprefix.$tabla;        
+    if($tabla!='signup' && $tabla!='token' && $tabla!=NULL){
+        $tabla = ($tabla=='_signup' || $tabla=='_token' && $ex_scfg!=1)?str_replace('_','',$tabla):$tabla;           
+        $tabla = ($tabla==$DBprefix.'signup' || $tabla==$DBprefix.'token')?$tabla:$DBprefix.$tabla;
         $sql = mysqli_query($mysqli,"DESCRIBE ".$tabla.";");
         if($sql){
             return $tabla;//$tabla=($tabla==$DBprefix.'signup')?$tabla:$DBprefix.$tabla;
