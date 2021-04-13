@@ -121,6 +121,11 @@ $URL        = $dominio1.$pag_url;			//Se obtiene la url completa, incluyendo var
 $host_dom   = 'https://'.$host.'/';
 $host_dominio = ($dominio==$host_dom)?'https://'.$host.'/':'http://'.$host.'/';
 
+$path_root=sql_opc('config','path_root','ID',1);
+/*Var Servidor en modo seguro*/ //$page_url=$dominio.$path_root; //$page_url=($mod=='Home')?$URL:$dominio.$path_root;
+$page_url=(isset($_SERVER['HTTPS']))?'https://'.$host.$path_root:$host_dominio.$path_root;
+/***************************** CAMBIO DE DIAGONAL AL FINAL EN $pag_url ***************************/
+
 //--FUNCIONES SISTEMA-///////////////////////////////////////////////////////////////////////////////
 /*CONFIGURACION*/
 $sql=mysqli_query($mysqli,"SELECT * FROM ".$DBprefix."config WHERE ID='1';") or print mysqli_error($mysqli); 
@@ -161,11 +166,6 @@ if($row=mysqli_fetch_array($sql)){
 	$ls_web=$row['licencia'];
 	$ver_web=$row['version'];
 }
-
-$path_root=sql_opc('config','path_root','ID',1);
-/*Var Servidor en modo seguro*/ //$page_url=$dominio.$path_root; //$page_url=($mod=='Home')?$URL:$dominio.$path_root;
-$page_url=(isset($_SERVER['HTTPS']))?'https://'.$host.$path_root:$host_dominio.$path_root;
-/***************************** CAMBIO DE DIAGONAL AL FINAL EN $pag_url ***************************/
 
 /*Meta*/
 $meta_chartset='

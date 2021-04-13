@@ -28,19 +28,19 @@
             <!-- Iniciar Sesion -->
             <div id="iniciar-sesion">
                 <h1>Iniciar Sesión</h1>
-                <form action="#" method="post">
+                <form id="form_login" method="POST" action="">
                     <div class="contenedor-input">
                         <label>
                             Usuario <span class="req">*</span>
                         </label>
-                        <input type="text" required>
+                        <input id="username" name="username" type="text" required>
                     </div>
 
                     <div class="contenedor-input">
                         <label>
                             Contraseña <span class="req">*</span>
                         </label>
-                        <input type="password" required>
+                        <input id="password" name="password" type="password" required>
                     </div>
                     <p class="forgot"><a href="#">Se te olvidó la contraseña?</a></p>
                     <input type="submit" class="button button-block" value="Iniciar Sesión">
@@ -50,13 +50,13 @@
             <!-- Registrarse -->
             <div id="registrarse">
                 <h1>Registrarse</h1>
-                <form action="#" method="post">
+                <form id="form_reg" method="POST" action="">
                     <div class="fila-arriba">
                         <div class="contenedor-input">
                             <label>
                                 Nombre <span class="req">*</span>
                             </label>
-                            <input type="text" required >
+                            <input  type="text" required >
                         </div>
 
                         <div class="contenedor-input">
@@ -99,5 +99,6 @@
     </div>
     <?php echo $jQuery10;?>
    <script src="<?php echo $page_url;?>modulos/login/js/script.js"></script>
+   <script type="text/javascript" src="<?php echo $page_url;?>api/login/index.js"></script>
 </body>
 </html>

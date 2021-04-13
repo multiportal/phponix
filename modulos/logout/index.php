@@ -8,6 +8,8 @@ switch(true){
 		$URL_log=$page_url.'admin/';
 	break;
 }
+$token=htmlspecialchars($_COOKIE["token"]);
+mysqli_query($mysqli,"UPDATE ".$DBprefix."token SET Estado='Inactivo' WHERE Token='".$token."';") or print mysqli_error($mysqli);
 setcookie("token","",time()-1,"/");
 $ultimologin=date("Y-m-d H:i:s");
 mysqli_query($mysqli,"UPDATE ".$DBprefix."signup SET lastlogin='".$ultimologin."' WHERE ID='".$_GET["id"]."';") or print mysqli_error($mysqli);
@@ -28,6 +30,4 @@ La sesion ha sido cerrada<br>
 Redireccionando, espere por favor.<br>
 </div>';
 echo '<script>localStorage.clear();</script>';
-recargar($seg=3,$URL_log,'');
-close_page();
-?>
+re
