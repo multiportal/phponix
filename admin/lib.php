@@ -111,19 +111,13 @@ $ver_file   = ($host=='localhost')?'ver='.$time:'ver='.$date;
 $path_mod   = 'modulos/'.$mod.'/';
 $path_jsonDB= 'bloques/webservices/rest/json/';
 $path_jsonWS= 'bloques/ws/t/?t=';
+$path_api = 'api/';
 date_default_timezone_set("America/Mexico_City");
 
-$dominio    = $protocol.$host.'/';          //Dominio Estructurado
-$dominio1   = $protocol.$host;              //Dominio Simple
-$url        = $dominio1.$pag_self;			//Se obtiene la url de la pagina.
-$URL        = $dominio1.$pag_url;			//Se obtiene la url completa, incluyendo variables.
-
-$host_dom   = 'https://'.$host.'/';
-$host_dominio = ($dominio==$host_dom)?'https://'.$host.'/':'http://'.$host.'/';
 
 $path_root=sql_opc('config','path_root','ID',1);
 /*Var Servidor en modo seguro*/ //$page_url=$dominio.$path_root; //$page_url=($mod=='Home')?$URL:$dominio.$path_root;
-$page_url=(isset($_SERVER['HTTPS']))?'https://'.$host.$path_root:$host_dominio.$path_root;
+$page_url=(isset($_SERVER['HTTPS']))?'https://'.$host.$path_root:'http://'.$host.$path_root;
 /***************************** CAMBIO DE DIAGONAL AL FINAL EN $pag_url ***************************/
 
 //--FUNCIONES SISTEMA-///////////////////////////////////////////////////////////////////////////////
@@ -166,6 +160,14 @@ if($row=mysqli_fetch_array($sql)){
 	$ls_web=$row['licencia'];
 	$ver_web=$row['version'];
 }
+
+$https_dominio     = 'https://'.$host.'/';
+$protocolo_dominio = ($dominio==$https_dominio)?'https://'.$host:'http://'.$host; 
+
+$dominio    = $protocolo_dominio.'/';       //Dominio Estructurado
+$dominio1   = $protocolo_dominio;           //Dominio Simple
+$url        = $dominio1.$pag_self;			//Se obtiene la url de la pagina.
+$URL        = $dominio1.$pag_url;			//Se obtiene la url completa, incluyendo variables.
 
 /*Meta*/
 $meta_chartset='
@@ -1205,15 +1207,15 @@ global $cont_tema,$tema,$subtema,$path_t,$path_tema,$ruta_mod;
 global $ID_mod,$nombre_mod,$modulo_mod,$description_mod,$dashboard_mod,$nivel_mod,$home_mod,$visible_mod,$activo_mod,$sname_mod,$icono_mod,$link_mod,$qmod;
 global $style,$font_awesome,$bootstrap,$bootstrapjs,$javascript,$jQuery,$jQuery10,$base_target,$back;
 global $BLOCK,$path_dashboard,$slide;
-global $host_dominio;
-if($url==$host_dominio.$path_root || $url==$host_dominio.$path_root.'index.php' && $cont_tema!=0){
+global $dominio,$dominio1;
+if($url==$dominio.$path_root || $url==$dominio.$path_root.'index.php' && $cont_tema!=0){
 		//echo 'Ruta del tema: /'.$path_tema.'index.php';
 		include ('./'.$path_tema.'index.php');
 		
 	}
 	else{
 		basic_page();
-		echo '<div>'.$url.' = '.$host_dominio.$path_root.'index.php</div>';
+		echo '<div>'.$url.' = '.$dominio.$path_root.'/index.php</div>';
 		echo 'Ruta del tema: /'.$path_tema.'index.php';
 		echo '<div class="alert">La pagina no existe! <span>'.$avi.'</span> '.$back.' </div>';
 	}	
@@ -1282,9 +1284,9 @@ global $cont_tema,$tema,$subtema,$path_t,$path_tema,$ruta_mod;
 global $ID_mod,$nombre_mod,$modulo_mod,$description_mod,$dashboard_mod,$nivel_mod,$home_mod,$visible_mod,$activo_mod,$sname_mod,$icono_mod,$link_mod,$qmod;
 global $style,$font_awesome,$bootstrap,$bootstrapjs,$javascript,$jQuery,$jQuery10,$base_target,$back;
 global $BLOCK,$path_dashboard,$slide;
-global $host_dominio;
+global $dominio,$dominio1;
 user_login($ID_login,$username,$email_login,$nivel_login,$last_login,$tema_login,$nombre_login,$apaterno_login,$amaterno_login,$foto_login,$cover_login,$tel_login,$ext_login,$fnac_login,$fb_login,$tw_login,$puesto_login,$ndepa_login,$depa_login,$empresa_login,$adress_login,$direccion_login,$mpio_login,$edo_login,$genero_login,$exp_login,$like_login,$filtro_login,$zona_login,$alta_login,$actualizacion_login,$page_login,$nivel_oper_login,$rol_login);
-  if($url==$host_dominio.$path_root.'index.php' && $mod!='' && $mod!=NULL){
+  if($url==$dominio.$path_root.'index.php' && $mod!='' && $mod!=NULL){
 	if($mod!=$qmod && $activo_mod!=1){
 		echo '<div id="alert-system"><div class="alert">El modulo no existe o no esta activo! '.$back.'</div></div>';
 	}else{

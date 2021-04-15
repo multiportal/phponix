@@ -4,6 +4,9 @@ if(isset($_SESSION["username"])){
 include 'admin/functions.php';
 sql_opciones('AJAX',$val_ajax);
 switch(true){
+  case($dboard2=='Nifty'):
+    echo '<h1>Nifty</h1>';
+  break;
 	case($dboard2=='gentelella'):
 ?>
     <!-- Content Header (Page header) -->

@@ -1,7 +1,7 @@
 // JavaScript Document
-let dbAjaxCrud = localStorage.getItem("dbCrud_productos"); //Obtener datos de localStorage
+let dbAjaxCrud = localStorage.getItem("dbCrud_productos_subcategoria"); //Obtener datos de localStorage
 dbAjaxCrud = JSON.parse(dbAjaxCrud); // Covertir a objeto
-var listado = 0;
+var listado = 1;
 //LISTADO
 
 function inicio(){
@@ -16,10 +16,10 @@ function inicio(){
 		}
 		listar=[];
 		listar.push(valor);
-		localStorage.setItem("dbCrud_productos", JSON.stringify(listar));
+		localStorage.setItem("dbCrud_productos_subcategoria", JSON.stringify(listar));
 		console.log(listado);		
 	}
-	dbAjaxCrud = localStorage.getItem("dbCrud_productos");
+	dbAjaxCrud = localStorage.getItem("dbCrud_productos_subcategoria");
 	dbAjaxCrud = JSON.parse(dbAjaxCrud);
 }
 
@@ -45,7 +45,7 @@ function load(page,q) {
 
   $("#loader").fadeIn('slow');
   $.ajax({
-    url: 'modulos/productos/admin/backend.php?mod=productos' + action,
+    url: 'modulos/productos/admin/backend.php?mod=productos&opc=subcategoria' + action,
     data: parametros,
     beforeSend: function (objeto) {
       $("#loader").html("<img src='apps/dashboards/loader.gif'>");
@@ -68,7 +68,7 @@ $(document).ready(function () {
 	dbAjaxCrud[0] = {
 		val: 1
 	}
-	localStorage.setItem("dbCrud_productos", JSON.stringify(dbAjaxCrud));
+	localStorage.setItem("dbCrud_productos_subcategoria", JSON.stringify(dbAjaxCrud));
 	listado = dbAjaxCrud[0].val;//listado = 1;
 	//console.log("listado1:"+listado);
     load(1);
@@ -77,7 +77,7 @@ $(document).ready(function () {
 	dbAjaxCrud[0] = {
 		val: 0
 	}
-	localStorage.setItem("dbCrud_productos", JSON.stringify(dbAjaxCrud));
+	localStorage.setItem("dbCrud_productos_subcategoria", JSON.stringify(dbAjaxCrud));
 	listado = dbAjaxCrud[0].val;//listado = 0;
 	//console.log("listado0:"+listado);
 	load(1);
@@ -88,51 +88,18 @@ $(document).ready(function () {
     e.preventDefault();
     tinyMCE.triggerSave();
     const postData = {
-codigo: $("#codigo").val(),
-clave: $("#clave").val(),
-nombre: $("#nombre").val(),
 cover: $("#cover").val(),
-descripcion: $("#descripcion").val(),
-marca: $("#marca").val(),
-modelo: $("#modelo").val(),
-tipo: $("#tipo").val(),
-precio: $("#precio").val(),
-moneda: $("#moneda").val(),
-unidad: $("#unidad").val(),
-peso: $("#peso").val(),
-color: $("#color").val(),
-medidas: $("#medidas").val(),
-stock: $("#stock").val(),
-serie: $("#serie").val(),
-lote: $("#lote").val(),
+subcategoria: $("#subcategoria").val(),
+ord: $("#ord").val(),
 ID_cate: $("#ID_cate").val(),
-ID_sub_cate: $("#ID_sub_cate").val(),
-ID_sub_cate2: $("#ID_sub_cate2").val(),
-ID_marca: $("#ID_marca").val(),
-url_name: $("#url_name").val(),
-cate: $("#cate").val(),
-resena: $("#resena").val(),
-nuevo: $("#nuevo").val(),
-promo: $("#promo").val(),
-descuento: $("#descuento").val(),
-clasificacion: $("#clasificacion").val(),
-tags: $("#tags").val(),
-land: $("#land").val(),
-file: $("#file").val(),
-alta: $("#alta").val(),
-fmod: $("#fmod").val(),
-user: $("#user").val(),
-imagen1: $("#imagen1").val(),
-imagen2: $("#imagen2").val(),
-imagen3: $("#imagen3").val(),
-imagen4: $("#imagen4").val(),
-imagen5: $("#imagen5").val(),
+descripcion: $("#descripcion").val(),
+
       visible: $("#visible").val(),
       ID: $("#id").val()
     };
-    //const url = edit === false ? 'modulos/productos/admin/backend.php?mod=productos&ext=admin/index&action=add' : 'modulos/productos/admin/backend.php?mod=productos&ext=admin/index&action=edit';
+    //const url = edit === false ? 'modulos/productos/admin/backend.php?mod=productos&ext=admin/index&opc=subcategoria&action=add' : 'modulos/productos/admin/backend.php?mod=productos&ext=admin/index&opc=subcategoria&action=edit';
     let edo = ($("#id").val() != '') ? 'edit' : 'add';
-    const url = 'modulos/productos/admin/backend.php?mod=productos&ext=admin/index&action=' + edo;
+    const url = 'modulos/productos/admin/backend.php?mod=productos&ext=admin/index&opc=subcategoria&action=' + edo;
     console.log(postData, url);
     $.post(url, postData, function (response) {
       //console.log(response);
@@ -147,7 +114,7 @@ imagen5: $("#imagen5").val(),
   $(document).on('click', '.btn-edit', function () {
     const element = $(this)[0].parentElement;
 	const id = $(element).attr('id');
-	window.location.href="index.php?mod=productos&ext=admin/index&form=1&action=edit&id="+id;
+	window.location.href="index.php?mod=productos&ext=admin/index&opc=subcategoria&form=1&action=edit&id="+id;
   });
 
   //BOTON BORRAR
@@ -239,11 +206,11 @@ function imagenes(val) {
 }
 
 function refrescar(){
-	sessionStorage.removeItem("dbCrud_productos");
+	sessionStorage.removeItem("dbCrud_productos_subcategoria");
 	dbAjaxCrud[0] = {
 		val: listado
 	}
-	localStorage.setItem("dbCrud_productos", JSON.stringify(dbAjaxCrud));
+	localStorage.setItem("dbCrud_productos_subcategoria", JSON.stringify(dbAjaxCrud));
 	listado = dbAjaxCrud[0].val;//listado = 0;
 	//console.log("listado0:"+listado);
 	load(1);

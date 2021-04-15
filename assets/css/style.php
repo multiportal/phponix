@@ -38,7 +38,10 @@ a, a:link{text-decoration:none;}
 #menu-web{width:150px; margin:15px 2px;}
 }
 ';
-}else{$css_default='';}
+}else{$css_default='
+	@import url(https://fonts.googleapis.com/css?family=Open+Sans);
+	@import url(https://fonts.googleapis.com/css?family=Oswald:300,400,700);
+';}
 
 $contenido='/*style - '.$date.'*/'.$css_default.$css_web;
 
