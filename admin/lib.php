@@ -2108,7 +2108,7 @@ self.addEventListener(\'fetch\', function(event) {//console.log(event.request.ur
 		} else {
 		  return fetch(event.request).then(function(res) {
 			return caches.open(\'dynamic\').then(function(cache) {
-			  //cache.put(event.request.url, res.clone()).then(()=>{cache.delete(\''.$path_root.'admin/\');});
+			  //cache.put(event.request.url, res.clone()).then(()=>{cache.delete(\'/'.$path_root.'admin/\');});
 			  cache.put(event.request.url, res.clone()).then(()=>{cache.delete(event.request.url);});
 			  return res;
 			});
@@ -2156,7 +2156,17 @@ global $page_url,$path_root,$path_tema,$page_name;
 	}else{
 		unlink('sw.js');
 		unlink($path_wpa.'appCon.js');
+		clear_sw();
 	}
+}
+
+function clear_sw(){
+	echo '<script>
+	navigator.serviceWorker.getRegistrations().then(function(registrations) {
+		for(let registration of registrations) {
+		 registration.unregister()
+		}});
+	</script>';
 }
 
 function icon(){

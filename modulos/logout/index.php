@@ -31,6 +31,7 @@ La sesion ha sido cerrada<br>
 Redireccionando, espere por favor.<br>
 </div>';
 echo '<script>localStorage.clear();//storage.clear();</script>';
+clear_sw();
 recargar($seg=3,$URL_log,'');
 close_page();
 ?>
