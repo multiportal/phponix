@@ -22,6 +22,7 @@ session_start();
 session_unset();
 session_destroy();
 open_page();
+echo '<style>@import url('.$page_url.'assets/bootstrap/bootstrap.css);</style>';
 echo '<div style="text-align:center;">
 <img id="logo-s" src="'.$page_url.$path_tema.'images/logo.min.png" alt="logo" title="logo" />
 <br>
@@ -29,5 +30,7 @@ La sesion ha sido cerrada<br>
 <img src="'.$page_url.$path_tema.'images/loading.gif" width="50" height="50"><br>
 Redireccionando, espere por favor.<br>
 </div>';
-echo '<script>localStorage.clear();</script>';
-re
+echo '<script>localStorage.clear();//storage.clear();</script>';
+recargar($seg=3,$URL_log,'');
+close_page();
+?>

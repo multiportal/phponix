@@ -2091,7 +2091,7 @@ self.addEventListener(\'install\', function(event) {
   console.log(\'[Service Worker] Instalando Service Worker (sw.js)...\', event);
   event.waitUntil(
 	caches.open(\'static\').then(function(cache) {
-	  cache.addAll([\''.$path_root.'\', \''.$path_root.'index.php\', \''.$path_root.'bloques/WPA/manifest.json\',\''.$path_root.'bloques/WPA/appCon.js\']);
+	  cache.addAll([\'/'.$path_root.'\', \'/'.$path_root.'index.php\', \'/'.$path_root.'bloques/WPA/manifest.json\',\'/'.$path_root.'bloques/WPA/appCon.js\']);
 	})
   );
 });
@@ -2130,7 +2130,7 @@ function crear_appCon($path_wpa){
 global $page_url,$path_root,$path_tema,$pag_name;
 $contenido='//appCon.js index.php
 if (\'serviceWorker\' in navigator) {
-	navigator.serviceWorker.register(\''.$path_root.'sw.js\').then(function(registration) {
+	navigator.serviceWorker.register(\'/'.$path_root.'sw.js\').then(function(registration) {
 		console.log(
 		  \'Service Worker registro correcto con scope: \',
 		  registration.scope
@@ -2149,9 +2149,9 @@ crear_archivo($path_wpa,'appCon.js',$contenido,$path_file);
 function API_WPA(){
 global $page_url,$path_root,$path_tema,$page_name;
 	sql_opciones('api_WPA',$valor);
+	$path_wpa='bloques/WPA/';
 	if($valor==1){
-		crear_sw($path_wpa);
-		$path_wpa='bloques/WPA/';
+		crear_sw('');
 		crear_appCon($path_wpa);
 	}else{
 		unlink('sw.js');
