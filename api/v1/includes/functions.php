@@ -221,6 +221,8 @@ global $conec,$DBprefix,$tab_signup,$tab_token,$date,$_POST;
             $data[]=$json;
             $token=$json['Token'];
             setcookie("token",$token,time()+(60+60+24+31),"/");
+            setcookie("username",$us,time()+(60+60+24+31),"/");
+            setcookie("password",$pass,time()+(60+60+24+31),"/");
             header("HTTP/1.1 200 OK");
             header('Content-Type: application/json');
             $resultado['IDU']=$ID;

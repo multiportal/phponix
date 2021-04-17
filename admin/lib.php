@@ -1354,7 +1354,8 @@ global $style,$font_awesome,$bootstrap,$bootstrapjs,$javascript,$jQuery,$jQuery1
 global $BLOCK,$path_dashboard,$slide;
 
 if($URL==$page_url.'admin/'){$mod='Login';}else{$mod=$mod;}
-
+setcookie("username","",time()-1,"/");
+setcookie("password","",time()-1,"/");
 session_start();
 if(isset($_SESSION["username"]) && !isset($BLOCK) && $_SESSION["activo"]==1){
 	$form_login='<div class="container">
@@ -2160,15 +2161,6 @@ global $page_url,$path_root,$path_tema,$page_name;
 	}
 }
 
-function clear_sw(){
-	echo '<script>
-	navigator.serviceWorker.getRegistrations().then(function(registrations) {
-		for(let registration of registrations) {
-		 registration.unregister()
-		}});
-	</script>';
-}
-
 function icon(){
 global $page_url,$path_tema,$page_name,$title,$description;
 	echo '<meta name="'.$page_name.'" content="Add to Home">
@@ -2239,5 +2231,12 @@ global $host,$path_root;
 	</script>';
 }
 
-
+function clear_sw(){
+	echo '<script>
+	navigator.serviceWorker.getRegistrations().then(function(registrations) {
+		for(let registration of registrations) {
+		 registration.unregister()
+		}});
+	</script>';
+}
 ?>
