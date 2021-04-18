@@ -214,12 +214,12 @@ $aviso_3=$aviso_3.$aviso1.$aviso2;
 	$form1=$form2=$form3='';	
 	
 	include '../conexion.php';
-	$dominio=$_POST['dominio'];
+	$dominio=$_POST['dominio'].'/';
 	$path_root=$_POST['path_r'];
 	$page_name=$_POST['namep'];
-	$page_url=$dominio.$path_root.'/';
+	$page_url=$dominio.$path_root;
 	
-	$sql=mysqli_query($mysqli,"UPDATE ".$DBprefix."config SET dominio='{$dominio}/', path_root='{$path_root}', page_url='{$page_url}', page_name='{$page_name}', title='{$page_name}' WHERE ID=1;") or print mysqli_error($mysqli);
+	$sql=mysqli_query($mysqli,"UPDATE ".$DBprefix."config SET dominio='{$dominio}', path_root='{$path_root}', page_url='{$page_url}', page_name='{$page_name}', title='{$page_name}' WHERE ID=1;") or print mysqli_error($mysqli);
 	$form4='<div class="alert alert-success text-center" role="alert">
 		Usuario: admin<br>
 		Password: 123456<br>
