@@ -24,17 +24,26 @@ $nombre_archivo='scfg.php';
 $contenido='<?php 
 $h_s=\''.$_SERVER['HTTP_HOST'].'\';
 if($_SERVER[\'HTTP_HOST\']==$h_s || $_SERVER[\'HTTP_HOST\']==\'www.\'.$h_s){
-$server = "'.$db_server.'";     			// often localhost
-$username = "'.$db_username.'";       		// Your MySQL server username
-$password = "'.$db_password.'";     	// Your MySQL server password 
-$database = "'.$db_database.'";      		// If you fill in nothing database.
+$db_host = "'.$db_server.'";  // Localhost
+$db_base = "'.$db_database.'";  // Nombre de la Base de Datos
+$db_user = "'.$db_username.'";  // Usuario de la Base de Datos
+$db_pass = "'.$db_password.'";  // Password de la Base de Datos 
 }else{
-$server = "localhost";     		// often localhost
-$username = "root";       		// Your MySQL server username
-$password = "";     		// Your MySQL server password 
-$database = "'.$db_database.'";      		// If you fill in nothing database.
+$db_host = "localhost"; // Localhost
+$db_base = "'.$db_database.'";   // Nombre de la Base de Datos
+$db_user = "root";  // Usuario de la Base de Datos
+$db_pass = "";  // Password de la Base de Datos
 }
-$DBprefix = "'.$prefijo.'";            		// the prefix for the tables in the database (can be left blank)
+$config = [
+    "driver" => "mysql",
+    "host" => $db_host,
+    "database" => $db_base,
+    "username" => $db_user,
+    "password" => $db_pass,
+    "port" => "3306",
+    "charset" => "utf8mb4"
+];
+$DBprefix = "'.$prefijo.'";	// Prefijo para las tablas de la Base de datos.
 /*DEFINICION DE VARIABLES PARA PHP7*/
 define(\'DB_HOST\',$server);
 define(\'DB_USER\',$username);
@@ -54,18 +63,42 @@ include \'scfg.php\';
 //COMPROBACION DE CONEXION AL SERVIDOR
 $mysqli=@mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD);
 if(!$mysqli){
-	echo \'<div style="color:fff;background:#f00;padding:2px;position:absolute;z-index:100;width:100%;font-weight:bold;font-family:arial;font-size:12px;text-align:center;">500 Internal Server Error: No se ha conectado al servidor MySQL. Posiblemente la p&aacute;gina no funcione correctamente.</div>\';
-	include \'500.html\';//500 Internal Server Error
+	echo \'<div class="alert alert-danger">500 Internal Server Error: No se ha conectado al servidor MySQL. Posiblemente la p&aacute;gina no funcione correctamente.</div>\';
+	include \'500.php\';//500 Internal Server Error
 	exit();
 }else{$select_db=@mysqli_select_db($mysqli,DB_DB);
-if(!$select_db){
-	echo \'<div style="color:fff;background:#f00;padding:2px;position:absolute;z-index:100;width:100%;font-weight:bold;font-family:arial;font-size:12px;text-align:center;">500 Internal Server Error: No se pudo establecer conexion con la base de datos. Posiblemente la p&aacute;gina no funcione correctamente.</div>\';
-	include \'500.html\';//500 Internal Server Error
-	exit();
-}
-$mysqli=@mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DB);
+	if(!$select_db){
+		echo \'<div class="alert alert-danger">500 Internal Server Error: No se pudo establecer conexion con la base de datos. Posiblemente la p&aacute;gina no funcione correctamente.</div>\';
+		include \'500.php\';//500 Internal Server Error
+		exit();
+	}
+	$mysqli=@mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DB);
 }
 
+//CONEXION
+function conecta(){
+$mysqli = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_DB); //conexión ala base de datos por medio de misqli poo
+  if($mysqli->connect_errno > 0){ //si retorna algun error
+ 	return("Imposible conectarse con la base de datos [" . $mysqli->connect_error . "]"); //se muestra el error
+  }else{ //si no retorna el error
+ 	$mysqli->query("SET NAMES \'utf8\'"); //codifica las consultas a utf-8
+ 	return $mysqli; //retorna la conexión a la base de datos mysql
+  }
+}
+//$mysqli=conecta();
+
+//CONEXION PDO
+function connect(){
+    try {
+        $mysqli = new PDO("mysql:host=".DB_HOST.";dbname=".DB_DB.";charset=utf8mb4", DB_USER, DB_PASSWORD);
+        // set the PDO error mode to exception
+        $mysqli->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        return $mysqli;
+    } catch (PDOException $exception) {
+        exit($exception->getMessage());
+    }
+}
+$conec=connect();
 include \'lib.php\';
 ?>';
 crear_archivo1($path_f,$nombre_archivo,$contenido,$path_file);
