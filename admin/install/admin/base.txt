@@ -1,0 +1,5 @@
+//TABLA:
+$crear_tablas=mysqli_query($mysqli,"CREATE TABLE ".$DBprefix."comp (ID int(6) unsigned NOT NULL auto_increment,
+  page varchar(50) default NULL,
+  PRIMARY KEY (ID)) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2;");
+  $sql=mysqli_query($mysqli,"INSERT INTO ".$DBprefix."comp () VALUES ();");
