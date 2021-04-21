@@ -1,7 +1,7 @@
 {
-	"name": "AdminCat",
-	"short_name": "AdminCat",
-	"description": "AdminCat",
+	"name": "PHP ONIX",
+	"short_name": "PHP ONIX",
+	"description": "PHP Onix - El mejor CMS para crear y administrar tu sitio web. Gestor de contenido web.",
 	"scope": ".",
 	"start_url": "http://localhost/MisSitios/phponix/",
 	"display": "standalone",
