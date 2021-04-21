@@ -1,13 +1,13 @@
 <?php 
-$h_s='localhost';
+$h_s='phponix.webcindario.com';
 if($_SERVER['HTTP_HOST']==$h_s || $_SERVER['HTTP_HOST']=='www.'.$h_s){
-$db_host = "localhost";  // Localhost
-$db_base = "admincat";  // Nombre de la Base de Datos
-$db_user = "root";  // Usuario de la Base de Datos
-$db_pass = "";  // Password de la Base de Datos 
+$db_host = "mysql.webcindario.com";// Localhost
+$db_base = "";      // Nombre de la Base de Datos
+$db_user = "";      // Usuario de la Base de Datos
+$db_pass = "";     	// Password de la Base de Datos 
 }else{
 $db_host = "localhost"; // Localhost
-$db_base = "admincat";   // Nombre de la Base de Datos
+$db_base = "phponix";   // Nombre de la Base de Datos
 $db_user = "root";  // Usuario de la Base de Datos
 $db_pass = "";  // Password de la Base de Datos
 }
@@ -20,7 +20,7 @@ $config = [
     "port" => "3306",
     "charset" => "utf8mb4"
 ];
-$DBprefix = "adm_";	// Prefijo para las tablas de la Base de datos.
+$DBprefix = "php_";	// Prefijo para las tablas de la Base de datos.
 /*DEFINICION DE VARIABLES PARA PHP7*/
 define('DB_HOST',$db_host);
 define('DB_USER',$db_user);
