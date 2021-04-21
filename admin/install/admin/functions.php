@@ -740,6 +740,7 @@ $crear_tablas=mysqli_query($mysqli,"CREATE TABLE ".$DBprefix."portafolio (ID int
   $sql=mysqli_query($mysqli,"INSERT INTO ".$DBprefix."portafolio (ID, clave, nombre, cover, descripcion, precio, cate, resena, url_page, imagen1, imagen2, imagen3, imagen4, imagen5, FT, alta, fmod, user, visible) VALUES (16, '', 'dgoba', 'Dgoba.jpg', '<div class=\"post-content m-t-sm\">\r\n<div class=\"post-gap-small\">P&aacute;gina web desarrollada para&nbsp;<strong>Goba</strong>&nbsp;empresa <span>importadora, distribuidora e integradora de equipo y mobiliario m&eacute;dico y hospitalario</span>.</div>\r\n<div class=\"post-gap-small\">&nbsp;</div>\r\n</div>\r\n<ul class=\"portfolio-details\">\r\n<li>\r\n<h5>Caracterisiticas</h5>\r\n<ul class=\"list list-skills icons list-unstyled list-inline\">\r\n<li><em class=\"fa fa-check-circle\"></em>P&aacute;gina Web</li>\r\n<li><em class=\"fa fa-check-circle\"></em>3 secciones: Home, productos y contacto</li>\r\n<li><em class=\"fa fa-check-circle\"></em>Responsiva</li>\r\n<li><em class=\"fa fa-check-circle\"></em>Formulario de contacto</li>\r\n<li><em class=\"fa fa-check-circle\"></em>P&aacute;gina administrable con panel AdminLTE</li>\r\n<li><em class=\"fa fa-check-circle\"></em>Desarrollada en PHPONIX-CRM</li>\r\n</ul>\r\n</li>\r\n<li>\r\n<h5>Tecnologias</h5>\r\n<p>PHP, MySQL, Bootstrap, JSON, Ajax, Javascript y Jquery.</p>\r\n</li>\r\n<li>\r\n<h5>Desarrollado por:</h5>\r\n<p>[:MULTIPORTAL:] &amp; Key Agencia Digital</p>\r\n</li>\r\n</ul>', '0.00', 'Web_Page', '', 'https://www.dgoba.com/', 'Dgoba.jpg', '', '', '', '', 'Junio, 2020', '2021-01-20 05:07:42', '', 'admin', 1);");
   $sql=mysqli_query($mysqli,"INSERT INTO ".$DBprefix."portafolio (ID, clave, nombre, cover, descripcion, precio, cate, resena, url_page, imagen1, imagen2, imagen3, imagen4, imagen5, FT, alta, fmod, user, visible) VALUES (17, '', 'Tienda Solein', 'TiendaSolein.jpg', '<div class=\"post-content m-t-sm\">\n<div class=\"post-gap-small\">P&aacute;gina desarrollada para venta en linea de productos para la construcci&oacute;n.</div>\n</div>\n<div class=\"post-gap\">&nbsp;</div>\n<ul class=\"portfolio-details\">\n<li>\n<h5>Caracterisiticas</h5>\n<ul class=\"list list-skills icons list-unstyled list-inline\">\n<li><em class=\"fa fa-check-circle\"></em>P&aacute;gina Web Ecommerce</li>\n<li><em class=\"fa fa-check-circle\"></em>Secciones Home, productos, blog y contacto</li>\n<li><em class=\"fa fa-check-circle\"></em>Responsive</li>\n<li><em class=\"fa fa-check-circle\"></em>Registro de usuarios para compra en linea</li>\n<li><em class=\"fa fa-check-circle\"></em>Desarrollada con Wordpress y Woocommerce</li>\n<li><em class=\"fa fa-check-circle\"></em>Pagos a trav&eacute;s de PayPal</li>\n</ul>\n</li>\n<li>\n<h5>Tecnologias</h5>\n<p>Wordpress, Woocommerce, PHP, MySQL, javascript.</p>\n</li>\n<li>\n<h5>Desarrollado&nbsp; para:</h5>\n<p>Dood</p>\n</li>\n</ul>', '0.00', 'Ecommerce', '', '#', 'TiendaSolein2.jpg', '', '', '', '', 'Septiembre, 2020', '2021-01-20 20:46:09', '2021-02-05 03:59:20', 'admin', 1);");
 
+if($_SERVER['HTTP_HOST']=='localhost'){  
 //TABLA: productos
 $crear_tablas=mysqli_query($mysqli,"CREATE TABLE ".$DBprefix."productos (ID int(9) unsigned NOT NULL auto_increment,
   codigo varchar(100) NOT NULL,
@@ -802,7 +803,150 @@ $crear_tablas=mysqli_query($mysqli,"CREATE TABLE ".$DBprefix."productos (ID int(
   $sql=mysqli_query($mysqli,"INSERT INTO ".$DBprefix."productos (ID, codigo, clave, nombre, titulo, cover, foto, descripcion, marca, modelo, tipo, precio, moneda, unidad, peso, color, medidas, stock, serie, lote, ID_cate, ID_sub_cate, ID_sub_cate2, ID_marca, url_name, imagen1, imagen2, imagen3, imagen4, imagen5, cate, resena, nuevo, promo, descuento, clasificacion, tags, land, file, pdf1, pdf2, pdf3, pdf4, pdf5, alta, fmod, user, visible) VALUES (10, '12130058', '12130058', 'Dispensador de jabón para baño', '', 'pro2.2.png', '', '<p>Descripcion</p>', '', '', '', '0.00', 'MXN', 'PZ', '', '', '', 0, '', '', 12, 44, 0, 0, '', 'pro2.2.png', '', '', '', '', 'Accesorios de cocina y baño', '', 0, 1, '', '', '', 0, '', '', '', '', '', '', '2019-02-08 12:31:20', '2021-02-25 23:05:49', 'admin', 1);");
   $sql=mysqli_query($mysqli,"INSERT INTO ".$DBprefix."productos (ID, codigo, clave, nombre, titulo, cover, foto, descripcion, marca, modelo, tipo, precio, moneda, unidad, peso, color, medidas, stock, serie, lote, ID_cate, ID_sub_cate, ID_sub_cate2, ID_marca, url_name, imagen1, imagen2, imagen3, imagen4, imagen5, cate, resena, nuevo, promo, descuento, clasificacion, tags, land, file, pdf1, pdf2, pdf3, pdf4, pdf5, alta, fmod, user, visible) VALUES (11, '12130040', '12130040', 'Toallero doble 616mm Latón Cromado', '', 'pro2.3.png', '', '<p>Descripcion</p>', '', '', '', '0.00', 'MXN', 'PZ', '', '', '', 0, '', '', 12, 44, 0, 0, '', 'pro2.3.png', '', '', '', '', 'Accesorios de cocina y baño', '', 0, 1, '', '', '', 0, '', '', '', '', '', '', '2019-02-08 12:33:08', '2021-02-25 23:06:26', 'admin', 1);");
   $sql=mysqli_query($mysqli,"INSERT INTO ".$DBprefix."productos (ID, codigo, clave, nombre, titulo, cover, foto, descripcion, marca, modelo, tipo, precio, moneda, unidad, peso, color, medidas, stock, serie, lote, ID_cate, ID_sub_cate, ID_sub_cate2, ID_marca, url_name, imagen1, imagen2, imagen3, imagen4, imagen5, cate, resena, nuevo, promo, descuento, clasificacion, tags, land, file, pdf1, pdf2, pdf3, pdf4, pdf5, alta, fmod, user, visible) VALUES (12, '12130043', '12130043', 'Cepillero base rect. c/vaso de cristal latón cromado', '', 'pro2.4.png', '', '<p>Descripcion</p>', '', '', '', '0.00', 'MXN', 'PZ', '', '', '', 0, '', '', 12, 44, 0, 0, '', 'pro2.4.png', '', '', '', '', 'Accesorios de cocina y baño', '', 0, 1, '', '', '', 0, '', '', '', '', '', '', '2019-02-08 12:34:48', '2021-02-25 23:07:04', 'admin', 1);");
-   
+
+//TABLA: productos_cate
+$crear_tablas=mysqli_query($mysqli,"CREATE TABLE ".$DBprefix."productos_cate (ID int(6) unsigned NOT NULL auto_increment,
+  categoria varchar(100) NOT NULL,
+  ord varchar(2) NOT NULL,
+  cover varchar(150) NOT NULL,
+  descripcion mediumtext NOT NULL,
+  visible tinyint(1) NOT NULL,
+  PRIMARY KEY (ID)) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=14;");
+  $sql=mysqli_query($mysqli,"INSERT INTO ".$DBprefix."productos_cate (ID, categoria, ord, cover, descripcion, visible) VALUES (1, 'Maquinaria y herramientas', '01', 'nodisponible.jpg', '<p>Descripci&oacute;n de categor&iacute;a</p>', 1);");
+  $sql=mysqli_query($mysqli,"INSERT INTO ".$DBprefix."productos_cate (ID, categoria, ord, cover, descripcion, visible) VALUES (2, 'Accesorios para gabinete', '02', 'nodisponible.jpg', '', 1);");
+  $sql=mysqli_query($mysqli,"INSERT INTO ".$DBprefix."productos_cate (ID, categoria, ord, cover, descripcion, visible) VALUES (3, 'Correderas', '03', 'nodisponible.jpg', '', 1);");
+  $sql=mysqli_query($mysqli,"INSERT INTO ".$DBprefix."productos_cate (ID, categoria, ord, cover, descripcion, visible) VALUES (4, 'Jaladeras y botones', '04', 'nodisponible.jpg', '', 1);");
+  $sql=mysqli_query($mysqli,"INSERT INTO ".$DBprefix."productos_cate (ID, categoria, ord, cover, descripcion, visible) VALUES (5, 'Tornillos y conectores', '05', 'nodisponible.jpg', '', 1);");
+  $sql=mysqli_query($mysqli,"INSERT INTO ".$DBprefix."productos_cate (ID, categoria, ord, cover, descripcion, visible) VALUES (6, 'Bisagras', '06', 'nodisponible.jpg', '', 1);");
+  $sql=mysqli_query($mysqli,"INSERT INTO ".$DBprefix."productos_cate (ID, categoria, ord, cover, descripcion, visible) VALUES (7, 'Tableros y puertas', '07', 'nodisponible.jpg', '', 1);");
+  $sql=mysqli_query($mysqli,"INSERT INTO ".$DBprefix."productos_cate (ID, categoria, ord, cover, descripcion, visible) VALUES (8, 'Arquitectura', '08', 'nodisponible.jpg', '', 1);");
+  $sql=mysqli_query($mysqli,"INSERT INTO ".$DBprefix."productos_cate (ID, categoria, ord, cover, descripcion, visible) VALUES (9, 'Iluminación', '09', 'nodisponible.jpg', '', 1);");
+  $sql=mysqli_query($mysqli,"INSERT INTO ".$DBprefix."productos_cate (ID, categoria, ord, cover, descripcion, visible) VALUES (10, 'Chapas y cerraduras', '10', 'nodisponible.jpg', '', 1);");
+  $sql=mysqli_query($mysqli,"INSERT INTO ".$DBprefix."productos_cate (ID, categoria, ord, cover, descripcion, visible) VALUES (11, 'Accesorios para closet', '11', 'nodisponible.jpg', '', 1);");
+  $sql=mysqli_query($mysqli,"INSERT INTO ".$DBprefix."productos_cate (ID, categoria, ord, cover, descripcion, visible) VALUES (12, 'Accesorios de cocina y baño', '12', 'nodisponible.jpg', '', 1);");
+  $sql=mysqli_query($mysqli,"INSERT INTO ".$DBprefix."productos_cate (ID, categoria, ord, cover, descripcion, visible) VALUES (13, 'Buzones', '13', 'nodisponible.jpg', '<p>Descripci&oacute;n</p>', 1);");
+
+//TABLA: productos_coti
+$crear_tablas=mysqli_query($mysqli,"CREATE TABLE ".$DBprefix."productos_coti (ID int(11) unsigned NOT NULL auto_increment,
+  ID_reg int(11) NOT NULL,
+  ID_cli int(11) NOT NULL,
+  observaciones mediumtext NOT NULL,
+  Total decimal(11,2) NOT NULL,
+  fecha varchar(20) NOT NULL,
+  fmod varchar(20) NOT NULL,
+  user varchar(100) NOT NULL,
+  PRIMARY KEY (ID)) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;");
+  //$sql=mysqli_query($mysqli,"INSERT INTO ".$DBprefix."productos_coti () VALUES ();");
+
+//TABLA: productos_coti_r
+$crear_tablas=mysqli_query($mysqli,"CREATE TABLE ".$DBprefix."productos_coti_r (ID int(11) unsigned NOT NULL auto_increment,
+  articulo varchar(300) NOT NULL,
+  cant int(6) NOT NULL,
+  precio decimal(11,2) NOT NULL,
+  tot decimal(11,2) NOT NULL,
+  ID_coti int(11) NOT NULL,
+  ID_cli int(11) NOT NULL,
+  PRIMARY KEY (ID)) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;");
+  //$sql=mysqli_query($mysqli,"INSERT INTO ".$DBprefix."productos_coti_r () VALUES ();");
+
+//TABLA: productos_files
+$crear_tablas=mysqli_query($mysqli,"CREATE TABLE ".$DBprefix."productos_files (ID int(9) unsigned NOT NULL auto_increment,
+  nom varchar(100) NOT NULL,
+  tipo varchar(100) NOT NULL,
+  ID_p int(9) NOT NULL,
+  ID_f int(9) NOT NULL,
+  visible tinyint(1) NOT NULL,
+  PRIMARY KEY (ID)) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;");
+  //$sql=mysqli_query($mysqli,"INSERT INTO ".$DBprefix."productos_files () VALUES ();");
+
+//TABLA: productos_marcas
+$crear_tablas=mysqli_query($mysqli,"CREATE TABLE ".$DBprefix."productos_marcas (ID int(6) unsigned NOT NULL auto_increment,
+  logo varchar(100) NOT NULL,
+  nombre varchar(150) NOT NULL,
+  visible tinyint(1) NOT NULL,
+  PRIMARY KEY (ID)) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=11;");
+  $sql=mysqli_query($mysqli,"INSERT INTO ".$DBprefix."productos_marcas (ID, logo, nombre, visible) VALUES (1, 'nodisponible.jpg', 'Grass', 1);");
+  $sql=mysqli_query($mysqli,"INSERT INTO ".$DBprefix."productos_marcas (ID, logo, nombre, visible) VALUES (2, 'nodisponible.jpg', 'Salice', 1);");
+  $sql=mysqli_query($mysqli,"INSERT INTO ".$DBprefix."productos_marcas (ID, logo, nombre, visible) VALUES (3, 'nodisponible.jpg', 'Italiana Ferramenta', 1);");
+  $sql=mysqli_query($mysqli,"INSERT INTO ".$DBprefix."productos_marcas (ID, logo, nombre, visible) VALUES (4, 'nodisponible.jpg', 'Harn', 1);");
+  $sql=mysqli_query($mysqli,"INSERT INTO ".$DBprefix."productos_marcas (ID, logo, nombre, visible) VALUES (5, 'nodisponible.jpg', 'Vauth Sagel', 1);");
+  $sql=mysqli_query($mysqli,"INSERT INTO ".$DBprefix."productos_marcas (ID, logo, nombre, visible) VALUES (6, 'nodisponible.jpg', 'Rincomatic', 1);");
+  $sql=mysqli_query($mysqli,"INSERT INTO ".$DBprefix."productos_marcas (ID, logo, nombre, visible) VALUES (7, 'nodisponible.jpg', 'Vibo', 1);");
+  $sql=mysqli_query($mysqli,"INSERT INTO ".$DBprefix."productos_marcas (ID, logo, nombre, visible) VALUES (8, 'nodisponible.jpg', 'Flex & Lux', 1);");
+  $sql=mysqli_query($mysqli,"INSERT INTO ".$DBprefix."productos_marcas (ID, logo, nombre, visible) VALUES (9, 'elco.png', 'Elco', 1);");
+  $sql=mysqli_query($mysqli,"INSERT INTO ".$DBprefix."productos_marcas (ID, logo, nombre, visible) VALUES (10, 'nodisponible.jpg', 'Volpato', 1);");
+
+//TABLA: productos_sub_cate
+$crear_tablas=mysqli_query($mysqli,"CREATE TABLE ".$DBprefix."productos_sub_cate (ID int(6) unsigned NOT NULL auto_increment,
+  subcategoria varchar(100) NOT NULL,
+  ord varchar(2) NOT NULL,
+  ID_cate int(6) NOT NULL,
+  cover varchar(150) NOT NULL,
+  descripcion mediumtext NOT NULL,
+  visible tinyint(1) NOT NULL,
+  PRIMARY KEY (ID)) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2;");
+  $sql=mysqli_query($mysqli,"INSERT INTO ".$DBprefix."productos_sub_cate (ID, subcategoria, ord, ID_cate, cover, descripcion, visible) VALUES (1, 'Maquinaria', '01', 1, 'nodisponible.jpg', '', 1);");
+  $sql=mysqli_query($mysqli,"INSERT INTO ".$DBprefix."productos_sub_cate (ID, subcategoria, ord, ID_cate, cover, descripcion, visible) VALUES (2, 'Herramientas', '02', 1, 'nodisponible.jpg', '', 1);");
+  $sql=mysqli_query($mysqli,"INSERT INTO ".$DBprefix."productos_sub_cate (ID, subcategoria, ord, ID_cate, cover, descripcion, visible) VALUES (3, 'Cerraduras', '01', 2, 'nodisponible.jpg', '', 1);");
+  $sql=mysqli_query($mysqli,"INSERT INTO ".$DBprefix."productos_sub_cate (ID, subcategoria, ord, ID_cate, cover, descripcion, visible) VALUES (4, 'Resbalones', '02', 2, 'nodisponible.jpg', '', 1);");
+  $sql=mysqli_query($mysqli,"INSERT INTO ".$DBprefix."productos_sub_cate (ID, subcategoria, ord, ID_cate, cover, descripcion, visible) VALUES (5, 'Niveladores y colgadores', '03', 2, 'nodisponible.jpg', '', 1);");
+  $sql=mysqli_query($mysqli,"INSERT INTO ".$DBprefix."productos_sub_cate (ID, subcategoria, ord, ID_cate, cover, descripcion, visible) VALUES (6, 'Topes', '04', 2, 'nodisponible.jpg', '', 1);");
+  $sql=mysqli_query($mysqli,"INSERT INTO ".$DBprefix."productos_sub_cate (ID, subcategoria, ord, ID_cate, cover, descripcion, visible) VALUES (7, 'Forzadores', '05', 2, 'nodisponible.jpg', '', 1);");
+  $sql=mysqli_query($mysqli,"INSERT INTO ".$DBprefix."productos_sub_cate (ID, subcategoria, ord, ID_cate, cover, descripcion, visible) VALUES (8, 'Rodajas', '06', 2, 'nodisponible.jpg', '', 1);");
+  $sql=mysqli_query($mysqli,"INSERT INTO ".$DBprefix."productos_sub_cate (ID, subcategoria, ord, ID_cate, cover, descripcion, visible) VALUES (9, 'Sistemas para puertas corredizas', '07', 2, 'nodisponible.jpg', '', 1);");
+  $sql=mysqli_query($mysqli,"INSERT INTO ".$DBprefix."productos_sub_cate (ID, subcategoria, ord, ID_cate, cover, descripcion, visible) VALUES (10, 'Levadizos', '08', 2, 'nodisponible.jpg', '', 1);");
+  $sql=mysqli_query($mysqli,"INSERT INTO ".$DBprefix."productos_sub_cate (ID, subcategoria, ord, ID_cate, cover, descripcion, visible) VALUES (11, 'Especiales', '01', 3, 'nodisponible.jpg', '', 1);");
+  $sql=mysqli_query($mysqli,"INSERT INTO ".$DBprefix."productos_sub_cate (ID, subcategoria, ord, ID_cate, cover, descripcion, visible) VALUES (12, 'Cerrajes', '02', 3, 'nodisponible.jpg', '', 1);");
+  $sql=mysqli_query($mysqli,"INSERT INTO ".$DBprefix."productos_sub_cate (ID, subcategoria, ord, ID_cate, cover, descripcion, visible) VALUES (13, 'Futura y unica', '03', 3, 'nodisponible.jpg', '', 1);");
+  $sql=mysqli_query($mysqli,"INSERT INTO ".$DBprefix."productos_sub_cate (ID, subcategoria, ord, ID_cate, cover, descripcion, visible) VALUES (14, 'Impaz', '04', 3, 'nodisponible.jpg', '', 1);");
+  $sql=mysqli_query($mysqli,"INSERT INTO ".$DBprefix."productos_sub_cate (ID, subcategoria, ord, ID_cate, cover, descripcion, visible) VALUES (15, 'KV', '05', 3, 'nodisponible.jpg', '', 1);");
+  $sql=mysqli_query($mysqli,"INSERT INTO ".$DBprefix."productos_sub_cate (ID, subcategoria, ord, ID_cate, cover, descripcion, visible) VALUES (16, 'Ten', '06', 3, 'nodisponible.jpg', '', 1);");
+  $sql=mysqli_query($mysqli,"INSERT INTO ".$DBprefix."productos_sub_cate (ID, subcategoria, ord, ID_cate, cover, descripcion, visible) VALUES (17, 'Triomax', '07', 3, 'nodisponible.jpg', '', 1);");
+  $sql=mysqli_query($mysqli,"INSERT INTO ".$DBprefix."productos_sub_cate (ID, subcategoria, ord, ID_cate, cover, descripcion, visible) VALUES (18, 'Tradicional', '01', 4, 'nodisponible.jpg', '', 1);");
+  $sql=mysqli_query($mysqli,"INSERT INTO ".$DBprefix."productos_sub_cate (ID, subcategoria, ord, ID_cate, cover, descripcion, visible) VALUES (19, 'Diseño', '02', 4, 'nodisponible.jpg', '', 1);");
+  $sql=mysqli_query($mysqli,"INSERT INTO ".$DBprefix."productos_sub_cate (ID, subcategoria, ord, ID_cate, cover, descripcion, visible) VALUES (20, 'Rústica', '03', 4, 'nodisponible.jpg', '', 1);");
+  $sql=mysqli_query($mysqli,"INSERT INTO ".$DBprefix."productos_sub_cate (ID, subcategoria, ord, ID_cate, cover, descripcion, visible) VALUES (21, 'Clásica', '04', 4, 'nodisponible.jpg', '', 1);");
+  $sql=mysqli_query($mysqli,"INSERT INTO ".$DBprefix."productos_sub_cate (ID, subcategoria, ord, ID_cate, cover, descripcion, visible) VALUES (22, 'Especiales', '05', 4, 'nodisponible.jpg', '', 1);");
+  $sql=mysqli_query($mysqli,"INSERT INTO ".$DBprefix."productos_sub_cate (ID, subcategoria, ord, ID_cate, cover, descripcion, visible) VALUES (23, 'Bidimensionales', '01', 6, 'nodisponible.jpg', '', 1);");
+  $sql=mysqli_query($mysqli,"INSERT INTO ".$DBprefix."productos_sub_cate (ID, subcategoria, ord, ID_cate, cover, descripcion, visible) VALUES (24, 'Libro', '02', 6, 'nodisponible.jpg', '', 1);");
+  $sql=mysqli_query($mysqli,"INSERT INTO ".$DBprefix."productos_sub_cate (ID, subcategoria, ord, ID_cate, cover, descripcion, visible) VALUES (25, 'Americana', '03', 6, 'nodisponible.jpg', '', 1);");
+  $sql=mysqli_query($mysqli,"INSERT INTO ".$DBprefix."productos_sub_cate (ID, subcategoria, ord, ID_cate, cover, descripcion, visible) VALUES (26, 'Bibeles', '04', 6, 'nodisponible.jpg', '', 1);");
+  $sql=mysqli_query($mysqli,"INSERT INTO ".$DBprefix."productos_sub_cate (ID, subcategoria, ord, ID_cate, cover, descripcion, visible) VALUES (27, 'Especiales', '05', 6, 'nodisponible.jpg', '', 1);");
+  $sql=mysqli_query($mysqli,"INSERT INTO ".$DBprefix."productos_sub_cate (ID, subcategoria, ord, ID_cate, cover, descripcion, visible) VALUES (28, 'Pasadores', '01', 8, 'nodisponible.jpg', '', 1);");
+  $sql=mysqli_query($mysqli,"INSERT INTO ".$DBprefix."productos_sub_cate (ID, subcategoria, ord, ID_cate, cover, descripcion, visible) VALUES (29, 'Ganchos', '02', 8, 'nodisponible.jpg', '', 1);");
+  $sql=mysqli_query($mysqli,"INSERT INTO ".$DBprefix."productos_sub_cate (ID, subcategoria, ord, ID_cate, cover, descripcion, visible) VALUES (30, 'Topes', '03', 8, 'nodisponible.jpg', '', 1);");
+  $sql=mysqli_query($mysqli,"INSERT INTO ".$DBprefix."productos_sub_cate (ID, subcategoria, ord, ID_cate, cover, descripcion, visible) VALUES (31, 'Hogar', '04', 8, 'nodisponible.jpg', '', 1);");
+  $sql=mysqli_query($mysqli,"INSERT INTO ".$DBprefix."productos_sub_cate (ID, subcategoria, ord, ID_cate, cover, descripcion, visible) VALUES (32, 'Baldwin reserve', '01', 10, 'nodisponible.jpg', '', 1);");
+  $sql=mysqli_query($mysqli,"INSERT INTO ".$DBprefix."productos_sub_cate (ID, subcategoria, ord, ID_cate, cover, descripcion, visible) VALUES (33, 'Assa abloy', '02', 10, 'nodisponible.jpg', '', 1);");
+  $sql=mysqli_query($mysqli,"INSERT INTO ".$DBprefix."productos_sub_cate (ID, subcategoria, ord, ID_cate, cover, descripcion, visible) VALUES (34, 'Candados', '03', 10, 'nodisponible.jpg', '', 1);");
+  $sql=mysqli_query($mysqli,"INSERT INTO ".$DBprefix."productos_sub_cate (ID, subcategoria, ord, ID_cate, cover, descripcion, visible) VALUES (35, 'Cerrajes', '04', 10, 'nodisponible.jpg', '', 1);");
+  $sql=mysqli_query($mysqli,"INSERT INTO ".$DBprefix."productos_sub_cate (ID, subcategoria, ord, ID_cate, cover, descripcion, visible) VALUES (36, 'Kwikset', '05', 10, 'nodisponible.jpg', '', 1);");
+  $sql=mysqli_query($mysqli,"INSERT INTO ".$DBprefix."productos_sub_cate (ID, subcategoria, ord, ID_cate, cover, descripcion, visible) VALUES (37, 'Accesorios', '01', 11, 'nodisponible.jpg', '', 1);");
+  $sql=mysqli_query($mysqli,"INSERT INTO ".$DBprefix."productos_sub_cate (ID, subcategoria, ord, ID_cate, cover, descripcion, visible) VALUES (38, 'Elite', '02', 11, 'nodisponible.jpg', '', 1);");
+  $sql=mysqli_query($mysqli,"INSERT INTO ".$DBprefix."productos_sub_cate (ID, subcategoria, ord, ID_cate, cover, descripcion, visible) VALUES (39, 'Extraibles', '01', 12, 'nodisponible.jpg', '', 1);");
+  $sql=mysqli_query($mysqli,"INSERT INTO ".$DBprefix."productos_sub_cate (ID, subcategoria, ord, ID_cate, cover, descripcion, visible) VALUES (40, 'Colgantes', '02', 12, 'nodisponible.jpg', '', 1);");
+  $sql=mysqli_query($mysqli,"INSERT INTO ".$DBprefix."productos_sub_cate (ID, subcategoria, ord, ID_cate, cover, descripcion, visible) VALUES (41, 'Patas', '03', 12, 'nodisponible.jpg', '', 1);");
+  $sql=mysqli_query($mysqli,"INSERT INTO ".$DBprefix."productos_sub_cate (ID, subcategoria, ord, ID_cate, cover, descripcion, visible) VALUES (42, 'Ménsulas', '04', 12, 'nodisponible.jpg', '', 1);");
+  $sql=mysqli_query($mysqli,"INSERT INTO ".$DBprefix."productos_sub_cate (ID, subcategoria, ord, ID_cate, cover, descripcion, visible) VALUES (43, 'Perfil jaladera', '05', 12, 'nodisponible.jpg', '', 1);");
+  $sql=mysqli_query($mysqli,"INSERT INTO ".$DBprefix."productos_sub_cate (ID, subcategoria, ord, ID_cate, cover, descripcion, visible) VALUES (44, 'Accesorios para baño', '06', 12, 'nodisponible.jpg', '', 1);");
+  $sql=mysqli_query($mysqli,"INSERT INTO ".$DBprefix."productos_sub_cate (ID, subcategoria, ord, ID_cate, cover, descripcion, visible) VALUES (45, 'Botes', '07', 12, 'nodisponible.jpg', '', 1);");
+  $sql=mysqli_query($mysqli,"INSERT INTO ".$DBprefix."productos_sub_cate (ID, subcategoria, ord, ID_cate, cover, descripcion, visible) VALUES (46, 'Vauth-sagel', '08', 12, 'nodisponible.jpg', '', 1);");
+  $sql=mysqli_query($mysqli,"INSERT INTO ".$DBprefix."productos_sub_cate (ID, subcategoria, ord, ID_cate, cover, descripcion, visible) VALUES (47, 'Sistema lasy', '09', 12, 'nodisponible.jpg', '', 1);");
+
+//TABLA: productos_sub_cate2
+$crear_tablas=mysqli_query($mysqli,"CREATE TABLE ".$DBprefix."productos_sub_cate2 (ID int(6) unsigned NOT NULL auto_increment,
+  subcategoria2 varchar(100) NOT NULL,
+  ord int(2) NOT NULL,
+  ID_cate int(6) NOT NULL,
+  ID_sub_cate int(6) NOT NULL,
+  cover varchar(150) NOT NULL,
+  descripcion varchar(300) NOT NULL,
+  visible tinyint(1) NOT NULL,
+  PRIMARY KEY (ID)) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;");
+  //$sql=mysqli_query($mysqli,"INSERT INTO ".$DBprefix."productos_sub_cate2 () VALUES ();");
+
+}
+
 //TABLA: promociones
 $crear_tablas=mysqli_query($mysqli,"CREATE TABLE ".$DBprefix."promociones (ID int(6) unsigned NOT NULL auto_increment,
   nom varchar(100) NOT NULL,
