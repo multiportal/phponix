@@ -376,6 +376,13 @@ if($mod=='sys' && $ext=='opciones'){
   }
 }
 
+if($mod=='Home' && $opc=='style_var'){
+  $path_file='./modulos/'.$mod.'/js/app_style_var.js';
+  if(file_exists($path_file)){
+	echo '<script src="'.$page_url.'modulos/'.$mod.'/js/app_style_var.js?v='.time().'"></script>';
+  }
+}
+
 /*ADMINISTRACION AJAX*/
 if($mod!='' && $ext=='admin/index'){
   $op=($opc!='' && $opc!=NULL)?'_'.$opc:'';

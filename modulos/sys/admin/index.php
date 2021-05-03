@@ -41,10 +41,8 @@ $num_rows=mysqli_num_rows($sql);
               <!-- checkbox -->
               <div class="form-group">
                 <label Id="'.$ID.'">
-          <span>'.$ID.'. </span>
-          <!--div class="icheckbox_minimal-blue '.$checked.'" aria-checked="true" aria-disabled="false" style="position: relative;"-->
-            <input type="checkbox" data-idRegistro="'.$ID.'" id="opc'.$ID.'" name="opc'.$ID.'" class="minimal" style="position: absolute; opacity: 0;"'.$checked.'>
-          <!--/div-->                  
+                  <span>'.$ID.'. </span>
+                  <input type="checkbox" data-idRegistro="'.$ID.'" id="opc'.$ID.'" name="opc'.$ID.'" class="minimal" style="position: absolute; opacity: 0;"'.$checked.'>
                   <span>'.$nom.'</span>
                 </label>
               </div>
@@ -120,25 +118,24 @@ for($i=1;$i<=$num_rows;$i++){
 sql_opciones('AJAX',$val_ajax);
 if($val_ajax==1){header("Location:".$page_url."index.php?mod=sys&ext=opciones");}
 ?>
-	<div class="col-md-6">
-    	<?php echo $aviso;?>
-		<div class="box box-success">
-            <div class="box-header">
-              <h3 class="box-title">Opciones del Sistema (<?php echo $num_rows;?>)</h3>
-            </div>
-            <div class="box-body">
-              <!-- Minimal style -->
-            <form name="form1" role="form" method="post" enctype="multipart/form-data" action="<?php echo $URL;?>" accept-charset="iso-8859-1">
-			         <?php echo $checks;?>
-              <div class="box-footer">
-                <input type="submit" name="Guardar" class="btn btn-primary" value="Guardar"> 
-                <button type="button" class="btn btn-default" onClick="javascript:window.history.go(-1);">Cancelar</button>
-              </div>
-
-			      </form>
-            </div>
+<div class="col-md-6">
+  <?php echo $aviso;?>
+  <div class="box box-success">
+    <div class="box-header">
+      <h3 class="box-title">Opciones del Sistema (<?php echo $num_rows;?>)</h3>
+    </div>
+    <div class="box-body">
+      <!-- Minimal style -->
+      <form name="form1" role="form" method="post" enctype="multipart/form-data" action="<?php echo $URL;?>" accept-charset="iso-8859-1">
+        <?php echo $checks;?>
+        <div class="box-footer">
+          <input type="submit" name="Guardar" class="btn btn-primary" value="Guardar"> 
+          <button type="button" class="btn btn-default" onClick="javascript:window.history.go(-1);">Cancelar</button>
         </div>
-	</div>
+      </form>
+    </div>
+  </div>
+</div>
 <?php		
 		break;
 	}

@@ -43,9 +43,9 @@ switch(true){
 					</div>
 					<hr>';
 				}
-			}
-			echo '<h4 class="mb-3">Comentarios ('.$i.')</h4>'.$comentarios;
+			}		
 		}
+		echo '<h4 class="mb-3">Comentarios ('.$i.')</h4>'.$comentarios;
 	break;
 	case($action=='addcoment'):
 		//$tabla=validacion_tabla('blog_coment');

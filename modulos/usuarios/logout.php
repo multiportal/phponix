@@ -9,8 +9,8 @@ switch(true){
 	break;
 }
 $token=htmlspecialchars($_COOKIE["token"]);
-mysqli_query($mysqli,"UPDATE ".$DBprefix."token SET Estado='Inactivo' WHERE Token='".$token."';") or print mysqli_error($mysqli);
-setcookie("token","",time()-1,"/");
+$sql=mysqli_query($mysqli,"UPDATE ".$DBprefix."token SET Estado='Inactivo' WHERE Token='".$token."';") or print mysqli_error($mysqli);
+if($sql){setcookie("token","",time()-1,"/");}
 $ultimologin=date("Y-m-d H:i:s");
 mysqli_query($mysqli,"UPDATE ".$DBprefix."signup SET lastlogin='".$ultimologin."' WHERE ID='".$_GET["id"]."';") or print mysqli_error($mysqli);
 $log_usuarios='usuarios/login.php';

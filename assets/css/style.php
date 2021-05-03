@@ -1,7 +1,7 @@
 <?php 
 $archivo=fopen('assets/css/style.css','w');
 
-css_web($css_web);
+//css_web($css_web);
 
 if($tema=='default'){
 $css_default='

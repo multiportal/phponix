@@ -162,6 +162,15 @@ $crear_tablas=mysqli_query($mysqli,"CREATE TABLE ".$DBprefix."blog_coment (ID in
   PRIMARY KEY (ID)) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2;");
   $sql=mysqli_query($mysqli,"INSERT INTO ".$DBprefix."blog_coment (ID, ip, nombre, email, comentario, id_b, fecha, visible) VALUES (1, '127.0.0.1', 'Miguel Hernandez', 'mherco@hotmail.com', 'Mensaje de prueba de comentario.', 1, '2021-02-15 21:44:51', 1);");
 
+//TABLA: chat
+$crear_tablas=mysqli_query($mysqli,"CREATE TABLE ".$DBprefix."chat (ID int(11) unsigned NOT NULL auto_increment,
+  id_user1 int(255) NOT NULL,
+  id_user2 int(255) NOT NULL,
+  mensage varchar(1000) NOT NULL,
+  fecha varchar(25) NOT NULL,
+  PRIMARY KEY (ID)) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;");
+  //$sql=mysqli_query($mysqli,"INSERT INTO ".$DBprefix."chat () VALUES ();");
+
 //TABLA: clientes
 $crear_tablas=mysqli_query($mysqli,"CREATE TABLE ".$DBprefix."clientes (ID int(11) unsigned NOT NULL auto_increment,
   nombre varchar(200) NOT NULL,
@@ -283,8 +292,9 @@ $crear_tablas=mysqli_query($mysqli,"CREATE TABLE ".$DBprefix."css2 (ID int(9) un
   nom varchar(100) NOT NULL,
   contenido mediumtext NOT NULL,
   visible tinyint(1) NOT NULL,
-  PRIMARY KEY (ID)) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;");
-  //$sql=mysqli_query($mysqli,"INSERT INTO ".$DBprefix."css2 () VALUES ();");
+  PRIMARY KEY (ID)) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3;");
+  $sql=mysqli_query($mysqli,"INSERT INTO ".$DBprefix."css2 (ID, nom, contenido, visible) VALUES (1, 'menu-bg', '#fff', 1);");
+  $sql=mysqli_query($mysqli,"INSERT INTO ".$DBprefix."css2 (ID, nom, contenido, visible) VALUES (2, 'menu-size', '18px', 1);");
 
   //TABLA: cursos
 $crear_tablas=mysqli_query($mysqli,"CREATE TABLE ".$DBprefix."cursos (ID int(9) unsigned NOT NULL auto_increment,
@@ -502,7 +512,7 @@ $crear_tablas=mysqli_query($mysqli,"CREATE TABLE ".$DBprefix."menu_admin (ID int
   ID_menu_adm int(2) NOT NULL,
   ID_mod int(2) NOT NULL,
   visible tinyint(1) NOT NULL,
-  PRIMARY KEY (ID)) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=28;");
+  PRIMARY KEY (ID)) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=29;");
   $sql=mysqli_query($mysqli,"INSERT INTO ".$DBprefix."menu_admin (ID, nom_menu, icono, link, nivel, ID_menu_adm, ID_mod, visible) VALUES (1, 'Config. Sistema', 'fa-gear', 'index.php?mod=sys&ext=admin/index', -1, 0, 11, 1);");
   $sql=mysqli_query($mysqli,"INSERT INTO ".$DBprefix."menu_admin (ID, nom_menu, icono, link, nivel, ID_menu_adm, ID_mod, visible) VALUES (2, 'Modulos', 'fa-cubes', 'index.php?mod=sys&ext=modulos', -1, 0, 0, 1);");
   $sql=mysqli_query($mysqli,"INSERT INTO ".$DBprefix."menu_admin (ID, nom_menu, icono, link, nivel, ID_menu_adm, ID_mod, visible) VALUES (3, 'Logs', 'fa-globe', 'index.php?mod=sys&ext=admin/index&opc=logs', -1, 0, 11, 1);");
@@ -530,6 +540,7 @@ $crear_tablas=mysqli_query($mysqli,"CREATE TABLE ".$DBprefix."menu_admin (ID int
   $sql=mysqli_query($mysqli,"INSERT INTO ".$DBprefix."menu_admin (ID, nom_menu, icono, link, nivel, ID_menu_adm, ID_mod, visible) VALUES (25, 'Slider', 'fa-caret-square-o-right', 'index.php?mod=Home&ext=admin/index&opc=slider', 1, 0, 5, 1);");
   $sql=mysqli_query($mysqli,"INSERT INTO ".$DBprefix."menu_admin (ID, nom_menu, icono, link, nivel, ID_menu_adm, ID_mod, visible) VALUES (26, 'Testimonios', 'fa-child', 'index.php?mod=Home&ext=admin/index&opc=testimonios', 1, 0, 5, 1);");
   $sql=mysqli_query($mysqli,"INSERT INTO ".$DBprefix."menu_admin (ID, nom_menu, icono, link, nivel, ID_menu_adm, ID_mod, visible) VALUES (27, 'Tema', 'fa-paint-brush', 'index.php?mod=Home&ext=admin/index&opc=tema', 1, 0, 5, 1);");
+  $sql=mysqli_query($mysqli,"INSERT INTO ".$DBprefix."menu_admin (ID, nom_menu, icono, link, nivel, ID_menu_adm, ID_mod, visible) VALUES (28, 'Estilos', 'fa-folder-open-o', 'index.php?mod=Home&ext=admin/index&opc=style_var', 1, 0, 5, 1);");
 
 //TABLA: menu_web
 $crear_tablas=mysqli_query($mysqli,"CREATE TABLE ".$DBprefix."menu_web (ID int(6) unsigned NOT NULL auto_increment,

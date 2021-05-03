@@ -333,27 +333,4 @@ $path_JSON='modulos/'.$mod.'/'.$fjson.'.json';
  }
 }
 
-function css_web(&$css_web){
-global $mysqli,$DBprefix,$url,$page_url,$mod,$ext,$opc,$tema,$path_tema,$tema_previo;
-	$css2='css2';
-	$path_JSON='bloques/webservices/rest/json/'.$css2.'.json';
-	if(!file_exists($path_JSON)){$path_JSON=$page_url.'bloques/ws/t/?t='.$css2;}
-	if($path_JSON){
-	$objData=file_get_contents($path_JSON);
-	$Data=json_decode($objData,true);
-	usort($Data, function($a, $b){return strnatcmp($a['ID'], $b['ID']);});//Orden del menu
-	$i=0;
-	//if($_SESSION['level']!=-1){echo '<!-- .json -->'."\n\r";}else{echo '<!-- .json URL:('.$path_JSON.')-->'."\n\r";}	
-		foreach ($Data as $rowm){$i++;
-			$ID_css=$rowm['ID'];
-			$tema_css=$rowm['nom'];
-			$contenido_css=$rowm['contenido'];
-			$visible=$rowm['visible'];			
-			if($visible==1){
-				$css_web=$contenido_css;
-			}
-		}
-	}
-}
-
 ?>

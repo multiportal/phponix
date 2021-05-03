@@ -17,6 +17,73 @@ if(isset($_SESSION["username"])){
 	<div class="row">
 <?php
 switch(true){
+  case($opc=='style_var'):
+?>
+<style>label{display:inherit;}label span{float:right;} .fa-trash, .fa.close{color:#c00; cursor:pointer;}</style>
+<div class="col-lg-5 col-xs-12">
+  <div class="box box-primary">
+    <div class="box-header with-border">
+      <h3 class="box-title">Agregar Variable.</h3>
+      <div class="box-tools pull-right">
+        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+        <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
+      </div>
+    </div>
+    <!-- /.box-header -->
+    <div class="box-body">
+      <div class="row">
+        <div class="col-md-12">
+          <form id="add-form" role="form">
+            <div class="box-body">
+            	<div class="form-group">
+              	<label for="nom">Nombre Opcion</label>
+          			<input type="text" class="form-control" id="nom" name="nom" value="">
+          		</div>
+							<div class="form-group">
+          			<label folr="contenido">Descripción</label>
+              	<input type="text" class="form-control" id="contenido" name="contenido" value="">
+              </div>
+              <div class="form-group">
+              	<input type="hidden" class="form-control" id="visible" name="visible" value="1">
+              </div>
+            </div>
+            <div class="box-footer">
+              <button class="btn btn-primary btn-guardar">Guardar</button>
+            </div>
+          </form>
+        </div>
+      </div><!-- /.row-->
+    </div>
+    <!-- /.box-body-->      
+  </div>
+  <!-- /.box-default-->
+</div>
+<div class="col-lg-7 col-xs-12">
+  <div id="aviso2"></div>
+  <div class="box box-primary">
+    <div class="box-header with-border">
+      <h3 class="box-title">Estilos y variables.</h3>
+    </div>
+    <!-- /.box-header -->
+    <form id="edit-form" role="form">
+    <div class="box-body">
+      <div class="row">
+        <div class="col-md-12">
+            <div id="reg-form" class="box-body"></div>
+        </div>
+      </div><!-- /.row-->
+    </div>
+    <!-- /.box-body-->
+    <div class="box-footer">
+    	<input type="submit" id="Guardar" name="Guardar" class="btn btn-primary" value="Guardar">
+    </div>
+    </form>      
+  </div>
+  <!-- /.box-default-->
+</div>
+
+<?php
+  break;
   case($opc=='tema'):
 
     if($_POST['Guardar']){
