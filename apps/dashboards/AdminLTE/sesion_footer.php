@@ -334,6 +334,19 @@ include	'./modulos/estadisticas/chartjs.php';
       checkboxClass: 'icheckbox_flat-green',
       radioClass: 'iradio_flat-green'
     });
+
+    //Colorpicker
+    $(".my-colorpicker1").colorpicker();
+    //color picker with addon
+    $(".my-colorpicker2").colorpicker();
+    $('#reg-form').on('click','.my-colorpicker2',function () {//console.log('Activado color');
+      $(".my-colorpicker2").colorpicker();
+    });
+
+    //Timepicker
+    $(".timepicker").timepicker({
+      showInputs: false
+    });
   });
 </script>
 

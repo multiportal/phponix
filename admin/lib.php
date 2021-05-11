@@ -1272,7 +1272,7 @@ if($url==$dominio.$path_root || $url==$dominio.$path_root.'index.php' && $cont_t
 	}
 	else{
 		basic_page();
-		echo '<div>'.$url.' = '.$dominio.$path_root.'/index.php</div>';
+		echo '<div>'.$url.' = '.$dominio.$path_root.'index.php</div>';
 		echo 'Ruta del tema: /'.$path_tema.'index.php';
 		echo '<div class="alert">La pagina no existe! <span>'.$avi.'</span> '.$back.' </div>';
 	}	

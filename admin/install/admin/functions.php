@@ -293,8 +293,16 @@ $crear_tablas=mysqli_query($mysqli,"CREATE TABLE ".$DBprefix."css2 (ID int(9) un
   contenido mediumtext NOT NULL,
   visible tinyint(1) NOT NULL,
   PRIMARY KEY (ID)) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3;");
-  $sql=mysqli_query($mysqli,"INSERT INTO ".$DBprefix."css2 (ID, nom, contenido, visible) VALUES (1, 'menu-bg', '#fff', 1);");
-  $sql=mysqli_query($mysqli,"INSERT INTO ".$DBprefix."css2 (ID, nom, contenido, visible) VALUES (2, 'menu-size', '18px', 1);");
+  $sql=mysqli_query($mysqli,"INSERT INTO ".$DBprefix."css2 (ID, nom, contenido, visible) VALUES (1, 'color-primario', '#0088cc', 1);");
+  $sql=mysqli_query($mysqli,"INSERT INTO ".$DBprefix."css2 (ID, nom, contenido, visible) VALUES (2, 'color-secundario', '#212529', 1);");
+  $sql=mysqli_query($mysqli,"INSERT INTO ".$DBprefix."css2 (ID, nom, contenido, visible) VALUES (3, 'body-color-bg', '#ffffff', 1);");
+  $sql=mysqli_query($mysqli,"INSERT INTO ".$DBprefix."css2 (ID, nom, contenido, visible) VALUES (4, 'body-color-text', '#777777', 1);");
+  $sql=mysqli_query($mysqli,"INSERT INTO ".$DBprefix."css2 (ID, nom, contenido, visible) VALUES (5, 'menu-bg', '#ffffff', 1);");
+  $sql=mysqli_query($mysqli,"INSERT INTO ".$DBprefix."css2 (ID, nom, contenido, visible) VALUES (6, 'menu-size', '12px', 1);");
+  $sql=mysqli_query($mysqli,"INSERT INTO ".$DBprefix."css2 (ID, nom, contenido, visible) VALUES (7, 'menu-color', '#0088cc', 1);");
+  $sql=mysqli_query($mysqli,"INSERT INTO ".$DBprefix."css2 (ID, nom, contenido, visible) VALUES (8, 'footer-bg', '#212529', 1);");
+  $sql=mysqli_query($mysqli,"INSERT INTO ".$DBprefix."css2 (ID, nom, contenido, visible) VALUES (9, 'footer-size', '26px', 1);");
+  $sql=mysqli_query($mysqli,"INSERT INTO ".$DBprefix."css2 (ID, nom, contenido, visible) VALUES (10, 'footer-color', '#777777', 1);");
 
   //TABLA: cursos
 $crear_tablas=mysqli_query($mysqli,"CREATE TABLE ".$DBprefix."cursos (ID int(9) unsigned NOT NULL auto_increment,

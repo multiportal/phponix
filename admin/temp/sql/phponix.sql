@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 25-04-2021 a las 04:23:23
+-- Tiempo de generación: 10-05-2021 a las 17:24:00
 -- Versión del servidor: 10.1.38-MariaDB
 -- Versión de PHP: 7.3.2
 
@@ -593,6 +593,22 @@ CREATE TABLE `php_css2` (
   `visible` tinyint(1) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
+--
+-- Volcado de datos para la tabla `php_css2`
+--
+
+INSERT INTO `php_css2` (`ID`, `nom`, `contenido`, `visible`) VALUES
+(1, 'color-primario', '#0088cc', 1),
+(2, 'color-secundario', '#212529', 1),
+(3, 'body-color-bg', '#ffffff', 1),
+(4, 'body-color-text', '#777777', 1),
+(5, 'menu-bg', '#ffffff', 1),
+(6, 'menu-size', '12px', 1),
+(7, 'menu-color', '#0088cc', 1),
+(8, 'footer-bg', '#212529', 1),
+(9, 'footer-size', '26px', 1),
+(10, 'footer-color', '#777777', 1);
+
 -- --------------------------------------------------------
 
 --
@@ -971,7 +987,8 @@ INSERT INTO `php_menu_admin` (`ID`, `nom_menu`, `icono`, `link`, `nivel`, `ID_me
 (24, 'Licencia', 'fa-eye', 'index.php?mod=sys&ext=licencia', -1, 0, 11, 1),
 (25, 'Slider', 'fa-caret-square-o-right', 'index.php?mod=Home&ext=admin/index&opc=slider', 1, 0, 5, 1),
 (26, 'Testimonios', 'fa-child', 'index.php?mod=Home&ext=admin/index&opc=testimonios', 1, 0, 5, 1),
-(27, 'Tema', 'fa-paint-brush', 'index.php?mod=Home&ext=admin/index&opc=tema', 1, 0, 5, 1);
+(27, 'Tema', 'fa-paint-brush', 'index.php?mod=Home&ext=admin/index&opc=tema', 1, 0, 5, 1),
+(28, 'Estilos', 'fa-folder-open-o', 'index.php?mod=Home&ext=admin/index&opc=style_var', 1, 0, 5, 1);
 
 -- --------------------------------------------------------
 
@@ -1056,7 +1073,7 @@ INSERT INTO `php_modulos` (`ID`, `nombre`, `modulo`, `description`, `dashboard`,
 (2, 'Login', 'login', 'Administraci&oacute;n Login.', 0, 0, 0, 0, 1, 'false', 'fa-users', 'index.php?mod=login'),
 (3, 'Logout', 'logout', 'Administraci&oacute;n Logout.', 0, 0, 0, 0, 1, 'false', 'fa-users', 'index.php?mod=logout'),
 (4, 'Dashboard', 'dashboard', '', 1, -1, 0, 0, 1, 'false', 'fa-dashboard', 'index.php?mod=dashboard'),
-(5, 'Home', 'Home', 'Administración y gestión del Home.', 0, 0, 1, 1, 1, 'false', 'fa-home', 'index.php?mod=Home'),
+(5, 'Home', 'Home', 'Administraci&oacute;n y gesti&oacute;n del Home.', 0, 0, 1, 1, 1, 'false', 'fa-home', 'index.php?mod=Home'),
 (6, 'Usuarios', 'usuarios', 'Administación y gestión de usuarios.', 0, -1, 0, 1, 1, 'false', 'fa-users', 'index.php?mod=usuarios'),
 (7, 'Nosotros', 'nosotros', 'Administración del contenido del modulo de nosotros.', 0, 0, 0, 1, 1, 'false', 'fa-users', 'index.php?mod=nosotros'),
 (8, 'Portafolio', 'portafolio', 'Administraci&oacute;n y gesti&oacute;n del portafolio.', 0, 0, 0, 1, 1, 'false', 'fa-briefcase', 'index.php?mod=portafolio'),
@@ -1068,12 +1085,12 @@ INSERT INTO `php_modulos` (`ID`, `nombre`, `modulo`, `description`, `dashboard`,
 (14, 'Mailbox', 'mailbox', 'Mailbox de formularios', 1, 1, 0, 1, 1, 'false', ' fa-envelope', 'index.php?mod=mailbox'),
 (15, 'Ecommerce', 'ecommerce', 'Administraci&oacute;n y gesti&oacute;n del modulo ecommerce.', 0, 1, 0, 0, 0, 'false', 'fa-shopping-cart', 'index.php?mod=ecommerce'),
 (16, 'Marketing', 'marketing', '', 0, 1, 0, 0, 0, 'false', 'fa-globe', 'index.php?mod=marketing'),
-(17, 'Productos', 'productos', 'Administraci&oacute;n de productos', 0, 1, 0, 0, 0, 'false', 'fa-shopping-cart', 'index.php?mod=productos'),
-(18, 'Gmaps', 'gmaps', 'Mapas de Google', 0, 0, 0, 0, 0, 'false', 'fa-map', 'index.php?mod=gmaps'),
+(17, 'Productos', 'productos', 'Administraci&oacute;n de productos', 0, 1, 0, 1, 1, 'false', 'fa-shopping-cart', 'index.php?mod=productos'),
+(18, 'Gmaps', 'gmaps', 'Mapas de Google', 0, 0, 0, 1, 1, 'false', 'fa-map', 'index.php?mod=gmaps'),
 (19, 'Chat', 'chat', 'Administración del modulo chat.', 0, 1, 0, 0, 1, 'false', 'fa-commenting', 'index.php?mod=chat'),
 (20, 'Directorio', 'directorio', 'Administrador del modulo de Directorio.', 0, 1, 0, 0, 0, 'false', 'fa-globe', 'index.php?mod=directorio'),
-(21, 'descargas', 'descargas', 'Administrador del modulo descargas', 0, 1, 0, 0, 0, 'false', 'fa-download', 'index.php?mod=descargas'),
-(22, 'Servicios', 'servicios', 'Administrador del modulo servicios', 0, 0, 0, 0, 0, 'false', 'fa-briefcase', 'index.php?mod=servicios');
+(21, 'descargas', 'descargas', 'Administrador del modulo descargas', 0, 1, 0, 1, 1, 'false', 'fa-download', 'index.php?mod=descargas'),
+(22, 'Servicios', 'servicios', 'Administrador del modulo servicios', 0, 0, 0, 1, 1, 'false', 'fa-briefcase', 'index.php?mod=servicios');
 
 -- --------------------------------------------------------
 
@@ -1707,7 +1724,7 @@ CREATE TABLE `php_signup` (
 --
 
 INSERT INTO `php_signup` (`ID`, `username`, `password`, `email`, `level`, `lastlogin`, `tema`, `nombre`, `apaterno`, `amaterno`, `foto`, `cover`, `tel`, `ext`, `fnac`, `fb`, `tw`, `puesto`, `ndepa`, `depa`, `empresa`, `adress`, `direccion`, `mpio`, `edo`, `pais`, `genero`, `exp`, `likes`, `filtro`, `zona`, `alta`, `actualizacion`, `page`, `nivel_oper`, `rol`, `codigo`, `intentos`, `status`, `activo`) VALUES
-(1, 'admin', 'c64f923f7f476f0b78716079452e7bdec4b2c016', 'multiportal@outlook.com', '-1', '2021-04-21 14:25:29', 'default', 'Guillermo', 'Jimenez', 'Lopez', 'sinfoto.png', '', '4421944950', 1, '0000-00-00', '', '', 'Programador', 0, '', 'Multiportal', '', '', '', '', '', 'M', '', 0, '0', '', '', 'admin2019xadmin79', '', 0, 0, '944950', '0', 'offline', 1),
+(1, 'admin', 'c64f923f7f476f0b78716079452e7bdec4b2c016', 'multiportal@outlook.com', '-1', '2021-05-10 10:14:03', 'default', 'Guillermo', 'Jimenez', 'Lopez', 'sinfoto.png', '', '4421944950', 1, '0000-00-00', '', '', 'Programador', 0, '', 'Multiportal', '', '', '', '', '', 'M', '', 0, '0', '', '', 'admin2019xadmin79', '', 0, 0, '944950', '0', 'offline', 1),
 (2, 'demo', '71cc541bd1ccb6670de3f8d40f425ffb7315fe7f', 'demo@gmail.com', '-1', '0000-00-00 00:00:00', 'default', 'Demo', 'Apaterno', 'Amaterno', 'sinfoto.png', 'sincover.jpg', '4421234567', 0, '0000-00-00', '', '', 'Director', 0, '', 'PHPONIX', '', '', '', '', '', 'M', '', 0, '0', '', '', 'demo2019xdemo2017', '', 0, 0, '234567', '0', 'offline', 1),
 (3, 'usuario', '3c6e6ac5382f4e804e824c0d785b275252ddacb0', 'multiportal@outlook.com', '1', '0000-00-00 00:00:00', 'default', 'Usuario', 'Apaterno', 'Amaterno', 'sinfoto.png', '', '4421234567', 0, '0000-00-00', '', '', 'Usuario', 0, '', 'PHPONIX', '', '', '', '', '', 'M', '', 0, '0', '', '', 'usuario2019xuser79x', '', 0, 0, '234567', '0', 'offline', 1),
 (4, 'ventas', '1d415500d481e0c1c238189c22ea057da663c1e7', 'ventas@gmail.com', '2', '0000-00-00 00:00:00', 'default', 'Ventas', 'Apaterno', 'Amaterno', 'sinfoto.png', 'sincover.jpg', '4421234567', 0, '0000-00-00', '', '', 'Gerente', 0, '', 'PHPONIX', '', '', '', '', '', 'M', '', 0, '0', '', '', 'ventas2019xventas', '', 0, 0, '234567', '0', 'offline', 1);
@@ -2362,7 +2379,7 @@ ALTER TABLE `php_css`
 -- AUTO_INCREMENT de la tabla `php_css2`
 --
 ALTER TABLE `php_css2`
-  MODIFY `ID` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `ID` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT de la tabla `php_cursos`
@@ -2446,7 +2463,7 @@ ALTER TABLE `php_map_ubicacion`
 -- AUTO_INCREMENT de la tabla `php_menu_admin`
 --
 ALTER TABLE `php_menu_admin`
-  MODIFY `ID` int(6) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `ID` int(6) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT de la tabla `php_menu_web`

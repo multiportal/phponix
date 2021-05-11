@@ -5,7 +5,99 @@ include 'admin/functions.php';
 sql_opciones('AJAX',$val_ajax);
 switch(true){
   case($dboard2=='Nifty'):
-    echo '<h1>Nifty</h1>';
+    echo '
+<div class="row">
+   <div class="col-md-6 col-lg-7">
+   </div>
+   <div class="col-md-6 col-lg-5">
+      <div class="row">
+         <div class="col-sm-6 col-md-6">
+            <!--Tile-->
+            <!--===================================================-->
+            <div class="panel panel-success panel-colorful">
+               <div class="pad-all media">
+                  <div class="media-left">
+                     <i class="demo-pli-male icon-3x icon-fw"></i>
+                  </div>
+                  <div class="media-body">
+                     <p class="text-2x mar-no media-heading">314,675</p>
+                     <span>Visit Today</span>
+                  </div>
+               </div>
+               <div class="progress progress-xs progress-success mar-no">
+                  <div role="progressbar" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100" class="progress-bar progress-bar-light" style="width: 30%"></div>
+               </div>
+               <div class="pad-all text-sm">
+                  <span class="text-semibold">30%</span> Higher than yesterday
+               </div>
+            </div>
+            <!--===================================================-->
+            <!--Tile-->
+            <!--===================================================-->
+            <div class="panel panel-primary panel-colorful">
+               <div class="pad-all media">
+                  <div class="media-left">
+                     <i class="demo-pli-add-cart icon-3x icon-fw"></i>
+                  </div>
+                  <div class="media-body">
+                     <p class="text-2x mar-no media-heading">5,345</p>
+                     <span>New Order</span>
+                  </div>
+               </div>
+               <div class="progress progress-xs progress-dark-base mar-no">
+                  <div role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" class="progress-bar progress-bar-light" style="width: 75%"></div>
+               </div>
+               <div class="pad-all text-sm bg-trans-dark">
+                  <span class="text-semibold">954</span> Sales in this month
+               </div>
+            </div>
+            <!--===================================================-->
+         </div>
+         <div class="col-sm-6 col-md-6">
+            <!--Tile-->
+            <!--===================================================-->
+            <div class="panel panel-success panel-colorful">
+               <div class="pad-all media">
+                  <div class="media-left">
+                     <i class="demo-pli-male icon-3x icon-fw"></i>
+                  </div>
+                  <div class="media-body">
+                     <p class="text-2x mar-no media-heading">314,675</p>
+                     <span>Visit Today</span>
+                  </div>
+               </div>
+               <div class="progress progress-xs progress-success mar-no">
+                  <div role="progressbar" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100" class="progress-bar progress-bar-light" style="width: 30%"></div>
+               </div>
+               <div class="pad-all text-sm">
+                  <span class="text-semibold">30%</span> Higher than yesterday
+               </div>
+            </div>
+            <!--===================================================-->
+            <!--Tile-->
+            <!--===================================================-->
+            <div class="panel panel-primary panel-colorful">
+               <div class="pad-all media">
+                  <div class="media-left">
+                     <i class="demo-pli-add-cart icon-3x icon-fw"></i>
+                  </div>
+                  <div class="media-body">
+                     <p class="text-2x mar-no media-heading">5,345</p>
+                     <span>New Order</span>
+                  </div>
+               </div>
+               <div class="progress progress-xs progress-dark-base mar-no">
+                  <div role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" class="progress-bar progress-bar-light" style="width: 75%"></div>
+               </div>
+               <div class="pad-all text-sm bg-trans-dark">
+                  <span class="text-semibold">954</span> Sales in this month
+               </div>
+            </div>
+            <!--===================================================-->
+         </div>
+      </div>
+   </div>
+</div>';
   break;
 	case($dboard2=='gentelella'):
 ?>
