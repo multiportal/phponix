@@ -1,0 +1,14 @@
+/*css-vars*/
+:root{
+ --color-primario:#0088cc;
+--color-secundario:#212529;
+--body-color-bg:#ffffff;
+--body-color-text:#777777;
+--menu-bg:#ffffff;
+--menu-size:12px;
+--menu-color:#0088cc;
+--footer-bg:#212529;
+--footer-size:26px;
+--footer-color:#777777;
+
+}

@@ -4,12 +4,11 @@ include 'functions.php';
 switch (true) {
 	case ($opc=='edit-var'):
 	if($_POST){
-		$n=count($_POST);
-		for($i=1;$i<$n;$i++){
-			$Id=$_POST['ID'][$i];
-			$nom=$_POST['nom'][$i];
-			$val=$_POST['val'][$i];
-			$save=mysqli_query($mysqli,"UPDATE ".$DBprefix."css2 SET nom='{$nom}', contenido='{$val}' WHERE ID='{$Id}';") or print mysqli_error($mysqli);			
+		foreach ($_POST['ID'] as $key) {
+			$Id=$_POST['ID'][$key];
+			$nom=$_POST['nom'][$key];
+			$val=$_POST['val'][$key];
+			$save=mysqli_query($mysqli,"UPDATE ".$DBprefix."css2 SET nom='{$nom}', contenido='{$val}' WHERE ID='{$Id}';") or print mysqli_error($mysqli);
 		}
 		validar_aviso($save,'Estilos Actualizado!','Fallo Actualización!',$aviso);
 		echo $aviso;

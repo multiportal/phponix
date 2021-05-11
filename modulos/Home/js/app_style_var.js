@@ -6,6 +6,13 @@ const registros = () => {
 		data.forEach(datos => {//console.log(datos);
 			const {ID,nom,contenido,visible} = datos;
 			if(visible==1){
+				var sharp=contenido.substr(0,1);
+				var box = (sharp=='#')?`<div class="input-group my-colorpicker2 colorpicker-element">
+				<input type="text" class="form-control" id="val[${ID}]" name="val[${ID}]" value="${contenido}" autocomplete="off">
+				<div class="input-group-addon">
+				  <i></i>
+				</div>
+			  </div>`:`<input type="text" class="form-control" id="val[${ID}]" name="val[${ID}]" value="${contenido}" autocomplete="off">`;
 				tr += `
 				<div class="form-group">
 					<input type="hidden" class="form-control" id="ID[${ID}]" name="ID[${ID}]" value="${ID}" autocomplete="off">	  
@@ -14,7 +21,7 @@ const registros = () => {
 						<input type="hidden" class="form-control" id="nom[${ID}]" name="nom[${ID}]" value="${nom}" autocomplete="off">
 						<span id="${ID}"><i class="fa fa-trash btn-delete"></i></span>
 					</label>
-				  	<input type="text" class="form-control" id="val[${ID}]" name="val[${ID}]" value="${contenido}" autocomplete="off">
+				  	${box}
 				</div>`;
 			}
 		});console.log('Datos Cargados');
@@ -50,8 +57,8 @@ $('#edit-form').submit(function(e){
 		data: $(this).serializeArray(),		
 		success: function(response){
 			console.log('Registros Actualizados');
-			$("#aviso2").html(response);
-      		$("#aviso2").fadeOut(8000);
+			$("#aviso2").fadeIn();
+			$("#aviso2").html(response).fadeOut(8000);
 			registros();
 		}
 	})
