@@ -5,11 +5,12 @@ Author URI: https://www.multiportal.com.mx
 SISTEMA PHPONIX
 Version Actual: 2.8.2
 F.Creación: 26/03/2015
-F.Modficación: 20/03/2021
+F.Modficación: 12/05/2021
 Descripción: Aplicación web multiproposito.
 /**********************************************************
 v.2.8.2 - TOKEN
 -Seguridad: Se agrego Token(Funcional!!!)
+-Cookie(Token) de seguimiento 1h
 -CAMBIO DE DIAGONAL AL FINAL EN $pag_url & $path_root
 /**********************************************************
 v.2.8.1 - API
@@ -1588,7 +1589,7 @@ if($sal){
 
 			$token = Token();
 			$sql=mysqli_query($mysqli,"INSERT INTO ".$DBprefix."token (ID_user,Token,Estado,Fecha) VALUES ('{$_SESSION["ID"]}','{$token}','Activo','{$date}');") or print mysqli_error($mysqli);			
-			setcookie("token",$token,time()+(60+60+24+31),"/");
+			setcookie("token",$token,time()+ (1 * 1 * 60 * 60),"/");
 			$form_login=recargar($seg=3,$URL_log,'').'
 				<div class="container">
 					<header>
