@@ -10,8 +10,8 @@ if($ex_scfg==1){
     include 'scfg.php';
 }
 
-$tab_signup = ($ex_scfg==1)?$DBprefix.'signup':'signup';
-$tab_token = ($ex_scfg==1)?$DBprefix.'token':'token';
+$tab_signup = $DBprefix.'signup'; //($ex_scfg==1 || $DBprefix!='')?$DBprefix.'signup':'signup';
+$tab_token = $DBprefix.'token'; //($ex_scfg==1 || $DBprefix!='')?$DBprefix.'token':'token';
 
 //CONEXION MYSQLI
 function conexion(){
