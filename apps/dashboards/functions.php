@@ -662,7 +662,7 @@ global $page_url, $mod;
             <div id="ima'.$i.'">
 			    <input type="hidden" class="form-control" id="imagen'.$i.'" name="imagen'.$i.'" value="'.$array_ima[$i].'">
 			    ' . $ima . '
-                <a href="#" onclick="upima('.$i.');">'.$edo.' Imagen '.$i.'</a>'.$btnBorrar.'<div id="upload'.$i.'"></div>
+                <a href="javascript:upima('.$i.');">'.$edo.' Imagen '.$i.'</a>'.$btnBorrar.'<div id="upload'.$i.'"></div>
             </div> 
 		</div>';
     }
