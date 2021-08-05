@@ -2281,12 +2281,15 @@ function RanUrl(){
 }
 
 function ssl(){
-global $host,$path_root;
-	echo '<script>
+global $host,$path_root,$dominio1,$page_url;
+echo '<script>
 	const protocol = window.location.protocol;
-	console.log("protocol=" + protocol);
-	if(protocol=="http:"){window.location="https://'.$host.$path_root.'";}
-	</script>';
+	const host = window.location.host;
+	const dominio = protocol + "//" + host + "/";
+	if(protocol=="http:" || dominio!="'.$page_url.'"){
+		window.location="'.$page_url.'";
+	}
+</script>';
 }
 
 function clear_sw(){
