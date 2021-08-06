@@ -5,7 +5,7 @@ Author URI: https://www.multiportal.com.mx
 SISTEMA PHPONIX
 Version Actual: 2.8.2
 F.Creación: 26/03/2015
-F.Modficación: 02/08/2021
+F.Modficación: 04/08/2021
 Descripción: Aplicación web multiproposito.
 /**********************************************************
 v.2.8.2 - TOKEN
@@ -162,6 +162,7 @@ if($row=mysqli_fetch_array($sql)){
 	$ver_web=$row['version'];
 }
 
+$dominio2 = $dominio;
 $https_dominio     = 'https://'.$host.'/';
 $protocolo_dominio = ($dominio==$https_dominio)?'https://'.$host:'http://'.$host; 
 
@@ -2281,13 +2282,17 @@ function RanUrl(){
 }
 
 function ssl(){
-global $host,$path_root,$dominio1,$page_url;
+global $host,$path_root,$dominio,$dominio1,$dominio2,$page_url,$pag_url,$url,$URL,$mod,$ext;
 echo '<script>
 	const protocol = window.location.protocol;
-	const host = window.location.host;
+	const host = window.location.hostname;
 	const dominio = protocol + "//" + host + "/";
-	if(protocol=="http:" || dominio!="'.$page_url.'"){
-		window.location="'.$page_url.'";
+	const path_url = window.location.pathname;
+	var path_url1 = path_url.replace("/", "");
+	var dom = dominio + path_url1;
+	//console.log(dom="'.$dominio2.'"+path_url1);
+	if(protocol=="http:" || dom!="'.$dominio2.'"+path_url1){
+		window.location="'.$dominio2.'"+path_url1;
 	}
 </script>';
 }
