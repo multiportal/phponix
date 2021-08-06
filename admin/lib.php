@@ -2289,9 +2289,8 @@ echo '<script>
 	const dominio = protocol + "//" + host + "/";
 	const path_url = window.location.pathname;
 	var path_url1 = path_url.replace("/", "");
-	var dom = dominio + path_url1;
-	//console.log(dom="'.$dominio2.'"+path_url1);
-	if(protocol=="http:" || dom!="'.$dominio2.'"+path_url1){
+	//console.log(dominio+path_url1!="'.$dominio2.'"+path_url1);
+	if(protocol=="http:" || dominio+path_url1!="'.$dominio2.'"+path_url1){
 		window.location="'.$dominio2.'"+path_url1;
 	}
 </script>';
