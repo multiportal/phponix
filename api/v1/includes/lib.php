@@ -71,9 +71,11 @@ $login='<a href="'.$page_url.'login/">Login</a>';
 //--FUNCIONES--//////////////////////////////////////////////////////////////////////////////
 /*---------------------------------------------------------------------------------------------------------------------*/
 function sql_opc($tabla,$campo,$opcion,$val){
-global $mysqli,$DBprefix;//$mysqli=conexion();
-    $sql=mysqli_query($mysqli,"SELECT * FROM ".$DBprefix.$tabla." WHERE {$opcion}='{$val}';") or print mysqli_error($mysqli); 
-    if($row=mysqli_fetch_array($sql)){$dato=$row[$campo];}
+global $conec,$DBprefix;//$mysqli=conexion();
+    $sql="SELECT * FROM ".$DBprefix.$tabla." WHERE {$opcion}='{$val}';";
+    $query=$conec->prepare($sql);
+    $query->execute();
+    if($row=$query->fetch()){$dato=$row[$campo];}
     return $dato;
 }
 

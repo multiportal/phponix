@@ -200,8 +200,8 @@ global $conec,$DBprefix,$tab_signup,$tab_token,$date,$_POST;
     $pass1 = ($pass=='123456')?$pass:sha1(md5($pass));// Encriptamos "Ciframos" el password
     
     $sql = $conec->prepare("SELECT * FROM $tab_signup WHERE username=:username && password=:password");
-    $sql->bindValue(':username', $U);
-    $sql->bindValue(':password', $pass1);
+    $sql->bindValue(':username', $U, PDO::PARAM_STR);
+    $sql->bindValue(':password', $pass1, PDO::PARAM_STR);
     $sql->execute();
     $sesid=$sql->fetch(PDO::FETCH_ASSOC);
     $ID = $sesid['ID'];
