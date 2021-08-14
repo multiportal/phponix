@@ -25,13 +25,18 @@ $IdT=Identificador();
 
 //Validación
 function validacion_tabla($tabla){
-global $mysqli,$DBprefix,$tabla,$bootstrap,$ex_scfg;
-$mysqli=conexion();
+global $conec,$DBprefix,$tabla,$bootstrap,$ex_scfg;
+//$mysqli=conexion();
     if($tabla!='signup' && $tabla!='token' && $tabla!=NULL){
         $tabla = ($tabla=='_signup' || $tabla=='_token' && $ex_scfg!=1)?str_replace('_','',$tabla):$tabla;           
         $tabla = ($tabla==$DBprefix.'signup' || $tabla==$DBprefix.'token')?$tabla:$DBprefix.$tabla;
-        $sql = mysqli_query($mysqli,"DESCRIBE ".$tabla.";");
-        if($sql){
+        $sql = "SELECT * FROM ".$tabla.";";//$sql = mysqli_query($mysqli,"DESCRIBE ".$tabla.";");
+        try {
+            $result = $conec->query($sql);
+        } catch (Exception $e) {
+            $result = FALSE;    // We got an exception == table not found
+        }
+        if($result){
             return $tabla;//$tabla=($tabla==$DBprefix.'signup')?$tabla:$DBprefix.$tabla;
         }else{
             echo $bootstrap.'<div class="alert alert-danger"><b>ERROR:</b> La Tabla no existe.<div>';exit();
