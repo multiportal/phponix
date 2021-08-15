@@ -195,7 +195,7 @@ global $conec,$tabla,$_DEL,$IdT;
 
 //LOGIN
 function login(){
-global $conec,$DBprefix,$tab_signup,$tab_token,$date,$_POST;
+global $conec,$DBprefix,$tab_signup,$tab_token,$date,$_POST,$dbSQLite;
     //$tabla='signup';
     $U=(isset($_POST['username']))?$_POST['username']:'';
     $P=(isset($_POST['password']))?$_POST['password']:'';
@@ -203,11 +203,15 @@ global $conec,$DBprefix,$tab_signup,$tab_token,$date,$_POST;
     $login = htmlspecialchars(trim($U));
     $pass = trim($P);
     $pass1 = ($pass=='123456')?$pass:sha1(md5($pass));// Encriptamos "Ciframos" el password
-    
-    $sql = $conec->prepare("SELECT * FROM $tab_signup WHERE username=:username && password=:password");
-    $sql->bindValue(':username', $U, PDO::PARAM_STR);
-    $sql->bindValue(':password', $pass1, PDO::PARAM_STR);
-    $sql->execute();
+    if($dbSQLite!=''){
+        $sql = $conec->prepare("SELECT * FROM $tab_signup WHERE username=? AND password=?");
+        $sql->execute([$login, $pass1]);
+    }else{
+        $sql = $conec->prepare("SELECT * FROM $tab_signup WHERE username=:username AND password=:password");
+        $sql->bindValue(':username', $login, PDO::PARAM_STR);
+        $sql->bindValue(':password', $pass1, PDO::PARAM_STR);
+        $sql->execute();
+    }
     $sesid=$sql->fetch(PDO::FETCH_ASSOC);
     $ID = $sesid['ID'];
     $us = $sesid['username'];
@@ -219,9 +223,14 @@ global $conec,$DBprefix,$tab_signup,$tab_token,$date,$_POST;
         $tok = $conec->prepare($tok);
         $tok->execute();
         if($tok){
-            $sqlt = $conec->prepare("SELECT * FROM $tab_token WHERE ID_user=:ID_user && Estado='Activo' ORDER BY ID DESC");
-            $sqlt->bindValue(':ID_user', $ID);
-            $sqlt->execute();
+            if($dbSQLite!=''){
+                $sqlt = $conec->prepare("SELECT * FROM $tab_token WHERE ID_user=? AND Estado='Activo' ORDER BY ID DESC");
+                $sqlt->execute([$ID]);
+            }else{
+                $sqlt = $conec->prepare("SELECT * FROM $tab_token WHERE ID_user=:ID_user AND Estado='Activo' ORDER BY ID DESC");
+                $sqlt->bindValue(':ID_user', $ID);
+                $sqlt->execute();
+            }
             $json=$sqlt->fetch(PDO::FETCH_ASSOC);
             $data[]=$json;
             $token=$json['Token'];

@@ -1,7 +1,9 @@
 <?php
+include 'sqlite.php';
 function buscar_archivo1($path_file){
  return $val=(file_exists($path_file))?1:0;
 }
+
 $path_file = '../../admin/scfg.php';
 $ex_scfg = buscar_archivo1($path_file);
 if($ex_scfg==1){
@@ -37,6 +39,10 @@ function connect(){
     }
 }
 $conec=connect();
+
+if($dbSQLite!=''){
+    $conec=connect_sqlite($dbSQLite);
+}
 
 include 'lib.php';
 include 'functions.php';
