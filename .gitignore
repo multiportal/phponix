@@ -3,3 +3,9 @@ _temp/
 _docs/
 _templates/
 _template/
+conexion/
+api/v1/includes/scfg.php
+api/v2/includes/scfg.php
+admin/scfg.php
+*.db
+.env

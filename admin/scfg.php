@@ -7,7 +7,7 @@ $db_user = "";      // Usuario de la Base de Datos
 $db_pass = "";     	// Password de la Base de Datos 
 }else{
 $db_host = "localhost"; // Localhost
-$db_base = "phponix";   // Nombre de la Base de Datos
+$db_base = "phponix_dev";   // Nombre de la Base de Datos
 $db_user = "root";  // Usuario de la Base de Datos
 $db_pass = "";  // Password de la Base de Datos
 }

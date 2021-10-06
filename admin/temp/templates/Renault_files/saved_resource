@@ -1,1 +1,0 @@
-(function() {var script = document.createElement("script");script.src = "https://latam-renault.netmng.com/?url=" + encodeURIComponent(window.location.href) + "&aid=5767&ref=https%3A%2F%2Fwww.bing.com%2F";script.type = "text/javascript";try { document.getElementsByTagName("head")[0].appendChild(script); } catch (e) {}})();

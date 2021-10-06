@@ -25,7 +25,6 @@ $mysqli = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_DB); //conexión ala base
         return $mysqli; //retorna la conexión a la base de datos mysql
     }
 }
-$mysqli=conexion();
 
 //CONEXION PDO
 function connect(){
@@ -38,10 +37,12 @@ function connect(){
         exit($exception->getMessage());
     }
 }
-$conec=connect();
 
 if($dbSQLite!=''){
     $conec=connect_sqlite($dbSQLite);
+}else{
+    $conec=connect();
+    $mysqli=conexion();
 }
 
 include 'lib.php';

@@ -1,8 +1,0 @@
-/* eslint-disable */
-'use strict';
-
-window.isBrowserSupported = true;
-var bar = () => {};
-class foo {}
-var [a, b, ...c] = [1, 2, 3, 4];
-// async () => {};
