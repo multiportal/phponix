@@ -1,5 +1,4 @@
 <?php
-include 'sqlite.php';
 function buscar_archivo1($path_file){
  return $val=(file_exists($path_file))?1:0;
 }
@@ -38,6 +37,7 @@ function connect(){
     }
 }
 
+include 'sqlite.php';
 if($dbSQLite!=''){
     $conec=connect_sqlite($dbSQLite);
 }else{

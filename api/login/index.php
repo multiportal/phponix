@@ -1,5 +1,5 @@
 <?php 
-include_once '../v1/includes/conexion.php';
+include_once '../v2/includes/conexion.php';
 
 header("Access-Control-Allow-Origin: *");
 header('Access-Control-Allow-Credentials: true');
