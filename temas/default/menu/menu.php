@@ -9,12 +9,32 @@ global $mysqli,$DBprefix,$page_url,$mod,$ext,$opc,$path_tema,$tema_previo,$title
 echo ucfirst($mod).' | '.$title;
 }
 
-function login(&$login_se,$username,$ID_login){
+function admin($username,$ID_login){
 global $mysqli,$DBprefix,$page_url,$mod,$ext,$opc,$path_tema,$tema_previo,$dboard;
  if(isset($_SESSION['username'])){
 	$login_se='<a href="'.$page_url.'index.php?mod='.$dboard.'"><i class="fa fa-sign-in"></i> '.$username.'</a> <a href="'.logout($ID_login).'" title="Salir"><i class="fa fa-power-off"></i></a>';
  }else{
-	$login_se='<a href="'.$page_url.'admin/"><i class="fa fa-sign-in"></i> Login</a>';
+	$login_se='<a href="'.$page_url.'admin/"><i class="fa fa-sign-in"></i> Iniciar Sesión</a>';
+ }
+ echo $login_se;
+}
+
+function login($username,$ID_login){
+global $mysqli,$DBprefix,$page_url,$mod,$ext,$opc,$path_tema,$tema_previo,$dboard;
+ if(isset($_SESSION['username'])){
+	$login_se='<a href="'.$page_url.'index.php?mod='.$dboard.'"><i class="fa fa-sign-in"></i> '.$username.'</a> <a href="'.logout($ID_login).'" title="Salir"><i class="fa fa-power-off"></i></a>';
+ }else{
+	$login_se='<a href="'.$page_url.'login/"><i class="fa fa-sign-in"></i> Login</a>';
+ }
+ echo $login_se;
+}
+
+function login1(&$login_se,$username,$ID_login){
+global $mysqli,$DBprefix,$page_url,$mod,$ext,$opc,$path_tema,$tema_previo,$dboard;
+ if(isset($_SESSION['username'])){
+	$login_se='<a href="'.$page_url.'index.php?mod='.$dboard.'"><i class="fa fa-sign-in"></i> '.$username.'</a> <a href="'.logout($ID_login).'" title="Salir"><i class="fa fa-power-off"></i></a>';
+ }else{
+	$login_se='<a href="'.$page_url.'login/"><i class="fa fa-sign-in"></i> Login</a>';
  }
 }
 

@@ -60,14 +60,14 @@ if($valor==1){?>
 <?php }?>
 
 <?php 
-login($login_se,$username,$ID_login);
+/*login1($login_se,$username,$ID_login);*/
 ?>
 </head>
 <body>
 <div id="head">
 	<div id="head1">
 		<div id="logo-min"><a href="<?php echo $page_url;?>"><img src="<?php echo $page_url.$path_tema;?>images/logo.min.png"></a></div>
-    	<div id="menu-web"><div><?php echo $login_se;?></div> 
+    	<div id="menu-web"><div><?php admin($username,$ID_login);?></div> 
         <a href="<?php echo $page_url;?>index.php">Home</a> 
         <?php menu_web();?>
 		</div>
