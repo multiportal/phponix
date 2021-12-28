@@ -9,3 +9,4 @@ api/v2/includes/scfg.php
 admin/scfg.php
 *.db
 .env
+.vscode
