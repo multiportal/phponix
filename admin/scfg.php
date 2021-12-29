@@ -29,7 +29,7 @@ $config = [
 // Prefix for the database tables.
 $DBprefix = "php_";
 // Project root path		
-$path_root = "MisSitios/phponix/";
+$path_root = ($_SERVER['HTTP_HOST']=='localhost')?'MisSitios/phponix/':'';
 // Database name and path for sqlite
 $rut = (basename($_SERVER['PHP_SELF'])=='index.php')?'../':'../../';
 $dbSQLite=$rut.'db/'.$config['database'].'.db';
