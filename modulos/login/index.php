@@ -29,6 +29,7 @@
             <div id="iniciar-sesion">
                 <h1>Iniciar Sesión</h1>
                 <form id="form_login" method="POST" action="">
+                    <div id="msj-error" class="contenedor-input"></div>
                     <div class="contenedor-input">
                         <label>
                             Usuario <span class="req">*</span>

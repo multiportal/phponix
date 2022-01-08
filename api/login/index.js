@@ -49,8 +49,14 @@ function btnGuardar(e){
     }).then(res=>res.json()).then(data=>{
         console.log(data);
         localStorage.setItem("Token", JSON.stringify(data.token));
-
-        location.href= page_url+'admin';
+        let token = localStorage.getItem("Token");
+        //Redireccionar al Dashboard
+        if(token!=null && token!='undefined'){
+            location.href= page_url+'admin';
+        }else{
+            let msj = document.getElementById('msj-error');
+            msj.innerHTML = `<div class="alert alert-danger" role="alert">Usuario o Contraseña Incorrectos</div>`;
+        }
     })
     .catch(err=>console.log(err));    
 }
