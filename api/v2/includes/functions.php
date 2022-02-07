@@ -110,9 +110,14 @@ global $conec, $tabla, $sel_apiType, $sel_sesionToken;
     //mysqli_set_charset($conec, 'utf8');
     header("HTTP/1.1 200 OK");
     header('Content-Type: application/json');
-    $data['apiType'] = $sel_apiType;
-    $data['Token'] = $_COOKIE['token'];
-    echo json_encode($data);
+    if($sel_apiType=='restfull'){
+        $res['data'] = $data;
+        $res['apiType'] = $sel_apiType;
+        $res['Token'] = $_COOKIE['token'];
+        echo json_encode($res);
+    }else{
+        echo json_encode($data);
+    }
 }
 
 function allToken(){
@@ -135,9 +140,14 @@ global $conec, $tabla, $IdT, $tokenCookie, $sel_apiType, $sel_sesionToken;
     $data[]=$json;
     header("HTTP/1.1 200 OK");
     header('Content-Type: application/json');
-    $data['apiType'] = $sel_apiType;
-    $data['Token'] = $_COOKIE['token'];
-    echo json_encode($data);
+    if($sel_apiType=='restfull'){
+        $res['data'] = $data;
+        $res['apiType'] = $sel_apiType;
+        $res['Token'] = $_COOKIE['token'];
+        echo json_encode($res);
+    }else{
+        echo json_encode($data);
+    }
 }
 
 function storeToken($id){
