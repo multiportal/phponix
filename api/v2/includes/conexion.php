@@ -15,7 +15,7 @@ if($ex_scfg==1){
 //Protec tables
 $tab_signup = $DBprefix.'signup'; //($ex_scfg==1 || $DBprefix!='')?$DBprefix.'signup':'signup';
 $tab_token = $DBprefix.'token'; //($ex_scfg==1 || $DBprefix!='')?$DBprefix.'token':'token';
-
+$tokenCookie = (isset($_COOKIE['token']) && $sel_apiType=='restfull')?$_COOKIE['token']:'';
 /*Functions to connect to the database*********************************************************/
 //CONEXION PDO
 function connect_pdo(){

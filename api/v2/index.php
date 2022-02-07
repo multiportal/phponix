@@ -15,11 +15,20 @@ switch ($_SERVER['REQUEST_METHOD']) {
     insert();
   break;
   case 'GET':
-    if($id){
-      store($id);
+    if($sel_apiType=='restfull'){
+      if($id){
+        storeToken($id);
+      }else{
+        allToken();
+      }
     }else{
-      all();
+      if($id){
+        store($id);
+      }else{
+        all();
+      }
     }
+
   break;
   case 'PUT':
     $_PUT = json_decode(file_get_contents('php://input'),true);

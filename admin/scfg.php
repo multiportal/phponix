@@ -28,6 +28,12 @@ $config = [
 ];
 // Prefix for the database tables.
 $DBprefix = "php_";
+//Api Type ['public','rest','restfull']
+$apiType = ['public','rest','restfull'];
+$sel_apiType = $apiType[0];
+//Session Token ['sesion','localStorage']
+$sesionToken = ['sesion','localStorage'];
+$sel_sesionToken = $sesionToken[0];
 // Project root path		
 $path_root = ($_SERVER['HTTP_HOST']=='localhost')?'MisSitios/phponix/':'';
 // Database name and path for sqlite
