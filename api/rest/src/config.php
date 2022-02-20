@@ -4,7 +4,7 @@ $db = [
     'host' => 'localhost',
     'username' => 'root',
     'password' => '',
-    'db' => 'mandragora' //Cambiar al nombre de tu base de datos
+    'db' => 'phponix' //Cambiar al nombre de tu base de datos
 ];
 
 ?>
