@@ -3,6 +3,18 @@
 function Identificador(){
 global $tabla;
     switch ($tabla) {
+        case ($tabla=='citas'):
+            $ID='CitaId';
+        break;
+        case ($tabla=='pacientes'):
+            $ID='PacienteId';
+        break;
+        case ($tabla=='usuarios'):
+            $ID='UsuarioId';
+        break;
+        case ($tabla=='usuarios_token'):
+            $ID='TokenId';
+        break;
         default:
             $ID='ID';
         break;
@@ -246,37 +258,39 @@ global $conec,$DBprefix,$tab_signup,$tab_token,$date,$_POST,$dbSQLite;
     $ID = $sesid['ID'];
     $us = $sesid['username'];
     $pa = $sesid['password'];
-    if($us==$U || $pa==$P){
-        $token = sha1(uniqid(rand(),true));//Generador de Token //Token();
-        $tok = "INSERT INTO $tab_token (ID_user,Token,Estado,Fecha) VALUES ('{$ID}','{$token}','Activo','{$date}')";
-        $tok = $conec->prepare($tok);
-        $tok->execute();
-        if($tok){
-            if($dbSQLite!=''){
-                $sqlt = $conec->prepare("SELECT * FROM $tab_token WHERE ID_user=? AND Estado='Activo' ORDER BY ID DESC");
-                $sqlt->execute([$ID]);
-            }else{
-                $sqlt = $conec->prepare("SELECT * FROM $tab_token WHERE ID_user=:ID_user AND Estado='Activo' ORDER BY ID DESC");
-                $sqlt->bindValue(':ID_user', $ID);
-                $sqlt->execute();
+    if($ID!=NULL && $ID!=''){
+        if($us==$U || $pa==$P){
+            $token = sha1(uniqid(rand(),true));//Generador de Token //Token();
+            $tok = "INSERT INTO $tab_token (ID_user,Token,Estado,Fecha) VALUES ('{$ID}','{$token}','Activo','{$date}')";
+            $tok = $conec->prepare($tok);
+            $tok->execute();
+            if($tok){
+                if($dbSQLite!=''){
+                    $sqlt = $conec->prepare("SELECT * FROM $tab_token WHERE ID_user=? AND Estado='Activo' ORDER BY ID DESC");
+                    $sqlt->execute([$ID]);
+                }else{
+                    $sqlt = $conec->prepare("SELECT * FROM $tab_token WHERE ID_user=:ID_user AND Estado='Activo' ORDER BY ID DESC");
+                    $sqlt->bindValue(':ID_user', $ID);
+                    $sqlt->execute();
+                }
+                $json=$sqlt->fetch(PDO::FETCH_ASSOC);
+                $data[]=$json;
+                $token=$json['Token'];
+                setcookie("token",$token,time()+(60+60+24+31),"/");
+                setcookie("username",$us,time()+(60+60+24+31),"/");
+                setcookie("password",$pass,time()+(60+60+24+31),"/");
+                header("HTTP/1.1 200 OK");
+                header('Content-Type: application/json');
+                $resultado['IDU']=$ID;
+                $resultado['mensaje']='OK';
+                $resultado['token']=$token;
+                $resultado['VerifcarToken']=verificarToken($token);
+                echo json_encode($resultado);
             }
-            $json=$sqlt->fetch(PDO::FETCH_ASSOC);
-            $data[]=$json;
-            $token=$json['Token'];
-            setcookie("token",$token,time()+(60+60+24+31),"/");
-            setcookie("username",$us,time()+(60+60+24+31),"/");
-            setcookie("password",$pass,time()+(60+60+24+31),"/");
-            header("HTTP/1.1 200 OK");
-            header('Content-Type: application/json');
-            $resultado['IDU']=$ID;
-            $resultado['mensaje']='OK';
-            $resultado['token']=$token;
-            $resultado['VerifcarToken']=verificarToken($token);
-            echo json_encode($resultado);
+        }else{
+            Error('ERROR: El usuario o password es incorrecto');
         }
-    }else{
-        Error('ERROR: El usuario o password es incorrecto');
-    }
+    }else{Error('ERROR 400: Mala Respuesta');}
 }
 
 //ERROR

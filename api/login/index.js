@@ -47,12 +47,12 @@ function btnGuardar(e){
         },
         body: JSON.stringify(datos)
     }).then(res=>res.json()).then(data=>{
-        console.log(data);
+        if(host=='localhost'){console.log(data);}
         localStorage.setItem("Token", JSON.stringify(data.token));
         let token = localStorage.getItem("Token");
         //Redireccionar al Dashboard
         if(token!=null && token!='undefined'){
-            location.href= page_url+'admin';
+            location.href= page_url + 'admin';
         }else{
             let msj = document.getElementById('msj-error');
             msj.innerHTML = `<div class="alert alert-danger" role="alert">Usuario o Contraseña Incorrectos</div>`;
