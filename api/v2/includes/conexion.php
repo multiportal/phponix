@@ -6,16 +6,15 @@ function searchFile($path_file){
 
 $path_file = '../../admin/scfg.php';
 $ex_scfg = searchFile($path_file);
-if($ex_scfg==1){
-    include '../../admin/scfg.php';
-}else{
-    include 'scfg.php';
-}
+//if($ex_scfg==1){include '../../admin/scfg.php';}else{include '../config/scfg.php';}
+$path_scfg = ($ex_scfg==1)?'../admin':'config';
+include '../'.$path_scfg.'/scfg.php';
 
 //Protec tables
 $tab_signup = $DBprefix.'signup'; //($ex_scfg==1 || $DBprefix!='')?$DBprefix.'signup':'signup';
 $tab_token = $DBprefix.'token'; //($ex_scfg==1 || $DBprefix!='')?$DBprefix.'token':'token';
 $tokenCookie = (isset($_COOKIE['token']) && $sel_apiType=='restfull')?$_COOKIE['token']:'';
+
 /*Functions to connect to the database*********************************************************/
 //CONEXION PDO
 function connect_pdo(){

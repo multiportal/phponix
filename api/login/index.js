@@ -46,10 +46,12 @@ function btnGuardar(e){
             'Content-Type':'application/json'
         },
         body: JSON.stringify(datos)
-    }).then(res=>res.json()).then(data=>{
-        if(host=='localhost'){console.log(data);}
-        localStorage.setItem("Token", JSON.stringify(data.token));
-        let token = localStorage.getItem("Token");
+    }).then(res=>res.json()).then(resp=>{
+        const {data} = resp;
+        if(host=='localhost' || host=='localhost:9001'){console.log(resp);}
+        console.log('getToken:'+data.token);
+        localStorage.setItem("Token", data.token);//localStorage.setItem("Token", JSON.stringify(data.token));
+        let token = localStorage.getItem("Token"); console.log('Res-Token:'+token);
         //Redireccionar al Dashboard
         if(token!=null && token!='undefined'){
             location.href= page_url + 'admin';
@@ -58,15 +60,19 @@ function btnGuardar(e){
             msj.innerHTML = `<div class="alert alert-danger" role="alert">Usuario o Contraseña Incorrectos</div>`;
         }
     })
-    .catch(err=>console.log(err));    
+    .catch(err=>{
+        console.log(err)
+        let msj = document.getElementById('msj-error');
+        msj.innerHTML = `<div class="alert alert-danger" role="alert">Error:Usuario o Contraseña Incorrectos</div>`;
+    });   
 }
 
-const getInfo = () => {
+const login = () => {
     const url = url_login+'';
-    fetch(url).then(res=>res.json()).then(data=>{
-        console.log(data);
+    fetch(url).then(res=>res.json()).then(resp=>{
+        console.log(resp);
     })
     .catch(err=>console.log(err));
 }
 
-getInfo();
+login();

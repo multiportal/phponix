@@ -12,7 +12,7 @@ if($_SERVER['HTTP_HOST']==$h_s || $_SERVER['HTTP_HOST']=='www.'.$h_s){
 }else{
     // Localhost Development
     $db_host = "localhost";
-    $db_base = "phponix_dev";
+    $db_base = "phponix";
     $db_user = "root"; 
     $db_pass = "";     	        
 }
@@ -35,7 +35,7 @@ $sel_apiType = $apiType[0];
 $sesionToken = ['sesion', 'localStorage'];
 $sel_sesionToken = $sesionToken[0];
 // Project root path		
-$path_root = ($_SERVER['HTTP_HOST'] == 'localhost') ? 'MisSitios/phponixdev/' : '';
+$path_root = ($_SERVER['HTTP_HOST'] == 'localhost') ? 'MisSitios/phponix/' : '';
 // Database name and path for sqlite
 $rut = (basename($_SERVER['PHP_SELF']) == 'index.php') ? '../' : '../../';
 $dbSQLite = $rut . 'db/' . $config['database'] . '.db';

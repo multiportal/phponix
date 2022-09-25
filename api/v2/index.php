@@ -15,6 +15,9 @@ switch ($_SERVER['REQUEST_METHOD']) {
     insert();
   break;
   case 'GET':
+    if($tabla == 'upload_files'){
+      tableUploadFiles($id);
+    }else{
     if($sel_apiType=='restfull'){
       if($id){
         storeToken($id);
@@ -28,7 +31,7 @@ switch ($_SERVER['REQUEST_METHOD']) {
         all();
       }
     }
-
+  }
   break;
   case 'PUT':
     $_PUT = json_decode(file_get_contents('php://input'),true);

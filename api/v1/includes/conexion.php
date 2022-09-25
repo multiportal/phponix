@@ -8,7 +8,7 @@ $ex_scfg = buscar_archivo1($path_file);
 if($ex_scfg==1){
     include '../../admin/scfg.php';
 }else{
-    include 'scfg.php';
+    include '../config/scfg.php';
 }
 
 $tab_signup = $DBprefix.'signup'; //($ex_scfg==1 || $DBprefix!='')?$DBprefix.'signup':'signup';

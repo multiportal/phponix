@@ -26,10 +26,11 @@ $IdT=Identificador();
 //Validación
 function validacion_tabla($tabla){
 global $conec,$DBprefix,$tabla,$bootstrap,$ex_scfg;
+$bootstrap =($ex_scfg==1)?$bootstrap:'<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">';
 //$mysqli=conexion();
     if($tabla!='signup' && $tabla!='token' && $tabla!=NULL){
-        $tabla = ($tabla=='_signup' || $tabla=='_token' && $ex_scfg!=1)?str_replace('_','',$tabla):$tabla;           
-        $tabla = ($tabla==$DBprefix.'signup' || $tabla==$DBprefix.'token')?$tabla:$DBprefix.$tabla;
+        $tabla = ($tabla=='_signup' || $tabla=='_token')?str_replace('_','',$tabla):$tabla;           
+        $tabla = $DBprefix.$tabla;
         $sql = "SELECT * FROM ".$tabla.";";//$sql = mysqli_query($mysqli,"DESCRIBE ".$tabla.";");
         try {
             $result = $conec->query($sql);
@@ -43,6 +44,7 @@ global $conec,$DBprefix,$tabla,$bootstrap,$ex_scfg;
         }
     }else{
         echo $bootstrap.'<div class="alert alert-warning"><b>PRECAUCIÓN:</b> No hay datos que mostrar<div>';exit();
+        //}
     }
 }
 
@@ -117,19 +119,22 @@ function all(){
 global $conec, $tabla, $sel_apiType, $sel_sesionToken;
     $sql = $conec->prepare("SELECT * FROM $tabla");
     $sql->execute();
+    $tot = $sql->rowCount();
     $sql->setFetchMode(PDO::FETCH_ASSOC);
-    $data=$sql->fetchAll();//$data[]=$json;
+    $data = $sql->fetchAll();//$data[]=$json;
     //mysqli_set_charset($conec, 'utf8');
     header("HTTP/1.1 200 OK");
     header('Content-Type: application/json');
+    $meta = array("status"=>"success","http_code"=> 200,"date_time"=>date('c'),"message"=> "ok");
+    $page = array("total_count"=>$tot,"page"=>1,"page_size"=> 1);//Calcular
     if($sel_apiType=='restfull'){
-        $res['data'] = $data;
         $res['apiType'] = $sel_apiType;
         $res['Token'] = $_COOKIE['token'];
-        echo json_encode($res);
-    }else{
-        echo json_encode($data);
     }
+    $res['metadata']=$meta;
+    $res['data']=$data;
+    $res['pagination']=$page;
+    echo json_encode($res);
 }
 
 function allToken(){
@@ -138,7 +143,7 @@ global $tokenCookie, $sel_apiType, $sel_sesionToken;
     if($validar!=NULL && $sel_apiType=='restfull'){
         all();
     }else{
-        Error('ERROR: La sesión a caducado'); 
+        Error('ERROR 401: La sesión a caducado'); 
     }
 }
 
@@ -152,13 +157,18 @@ global $conec, $tabla, $IdT, $tokenCookie, $sel_apiType, $sel_sesionToken;
     $data[]=$json;
     header("HTTP/1.1 200 OK");
     header('Content-Type: application/json');
+    $meta = array("status"=>"success","http_code"=> 200,"date_time"=>date('c'),"message"=> "ok");
+    //$page = array("total_count"=>1,"page"=>1,"page_size"=> 1);
     if($sel_apiType=='restfull'){
-        $res['data'] = $data;
+        $res['metadata']=$meta;
+        $res['data']=$data;
         $res['apiType'] = $sel_apiType;
         $res['Token'] = $_COOKIE['token'];
         echo json_encode($res);
     }else{
-        echo json_encode($data);
+        $res['metadata']=$meta;
+        $res['data']=$data;
+        echo json_encode($res);
     }
 }
 
@@ -168,7 +178,7 @@ global $id, $tokenCookie, $sel_apiType, $sel_sesionToken;
     if($validar!=NULL && $sel_apiType=='restfull'){
         store($id);
     }else{
-        Error('ERROR: La sesión a caducado'); 
+        Error('ERROR 401: La sesión a caducado'); 
     }
 }
 
@@ -190,10 +200,11 @@ global $conec,$tabla,$_POST;
           $input['id'] = $postId; //$input['token'] = $token;
           header("HTTP/1.1 200 OK");
           header('Content-Type: application/json');
+          $meta = array("status"=>"success","http_code"=> 200,"date_time"=>date('c'),"message"=> "ok");
           echo json_encode($input);
         }
     }else{
-        Error('ERROR: La sesión a caducado');
+        Error('ERROR 401: La sesión a caducado');
     }    
 }
 
@@ -212,9 +223,10 @@ global $conec,$tabla,$_PUT,$IdT;
         $sql->execute();
         header("HTTP/1.1 200 OK");
         header('Content-Type: application/json');
+        $meta = array("status"=>"success","http_code"=> 200,"date_time"=>date('c'),"message"=> "ok");
         echo json_encode($input);
     }else{
-        Error('ERROR: La sesión a caducado');
+        Error('ERROR 401: La sesión a caducado');
     }    
 }
 
@@ -229,10 +241,11 @@ global $conec,$tabla,$_DEL,$IdT;
         $sql->execute();
         header("HTTP/1.1 200 OK");
         header('Content-Type: application/json');
+        $meta = array("status"=>"success","http_code"=> 200,"date_time"=>date('c'),"message"=> "ok");
         $resultado['mensaje']='El registro '.$id.' ha sido eliminado.'; 
         echo json_encode($resultado);
     }else{
-        Error('ERROR: La sesión a caducado');
+        Error('ERROR 401: La sesión a caducado');
     }
 }
 
@@ -263,7 +276,7 @@ global $conec,$DBprefix,$tab_signup,$tab_token,$date,$_POST,$dbSQLite;
             $token = sha1(uniqid(rand(),true));//Generador de Token //Token();
             $tok = "INSERT INTO $tab_token (ID_user,Token,Estado,Fecha) VALUES ('{$ID}','{$token}','Activo','{$date}')";
             $tok = $conec->prepare($tok);
-            $tok->execute();
+            $tok->execute();//$n=$tok->rowCount();
             if($tok){
                 if($dbSQLite!=''){
                     $sqlt = $conec->prepare("SELECT * FROM $tab_token WHERE ID_user=? AND Estado='Activo' ORDER BY ID DESC");
@@ -281,29 +294,250 @@ global $conec,$DBprefix,$tab_signup,$tab_token,$date,$_POST,$dbSQLite;
                 setcookie("password",$pass,time()+(60+60+24+31),"/");
                 header("HTTP/1.1 200 OK");
                 header('Content-Type: application/json');
+                $meta = array("status"=>"success","http_code"=> 200,"date_time"=>date('c'),"message"=> "ok");
                 $resultado['IDU']=$ID;
-                $resultado['mensaje']='OK';
+                //$resultado['mensaje']='OK';
                 $resultado['token']=$token;
                 $resultado['VerifcarToken']=verificarToken($token);
-                echo json_encode($resultado);
+                $res['metadata']=$meta;
+                $res['data']=$resultado;
+                echo json_encode($res);
             }
         }else{
             Error('ERROR: El usuario o password es incorrecto');
         }
-    }else{Error('ERROR 400: Mala Respuesta');}
+    }else{Error('ERROR: El usuario o password es incorrecto');}
 }
+
+//PROFILE
+function profile(){
+global $conec,$tab_signup;
+    $token = $_POST['token'];
+    $validar = verificarToken($token);
+    $ID=$validar['ID_user'];
+    $sql = $conec->prepare("SELECT * FROM $tab_signup WHERE ID=:ID");//Limit Info
+    $sql->bindValue(':ID', $ID);
+    $sql->execute();
+    $json=$sql->fetch(PDO::FETCH_ASSOC);
+    if($json){
+        header("HTTP/1.1 200 OK");
+        header('Content-Type: application/json');
+        $meta = array("status"=>"success","http_code"=> 200,"date_time"=>date('c'),"message"=> "ok");
+        $resultado['InfoToken']=$validar;
+        $resultado['InfoUser']=$json;
+        $res['metadata']=$meta;
+        $res['data']=$resultado; 
+        echo json_encode($res);    
+    }else{Error('ERROR: El usuario es incorrecto');}
+}
+
+function fileUpload(){
+global $page_url,$conec,$table,$tab_signup;
+
+    $email = (isset($_GET['email'])) ? $_GET['email'] : '';
+    $token = $_POST['token'];
+    $validar = verificarToken($token);
+    $ID=$validar['ID_user'];
+    $sql = $conec->prepare("SELECT * FROM $tab_signup WHERE ID=:ID OR email=:email");//Limit Info
+    $sql->bindValue(':ID', $ID);
+    $sql->bindValue(':email', $email);
+    $sql->execute();
+    $json=$sql->fetch(PDO::FETCH_ASSOC);
+    if($json){
+        $type = (isset($_GET['type'])) ? $_GET['type'] : '';
+        $saveDB = (isset($_GET['save'])) ? $_GET['save'] : '';
+        $imgUrl = './../file/images/nodisponible1.jpg';
+        $msg_box = '';
+        //datos del arhivo 
+        $repositor = ($type == 'images')?'file/images':'file/docs';
+        $nombre_archivo = $_FILES['file-upload']['name'];
+        $tipo_archivo = $_FILES['file-upload']['type'];
+        $tamano_archivo = $_FILES['file-upload']['size'];
+        $filec = $_FILES['file-upload']['tmp_name'];
+        $path_archivo = $repositor . "/" . $nombre_archivo;
+        //Config del archivo
+        $limite_file = 1; //MB
+        $lim = $limite_file * 1024 * 1024;
+        $validExt = ['jpg', 'jpeg', 'png', 'gif', 'pdf'];
+        $fileExtension = explode('.', $nombre_archivo);
+        $fileExtension = strtolower(end($fileExtension));
+        $typeF = ($type == 'images') ? 'la imagen':'el archivo';
+
+        //compruebo si las características del archivo son las que deseo 
+	    if (!in_array($fileExtension, $validExt) || ($tamano_archivo > $lim)) {
+		    $class = 'alert-danger';
+		    $status = 'Error';
+		    $msg = $typeF.' NO ha sido aceptada.';
+	    } else {
+            //Compruebo donde se va guardar en el servidor o en DB
+            if($saveDB == 1 || $saveDB == 2){
+                $fileContenido = addslashes(file_get_contents($filec));//*Solo permite procesar un 1MB.
+                //Insertar imagen en la base de datos
+                $insertar = "INSERT INTO upload_files (nombre, type_file, filec, created_at) VALUES ('$nombre_archivo', '$tipo_archivo', '$fileContenido', now())";
+                //$insertar = $conec->query($insertar);
+                $insertar = $conec->prepare($insertar);
+                $insertar->execute();
+		        // Condicional para verificar la subida del fichero
+                if($insertar){
+                    $class = 'alert-success';
+                    $status = 'Correcto';
+                    $msg = $typeF.' se guardo correctamente.';
+                    //Extraer imagen de la BD mediante GET
+                    $sql = $conec->prepare("SELECT * FROM upload_files WHERE nombre=:nombre");
+                    $sql->bindValue(':nombre', $nombre_archivo);
+                    $sql->execute();
+                    $numRows = $sql->rowCount();                      
+                    if($numRows > 0){
+                        $row=$sql->fetch(PDO::FETCH_ASSOC);
+                        $imgUrl = 'data:'.$tipo_archivo.';base64,' . base64_encode($row['filec']);
+                        //$s = $page_url.'api/upload/blob.php?id='.$row['ID'];
+                        //$imgUrl = strval($s);
+                    }
+                }else{
+                    $class = 'alert-danger';
+                    $status = 'Error';
+                    $msg = 'Ocurrio algun error al guardar '.$typeF.'. Intentelo nuevamente.';
+                } 
+            }
+
+            if($saveDB == '' || $saveDB == 0 || $saveDB == 2){
+                if (@move_uploaded_file($filec, $path_archivo)) {
+                    $class = 'alert-success';
+                    $status = 'Correcto';
+                    $msg = $typeF.' se subio correctamente.';
+                    $imgUrl = $page_url.'api/upload/'.$path_archivo;
+                } else {
+                    $class = 'alert-danger';
+                    $status = 'Error';
+                    $msg = 'Ocurrio algun error al subir '.$typeF.'. Intentelo nuevamente.';
+                }
+            }
+	    }
+
+        $msg_box = '
+        <div class="alert ' . $class . ' alert-dismissible fade show" role="alert">
+            <strong>' . $status . ':</strong> ' . $msg . '
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>';    
+        header("HTTP/1.1 200 OK");
+        header('Content-Type: application/json');
+        $meta = array("status" => "success", "http_code" => 200, "date_time" => date('c'), "message" => "ok");
+        $resultado['status'] = $status;
+        $resultado['mensaje'] = $msg;
+        $resultado['html'] = $msg_box;
+        $resultado['name'] = $nombre_archivo;
+        $resultado['url'] = $imgUrl;
+        $res['metadata'] = $meta;
+        $res['data'] = $resultado;
+        echo json_encode($res);
+    }else{Error('El usuario es incorrecto');}
+}
+
+/*************************************/
+function blobImage($q){
+global $conec,$bootstrap,$ex_scfg;
+$bootstrap =($ex_scfg==1)?$bootstrap:'<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">';
+    //Extraer imagen de la BD mediante GET
+    //$result = $conec->query("SELECT * FROM upload_files WHERE nombre='{$nombre_archivo}'");
+    $sql = $conec->prepare("SELECT * FROM upload_files WHERE ID=:ID OR nombre=:ID");
+    $sql->bindValue(':ID', $q);
+    $sql->execute();
+    $numRows = $sql->rowCount();                      
+    if($numRows > 0){
+        $row=$sql->fetch(PDO::FETCH_ASSOC);
+        $imgUrl = $row['filec'];
+        //Mostrar Imagen
+        header("Content-type: ".$row['type_file']); 
+        echo $imgUrl;
+    }else{
+        echo $bootstrap.'<div class="alert alert-danger"><b>ERROR:</b> El archivo no existe.<div>';
+    }
+}
+
+function tableUploadFiles($id){
+global $conec,$page_url;
+    $data=[];$s=$imgUrl='';
+    $qId = ($id) ? " WHERE ID=?":"";
+    $sql = $conec->prepare("SELECT * FROM upload_files".$qId);
+    ($id)?$sql->execute([$id]):$sql->execute();
+    $tot = $sql->rowCount();
+    if($sql){
+        if($tot > 0){$i = 0;
+            $rows = $sql->fetchAll(PDO::FETCH_ASSOC);
+            foreach ($rows as $key) {$i++;
+                $ID=$key['ID'];
+                foreach($key as $campo=>$value){
+                    if($campo=='filec'){
+                        $s= $page_url.'api/upload/blob.php?id='.$ID;
+                        $imgUrl= strval($s);
+                        $d[$i][$campo] = $imgUrl;
+                    }else{
+                        $d[$i][$campo] = $value;
+                    }
+                }
+            }
+            $data = $d;
+            //print_r($result);
+            //$data = array("ID"=>$row['ID'],"nombre"=>$row['nombre'],"type_file"=>$row['type_file'],"filec"=>"","created_at"=>$row['created_at']);
+        }
+        header("HTTP/1.1 200 OK");
+        header('Content-Type: application/json');        
+        $meta = array("status"=>"success","http_code"=> 200,"date_time"=>date('c'),"message"=> "ok");
+        $page = array("total_count"=>$tot,"page"=>1,"page_size"=> 1);//Calcular
+        $res['metadata']=$meta;
+        $res['data']=$data;
+        $res['pagination']=$page;
+        echo json_encode($res);
+    }else{Error('Error');}
+}
+/*************************************/
 
 //ERROR
 function Error($error){
+    $msg = $error;
+    $status = 'Error';
+    $msg_box = '
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+      <strong>' . $status . ':</strong> ' . $msg . '
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>';
+
+    header("HTTP/1.1 200 OK");
     header('Content-Type: application/json');
-    $resultado['mensaje']=$error;
-    echo json_encode($resultado);
+    $meta = array("status" => "error", "http_code" => 200, "date_time" => date('c'), "message" => "bad");
+    $resultado['status'] = $status;
+    $resultado['mensaje'] = $msg;
+    $resultado['html'] = $msg_box;
+    $resultado['name'] = '';
+    $resultado['url'] = '';
+    $res['metadata'] = $meta;
+    $res['data'] = $resultado;
+    echo json_encode($res);//echo json_encode($resultado);
 }
+
+function message($msg){
+    $status = 'Correcto';
+    header("HTTP/1.1 200 OK");
+    header('Content-Type: application/json');
+    $meta = array("status"=>"success","http_code"=> 200,"date_time"=>date('c'),"message"=> "ok");
+    $resultado['status'] = $status;
+    $resultado['mensaje'] = $msg;
+    //$resultado['html'] = $msg_box;
+    //$resultado['name'] = '';
+    //$resultado['url'] = '';
+    $res['metadata'] = $meta;
+    $res['data'] = $resultado;
+    echo json_encode($res);//echo json_encode($resultado);
+}
+
+//message('mensaje','GET','Error');
+
 //MENSAJES
 $msj_test='Mensaje de prueba';
 $msj_ok='ok';
 $msj_login='Usted esta en el Login';
+$msj_profile='Usted esta en el Profile';
+$msj_upload='Usted esta en el upload';
 //ERROR
 $Error_id='No existe ID!';
 $Error_msj ='La consulta no se ejecuto';
-?>

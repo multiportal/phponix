@@ -15,7 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
 }
 
 if ($_SERVER['REQUEST_METHOD'] == 'GET'){
-    Error($msj_login);
+    message($msj_login);
 }
 
 //echo json_encode($resultado);
