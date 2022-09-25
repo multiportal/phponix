@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Files</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.2.0/css/all.css" />
+
+    <style>
+        input[type="file"] {
+            display: none;
+        }
+
+        .custom-file-upload {
+            border: 1px solid #ccc;
+            display: inline-block;
+            padding: 6px 12px;
+            cursor: pointer;
+        }
+
+        .container-ima {
+            width: 100%;
+            border: 1px solid #ccc;
+        }
+
+        .btn-outline-secondary {
+            min-width: 145px;
+            text-align: left;
+        }
+        
+        
+        .label {
+            position: absolute;
+            top: 0px;
+            left: 10px;
+            padding: calc(.1rem * 0.75) calc(.5rem * .5);
+            margin: calc(.2rem * 0.75 + 5px) calc(.7rem);
+            white-space: nowrap;
+            transform: translate(0, 0);
+            transform-origin: 0 0;
+            background: white;
+            transition: transform 120ms ease-in;
+            font-weight: 700;
+            line-height: 1.5;
+            font-size: .8rem;
+            color: #adadad;
+            z-index: 5;
+        }
+
+        .input:focus {
+            outline: none;
+        }
+
+        .input:focus+.label,
+        .input:not(:placeholder-shown)+.label {
+            transform: translate(.25rem, -90%) scale(1);
+            color: #00AA00;
+            z-index: 5;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 col-md-2">&nbsp;</div>
+            <div class="col-lg-4 col-md-8">
+                <h1>Upload Image</h1>
+                <form id="formUpload" method="POST" enctype="multipart/form-data">
+                    <div class="box-body">
+                        <div class="form-group col-12">
+                            <!--label for="cover">Imagen</label-->
+                            <div id="image">
+                                <div class="my-3">
+                                    <img id="img" src="./../file/images/nodisponible1.jpg" class="container-ima"
+                                        title="nodisponible1.jpg">
+                                </div>
+                                <div class="input-group mb-3 col-6">
+                                    <input id="namefile" type="text" class="form-control input" placeholder=" "
+                                        aria-label="Userfile" aria-describedby="button-addon2" />
+                                    <label for="namefile" class="label">Imagen</label>
+                                    <input id="urlfile" type="hidden" class="form-control" />
+                                    <input id="file-upload-image" type="file" accept="image/*" />
+                                    <label id="icon-upload" for="file-upload-image" class="btn btn-outline-secondary">
+                                        <i class="fa fa-cloud-upload"></i> Subir Imagen
+                                    </label>
+                                </div>
+                                <div id="mensaje"></div>
+                            </div>
+                            <hr>
+                            <div id="files">
+                                <div class="input-group mb-3 col-6">
+                                    <input id="namefile" type="text" class="form-control input" placeholder=" "
+                                        aria-label="Userfile" aria-describedby="button-addon2" />
+                                    <label for="namefile" class="label">Archivo</label>
+                                    <input id="urlfile" type="hidden" class="form-control" />
+                                    <input id="file-upload-pdf" type="file" accept="application/pdf" />
+                                    <label id="icon-upload" for="file-upload-pdf" class="btn btn-outline-secondary">
+                                        <i class="fa fa-cloud-upload"></i> Subir Archivo
+                                    </label>
+                                </div>
+                                <div id="mensaje"></div>
+                            </div>
+                            <div id="files1">
+                                <div class="input-group mb-3 col-6">
+                                    <input id="namefile" type="text" class="form-control input" placeholder=" "
+                                        aria-label="Userfile" aria-describedby="button-addon2" />
+                                    <label for="namefile" class="label">Base de datos</label>
+                                    <input id="urlfile" type="hidden" class="form-control" />
+                                    <input id="file-upload-pdf2" type="file" accept="application/pdf" />
+                                    <label id="icon-upload" for="file-upload-pdf2" class="btn btn-outline-secondary">
+                                        <i class="fa fa-cloud-upload"></i> Subir Archivo
+                                    </label>
+                                </div>
+                                <div id="mensaje"></div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="col-lg-4 col-md-2">&nbsp;</div>
+        </div>
+    </div>
+
+    <script src="./assets/upload-file.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
