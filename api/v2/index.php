@@ -18,20 +18,14 @@ switch ($_SERVER['REQUEST_METHOD']) {
     if($tabla == 'upload_files'){
       tableUploadFiles($id);
     }else{
-    if($sel_apiType=='restfull'){
-      if($id){
-        storeToken($id);
+      if($sel_apiType=='restfull'){
+        //if($id){storeToken($id);}else{allToken();}
+        storeAllToken($id);
       }else{
-        allToken();
-      }
-    }else{
-      if($id){
-        store($id);
-      }else{
-        all();
+        //if($id){store($id);}else{all();}
+        storeAll($id);
       }
     }
-  }
   break;
   case 'PUT':
     $_PUT = json_decode(file_get_contents('php://input'),true);

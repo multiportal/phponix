@@ -115,6 +115,46 @@ global $conec,$tab_token;
 }
 
 //INDEX
+function storeAll($id){
+global $conec, $tabla, $IdT, $tokenCookie, $sel_apiType, $sel_sesionToken;
+    $q = ($id) ? " WHERE ".$IdT."=?":"";
+    $sql = $conec->prepare("SELECT * FROM ".$tabla.$q);
+    ($id)?$sql->execute([$id]):$sql->execute();
+    $tot = $sql->rowCount();
+    if($sql){
+        if($tot > 0){
+            $sql->setFetchMode(PDO::FETCH_ASSOC);
+            $data = $sql->fetchAll();//$data[]=$json;
+        }else{
+            if($id > 0){
+                Error('Registro no encontrado.');exit();
+            }
+        }
+        header("HTTP/1.1 200 OK");
+        header('Content-Type: application/json');
+        $meta = array("status"=>"success","http_code"=> 200,"date_time"=>date('c'),"message"=> "ok");
+        $page = array("total_count"=>$tot,"page"=>1,"page_size"=> 1);//Calcular
+        if($sel_apiType=='restfull'){
+        $res['apiType'] = $sel_apiType;
+            $res['Token'] = $_COOKIE['token'];
+        }
+        $res['metadata']=$meta;
+        $res['data']=$data;
+        $res['pagination']=$page;
+        echo json_encode($res);    
+    }
+}
+
+function storeAllToken($id){
+global $id, $tokenCookie, $sel_apiType, $sel_sesionToken;
+    $validar = verificarToken($tokenCookie);
+    if($validar!=NULL && $sel_apiType=='restfull'){
+        storeAll($id);
+    }else{
+        Error('ERROR 401: La sesión a caducado'); 
+    }
+}
+
 function all(){
 global $conec, $tabla, $sel_apiType, $sel_sesionToken;
     $sql = $conec->prepare("SELECT * FROM $tabla");
@@ -374,7 +414,6 @@ global $page_url,$conec,$table,$tab_signup;
                 $fileContenido = addslashes(file_get_contents($filec));//*Solo permite procesar un 1MB.
                 //Insertar imagen en la base de datos
                 $insertar = "INSERT INTO upload_files (nombre, type_file, filec, created_at) VALUES ('$nombre_archivo', '$tipo_archivo', '$fileContenido', now())";
-                //$insertar = $conec->query($insertar);
                 $insertar = $conec->prepare($insertar);
                 $insertar->execute();
 		        // Condicional para verificar la subida del fichero
@@ -390,8 +429,7 @@ global $page_url,$conec,$table,$tab_signup;
                     if($numRows > 0){
                         $row=$sql->fetch(PDO::FETCH_ASSOC);
                         $imgUrl = 'data:'.$tipo_archivo.';base64,' . base64_encode($row['filec']);
-                        //$s = $page_url.'api/upload/blob.php?id='.$row['ID'];
-                        //$imgUrl = strval($s);
+                        //$imgUrl = strval($page_url.'api/upload/blob.php?id='.$row['ID']);
                     }
                 }else{
                     $class = 'alert-danger';
@@ -434,11 +472,45 @@ global $page_url,$conec,$table,$tab_signup;
 }
 
 /*************************************/
+function tableUploadFiles($id){
+global $conec,$page_url;
+    $data = [];$imgUrl = '';
+    $q = ($id) ? " WHERE ID=?":"";
+    $sql = $conec->prepare("SELECT * FROM upload_files".$q);
+    ($id)?$sql->execute([$id]):$sql->execute();
+    $tot = $sql->rowCount();
+    if($sql){
+        if($tot > 0){$i = -1;// hidden array num
+            $rows = $sql->fetchAll(PDO::FETCH_ASSOC);
+            foreach ($rows as $key) {$i++;
+                $ID=$key['ID'];
+                foreach($key as $campo=>$value){
+                    if($campo=='filec'){
+                        $imgUrl= strval($page_url.'api/upload/blob.php?id='.$ID);
+                        $d[$i][$campo] = $imgUrl;
+                    }else{
+                        $d[$i][$campo] = $value;
+                    }
+                }
+            }
+            $data = $d;
+            //$data = array("ID"=>$row['ID'],"nombre"=>$row['nombre'],"type_file"=>$row['type_file'],"filec"=>"","created_at"=>$row['created_at']);
+        }
+        header("HTTP/1.1 200 OK");
+        header('Content-Type: application/json');        
+        $meta = array("status"=>"success","http_code"=> 200,"date_time"=>date('c'),"message"=> "ok");
+        $page = array("total_count"=>$tot,"page"=>1,"page_size"=> 1);//Calcular
+        $res['metadata']=$meta;
+        $res['data']=$data;
+        $res['pagination']=$page;
+        echo json_encode($res);
+    }else{Error('Error');}
+}
+
 function blobImage($q){
 global $conec,$bootstrap,$ex_scfg;
-$bootstrap =($ex_scfg==1)?$bootstrap:'<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">';
+    $bootstrap =($ex_scfg==1)?$bootstrap:'<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">';
     //Extraer imagen de la BD mediante GET
-    //$result = $conec->query("SELECT * FROM upload_files WHERE nombre='{$nombre_archivo}'");
     $sql = $conec->prepare("SELECT * FROM upload_files WHERE ID=:ID OR nombre=:ID");
     $sql->bindValue(':ID', $q);
     $sql->execute();
@@ -453,47 +525,11 @@ $bootstrap =($ex_scfg==1)?$bootstrap:'<link rel="stylesheet" href="https://cdn.j
         echo $bootstrap.'<div class="alert alert-danger"><b>ERROR:</b> El archivo no existe.<div>';
     }
 }
-
-function tableUploadFiles($id){
-global $conec,$page_url;
-    $data=[];$s=$imgUrl='';
-    $qId = ($id) ? " WHERE ID=?":"";
-    $sql = $conec->prepare("SELECT * FROM upload_files".$qId);
-    ($id)?$sql->execute([$id]):$sql->execute();
-    $tot = $sql->rowCount();
-    if($sql){
-        if($tot > 0){$i = 0;
-            $rows = $sql->fetchAll(PDO::FETCH_ASSOC);
-            foreach ($rows as $key) {$i++;
-                $ID=$key['ID'];
-                foreach($key as $campo=>$value){
-                    if($campo=='filec'){
-                        $s= $page_url.'api/upload/blob.php?id='.$ID;
-                        $imgUrl= strval($s);
-                        $d[$i][$campo] = $imgUrl;
-                    }else{
-                        $d[$i][$campo] = $value;
-                    }
-                }
-            }
-            $data = $d;
-            //print_r($result);
-            //$data = array("ID"=>$row['ID'],"nombre"=>$row['nombre'],"type_file"=>$row['type_file'],"filec"=>"","created_at"=>$row['created_at']);
-        }
-        header("HTTP/1.1 200 OK");
-        header('Content-Type: application/json');        
-        $meta = array("status"=>"success","http_code"=> 200,"date_time"=>date('c'),"message"=> "ok");
-        $page = array("total_count"=>$tot,"page"=>1,"page_size"=> 1);//Calcular
-        $res['metadata']=$meta;
-        $res['data']=$data;
-        $res['pagination']=$page;
-        echo json_encode($res);
-    }else{Error('Error');}
-}
 /*************************************/
 
 //ERROR
 function Error($error){
+global $tabla;
     $msg = $error;
     $status = 'Error';
     $msg_box = '
@@ -508,8 +544,10 @@ function Error($error){
     $resultado['status'] = $status;
     $resultado['mensaje'] = $msg;
     $resultado['html'] = $msg_box;
-    $resultado['name'] = '';
-    $resultado['url'] = '';
+    if($tabla == 'upload_files'){
+        $resultado['name'] = '';
+        $resultado['url'] = '';    
+    }
     $res['metadata'] = $meta;
     $res['data'] = $resultado;
     echo json_encode($res);//echo json_encode($resultado);
@@ -530,7 +568,7 @@ function message($msg){
     echo json_encode($res);//echo json_encode($resultado);
 }
 
-//message('mensaje','GET','Error');
+//message('mensaje','GET','Error','code');
 
 //MENSAJES
 $msj_test='Mensaje de prueba';
