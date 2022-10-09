@@ -2304,4 +2304,9 @@ function clear_sw(){
 		}});
 	</script>';
 }
+
+function buscarTema(){
+global $bootstrap, $path_tema, $page_url;
+	if(file_exists($path_tema)){$alert='<div class="alert alert-success">'.$path_tema.'</div>';}else{echo $bootstrap.'<div class="alert alert-warning"><b>Precaución:</b> Tema No Seleccionado o no existe ('.$path_tema.'). Para corregir el problema ingrese a la tabla y seleccione un tema.</div>';}
+}
 ?>
