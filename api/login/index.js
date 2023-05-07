@@ -13,7 +13,7 @@ const path_url = window.location.pathname;
 const URL = window.location.href;
 console.log('URL='+URL);
 
-var proyecto = 'phponix'; //PROYECTO
+var proyecto = 'apirestm'; //PROYECTO
 //console.log('proyecto=' + proyecto);
 var path_root = (host=='localhost')?'MisSitios/' + proyecto + '/':'';
 //console.log('path_root='+path_root);

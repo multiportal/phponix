@@ -2,15 +2,14 @@
 console.log('** javascript upload **');
 /* VARIABLES CONSTANTES*/
 //console.log('/* VARIABLES CONSTANTES*/');
-const protocol = window.location.protocol;
+const {protocol, host, origin, pathname} = window.location;
 //console.log('protocol='+protocol);
-const host = window.location.host;
 //console.log('host='+host);
-const dominio = window.location.origin+'/';
+const dominio = origin + '/';
 //console.log('dominio='+dominio);
-const dominio1 = window.location.origin;
+//const dominio1 = origin;
 //console.log('dominio1='+dominio1);
-const path_url = window.location.pathname;
+const path_url = pathname;
 //console.log('path_url='+path_url);
 const URL = window.location.href;
 //console.log('URL='+URL);
@@ -41,11 +40,12 @@ const upLoad = (e) => {
 
     iconUpload.innerHTML = '<i class="fa-duotone fa-spinner"></i> Cargando...';//'<i class="fa-duotone fa-spinner-third"></i>';
     const file = e.target.files[0]; //console.log(file);
-    const limit = 1 * 1024 * 1024;
+    const maxSize = 1; //MB
+    const limit = maxSize * 1024 * 1024;
     let { name, type, size } = file; console.log(name, type, size, limit);
     type = type.includes('image') ? 'images' : 'pdf'; //console.log(type);
     const formData = new FormData();
-    formData.append("file-upload", file); //console.log(formData);
+    formData.append("file", file); //console.log(formData);
     const CLOUD_URL = url_upload+'index.php?type=' + type + '&save=' + save + '&email=' + email; //console.log(CLOUD_URL);
     const data = {
         method: "POST",

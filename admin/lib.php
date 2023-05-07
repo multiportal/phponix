@@ -2283,17 +2283,21 @@ function RanUrl(){
 
 function ssl(){
 global $host,$path_root,$dominio,$dominio1,$dominio2,$page_url,$pag_url,$url,$URL,$mod,$ext;
-echo '<script>
+	sql_opciones('ssl',$valor);
+	if($valor == 1){
+	echo '<script>
 	const protocol = window.location.protocol;
 	const host = window.location.hostname;
 	const dominio = protocol + "//" + host + "/";
 	const path_url = window.location.pathname;
 	var path_url1 = path_url.replace("/", "");
 	//console.log(dominio+path_url1!="'.$dominio2.'"+path_url1);
+	console.log("ssl:","Activado");
 	if(protocol=="http:" || dominio+path_url1!="'.$dominio2.'"+path_url1){
 		window.location="'.$dominio2.'"+path_url1;
 	}
-</script>';
+	</script>';
+	}
 }
 
 function clear_sw(){

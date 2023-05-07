@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 22-09-2022 a las 17:45:51
+-- Tiempo de generación: 26-09-2022 a las 16:10:30
 -- Versión del servidor: 10.4.22-MariaDB
 -- Versión de PHP: 7.4.27
 
@@ -61,14 +61,6 @@ CREATE TABLE `links` (
   `user_id` int(11) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Volcado de datos para la tabla `links`
---
-
-INSERT INTO `links` (`ID`, `title`, `url`, `description`, `cate`, `user_id`, `created_at`) VALUES
-(1, 'Multiportal', 'https://multiportal.webcindario.com/', 'Sitio web de Multiportal', 'web', 1, '2021-06-25 22:33:04'),
-(9, 'Phponix', 'https://phponix.webcindario.com', 'Sitio Web Phponix', 'web', 2, '2022-07-08 05:26:52');
 
 -- --------------------------------------------------------
 
@@ -298,7 +290,7 @@ ALTER TABLE `citas`
 -- AUTO_INCREMENT de la tabla `links`
 --
 ALTER TABLE `links`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `pacientes`
