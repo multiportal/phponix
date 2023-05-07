@@ -4,11 +4,11 @@ if($_SERVER['HTTP_HOST']==$h_s || $_SERVER['HTTP_HOST']=='www.'.$h_s){
     // Localhost Production
     $db_host = "mysql.webcindario.com";
     // Database Name      
-    $db_base = ""; 
+    $db_base = "phponix"; 
     // Database Username     
-    $db_user = "";
+    $db_user = "phponix";
     // Database Password       
-    $db_pass = "";     	
+    $db_pass = "memo458x";     	
 }else{
     // Localhost Development
     $db_host = "localhost";

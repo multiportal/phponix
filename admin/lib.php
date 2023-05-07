@@ -1247,6 +1247,7 @@ echo '<head><title>'.$page_name.'</title>'."\r\n";
 echo '<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">'."\r\n";
 echo '<link rel="shortcut icon" type="image/x-icon" href="'.$page_url.'favicon.ico">'."\r\n";
 basic_page();
+echo $bootstrap;
 echo '</head>'."\r\n";
 echo '<body>'."\r\n";
 }
@@ -2286,16 +2287,16 @@ global $host,$path_root,$dominio,$dominio1,$dominio2,$page_url,$pag_url,$url,$UR
 	sql_opciones('ssl',$valor);
 	if($valor == 1){
 	echo '<script>
-	const protocol = window.location.protocol;
-	const host = window.location.hostname;
-	const dominio = protocol + "//" + host + "/";
-	const path_url = window.location.pathname;
-	var path_url1 = path_url.replace("/", "");
-	//console.log(dominio+path_url1!="'.$dominio2.'"+path_url1);
-	console.log("ssl:","Activado");
-	if(protocol=="http:" || dominio+path_url1!="'.$dominio2.'"+path_url1){
-		window.location="'.$dominio2.'"+path_url1;
-	}
+		const protocol = window.location.protocol;
+		const host = window.location.hostname;
+		const dominio = protocol + "//" + host + "/";
+		const path_url = window.location.pathname;
+		var path_url1 = path_url.replace("/", "");
+		//console.log(dominio+path_url1!="'.$dominio2.'"+path_url1);
+		console.log("ssl:","Activado");
+		if(protocol=="http:" || dominio+path_url1!="'.$dominio2.'"+path_url1){
+			window.location="'.$dominio2.'"+path_url1;
+		}
 	</script>';
 	}
 }
