@@ -27,7 +27,7 @@ $config = [
     "charset" => "utf8mb4"
 ];
 // Prefix for the database tables.
-$DBprefix = "man_";
+$DBprefix = "php_";
 //Api Type ['public','rest','restfull']
 $apiType = ['public', 'rest', 'restfull'];
 $sel_apiType = $apiType[0];
