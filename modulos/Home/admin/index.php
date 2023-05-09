@@ -3,17 +3,17 @@ if(isset($_SESSION["username"])){
 //	if($_SESSION["level"]==-1 || $_SESSION["level"]==1){
 	include 'functions.php';	
 ?>
-    <!-- Content Header (Page header) -->
-    <section class="content-header">
-      <h1>
-        <?php echo $nombre_mod;?>
-        <small><?php echo $description_mod;?></small>
-      </h1>
-	  <?php menu_rutas();?>
-    </section>
+<!-- Content Header (Page header) -->
+<section class="content-header">
+  <h1>
+    <?php echo $nombre_mod;?>
+    <small><?php echo $description_mod;?></small>
+  </h1>
+  <?php menu_rutas();?>
+</section>
 
-    <!-- Main content -->
-    <section class="content">
+<!-- Main content -->
+<section class="content">
 	<div class="row">
 <?php
 switch(true){

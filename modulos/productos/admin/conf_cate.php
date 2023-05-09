@@ -12,7 +12,7 @@ $campos = array(
 );
 //Mostrar tabla
 $th = array(
-    'ID'=>'ID',
+    'ID_cate'=>'ID',
     'Cover'=>'cover',
     'Nombre'=>'categoria',
     'Codi-Orden'=>'ord',

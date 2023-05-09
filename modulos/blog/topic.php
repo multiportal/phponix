@@ -12,7 +12,10 @@ if($row){
 //one_blog();
 if($tema=='porto'){
   include 'porto.php';
-}else{
+}else if($tema=='portophponix'){
+  include 'portophponix.php';
+}
+else{
   include 'default.php';
 }
 ?>
