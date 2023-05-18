@@ -28,7 +28,7 @@ $id=$_GET['id'];
                 <div class="container">
                     <ol class="breadcrumb mt-0">
             			<li class="breadcrumb-item"><a href="<?php echo $page_url;?>index.php"><i class="icon-home"></i></a></li>
-						<?php menu_rutas_productos($id);?>
+						<?php breadcrumbStore($id);//menu_rutas_productos($id);?>
                     </ol>
                 </div><!-- End .container -->
             </nav>

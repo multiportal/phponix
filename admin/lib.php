@@ -3,10 +3,14 @@
 Author: Guillermo Jiménez López
 Author URI: https://www.multiportal.com.mx
 SISTEMA PHPONIX
-Version Actual: 2.8.2
+Version Actual: 2.8.3
 F.Creación: 26/03/2015
-F.Modficación: 04/08/2021
+F.Modficación: 11/05/2023
 Descripción: Aplicación web multiproposito.
+/**********************************************************
+v.2.8.3 - HTML_ISO
+-Se creo la funcion html_iso();
+/**********************************************************
 /**********************************************************
 v.2.8.2 - TOKEN
 -Seguridad: Se agrego Token(Funcional!!!)
@@ -205,7 +209,7 @@ $sql_mod=mysqli_query($mysqli,"SELECT * FROM ".$DBprefix."modulos WHERE modulo='
 $cont_mod=mysqli_num_rows($sql_mod);
 if($cont_mod==0){
 	//echo '<div id="alert-system"><div class="alert">El modulo no existe en la DB! '.$back.'</div></div>';
-	header('Location: '.$page_url.'/404.php');
+	header('Location: '.$page_url.'404.php');
 }else{
 	if($row_mod=mysqli_fetch_array($sql_mod)){
 		$ID_mod=$row_mod['ID'];
@@ -614,6 +618,7 @@ global $page_url,$path_jsonDB,$path_jsonWS;
 
 //BUSCAR CON AJAX
 function query_buscar($tabla,$url_api,$campo,$val){
+global $page_url;
     $data=query_data($tabla,$url_api);
     //DATOS
     foreach($data as $key => $value){
@@ -689,6 +694,13 @@ global $mysqli,$DBprefix;//$mysqli=conexion();
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+/////////////////////////////////////////////////////////////////////////////////////////////////////////
+function sqlQuery($tabla,$q){
+global $mysqli,$DBprefix;
+	$sql=mysqli_query($mysqli,"SELECT * FROM ".$DBprefix.$tabla." {$q}") or print mysqli_error($mysqli);
+    return $sql;
+}
+/////////////////////////////////////////////////////////////////////////////////////////////////////////
   
 /*---------------------------------------------------------------------------------------------------------------------*/
 //--FUNCIONES--//////////////////////////////////////////////////////////////////////////////
@@ -922,7 +934,7 @@ while($r=mysqli_fetch_assoc($sql)){$rows[] = $r;}
 $contenido=json_encode($rows, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
 $aviso=($contenido!='')? '<div>Se han capturados los datos.</div>': '<div style="color:#f00;">Error: No se han capturados los datos.</div>';
 crear_archivo($path_f,$nombre_archivo,$contenido,$path_file);
-if(file_exists($path_file)){$aviso.='<div>Se ha creado el archivo ('.$nombre_archivo.') correctamente.</div>';}else{$aviso.='<div>No se ha creado el archivo ('.$nombre.') correctamente.</div>';}
+if(file_exists($path_file)){$aviso.='<div>Se ha creado el archivo ('.$nombre_archivo.') correctamente.</div>';}else{$aviso.='<div>No se ha creado el archivo ('.$nombre_archivo.') correctamente.</div>';}
 echo $aviso;
 }
 
@@ -2313,5 +2325,11 @@ function clear_sw(){
 function buscarTema(){
 global $bootstrap, $path_tema, $page_url;
 	if(file_exists($path_tema)){$alert='<div class="alert alert-success">'.$path_tema.'</div>';}else{echo $bootstrap.'<div class="alert alert-warning"><b>Precaución:</b> Tema No Seleccionado o no existe ('.$path_tema.'). Para corregir el problema ingrese a la tabla y seleccione un tema.</div>';}
+}
+
+function html_iso_text($text){
+global $chartset;
+	$text = ($chartset=='iso-8859-1')?htmlentities($text, ENT_COMPAT,'ISO-8859-1', true):htmlentities($text);
+	return $text;
 }
 ?>

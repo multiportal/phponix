@@ -852,13 +852,13 @@ echo '
 	default:
 if($_POST['Guardar']){$id=1;
 $logo1=$_POST['logo'];
-$page_name1=$_POST['p_name'];
-$title1=$_POST['titulo'];
+$page_name1=html_iso_text($_POST['p_name']);
+$title1=html_iso_text($_POST['titulo']);
 $dominio1=$_POST['dominio'];
 $path_root1=$_POST['path_root'];
 $page_url1=$_POST['page_url'];
-$keywords1=$_POST['keywords'];
-$description1=$_POST['description'];
+$keywords1=html_iso_text($_POST['keywords']);
+$description1=html_iso_text($_POST['description']);
 $metas1=$_POST['metas'];
 $google_analytics1=$_POST['analytics'];
 $tel2=$_POST['tel1'];
@@ -877,7 +877,7 @@ $lk_web1=$_POST['lk_web'];
 $yt_web1=$_POST['yt_web'];
 $ins_web1=$_POST['ins_web'];
 
-html_iso($page_name1,$title1,$keywords1,$description1);
+//html_iso($page_name1,$title1,$keywords1,$description1);
 analytics($google_analytics1);
 
 	if($page_name1 == ''){

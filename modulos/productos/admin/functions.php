@@ -121,60 +121,6 @@ $file='<input type="hidden" class="form-control" id="cover" name="cover" value="
 ';
 }
 
-/*function jQuery_select_cate_subcate(){
-echo '
-<script src="https://code.jquery.com/jquery-3.2.1.js"></script>
-<script language="javascript">
-$(document).ready(function(){
-    $("#cate").on(\'change\', function () {
-        $("#cate option:selected").each(function () {
-            elegido=$(this).val();
-            $.post("modulos/productos/admin/_query_cate_subcate.php", { elegido: elegido }, function(data){
-                $("#subcate").html(data);
-            });			
-        });
-   });
-});
-</script>
-';
-}*/
-
-/*function select_cate($cate){
-global $mysqli,$DBprefix;	
-$sql=mysqli_query($mysqli,"SELECT * FROM ".$DBprefix."productos_cate ORDER BY ID_cate ASC;") or print mysqli_error($mysqli);
-echo '<select class="form-control" id="cate" name="cate">
-<option value="">Seleccionar</option>';
-	while($row=mysqli_fetch_array($sql)){$ID_cate=$row['ID_cate'];$clave=$row['ord'];$categoria=$row['categoria'];
-		$seleccion=($ID_cate==$cate)?'selected' : '';
-		echo '<option value="'.$ID_cate.'" '.$seleccion.'>'.$clave.' '.$categoria.'</option>';
-	}
-echo '</select>';	
-}*/
-
-/*function select_sub_cate($cate,$subcate){
-global $mysqli,$DBprefix;	
-$sql=mysqli_query($mysqli,"SELECT * FROM ".$DBprefix."productos_sub_cate WHERE ID_cate='{$cate}' ORDER BY ID_sub_cate ASC;") or print mysqli_error($mysqli);
-echo '<select class="form-control" id="subcate" name="subcate">
-<option value="">Seleccionar</option>';
-	while($row=mysqli_fetch_array($sql)){$ID_sub_cate=$row['ID_sub_cate'];$clave=$row['ord'];$subcategoria=$row['subcategoria'];
-		$seleccion=($ID_sub_cate==$subcate) ? 'selected' : '';
-		echo '<option value="'.$ID_sub_cate.'" '.$seleccion.'>'.$clave.' '.$subcategoria.'</option>';
-	}
-echo '</select>';	
-}*/
-
-/*function select_marcas($ID_marca){
-global $mysqli,$DBprefix;	
-$sql=mysqli_query($mysqli,"SELECT * FROM ".$DBprefix."productos_marcas WHERE visible=1 ORDER BY ID_marca;") or print mysqli_error($mysqli);
-echo '<select class="form-control" id="marcas" name="marcas">
-<option value="">Seleccionar</option>';
-	while($row=mysqli_fetch_array($sql)){$ID_marca1=$row['ID_marca'];$nombre=$row['nombre'];
-		$seleccion=($ID_marca1==$ID_marca)?'selected':'';
-		echo '<option value="'.$ID_marca1.'" '.$seleccion.'>'.$nombre.'</option>';
-	}
-echo '</select>';	
-}*/
-
 function flechas($id){
 global $mysqli,$DBprefix,$page_url,$mod,$ext,$opc;
  $sql=mysqli_query($mysqli,"SELECT * FROM ".$DBprefix."productos WHERE ID>'{$id}' AND visible=1 ORDER BY ID ASC;") or print mysqli_error($mysqli); 
@@ -837,148 +783,47 @@ echo '
  }//if
 }
 
-/*function head_producto(){
-global $mysqli,$DBprefix,$page_url,$path_tema,$mod,$ext,$opc,$URL;
-echo '
-		<div class="col-md-3 col-xs-12">
-			<div class="input-group">
-				<input type="text" class="form-control" placeholder="Buscar por nombre" id="q" onkeyup="load(1);">
-				<span class="input-group-btn">
-					<button class="btn btn-default" type="button" onclick="load(1);"><i class="fa fa-search"></i></button>
-				</span>
-			</div><!-- /input-group -->
-		</div>
-		<div class="col-md-3 hidden-xs"></div>
-		<div class="col-md-1 col-xs-2">
-			<!--div id="loader" class="text-center"></div-->
-		</div>
-		<div class="col-md-5 col-xs-10">
-			<div class="btn-group pull-right">
-				<!--a href="#" class="btn btn-default" data-toggle="modal" data-target="#Producto"><i class="fa fa-plus"></i> Nuevo</a-->
-				<a href="'.$page_url.'index.php?mod='.$mod.'&ext='.$ext.'&opc=producto&frm=1&action=add" class="btn btn-default"><i class="fa fa-plus"></i> Nuevo</a>
-				<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-					Mostrar <span class="fa fa-caret-down"></span>
-				</button>
-				<ul class="dropdown-menu pull-right">
-				  <li class="active" onclick="per_page(15);" id="15"><a href="#">15</a></li>
-				  <li onclick="per_page(25);" id="25"><a href="#">25</a></li>
-				  <li onclick="per_page(50);" id="50"><a href="#">50</a></li>
-				  <li onclick="per_page(100);" id="100"><a href="#">100</a></li>
-				  <li onclick="per_page(1000000);" id="1000000"><a href="#">Todos</a></li>
-				</ul>
-			</div>
-		</div>
-		<input type="hidden" id="per_page" value="15">
-';
-}*/
-/*
-function paginate($reload, $page, $tpages, $adjacents) {
-	$prevlabel = "&lsaquo; Anterior";
-	$nextlabel = "Siguiente &rsaquo;";
-	$out = '<ul class="pagination pagination-sm no-margin pull-right">';
-	
-	// previous label
-	if($page==1) {
-		$out.= "<li class='disabled'><span><a>$prevlabel</a></span></li>";
-	} else if($page==2) {
-		$out.= "<li><span><a href='javascript:void(0);' onclick='load(1)'>$prevlabel</a></span></li>";
-	}else {
-		$out.= "<li><span><a href='javascript:void(0);' onclick='load(".($page-1).")'>$prevlabel</a></span></li>";
-	}
-	
-	// first label
-	if($page>($adjacents+1)) {
-		$out.= "<li><a href='javascript:void(0);' onclick='load(1)'>1</a></li>";
-	}
-
-	// interval 
-	if($page>($adjacents+2)){$out.= "<li><a>...</a></li>";}
-
-	// pages
-	$pmin = ($page>$adjacents) ? ($page-$adjacents) : 1;
-	$pmax = ($page<($tpages-$adjacents)) ? ($page+$adjacents) : $tpages;
-	for($i=$pmin; $i<=$pmax; $i++) {
-		if($i==$page) {
-			$out.= "<li class='active'><a>$i</a></li>";
-		}else if($i==1) {
-			$out.= "<li><a href='javascript:void(0);' onclick='load(1)'>$i</a></li>";
-		}else {
-			$out.= "<li><a href='javascript:void(0);' onclick='load(".$i.")'>$i</a></li>";
-		}
-	}
-
-	// interval 
-	if($page<($tpages-$adjacents-1)) {$out.= "<li><a>...</a></li>";}
-
-	// last
-	if($page<($tpages-$adjacents)) {
-		$out.= "<li><a href='javascript:void(0);' onclick='load($tpages)'>$tpages</a></li>";
-	}
-
-	// next
-	if($page<$tpages) {
-		$out.= "<li><span><a href='javascript:void(0);' onclick='load(".($page+1).")'>$nextlabel</a></span></li>";
-	}else {
-		$out.= "<li class='disabled'><span><a>$nextlabel</a></span></li>";
-	}
-	
-	$out.= "</ul>";
-	return $out;
-}
-*/
 /*********************************************************************************************/
+function breadcrumbStore($id){
+global $mysqli,$DBprefix,$page_url,$mod,$ext,$opc,$idp;
+cadena_replace($replace1,$replace2);
+	echo '<li class="breadcrumb-item"><a href="'.$page_url.$mod.'/">'.$mod.'</a></li>';
 
-function menu_rutas_productos($id){
-global $mysqli,$DBprefix,$page_url,$mod,$ext,$opc,$idp;	
-		switch(true){
-			case ($ext!='' && $ext=='item'):
-				$sql=mysqli_query($mysqli,"SELECT * FROM ".$DBprefix."productos WHERE ID={$id};") or print mysqli_error($mysqli); 
-				if($row=mysqli_fetch_array($sql)){$nom_producto=$row['nombre'];
-				cadena_replace($replace1,$replace2);
-				$producto=str_replace($replace1,$replace2,$nom_producto);$ID_sub_cate=$row['ID_sub_cate'];}
-
-				$sql=mysqli_query($mysqli,"SELECT * FROM ".$DBprefix."productos_sub_cate WHERE ID_sub_cate={$ID_sub_cate};") or print mysqli_error($mysqli); 
-				if($row=mysqli_fetch_array($sql)){$nom_subcate=$row['subcategoria'];
-				cadena_replace($replace1,$replace2);
-				$subcate=str_replace($replace1,$replace2,$nom_subcate);$ID_cate=$row['ID_cate'];}
-
-				$sql=mysqli_query($mysqli,"SELECT * FROM ".$DBprefix."productos_cate WHERE ID_cate={$ID_cate};") or print mysqli_error($mysqli); 
-				if($row=mysqli_fetch_array($sql)){$nom_cate=$row['categoria'];
-				cadena_replace($replace1,$replace2);
-				$cate=str_replace($replace1,$replace2,$nom_cate);}
-
-				echo '<li class="breadcrumb-item"><a href="'.$page_url.$mod.'/">'.$mod.'</a></li>';
-				echo '<li class="breadcrumb-item"><a href="'.$page_url.$mod.'/categoria/'.$ID_cate.'-'.$cate.'">'.$nom_cate.'</a></li>';
-				echo '<li class="breadcrumb-item"><a href="'.$page_url.$mod.'/subcategoria/'.$ID_sub_cate.'-'.$subcate.'">'.$nom_subcate.'</a></li>';
-				echo '<li class="breadcrumb-item">'.$nom_producto.'</li>';
-			break;		
-			case ($ext!='' && $ext=='subcategoria'):
-				$sql=mysqli_query($mysqli,"SELECT * FROM ".$DBprefix."productos_sub_cate WHERE ID_sub_cate={$id};") or print mysqli_error($mysqli); 
-				if($row=mysqli_fetch_array($sql)){$nom_subcate=$row['subcategoria'];$ID_cate=$row['ID_cate'];}
-				$sql=mysqli_query($mysqli,"SELECT * FROM ".$DBprefix."productos_cate WHERE ID_cate={$ID_cate};") or print mysqli_error($mysqli); 
-				if($row=mysqli_fetch_array($sql)){$nom_cate=$row['categoria'];
-				cadena_replace($replace1,$replace2);
-				$cate=str_replace($replace1,$replace2,$nom_cate);
-				}
-				echo '<li class="breadcrumb-item"><a href="'.$page_url.$mod.'/">'.$mod.'</a></li>';
-				echo '<li class="breadcrumb-item"><a href="'.$page_url.$mod.'/categoria/'.$ID_cate.'-'.$cate.'">'.$nom_cate.'</a></li>';
-				echo '<li class="breadcrumb-item">'.$nom_subcate.'</li>';
-			break;
-			case ($ext!='' && $ext=='categoria'):
-				$sql=mysqli_query($mysqli,"SELECT * FROM ".$DBprefix."productos_cate WHERE ID_cate={$id};") or print mysqli_error($mysqli); 
-				if($row=mysqli_fetch_array($sql)){$nom_cate=$row['categoria'];}
-				echo '<li class="breadcrumb-item"><a href="'.$page_url.$mod.'/">'.$mod.'</a></li>';
-				echo '<li class="breadcrumb-item">'.$nom_cate.'</li>';
-			break;			
-			default:
-				echo '<li class="breadcrumb-item"><a href="#">'.$mod.'</a></li>';
-			break;
+	if($ext!=''){
+		//$nom_producto=sql_opc('productos','nombre','ID',$idp);
+		if($ext=='item'){
+		$producto = sql_row('productos','ID',$idp);
+		$id_producto = $producto['ID'];
+		$nom_producto = $producto['nombre'];
+		//$ID_cate = $producto['ID_cate'];
+		$ID_sub_cate = $producto['ID_sub_cate'];
 		}
-}
 
+		if($ext=='item' || $ext=='subcategoria'){
+		$IDsc = ($ext=='subcategoria')?$idp:$ID_sub_cate;
+		$sub_categorias = sql_row('productos_sub_cate','ID',$IDsc);
+		$nom_subcate = $sub_categorias['subcategoria'];
+		$ID_cate = $sub_categorias['ID_cate'];
+		$subcate=str_replace($replace1,$replace2,$nom_subcate);
+		}
+
+		if($ext=='item' || $ext=='subcategoria' || $ext=='categoria'){
+		$IDc = ($ext=='categoria')?$idp:$ID_cate;
+		$categorias = sql_row('productos_cate','ID',$IDc);
+		$nom_cate = $categorias['categoria'];
+		$cate=str_replace($replace1,$replace2,$nom_cate);
+		}
+
+		echo ($ext=='item' || $ext=='subcategoria' || $ext=='categoria')?'<li class="breadcrumb-item"><a href="'.$page_url.$mod.'/categoria/'.$IDc.'-'.$cate.'">'.$IDc.'-'.$nom_cate.'</a></li>':'';
+		echo ($ext=='item' || $ext=='subcategoria')?'<li class="breadcrumb-item"><a href="'.$page_url.$mod.'/subcategoria/'.$IDsc.'-'.$subcate.'">'.$IDsc.'-'.$nom_subcate.'</a></li>':'';
+		echo ($ext=='item')?'<li class="breadcrumb-item">'.$id_producto.'-'.$nom_producto.'</li>':'';
+	}
+}
 
 function menu_categoria(){
-global $mysqli,$DBprefix,$page_url,$mod,$ext,$opc,$id,$idp;	
+global $mysqli,$DBprefix,$page_url,$mod,$ext,$opc,$id,$idp,$tema_previo;	
+cadena_replace($replace1,$replace2);
+
 echo '
 <link href="'.$page_url.'modulos/productos/css/menup.css" rel="stylesheet">
 <script src="'.$page_url.'modulos/productos/js/ddaccordion.js" type="text/javascript"></script>
@@ -1007,47 +852,50 @@ ddaccordion.init({
 </script>
 ';
 //Menu-Categoria
-if($mod=='productos' && $ext=='categoria'){
-	$sql=mysqli_query($mysqli,"SELECT * FROM ".$DBprefix."productos_cate WHERE visible=1 AND ID_cate='{$idp}' ORDER BY ord") or print mysqli_error($mysqli);
-	if($row=mysqli_fetch_array($sql)){$ID_cate=$row['ID_cate'];}
-	if($ID_cate==$idp){
-		echo '<style>.cate_'.$ID_cate.'{color:#77BD1E !important;background:#eee;border-bottom:0px solid #c00;font-weight:700;}</style>';
+if($ext=='categoria'){//$ID_cate=sql_opc('productos_cate','ID','ID',$idp);
+	if($idp){
+		echo '<style>.cate_'.$idp.'{color:#77BD1E !important;background:#eee;border-bottom:0px solid #c00;font-weight:700;}</style>';
 	}
 }
 //Menu-Subcategoria
-if($mod=='productos' && $ext=='subcategoria'){
-	$sql=mysqli_query($mysqli,"SELECT * FROM ".$DBprefix."productos_sub_cate WHERE visible=1 AND ID_sub_cate='{$idp}' ORDER BY ord") or print mysqli_error($mysqli);
-	if($row=mysqli_fetch_array($sql)){$ID_sub_cate=$row['ID_sub_cate'];$ID_cate=$row['ID_cate'];}
-	if($ID_sub_cate==$idp){
-		echo '<style>.subcat_'.$ID_sub_cate.'{color:#77BD1E !important;background:#eee;border-bottom:0px solid #c00;font-weight:700;}.cate_'.$ID_cate.'{color:#77BD1E !important;background:#eee;border-bottom:0px solid #c00;font-weight:700;}</style>';
+if($ext=='subcategoria'){//$ID_sub_cate=sql_opc('productos_sub_cate','ID','ID',$idp);
+	$ID_cate=sql_opc('productos_sub_cate','ID_cate','ID',$idp);
+	if($idp){
+		echo '<style>.subcat_'.$idp.'{color:#77BD1E !important;background:#eee;border-bottom:0px solid #c00;font-weight:700;}.cate_'.$ID_cate.'{color:#77BD1E !important;background:#eee;border-bottom:0px solid #c00;font-weight:700;}</style>';
 	}
 }
 //Menu-Item
-if($mod=='productos' && $ext=='item'){
-	$sql=mysqli_query($mysqli,"SELECT * FROM ".$DBprefix."productos WHERE visible=1 AND ID='{$idp}' ORDER BY ID") or print mysqli_error($mysqli);
-	if($row=mysqli_fetch_array($sql)){$ID=$row['ID'];$ID_sub_cate=$row['ID_sub_cate'];$ID_cate=$row['ID_cate'];}
-	if($ID==$idp){
+if($ext=='item'){
+	$row = sql_row('productos','ID',$idp);
+	$ID_sub_cate = $row['ID_sub_cate'];
+	$ID_cate = $row['ID_cate'];
+	if($ID_sub_cate && $ID_cate){
 		echo '<style>.subcat_'.$ID_sub_cate.'{color:#77BD1E !important;background:#eee;border-bottom:0px solid #c00;font-weight:700;}.cate_'.$ID_cate.'{color:#77BD1E !important;background:#eee;border-bottom:0px solid #c00;font-weight:700;}</style>';
 	}
 }
+
 //MENU
-	$sql=mysqli_query($mysqli,"SELECT * FROM ".$DBprefix."productos_cate WHERE visible=1 ORDER BY ord") or print mysqli_error($mysqli);
-	while($row=mysqli_fetch_array($sql)){$icon=$row['icon'];$ord1=$row['ord'];
-		cadena_replace($replace1,$replace2);
-		$categoria=str_replace($replace1,$replace2,$row['categoria']);
-		
-		$link1=($_GET['tema_previo']!='')?$page_url.'index.php?mod=productos&ext=categoria&id='.$row['ID_cate'].'&tema_previo='.$_GET['tema_previo']:$page_url.'productos/categoria/'.$row['ID_cate'].'-'.$categoria;
+	$sql=sqlQuery('productos_cate', 'WHERE visible=1 ORDER BY ord ASC');//print_r($rows);
+	while($row=mysqli_fetch_array($sql)){
+		$ID_cate = $row['ID'];
+		$ID_ord = $row['ord'];
+		$icon=$row['icon'];
+		$cate = $row['categoria'];
+		$categoria=str_replace($replace1,$replace2,$cate);
+		$link1=($tema_previo='')?$page_url.'index.php?mod=productos&ext=categoria&id='.$ID_cate.'&tema_previo='.$tema_previo:$page_url.'productos/categoria/'.$ID_cate.'-'.$categoria;
 		//$icono=($icon=='' && $icon==NULL)?'<div id="circulo"></div>&nbsp;&nbsp;':'<i class="fa '.$icon.'"></i>&nbsp;&nbsp;';
-		echo '<div class="mypets">'.$icono.'<a class="cate_'.$row['ID_cate'].'" href="'.$link1.'">'.$ord1.'&nbsp;'.$row['categoria'].'</a></div>'."\n";
+		echo '<div class="mypets">'.$icono.'<a class="cate_'.$ID_cate.'" href="'.$link1.'">'.$ID_ord.'&nbsp;'.$cate.'</a></div>'."\n";
 		echo '<div class="thepet">'."\n";
-        $sql2=mysqli_query($mysqli,"SELECT * FROM ".$DBprefix."productos_sub_cate WHERE visible=1 AND ID_cate={$row[ID_cate]} ORDER BY ID_sub_cate") or print mysqli_error($mysqli);
-        while($row2=mysqli_fetch_array($sql2)){$ord2=$row2['ord'];$sub_cate=ucfirst($row2["subcategoria"]);
-			cadena_replace($replace1,$replace2);
+		$sql2=sqlQuery('productos_sub_cate', 'WHERE visible=1 AND ID_cate='.$ID_cate.' ORDER BY ID ASC');//print_r($rows);
+		while($row2=mysqli_fetch_array($sql2)){
+			$ID_sub_cate = $row2['ID'];
+			$ID_ord2=$row2['ord'];
+			$sub_cate=ucfirst($row2["subcategoria"]);
 			$subcategoria=str_replace($replace1,$replace2,$row2['subcategoria']);
-			$link2=($_GET['tema_previo']!='')?$page_url.'index.php?mod=productos&ext=subcategoria&id='.$row2['ID_sub_cate'].'&tema_previo='.$_GET['tema_previo']:$page_url.'productos/subcategoria/'.$row2['ID_sub_cate'].'-'.$subcategoria;
-            echo '<!--i class="fa fa-plus"></i--><a class="subcat_'.$row2['ID_sub_cate'].'" href="'.$link2.'">'.$ord1.$ord2.'&nbsp;'.wordwrap($sub_cate, 75, '<br>').'</a>';				       
-        }
-        echo '</div>'."\n";
+			$link2=($tema_previo!='')?$page_url.'index.php?mod=productos&ext=subcategoria&id='.$ID_sub_cate.'&tema_previo='.$tema_previo:$page_url.'productos/subcategoria/'.$ID_sub_cate.'-'.$subcategoria;
+            echo '<!--i class="fa fa-plus"></i--><a class="subcat_'.$ID_sub_cate.'" href="'.$link2.'">'.$ID_ord.$ID_ord2.'&nbsp;'.wordwrap($sub_cate, 75, '<br>').'</a>';				       
+		}
+		echo '</div>'."\n";
 	}
 }
 
@@ -1064,7 +912,7 @@ if($Data!='' && $Data!=NULL){
 $i=0;
 echo '<!-- categorias.json -->';
 	foreach ($Data as $reg){$i++;
-		$ID_cate=$reg['ID_cate'];
+		$ID_cate=$reg['ID'];
 		cadena_replace($replace1,$replace2);
 		$categoria=str_replace($replace1,$replace2,$reg['categoria']);
 		$nom_categoria=$reg['categoria'];
@@ -1103,11 +951,11 @@ $link_zp=($tema_p!='')?'<a href="'.$page_url.'index.php?mod='.$mod.'&ext=categor
  echo '<!-- /categorias.json -->';
 }else{
 echo '<!-- mysql -->';
-$sql=mysqli_query($mysqli,"SELECT * FROM ".$DBprefix."productos_cate WHERE visible=1 ORDER BY ID_cate ASC;") or print mysqli_error($mysqli); 
+$sql=mysqli_query($mysqli,"SELECT * FROM ".$DBprefix."productos_cate WHERE visible=1 ORDER BY ID ASC;") or print mysqli_error($mysqli); 
 $num_rows = mysqli_num_rows($sql);
   if($num_rows!=0){
 	while($reg=mysqli_fetch_array($sql)){
-		$ID_cate=$reg['ID_cate'];
+		$ID_cate=$reg['ID'];
 		cadena_replace($replace1,$replace2);
 		$categoria=str_replace($replace1,$replace2,$reg['categoria']);
 		$nom_categoria=$reg['categoria'];
@@ -1158,7 +1006,7 @@ if($Data!='' && $Data!=NULL){
 $i=0;
 echo '<!-- subcategoria.json -->';
 	foreach ($Data as $reg){$i++;
-		$ID_sub_cate=$reg['ID_sub_cate'];
+		$ID_sub_cate=$reg['ID'];
 		$ID_cate=$reg['ID_cate'];
 		cadena_replace($replace1,$replace2);
 		$subcategoria=str_replace($replace1,$replace2,$reg['subcategoria']);
@@ -1197,11 +1045,11 @@ $link_zp=($tema_p!='')?'<a href="'.$page_url.'index.php?mod='.$mod.'&ext=subcate
 	echo '<!-- /subcategorias.json -->';
 }else{
 echo '<!-- mysql -->';
-$sql=mysqli_query($mysqli,"SELECT * FROM ".$DBprefix."productos_sub_cate WHERE visible=1 AND ID_cate=".$id." ORDER BY ID_sub_cate ASC;") or print mysqli_error($mysqli); 
+$sql=mysqli_query($mysqli,"SELECT * FROM ".$DBprefix."productos_sub_cate WHERE visible=1 AND ID_cate=".$id." ORDER BY ID ASC;") or print mysqli_error($mysqli); 
 $num_rows = mysqli_num_rows($sql);
   if($num_rows!=0){
 	while($reg=mysqli_fetch_array($sql)){
-		$ID_sub_cate=$reg['ID_sub_cate'];
+		$ID_sub_cate=$reg['ID'];
 		$ID_cate=$reg['ID_cate'];
 		cadena_replace($replace1,$replace2);
 		$subcategoria=str_replace($replace1,$replace2,$reg['subcategoria']);
