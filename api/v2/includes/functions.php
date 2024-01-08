@@ -40,11 +40,11 @@ function validacion_tabla($tabla){
         if ($result) {
             return $tabla; //$tabla=($tabla==$DBprefix.'signup')?$tabla:$DBprefix.$tabla;
         } else {
-            echo $bootstrap . '<div class="alert alert-danger"><b>ERROR:</b> La Tabla no existe.<div>';
+            echo $bootstrap . '<div class="alert alert-danger"><b>ERROR:</b> La Tabla no existe.</div>';
             exit();
         }
     } else {
-        echo $bootstrap . '<div class="alert alert-warning"><b>PRECAUCIÓN:</b> No hay datos que mostrar<div>';
+        echo $bootstrap . '<div class="alert alert-warning"><b>PRECAUCIÓN:</b> No hay datos que mostrar</div>';
         exit();
         //}
     }
@@ -664,6 +664,7 @@ function fileUpload(){
     global $page_url, $conec, $table, $tab_signup;
 
     $email = (isset($_GET['email'])) ? $_GET['email'] : '';
+    $blob = (isset($_GET['blob'])) ? $_GET['blob'] : '';
     $token = $_POST['token'];
     $validar = verificarToken($token);
     $ID = $validar['ID_user'];
@@ -717,7 +718,7 @@ function fileUpload(){
                     $numRows = $sql->rowCount();
                     if ($numRows > 0) {
                         $row = $sql->fetch(PDO::FETCH_ASSOC);
-                        $imgUrl = 'data:' . $tipo_archivo . ';base64,' . base64_encode($row['filec']);
+                        $imgUrl = ($blob==1)? strval($page_url.'api/upload/blob.php?id='.$row['ID']) : 'data:' . $tipo_archivo . ';base64,' . base64_encode($row['filec']);
                         //$imgUrl = strval($page_url.'api/upload/blob.php?id='.$row['ID']);
                     }
                 } else {

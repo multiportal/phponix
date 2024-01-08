@@ -30,8 +30,9 @@ var save = 1;
 const formUpload = document.querySelector('#formUpload');//document.getElementById('formUpload');
 
 const upLoad = (e) => {
-    //console.log(e);
-    const { id } = e.path[2];
+    console.log(e);
+    const tar = e.srcElement.parentElement.parentElement; console.log(tar);
+    const { id } = tar;//e.path[2];
     const iconUpload = document.querySelector('#' + id + ' #icon-upload');
     const urlFile = document.querySelector('#' + id + ' #urlfile');
     const nameFile = document.querySelector('#' + id + ' #namefile');
@@ -46,7 +47,7 @@ const upLoad = (e) => {
     type = type.includes('image') ? 'images' : 'pdf'; //console.log(type);
     const formData = new FormData();
     formData.append("file", file); //console.log(formData);
-    const CLOUD_URL = url_upload+'index.php?type=' + type + '&save=' + save + '&email=' + email; //console.log(CLOUD_URL);
+    const CLOUD_URL = url_upload+'index.php?type=' + type + '&blob=0&save=' + save + '&email=' + email; //console.log(CLOUD_URL);
     const data = {
         method: "POST",
         //headers: {'Content-Type':'image/jpeg'},//headers: {'Content-Type': 'multipart/form-data','Content-Type': 'application/json'},

@@ -6,10 +6,10 @@ switch (true) {
 }
 include 'conf_' . $tab . '.php';
 function url_api(){
-global $page_url,$host;
+global $host, $page_url;
     $tabla = table();
-    $val = ($host=='phponix.webcindario.com')?'?tabla='.$tabla:$tabla.'/';
-    return $page_url . 'api/v2/'.$val;
+    $t = ($host=='phponixdev.webcindario.com') ? '?tabla='.$tabla : $tabla.'/';
+    return $page_url . 'api/v2/' . $t;
 }
 $btn_modal = ($bmodal == 1) ? 'data-toggle="modal" data-target="#modalForm"' : '';
 $tabla = table();
@@ -38,7 +38,7 @@ global $tema, $page_url, $mod, $tabla, $url_api;
     $topic = 'topic';
     sql_opciones('link_var', $valor);
     $data1 = query_data($tabla, $url_api);
-    $data = $data1['data'];//echo '<pre>'.print_r($data1).'</pre>';
+    $data = $data1['data'];
     usort($data, function ($b, $a) {return strnatcmp($a['ID'], $b['ID']);}); //Orden por ID DESC
     if ($data != '' & $data != NULL) {
         $i = 0;

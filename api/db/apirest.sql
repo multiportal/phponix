@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 4.8.5
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 26-09-2022 a las 16:10:30
--- Versión del servidor: 10.4.22-MariaDB
--- Versión de PHP: 7.4.27
+-- Tiempo de generación: 05-12-2023 a las 03:42:26
+-- Versión del servidor: 10.1.38-MariaDB
+-- Versión de PHP: 7.3.2
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -20,6 +21,28 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `apirest`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `api_version`
+--
+
+CREATE TABLE `api_version` (
+  `ID` int(9) UNSIGNED NOT NULL,
+  `nom` varchar(100) NOT NULL,
+  `vence` varchar(20) NOT NULL,
+  `ultimate` varchar(50) NOT NULL,
+  `status` varchar(100) NOT NULL,
+  `des_ver` mediumtext NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `api_version`
+--
+
+INSERT INTO `api_version` (`ID`, `nom`, `vence`, `ultimate`, `status`, `des_ver`) VALUES
+(1, 'apiRest', '30/11/2027', '1.2.8', 'Activa', '');
 
 -- --------------------------------------------------------
 
@@ -49,6 +72,49 @@ INSERT INTO `citas` (`CitaId`, `PacienteId`, `Fecha`, `HoraInicio`, `HoraFIn`, `
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `contacto`
+--
+
+CREATE TABLE `contacto` (
+  `ID` int(9) UNSIGNED NOT NULL,
+  `ip` varchar(25) NOT NULL,
+  `nombre` varchar(150) NOT NULL,
+  `email` varchar(150) NOT NULL,
+  `para` varchar(50) NOT NULL,
+  `de` varchar(50) NOT NULL,
+  `tel` varchar(20) NOT NULL,
+  `titulo` varchar(200) NOT NULL,
+  `asunto` varchar(150) NOT NULL,
+  `msj` mediumtext NOT NULL,
+  `fecha` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `cat_list` varchar(50) NOT NULL,
+  `seccion` varchar(50) NOT NULL,
+  `tabla` varchar(50) NOT NULL,
+  `adjuntos` mediumtext NOT NULL,
+  `visto` tinyint(1) NOT NULL,
+  `status` int(11) NOT NULL,
+  `ID_login` int(11) NOT NULL,
+  `ID_user` int(11) NOT NULL,
+  `visible` tinyint(1) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `contacto`
+--
+
+INSERT INTO `contacto` (`ID`, `ip`, `nombre`, `email`, `para`, `de`, `tel`, `titulo`, `asunto`, `msj`, `fecha`, `cat_list`, `seccion`, `tabla`, `adjuntos`, `visto`, `status`, `ID_login`, `ID_user`, `visible`) VALUES
+(1, '127.0.0.1', 'Miguel Hernandez', 'mherco@hotmail.com', 'phponix@webcindario.com', 'mherco@hotmail.com', '4421944950', 'Contacto Web PHP ONIX', 'Mensaje de Bienvenida - CENTRO DE CONTACTO', 'Hola estimado usuario, bienvenido a su plataforma \"PHPONIX CMS\" aqui se guardara un copia de respaldo de todos sus correos de contacto y registros de su página web.\r\n\r\nCualquier duda o comentario puede ponerse en contacto a través del correo a multiportal@outlook.com o en nuestra página https://phponix.webcindario.com \r\n\r\nATTE.\r\nEl equipo de PHPONIX & MULTIPORTAL ', '2021-02-15 21:59:26', 'inbox', 'contacto', '', '', 0, 1, 1, 1, 1),
+(2, '', 'Miguel Hernandez', 'mherco@hotmail.com', 'multiportal@outlook.com', 'mherco@hotmail.com', '', 'Contacto Web Arkon Data', 'Contacto Web', '\r\n        <html>\r\n        <head>\r\n        <meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\" />\r\n        <title>Documento sin título</title>\r\n        <style type=\"text/css\">\r\n        .fuente1,.fuente2,.fuente3{\r\n            font-family: Calibri, \"Trebuchet MS\";\r\n            font-size:11px;\r\n            color:#000;\r\n            text-align:left;}\r\n        .fuente2{font-size:12px; font-weight:700;}\r\n        .fuente3{font-size:13px; font-weight:bold;}\r\n        .fuente1 a{\r\n            font-family: Calibri, \"Trebuchet MS\";\r\n            font-size:12px;\r\n            color:#444;/*color de link*/\r\n            text-decoration:none;}\r\n        .dominio, .dominio a{font-size:22px;font-weight:bold;text-align:left;vertical-align:bottom;}\r\n        .bg_gris{background-color:#F5F5F5;}\r\n        .center{text-align:center;}\r\n        .right{text-align:right;}\r\n        .footer{background-color:#444;color:#fff;font-size:12px;font-weight:bold;text-align:center;padding:6px}\r\n        </style>\r\n        </head>\r\n        <body>\r\n        <div>\r\n            <table class=\"fuente1\" width=\"100%\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\">\r\n            <tr>\r\n                <td colspan=\"6\" class=\"dominio\"><img src=\"https://memojl.github.io/arkon-test/wp-content/themes/arkontheme/images/logo-arkon-data.png\" alt=\"Logo\" style=\"width:90px\" /><a target=\"_blank\" href=\"#\">www.localhost</a></td>\r\n            </tr>\r\n            <tr>\r\n                <td colspan=\"6\" class=\"fuente1\">Mensaje recibido desde la pagina web <b><a target=\"_blank\" href=\"#\">Arkon Data</a></b> a tr&aacute;ves de la secci&oacute;n <b>Contacto</b>.<br /><br /></td>\r\n            </tr>\r\n              <tr>\r\n                <td colspan=\"6\" class=\"fuente1 center\" style=\"border-top:2px solid #333;\"><br /></td>\r\n            </tr>\r\n              <tr>\r\n                <td colspan=\"6\" class=\"fuente1\"></td>\r\n            </tr>\r\n              <tr>\r\n                <td colspan=\"2\" class=\"fuente2\">Nombre:</td>\r\n                <td colspan=\"4\">Miguel Hernandez</td>\r\n              </tr>\r\n              <tr>\r\n                <td colspan=\"2\" class=\"fuente2\">Empresa:</td>\r\n                <td colspan=\"4\">Intelmex</td>\r\n              </tr>\r\n              <tr>\r\n                <td colspan=\"2\" class=\"fuente2\">Correo:</td>\r\n                <td colspan=\"4\">mherco@hotmail.com</td>\r\n              </tr>\r\n              <tr>\r\n                <td></td>\r\n                <td></td>\r\n                <td></td>\r\n                <td></td>\r\n                <td colspan=\"2\"></td>\r\n                </tr>\r\n              <tr>\r\n                <td></td>\r\n                <td></td>\r\n                <td></td>\r\n                <td></td>\r\n                <td colspan=\"2\" align=\"right\"></td>\r\n                </tr>\r\n              <tr>\r\n                <td></td>\r\n                <td></td>\r\n                <td></td>\r\n                <td></td>\r\n                <td colspan=\"2\"></td>\r\n              </tr>\r\n              <tr>\r\n                <td colspan=\"6\" class=\"footer\">Formulario de Contacto v.2.1</td>\r\n              </tr>  \r\n            </table>\r\n        </div>\r\n        </body></html>\r\n    ', '2023-04-05 23:56:27', 'inbox', 'contacto', '', '', 0, 1, 1, 1, 1),
+(3, '', 'Guillermo Jimenez', '', 'multiportal@outlook.com', '', '', 'Contacto Web Arkon Data', 'Contacto Web', '\r\n        <html>\r\n        <head>\r\n        <meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\" />\r\n        <title>Documento sin título</title>\r\n        <style type=\"text/css\">\r\n        .fuente1,.fuente2,.fuente3{\r\n            font-family: Calibri, \"Trebuchet MS\";\r\n            font-size:11px;\r\n            color:#000;\r\n            text-align:left;}\r\n        .fuente2{font-size:12px; font-weight:700;}\r\n        .fuente3{font-size:13px; font-weight:bold;}\r\n        .fuente1 a{\r\n            font-family: Calibri, \"Trebuchet MS\";\r\n            font-size:12px;\r\n            color:#444;/*color de link*/\r\n            text-decoration:none;}\r\n        .dominio, .dominio a{font-size:22px;font-weight:bold;text-align:left;vertical-align:bottom;}\r\n        .bg_gris{background-color:#F5F5F5;}\r\n        .center{text-align:center;}\r\n        .right{text-align:right;}\r\n        .footer{background-color:#444;color:#fff;font-size:12px;font-weight:bold;text-align:center;padding:6px}\r\n        </style>\r\n        </head>\r\n        <body>\r\n        <div>\r\n            <table class=\"fuente1\" width=\"100%\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\">\r\n            <tr>\r\n                <td colspan=\"6\" class=\"dominio\"><img src=\"https://memojl.github.io/arkon-test/wp-content/themes/arkontheme/images/logo-arkon-data.png\" alt=\"Logo\" style=\"width:90px\" /><a target=\"_blank\" href=\"#\">www.localhost</a></td>\r\n            </tr>\r\n            <tr>\r\n                <td colspan=\"6\" class=\"fuente1\">Mensaje recibido desde la pagina web <b><a target=\"_blank\" href=\"#\">Arkon Data</a></b> a tr&aacute;ves de la secci&oacute;n <b>Contacto</b>.<br /><br /></td>\r\n            </tr>\r\n              <tr>\r\n                <td colspan=\"6\" class=\"fuente1 center\" style=\"border-top:2px solid #333;\"><br /></td>\r\n            </tr>\r\n              <tr>\r\n                <td colspan=\"6\" class=\"fuente1\"></td>\r\n            </tr>\r\n              <tr>\r\n                <td colspan=\"2\" class=\"fuente2\">Nombre:</td>\r\n                <td colspan=\"4\">Guillermo Jimenez</td>\r\n              </tr>\r\n              <tr>\r\n                <td colspan=\"2\" class=\"fuente2\">Empresa:</td>\r\n                <td colspan=\"4\">Intelmex</td>\r\n              </tr>\r\n              <tr>\r\n                <td colspan=\"2\" class=\"fuente2\">Correo:</td>\r\n                <td colspan=\"4\"></td>\r\n              </tr>\r\n              <tr>\r\n                <td></td>\r\n                <td></td>\r\n                <td></td>\r\n                <td></td>\r\n                <td colspan=\"2\"></td>\r\n                </tr>\r\n              <tr>\r\n                <td></td>\r\n                <td></td>\r\n                <td></td>\r\n                <td></td>\r\n                <td colspan=\"2\" align=\"right\"></td>\r\n                </tr>\r\n              <tr>\r\n                <td></td>\r\n                <td></td>\r\n                <td></td>\r\n                <td></td>\r\n                <td colspan=\"2\"></td>\r\n              </tr>\r\n              <tr>\r\n                <td colspan=\"6\" class=\"footer\">Formulario de Contacto v.2.1</td>\r\n              </tr>  \r\n            </table>\r\n        </div>\r\n        </body></html>\r\n    ', '2023-04-06 00:03:39', 'inbox', 'contacto', '', '', 0, 1, 1, 1, 1),
+(4, '', 'Guillermo Jimenez', 'memotablet08@gmail.com', 'multiportal@outlook.com', 'memotablet08@gmail.com', '', 'Contacto Web Arkon Data', 'Contacto Web', '\r\n        <html>\r\n        <head>\r\n        <meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\" />\r\n        <title>Documento sin título</title>\r\n        <style type=\"text/css\">\r\n        .fuente1,.fuente2,.fuente3{\r\n            font-family: Calibri, \"Trebuchet MS\";\r\n            font-size:11px;\r\n            color:#000;\r\n            text-align:left;}\r\n        .fuente2{font-size:12px; font-weight:700;}\r\n        .fuente3{font-size:13px; font-weight:bold;}\r\n        .fuente1 a{\r\n            font-family: Calibri, \"Trebuchet MS\";\r\n            font-size:12px;\r\n            color:#444;/*color de link*/\r\n            text-decoration:none;}\r\n        .dominio, .dominio a{font-size:22px;font-weight:bold;text-align:left;vertical-align:bottom;}\r\n        .bg_gris{background-color:#F5F5F5;}\r\n        .center{text-align:center;}\r\n        .right{text-align:right;}\r\n        .footer{background-color:#444;color:#fff;font-size:12px;font-weight:bold;text-align:center;padding:6px}\r\n        </style>\r\n        </head>\r\n        <body>\r\n        <div>\r\n            <table class=\"fuente1\" width=\"100%\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\">\r\n            <tr>\r\n                <td colspan=\"6\" class=\"dominio\"><img src=\"https://memojl.github.io/arkon-test/wp-content/themes/arkontheme/images/logo-arkon-data.png\" alt=\"Logo\" style=\"width:90px\" /><a target=\"_blank\" href=\"#\">www.localhost</a></td>\r\n            </tr>\r\n            <tr>\r\n                <td colspan=\"6\" class=\"fuente1\">Mensaje recibido desde la pagina web <b><a target=\"_blank\" href=\"#\">Arkon Data</a></b> a tr&aacute;ves de la secci&oacute;n <b>Contacto</b>.<br /><br /></td>\r\n            </tr>\r\n              <tr>\r\n                <td colspan=\"6\" class=\"fuente1 center\" style=\"border-top:2px solid #333;\"><br /></td>\r\n            </tr>\r\n              <tr>\r\n                <td colspan=\"6\" class=\"fuente1\"></td>\r\n            </tr>\r\n              <tr>\r\n                <td colspan=\"2\" class=\"fuente2\">Nombre:</td>\r\n                <td colspan=\"4\">Guillermo Jimenez</td>\r\n              </tr>\r\n              <tr>\r\n                <td colspan=\"2\" class=\"fuente2\">Empresa:</td>\r\n                <td colspan=\"4\">Intelmex</td>\r\n              </tr>\r\n              <tr>\r\n                <td colspan=\"2\" class=\"fuente2\">Correo:</td>\r\n                <td colspan=\"4\">memotablet08@gmail.com</td>\r\n              </tr>\r\n              <tr>\r\n                <td></td>\r\n                <td></td>\r\n                <td></td>\r\n                <td></td>\r\n                <td colspan=\"2\"></td>\r\n                </tr>\r\n              <tr>\r\n                <td></td>\r\n                <td></td>\r\n                <td></td>\r\n                <td></td>\r\n                <td colspan=\"2\" align=\"right\"></td>\r\n                </tr>\r\n              <tr>\r\n                <td></td>\r\n                <td></td>\r\n                <td></td>\r\n                <td></td>\r\n                <td colspan=\"2\"></td>\r\n              </tr>\r\n              <tr>\r\n                <td colspan=\"6\" class=\"footer\">Formulario de Contacto v.2.1</td>\r\n              </tr>  \r\n            </table>\r\n        </div>\r\n        </body></html>\r\n    ', '2023-04-06 00:04:06', 'inbox', 'contacto', '', '', 0, 1, 1, 1, 1),
+(5, '', 'Memo Jimenez', 'memojl08@gmail.com', 'multiportal@outlook.com', 'memojl08@gmail.com', '', 'Contacto Web Arkon Data', 'Contacto Web', '\r\n        <html>\r\n        <head>\r\n        <meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\" />\r\n        <title>Documento sin título</title>\r\n        <style type=\"text/css\">\r\n        .fuente1,.fuente2,.fuente3{\r\n            font-family: Calibri, \"Trebuchet MS\";\r\n            font-size:11px;\r\n            color:#000;\r\n            text-align:left;}\r\n        .fuente2{font-size:12px; font-weight:700;}\r\n        .fuente3{font-size:13px; font-weight:bold;}\r\n        .fuente1 a{\r\n            font-family: Calibri, \"Trebuchet MS\";\r\n            font-size:12px;\r\n            color:#444;/*color de link*/\r\n            text-decoration:none;}\r\n        .dominio, .dominio a{font-size:22px;font-weight:bold;text-align:left;vertical-align:bottom;}\r\n        .bg_gris{background-color:#F5F5F5;}\r\n        .center{text-align:center;}\r\n        .right{text-align:right;}\r\n        .footer{background-color:#444;color:#fff;font-size:12px;font-weight:bold;text-align:center;padding:6px}\r\n        </style>\r\n        </head>\r\n        <body>\r\n        <div>\r\n            <table class=\"fuente1\" width=\"100%\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\">\r\n            <tr>\r\n                <td colspan=\"6\" class=\"dominio\"><img src=\"https://memojl.github.io/arkon-test/wp-content/themes/arkontheme/images/logo-arkon-data.png\" alt=\"Logo\" style=\"width:90px\" /><a target=\"_blank\" href=\"#\">www.localhost</a></td>\r\n            </tr>\r\n            <tr>\r\n                <td colspan=\"6\" class=\"fuente1\">Mensaje recibido desde la pagina web <b><a target=\"_blank\" href=\"#\">Arkon Data</a></b> a tr&aacute;ves de la secci&oacute;n <b>Contacto</b>.<br /><br /></td>\r\n            </tr>\r\n              <tr>\r\n                <td colspan=\"6\" class=\"fuente1 center\" style=\"border-top:2px solid #333;\"><br /></td>\r\n            </tr>\r\n              <tr>\r\n                <td colspan=\"6\" class=\"fuente1\"></td>\r\n            </tr>\r\n              <tr>\r\n                <td colspan=\"2\" class=\"fuente2\">Nombre:</td>\r\n                <td colspan=\"4\">Memo Jimenez</td>\r\n              </tr>\r\n              <tr>\r\n                <td colspan=\"2\" class=\"fuente2\">Empresa:</td>\r\n                <td colspan=\"4\">Intelmex</td>\r\n              </tr>\r\n              <tr>\r\n                <td colspan=\"2\" class=\"fuente2\">Correo:</td>\r\n                <td colspan=\"4\">memojl08@gmail.com</td>\r\n              </tr>\r\n              <tr>\r\n                <td></td>\r\n                <td></td>\r\n                <td></td>\r\n                <td></td>\r\n                <td colspan=\"2\"></td>\r\n                </tr>\r\n              <tr>\r\n                <td></td>\r\n                <td></td>\r\n                <td></td>\r\n                <td></td>\r\n                <td colspan=\"2\" align=\"right\"></td>\r\n                </tr>\r\n              <tr>\r\n                <td></td>\r\n                <td></td>\r\n                <td></td>\r\n                <td></td>\r\n                <td colspan=\"2\"></td>\r\n              </tr>\r\n              <tr>\r\n                <td colspan=\"6\" class=\"footer\">Formulario de Contacto v.2.1</td>\r\n              </tr>  \r\n            </table>\r\n        </div>\r\n        </body></html>\r\n    ', '2023-04-06 00:13:22', 'inbox', 'contacto', '', '', 0, 1, 1, 1, 1),
+(6, '', 'Guillermo Jimenez', 'loganmemo@hotmail.com', 'multiportal@outlook.com', 'loganmemo@hotmail.com', '', 'Contacto Multiportal', 'TEST', '\r\n        <html>\r\n        <head>\r\n        <meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\" />\r\n        <title>Documento sin título</title>\r\n        <style type=\"text/css\">\r\n        .fuente1,.fuente2,.fuente3{\r\n            font-family: Calibri, \"Trebuchet MS\";\r\n            font-size:11px;\r\n            color:#000;\r\n            text-align:left;}\r\n        .fuente2{font-size:12px; font-weight:700;}\r\n        .fuente3{font-size:13px; font-weight:bold;}\r\n        .fuente1 a{\r\n            font-family: Calibri, \"Trebuchet MS\";\r\n            font-size:12px;\r\n            color:#444;/*color de link*/\r\n            text-decoration:none;}\r\n        .dominio, .dominio a{font-size:22px;font-weight:bold;text-align:left;vertical-align:bottom;}\r\n        .bg_gris{background-color:#F5F5F5;}\r\n        .center{text-align:center;}\r\n        .right{text-align:right;}\r\n        .footer{background-color:#444;color:#fff;font-size:12px;font-weight:bold;text-align:center;padding:6px}\r\n        </style>\r\n        </head>\r\n        <body>\r\n        <div>\r\n            <table class=\"fuente1\" width=\"100%\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\">\r\n            <tr>\r\n                <td colspan=\"6\" class=\"dominio\"><img src=\"https://memojl.github.io/arkon-test/wp-content/themes/arkontheme/images/logo-arkon-data.png\" alt=\"Logo\" style=\"width:90px\" /><a target=\"_blank\" href=\"#\">www.localhost</a></td>\r\n            </tr>\r\n            <tr>\r\n                <td colspan=\"6\" class=\"fuente1\">Mensaje recibido desde la pagina web <b><a target=\"_blank\" href=\"#\">MultiportalMX</a></b> a tr&aacute;ves de la secci&oacute;n <b>Contacto</b>.<br /><br /></td>\r\n            </tr>\r\n              <tr>\r\n                <td colspan=\"6\" class=\"fuente1 center\" style=\"border-top:2px solid #333;\"><br /></td>\r\n            </tr>\r\n              <tr>\r\n                <td colspan=\"6\" class=\"fuente1\"></td>\r\n            </tr>\r\n              <tr>\r\n                <td colspan=\"2\" class=\"fuente2\">Nombre:</td>\r\n                <td colspan=\"4\">Guillermo Jimenez</td>\r\n              </tr>\r\n              <tr>\r\n                <td colspan=\"2\" class=\"fuente2\">Empresa:</td>\r\n                <td colspan=\"4\"></td>\r\n              </tr>\r\n              <tr>\r\n                <td colspan=\"2\" class=\"fuente2\">Correo:</td>\r\n                <td colspan=\"4\">loganmemo@hotmail.com</td>\r\n              </tr>\r\n              <tr>\r\n                <td colspan=\"2\" class=\"fuente2\">Correo:</td>\r\n                <td colspan=\"4\">Guillermo Jimenez</td>\r\n              </tr>\r\n              <tr>\r\n                <td></td>\r\n                <td></td>\r\n                <td></td>\r\n                <td></td>\r\n                <td colspan=\"2\"></td>\r\n                </tr>\r\n              <tr>\r\n                <td></td>\r\n                <td></td>\r\n                <td></td>\r\n                <td></td>\r\n                <td colspan=\"2\" align=\"right\"></td>\r\n                </tr>\r\n              <tr>\r\n                <td></td>\r\n                <td></td>\r\n                <td></td>\r\n                <td></td>\r\n                <td colspan=\"2\"></td>\r\n              </tr>\r\n              <tr>\r\n                <td colspan=\"6\" class=\"footer\">Formulario de Contacto v.2.1</td>\r\n              </tr>  \r\n            </table>\r\n        </div>\r\n        </body></html>\r\n    ', '2023-04-14 01:52:27', 'inbox', 'contacto', '', '', 0, 1, 1, 1, 1),
+(7, '', 'Miguel Hernandez', 'mherco@hotmail.com', 'multiportal@outlook.com', 'mherco@hotmail.com', '', 'Contacto Multiportal', 'Test', '\r\n        <html>\r\n        <head>\r\n        <meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\" />\r\n        <title>Documento sin título</title>\r\n        <style type=\"text/css\">\r\n        .fuente1,.fuente2,.fuente3{\r\n            font-family: Calibri, \"Trebuchet MS\";\r\n            font-size:11px;\r\n            color:#000;\r\n            text-align:left;}\r\n        .fuente2{font-size:12px; font-weight:700;}\r\n        .fuente3{font-size:13px; font-weight:bold;}\r\n        .fuente1 a{\r\n            font-family: Calibri, \"Trebuchet MS\";\r\n            font-size:12px;\r\n            color:#444;/*color de link*/\r\n            text-decoration:none;}\r\n        .dominio, .dominio a{font-size:22px;font-weight:bold;text-align:left;vertical-align:bottom;}\r\n        .bg_gris{background-color:#F5F5F5;}\r\n        .center{text-align:center;}\r\n        .right{text-align:right;}\r\n        .footer{background-color:#444;color:#fff;font-size:12px;font-weight:bold;text-align:center;padding:6px}\r\n        </style>\r\n        </head>\r\n        <body>\r\n        <div>\r\n            <table class=\"fuente1\" width=\"100%\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\">\r\n            <tr>\r\n                <td colspan=\"6\" class=\"dominio\"><img src=\"https://memojl.github.io/arkon-test/wp-content/themes/arkontheme/images/logo-arkon-data.png\" alt=\"Logo\" style=\"width:90px\" /><a target=\"_blank\" href=\"#\">www.localhost</a></td>\r\n            </tr>\r\n            <tr>\r\n                <td colspan=\"6\" class=\"fuente1\">Mensaje recibido desde la pagina web <b><a target=\"_blank\" href=\"#\">MultiportalMX</a></b> a tr&aacute;ves de la secci&oacute;n <b>Contacto</b>.<br /><br /></td>\r\n            </tr>\r\n              <tr>\r\n                <td colspan=\"6\" class=\"fuente1 center\" style=\"border-top:2px solid #333;\"><br /></td>\r\n            </tr>\r\n              <tr>\r\n                <td colspan=\"6\" class=\"fuente1\"></td>\r\n            </tr>\r\n              <tr>\r\n                <td colspan=\"2\" class=\"fuente2\">Nombre:</td>\r\n                <td colspan=\"4\">Miguel Hernandez</td>\r\n              </tr>\r\n              <tr>\r\n                <td colspan=\"2\" class=\"fuente2\">Empresa:</td>\r\n                <td colspan=\"4\"></td>\r\n              </tr>\r\n              <tr>\r\n                <td colspan=\"2\" class=\"fuente2\">Correo:</td>\r\n                <td colspan=\"4\">mherco@hotmail.com</td>\r\n              </tr>\r\n              <tr>\r\n                <td colspan=\"2\" class=\"fuente2\">Correo:</td>\r\n                <td colspan=\"4\">Miguel Hernandez</td>\r\n              </tr>\r\n              <tr>\r\n                <td></td>\r\n                <td></td>\r\n                <td></td>\r\n                <td></td>\r\n                <td colspan=\"2\"></td>\r\n                </tr>\r\n              <tr>\r\n                <td></td>\r\n                <td></td>\r\n                <td></td>\r\n                <td></td>\r\n                <td colspan=\"2\" align=\"right\"></td>\r\n                </tr>\r\n              <tr>\r\n                <td></td>\r\n                <td></td>\r\n                <td></td>\r\n                <td></td>\r\n                <td colspan=\"2\"></td>\r\n              </tr>\r\n              <tr>\r\n                <td colspan=\"6\" class=\"footer\">Formulario de Contacto v.2.1</td>\r\n              </tr>  \r\n            </table>\r\n        </div>\r\n        </body></html>\r\n    ', '2023-04-18 00:48:01', 'inbox', 'contacto', '', '', 0, 1, 1, 1, 1),
+(8, '', 'Guillermo Jimenez', 'memotablet08@gmail.com', 'multiportal@outlook.com', 'memotablet08@gmail.com', '', 'Contacto Multiportal', 'Prueba', '\r\n        <html>\r\n        <head>\r\n        <meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\" />\r\n        <title>Documento sin título</title>\r\n        <style type=\"text/css\">\r\n        .fuente1,.fuente2,.fuente3{\r\n            font-family: Calibri, \"Trebuchet MS\";\r\n            font-size:11px;\r\n            color:#000;\r\n            text-align:left;}\r\n        .fuente2{font-size:12px; font-weight:700;}\r\n        .fuente3{font-size:13px; font-weight:bold;}\r\n        .fuente1 a{\r\n            font-family: Calibri, \"Trebuchet MS\";\r\n            font-size:12px;\r\n            color:#444;/*color de link*/\r\n            text-decoration:none;}\r\n        .dominio, .dominio a{font-size:22px;font-weight:bold;text-align:left;vertical-align:bottom;}\r\n        .bg_gris{background-color:#F5F5F5;}\r\n        .center{text-align:center;}\r\n        .right{text-align:right;}\r\n        .footer{background-color:#444;color:#fff;font-size:12px;font-weight:bold;text-align:center;padding:6px}\r\n        </style>\r\n        </head>\r\n        <body>\r\n        <div>\r\n            <table class=\"fuente1\" width=\"100%\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\">\r\n            <tr>\r\n                <td colspan=\"6\" class=\"dominio\"><img src=\"https://memojl.github.io/arkon-test/wp-content/themes/arkontheme/images/logo-arkon-data.png\" alt=\"Logo\" style=\"width:90px\" /><a target=\"_blank\" href=\"#\">www.localhost</a></td>\r\n            </tr>\r\n            <tr>\r\n                <td colspan=\"6\" class=\"fuente1\">Mensaje recibido desde la pagina web <b><a target=\"_blank\" href=\"#\">MultiportalMX</a></b> a tr&aacute;ves de la secci&oacute;n <b>Contacto</b>.<br /><br /></td>\r\n            </tr>\r\n              <tr>\r\n                <td colspan=\"6\" class=\"fuente1 center\" style=\"border-top:2px solid #333;\"><br /></td>\r\n            </tr>\r\n              <tr>\r\n                <td colspan=\"6\" class=\"fuente1\"></td>\r\n            </tr>\r\n              <tr>\r\n                <td colspan=\"2\" class=\"fuente2\">Nombre:</td>\r\n                <td colspan=\"4\">Guillermo Jimenez</td>\r\n              </tr>\r\n              <tr>\r\n                <td colspan=\"2\" class=\"fuente2\">Empresa:</td>\r\n                <td colspan=\"4\"></td>\r\n              </tr>\r\n              <tr>\r\n                <td colspan=\"2\" class=\"fuente2\">Correo:</td>\r\n                <td colspan=\"4\">memotablet08@gmail.com</td>\r\n              </tr>\r\n              <tr>\r\n                <td colspan=\"2\" class=\"fuente2\">Correo:</td>\r\n                <td colspan=\"4\">Guillermo Jimenez</td>\r\n              </tr>\r\n              <tr>\r\n                <td></td>\r\n                <td></td>\r\n                <td></td>\r\n                <td></td>\r\n                <td colspan=\"2\"></td>\r\n                </tr>\r\n              <tr>\r\n                <td></td>\r\n                <td></td>\r\n                <td></td>\r\n                <td></td>\r\n                <td colspan=\"2\" align=\"right\"></td>\r\n                </tr>\r\n              <tr>\r\n                <td></td>\r\n                <td></td>\r\n                <td></td>\r\n                <td></td>\r\n                <td colspan=\"2\"></td>\r\n              </tr>\r\n              <tr>\r\n                <td colspan=\"6\" class=\"footer\">Formulario de Contacto v.2.1</td>\r\n              </tr>  \r\n            </table>\r\n        </div>\r\n        </body></html>\r\n    ', '2023-04-18 00:51:29', 'inbox', 'contacto', '', '', 0, 1, 1, 1, 1);
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `links`
 --
 
@@ -56,11 +122,20 @@ CREATE TABLE `links` (
   `ID` int(11) NOT NULL,
   `title` varchar(150) NOT NULL,
   `url` varchar(255) NOT NULL,
-  `description` text DEFAULT NULL,
+  `description` text,
   `cate` varchar(100) NOT NULL,
   `user_id` int(11) DEFAULT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `links`
+--
+
+INSERT INTO `links` (`ID`, `title`, `url`, `description`, `cate`, `user_id`, `created_at`) VALUES
+(1, 'Phponix', 'https://phphonix.webcindario.com/', 'CMS WEB', 'Web', 2, '2023-03-09 20:37:49'),
+(2, 'Multiportal', 'https://multiportal.webcindario.com/', 'Página Web', 'Web', 2, '2023-03-09 23:15:45'),
+(3, 'Portafolio', 'https://portafolio1.webcindario.com', 'Página web', 'Portafoio', 2, '2023-03-09 23:33:20');
 
 -- --------------------------------------------------------
 
@@ -168,6 +243,14 @@ CREATE TABLE `token` (
   `Fecha` varchar(22) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Volcado de datos para la tabla `token`
+--
+
+INSERT INTO `token` (`ID`, `ID_user`, `Token`, `Estado`, `Fecha`) VALUES
+(1, 2, '2a466394fb9cc533fe978abdeba84667786a367a', 'Activo', '2023-05-25 16:35:36'),
+(2, 2, '5e7f6b1f343b40cae0f50c097b587210f99108a9', 'Activo', '2023-10-06 01:23:08');
+
 -- --------------------------------------------------------
 
 --
@@ -175,11 +258,11 @@ CREATE TABLE `token` (
 --
 
 CREATE TABLE `upload_files` (
-  `ID` int(11) UNSIGNED NOT NULL,
+  `ID` int(11) NOT NULL,
   `nombre` varchar(150) NOT NULL,
   `type_file` varchar(30) NOT NULL,
   `filec` longblob NOT NULL,
-  `created_at` varchar(30) NOT NULL
+  `created_at` varchar(35) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -229,10 +312,22 @@ CREATE TABLE `usuarios_token` (
 --
 
 --
+-- Indices de la tabla `api_version`
+--
+ALTER TABLE `api_version`
+  ADD PRIMARY KEY (`ID`);
+
+--
 -- Indices de la tabla `citas`
 --
 ALTER TABLE `citas`
   ADD PRIMARY KEY (`CitaId`);
+
+--
+-- Indices de la tabla `contacto`
+--
+ALTER TABLE `contacto`
+  ADD PRIMARY KEY (`ID`);
 
 --
 -- Indices de la tabla `links`
@@ -281,16 +376,28 @@ ALTER TABLE `usuarios_token`
 --
 
 --
+-- AUTO_INCREMENT de la tabla `api_version`
+--
+ALTER TABLE `api_version`
+  MODIFY `ID` int(9) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT de la tabla `citas`
 --
 ALTER TABLE `citas`
   MODIFY `CitaId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
+-- AUTO_INCREMENT de la tabla `contacto`
+--
+ALTER TABLE `contacto`
+  MODIFY `ID` int(9) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
 -- AUTO_INCREMENT de la tabla `links`
 --
 ALTER TABLE `links`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `pacientes`
@@ -308,13 +415,13 @@ ALTER TABLE `signup`
 -- AUTO_INCREMENT de la tabla `token`
 --
 ALTER TABLE `token`
-  MODIFY `ID` int(9) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `ID` int(9) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `upload_files`
 --
 ALTER TABLE `upload_files`
-  MODIFY `ID` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `usuarios`

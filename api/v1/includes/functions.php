@@ -39,10 +39,10 @@ global $conec,$DBprefix,$tabla,$bootstrap,$ex_scfg;
         if($result){
             return $tabla;//$tabla=($tabla==$DBprefix.'signup')?$tabla:$DBprefix.$tabla;
         }else{
-            echo $bootstrap.'<div class="alert alert-danger"><b>ERROR:</b> La Tabla no existe.<div>';exit();
+            echo $bootstrap.'<div class="alert alert-danger"><b>ERROR:</b> La Tabla no existe.</div>';exit();
         }
     }else{
-        echo $bootstrap.'<div class="alert alert-warning"><b>PRECAUCIÓN:</b> No hay datos que mostrar<div>';exit();
+        echo $bootstrap.'<div class="alert alert-warning"><b>PRECAUCIÓN:</b> No hay datos que mostrar</div>';exit();
     }
 }
 

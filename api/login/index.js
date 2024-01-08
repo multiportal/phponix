@@ -1,14 +1,13 @@
 /* VARIABLES CONSTANTES*/
 console.log('/* VARIABLES CONSTANTES*/');
-const protocol = window.location.protocol;
+const {protocol, host, origin, pathname} = window.location;
 //console.log('protocol='+protocol);
-const host = window.location.host;
 //console.log('host='+host);
-const dominio = window.location.origin+'/';
+const dominio = origin + '/';
 //console.log('dominio='+dominio);
-const dominio1 = window.location.origin;
+const dominio1 = origin;
 //console.log('dominio1='+dominio1);
-const path_url = window.location.pathname;
+const path_url = pathname;
 //console.log('path_url='+path_url);
 const URL = window.location.href;
 console.log('URL='+URL);
