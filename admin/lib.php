@@ -467,7 +467,7 @@ global $page_url,$path_jsonDB,$path_jsonWS;
     $path_JSON=$path_jsonDB.$tabla.'.json';
     if(!file_exists($path_JSON)){$path_JSON=$page_url.$path_jsonWS.$tabla;}
     $path_JSON=($url_api)?$url_api:$path_JSON;//echo $path_JSON;
-    $objData=file_get_contents($path_JSON);//*Tarda consulta
+    $objData=file_get_contents($path_JSON);//*Tarda consulta //echo $objData;
     $Data=json_decode($objData,true);//usort($Data, function($a, $b){return strnatcmp($a['ord'], $b['ord']);});//Orden del menu
     return $Data;
 }
