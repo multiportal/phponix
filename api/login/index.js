@@ -12,16 +12,16 @@ const path_url = pathname;
 const URL = window.location.href;
 console.log('URL='+URL);
 
-var proyecto = 'apirestm'; //PROYECTO
+var proyecto = 'mandragora'; //PROYECTO
 //console.log('proyecto=' + proyecto);
 var path_root = (host=='localhost')?'MisSitios/' + proyecto + '/':'';
 //console.log('path_root='+path_root);
 var page_url = dominio+path_root;
 //console.log('page_url='+page_url);
-var api_login = 'api/login/';
-//console.log('api_login='+api_login);
-var url_login = page_url+api_login;
-//console.log('url_login='+url_login);
+var Api = page_url+'api';
+console.warn('Api='+Api);
+var api_login = Api+'/login/';
+console.log('api_login='+api_login);
 
 console.log('javascript funcionando');
 const formulario = document.getElementById('form_login');
@@ -38,7 +38,7 @@ function btnGuardar(e){
         password: p
     }
     //console.log(datos);
-    const url = url_login+'index.php';
+    const url = api_login+'index.php';
     fetch(url,{
         method: 'POST',
         headers: {
@@ -67,7 +67,7 @@ function btnGuardar(e){
 }
 
 const login = () => {
-    const url = url_login+'';
+    const url = api_login+'';
     fetch(url).then(res=>res.json()).then(resp=>{
         console.log(resp);
     })

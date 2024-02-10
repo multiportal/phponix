@@ -5,7 +5,7 @@ Author URI: https://www.multiportal.com.mx
 SISTEMA PHPONIX
 Version Actual: 2.8.3
 F.Creación: 26/03/2015
-F.Modficación: 11/05/2023
+F.Modficación: 03/02/2024
 Descripción: Aplicación web multiproposito.
 /**********************************************************
 v.2.8.3 - HTML_ISO
@@ -467,7 +467,7 @@ global $page_url,$path_jsonDB,$path_jsonWS;
     $path_JSON=$path_jsonDB.$tabla.'.json';
     if(!file_exists($path_JSON)){$path_JSON=$page_url.$path_jsonWS.$tabla;}
     $path_JSON=($url_api)?$url_api:$path_JSON;//echo $path_JSON;
-    $objData=file_get_contents($path_JSON);//*Tarda consulta //echo $objData;
+    $objData=file_get_contents($path_JSON);//*Tarda consulta
     $Data=json_decode($objData,true);//usort($Data, function($a, $b){return strnatcmp($a['ord'], $b['ord']);});//Orden del menu
     return $Data;
 }
@@ -507,7 +507,7 @@ global $page_url,$path_jsonDB,$path_jsonWS;//echo $tabla;
     $display=($crud!=0)?'':'none';
     $data=query_data($tabla,$url_api);//print_r($data);
     //CAMPOS
-    $i=0;
+    $i=0;$campos='';
     foreach($data as $key){$i++;
         if($i==1){
             foreach($key as $datos=>$value){
@@ -655,7 +655,7 @@ global $page_url;
 
 //[GET-SHOW][ID] Buscar ID/CAMPO y Mostrar un registro ///////////////////////////////////////////////
 function query_row($tabla,$campo,$id){
-    $data=query_data($tabla,$url_api);
+    $data=query_data($tabla,$url_api=null);
     //DATOS
     foreach($data as $key => $value){
         $b_id=$data[$key][$campo];
@@ -678,7 +678,7 @@ global $mysqli,$DBprefix;
 
 //Buscar un valor en especifico ////////////////////////////////////////////////////////////////////////
 function query_opc($tabla,$campo,$opcion,$val){
-    $data=query_data($tabla,$url_api);
+    $data=query_data($tabla,$url_api=null);
     foreach($data as $key => $value){
         $selec=$data[$key][$opcion];
         if($selec==$val){$dato=$data[$key][$campo];}
@@ -770,13 +770,13 @@ function listar_directorios_ruta($ruta){
 global $mysqli,$DBprefix,$mod,$ext,$id,$idp,$idf,$opc,$action,$dboard;
    // abrir un directorio y listarlo recursivo 
    if (is_dir($ruta)) { 
-      if ($dh = opendir($ruta)) { 
-         while (($file = readdir($dh)) !== false){ $i++; 
+      if ($dh = opendir($ruta)) { $i=0;
+         while (($file = readdir($dh)) !== false){ $i++; $carpeta='';
 			if (is_dir($ruta.$file) && $file!="." && $file!=".."){
 				if($mod=='sys' && $ext=='admin/index'){
 					$num_reg=($file==$dboard)?1:0;
 				}else{
-					$sql_modu=mysqli_query($mysqli,"SELECT * FROM ".$DBprefix."modulos WHERE modulo='{$file}' AND ID='{$_GET[id]}';") or print mysqli_error($mysqli); 
+					$sql_modu=mysqli_query($mysqli,"SELECT * FROM ".$DBprefix."modulos WHERE modulo='{$file}' AND ID='{$_GET['id']}';") or print mysqli_error($mysqli); 
 					$num_reg=mysqli_num_rows($sql_modu);
 				}
 				$sel=($num_reg==1)?'selected':'';
@@ -793,7 +793,7 @@ function select_dashboard($ruta){
 global $mysqli,$DBprefix,$mod,$ext,$id,$idp,$idf,$opc,$action,$dboard;
    // abrir un directorio y listarlo recursivo 
    if (is_dir($ruta)) { 
-      if ($dh = opendir($ruta)) { 
+      if ($dh = opendir($ruta)) { $i=0;$carpeta='';
          while (($file = readdir($dh)) !== false){ $i++; 
 			if (is_dir($ruta.$file) && $file!="." && $file!=".."){
 				$sql=mysqli_query($mysqli,"SELECT * FROM ".$DBprefix."config;") or print mysqli_error($mysqli); 
@@ -821,7 +821,7 @@ global $mysqli,$DBprefix,$mod;
  }else{
 	$ruta='./modulos/';
 	if(is_dir($ruta)){
-		if($dh=opendir($ruta)){
+		if($dh=opendir($ruta)){$i=0;
 			while(($file=readdir($dh))!==false){$i++;
 				if(is_dir($ruta.$file) && $file!="." && $file!=".."){
 					$modulo=$file;
@@ -1178,7 +1178,7 @@ if(!file_exists($path_JSON)){$path_JSON=$page_url.'bloques/ws/t/?t='.$css2;}
 	$objData=file_get_contents($path_JSON);
 	$Data=json_decode($objData,true);
 	usort($Data, function($a, $b){return strnatcmp($a['ID'], $b['ID']);});//Orden del menu
-	$i=0;
+	$i=0;$css_web='';
 	//if($_SESSION['level']!=-1){echo '<!-- .json -->'."\n\r";}else{echo '<!-- .json URL:('.$path_JSON.')-->'."\n\r";}	
 		foreach ($Data as $rowm){$i++;
 			$ID_css=$rowm['ID'];
@@ -1766,6 +1766,7 @@ function getRandomCode(){
   $n=(isset($_GET['pin']))?5:50;
   $an = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
   $su = strlen($an) - 1;
+  $code='';
   for($i=0;$i<=$n;$i++){
 	$code.=substr($an, rand(0, $su), 1);
   }
@@ -2234,7 +2235,7 @@ global $page_url,$path_root,$path_tema,$page_name;
 }
 
 function icon(){
-global $page_url,$path_tema,$page_name,$title,$description;
+global $page_url,$dominio,$path_tema,$page_name,$title,$description;
 	echo '<meta name="'.$page_name.'" content="Add to Home">
 	'.crear_manifest().'
 	<link  rel = "apple-touch-icon"  tallas = "57x57"  href = "'.$page_url.'bloques/WPA/icon/apple-icon-57x57.png" > 
@@ -2271,7 +2272,7 @@ global $page_url,$path_tema,$page_name,$title,$description;
 	';
 }
 
-function str_limit($value,$limit=100,$end){
+function str_limit($value,$end,$limit=100){
 	if (mb_strwidth($value, 'UTF-8') <= $limit) {
 		return $value;
 	}
