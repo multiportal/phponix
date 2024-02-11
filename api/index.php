@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>API - Pruebas</title>
-    <link rel="stylesheet" href="../assets/estilo.css" type="text/css">
+    <link rel="stylesheet" href="./assets/css/estilo.css" type="text/css">
 </head>
 <body>
 

@@ -69,7 +69,9 @@ function btnGuardar(e){
 const login = () => {
     const url = api_login+'';
     fetch(url).then(res=>res.json()).then(resp=>{
-        console.log(resp);
+        if(host=='localhost'){
+            console.log(resp);
+        }
     })
     .catch(err=>console.log(err));
 }
