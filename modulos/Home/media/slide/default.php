@@ -9,7 +9,9 @@
 const ban = document.querySelector('#banner1');
 setTimeout(() => {
 	if(ban){ //console.log('banner1', ban);
-		ban.style.backgroundImage = `url('<?php echo $page_url;?>modulos/Home/img/home.jpg')`;		
+		ban.style.backgroundImage = `url('<?php echo $page_url;?>modulos/Home/img/home.jpg')`;
+		ban.style.backgroundRepeat = 'no-repeat';
+		ban.style.backgroundPosition = 'center';
 	}
 }, 800);
 </script>

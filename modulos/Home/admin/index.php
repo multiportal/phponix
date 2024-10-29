@@ -1118,17 +1118,17 @@ $file='<input type="hidden" class="form-control" id="ima_top" name="ima_top" val
 <a href="javascript:up(1);">'.$sub.' Foto</a><div id="upload"></div>';
 
 if($_POST['Guardar']){
-$menu1=$_POST['menu'];
+$menu1=html_iso_text($_POST['menu']);
 $url1=$_POST['url'];
 $ord=$_POST['ord'];
 $modulo=$_POST['mo'];
 $ext1=$_POST['ext1'];
-$tit_sec=$_POST['tit_sec'];
+$tit_sec=html_iso_text($_POST['tit_sec']);
 $des_sec=$_POST['des_sec'];
 $ima_top=$_POST['ima_top'];
 $subm=$_POST['subm'];
 $visible=$_POST['visible'];
-html_iso($menu1,$tit_sec);
+//html_iso($menu1,$tit_sec);
 	if($menu1 == '' && $visible == ''){
 		$error = "  *Los campos estan vacios.\\n\\r"; $c++; 
 	}
