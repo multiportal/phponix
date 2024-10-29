@@ -663,6 +663,7 @@ function profile(){
 function fileUpload(){
     global $page_url, $conec, $table, $tab_signup;
 
+    $msjSave = ['Guardado en servidor','Guardado en base de datos','Guardado en servidor y en base de datos'];
     $email = (isset($_GET['email'])) ? $_GET['email'] : '';
     $blob = (isset($_GET['blob'])) ? $_GET['blob'] : '';
     $token = $_POST['token'];
@@ -691,7 +692,7 @@ function fileUpload(){
         $validExt = ($type == 'images') ? ['jpg', 'jpeg', 'png', 'gif'] : ['pdf'];
         $fileExtension = explode('.', $nombre_archivo);
         $fileExtension = strtolower(end($fileExtension));
-        $typeF = ($type == 'images') ? 'la imagen' : 'el archivo';
+        $typeF = ($type == 'images') ? 'La imagen' : 'El archivo';
 
         //compruebo si las características del archivo son las que deseo 
         if (!in_array($fileExtension, $validExt) || ($tamano_archivo > $limit)) {
@@ -710,7 +711,7 @@ function fileUpload(){
                 if ($insertar) {
                     $class = 'alert-success';
                     $status = 'Correcto';
-                    $msg = $typeF . ' se guardo correctamente.';
+                    $msg = $typeF . ' se guardo correctamente. '.$msjSave[$saveDB].'.';
                     //Extraer imagen de la BD mediante GET
                     $sql = $conec->prepare("SELECT * FROM upload_files WHERE nombre=:nombre");
                     $sql->bindValue(':nombre', $nombre_archivo);
@@ -732,7 +733,7 @@ function fileUpload(){
                 if (@move_uploaded_file($filec, $path_archivo)) {
                     $class = 'alert-success';
                     $status = 'Correcto';
-                    $msg = $typeF . ' se subio correctamente.';
+                    $msg = $typeF . ' se subio correctamente. '.$msjSave[$saveDB].'.';
                     $imgUrl = $page_url . 'api/upload/' . $path_archivo;
                 } else {
                     $class = 'alert-danger';

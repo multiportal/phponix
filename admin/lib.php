@@ -5,7 +5,7 @@ Author URI: https://www.multiportal.com.mx
 SISTEMA PHPONIX
 Version Actual: 2.8.3
 F.Creación: 26/03/2015
-F.Modficación: 03/02/2024
+F.Modficación: 10/02/2024
 Descripción: Aplicación web multiproposito.
 /**********************************************************
 v.2.8.3 - HTML_ISO
@@ -296,7 +296,7 @@ function borrar($tabla=NULL,$condiciones=NULL){
 	}
 	$sql= "DELETE FROM ".$tabla." WHERE ".$condiciones;	
 	$recurso = mysqli_query(conexion(),$sql);
-	return mysql_affected_rows();
+	return mysqli_affected_rows(conexion());
 }
 
 function consulta_tabla_ID($tabla,$ID,&$row){
@@ -1303,6 +1303,7 @@ global $cont_tema,$tema,$subtema,$path_t,$path_tema,$ruta_mod;
 global $ID_mod,$nombre_mod,$modulo_mod,$description_mod,$dashboard_mod,$nivel_mod,$home_mod,$visible_mod,$activo_mod,$sname_mod,$icono_mod,$link_mod,$qmod;
 global $style,$font_awesome,$bootstrap,$bootstrapjs,$javascript,$jQuery,$jQuery10,$base_target,$back;
 global $BLOCK,$path_dashboard,$slide;
+global $ndepa_login;
 user_login($ID_login,$username,$email_login,$nivel_login,$last_login,$tema_login,$nombre_login,$apaterno_login,$amaterno_login,$foto_login,$cover_login,$tel_login,$ext_login,$fnac_login,$fb_login,$tw_login,$puesto_login,$ndepa_login,$depa_login,$empresa_login,$adress_login,$direccion_login,$mpio_login,$edo_login,$genero_login,$exp_login,$like_login,$filtro_login,$zona_login,$alta_login,$actualizacion_login,$page_login,$nivel_oper_login,$rol_login);
 
 $mod=$_GET['mod'];
@@ -1357,6 +1358,7 @@ global $ID_mod,$nombre_mod,$modulo_mod,$description_mod,$dashboard_mod,$nivel_mo
 global $style,$font_awesome,$bootstrap,$bootstrapjs,$javascript,$jQuery,$jQuery10,$base_target,$back;
 global $BLOCK,$path_dashboard,$slide;
 global $dominio,$dominio1;
+global $ndepa_login;
 user_login($ID_login,$username,$email_login,$nivel_login,$last_login,$tema_login,$nombre_login,$apaterno_login,$amaterno_login,$foto_login,$cover_login,$tel_login,$ext_login,$fnac_login,$fb_login,$tw_login,$puesto_login,$ndepa_login,$depa_login,$empresa_login,$adress_login,$direccion_login,$mpio_login,$edo_login,$genero_login,$exp_login,$like_login,$filtro_login,$zona_login,$alta_login,$actualizacion_login,$page_login,$nivel_oper_login,$rol_login);
   if($url==$dominio.$path_root.'index.php' && $mod!='' && $mod!=NULL){
 	if($mod!=$qmod && $activo_mod!=1){

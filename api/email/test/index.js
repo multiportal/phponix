@@ -21,7 +21,7 @@ const dominio = origin + '/';
 const dominio1 = origin;
 //console.log('dominio1='+dominio1);
 const path_url = pathname;
-//console.log('path_url='+path_url);
+console.log('path_url='+path_url);
 const URL = href;
 console.log('URL=' + URL);
 
@@ -61,12 +61,14 @@ function btnEnviar(e) {
     }).then(res => res.json()).then(resp => {
         console.log(resp);
         const {status_send} = resp; //console.log(status_send);
+        //let divForm = document.getElementById('wpforms-6'); //console.log(divForm.outerHTML);
+        let form = document.getElementById('wpforms-form-6'); //console.log(form.innerHTML);
         if(status_send == 'ok'){
-            formulario.reset();
-            let divForm = document.getElementById('wpforms-6');
-            divForm.innerHTML = `<div class="wpforms-confirmation-container-full wpforms-confirmation-scroll" id="wpforms-confirmation-6"><p>¡Gracias por contactarnos! Nos pondremos en contacto pronto.</p></div>`;
+            form.reset();
+            form.innerHTML = `<div class="wpforms-confirmation-container-full wpforms-confirmation-scroll" id="wpforms-confirmation-6"><p>¡Gracias por contactarnos! Nos pondremos en contacto pronto.</p></div>`;
         }else{
-            let errMsj =`<div class="wpforms-error-container"><p>No ha sido posible enviar el formulario. Por favor, contacta al administrador del sitio.</p></div>${formulario.outerHTML}`;
+            let errMsj =`<div class="wpforms-error-container"><p>No ha sido posible enviar el formulario. Por favor, contacta al administrador del sitio.</p></div>${form.innerHTML}`;
+            if(href=='http://localhost/MisSitios/arkon-test/web/' || href=='https://memojl.github.io/arkon-test/docs/template.html' || href=='https://arkon-test.web.app/web/'){ form.innerHTML = errMsj; }
             console.log(errMsj);
         }
     })

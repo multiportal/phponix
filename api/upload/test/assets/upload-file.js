@@ -26,7 +26,7 @@ var url_upload = page_url+api_upload;
 //console.log('url_upload='+url_upload);
 
 var email='multiportal@outlook.com';
-var save = 1;
+var save = 0;// [0 => 'Guardar en Servidor',1 => 'Guardar en base de datos', 2 => 'Guardar en servidor y en base de datos.']; 
 const formUpload = document.querySelector('#formUpload');//document.getElementById('formUpload');
 
 const upLoad = (e) => {
