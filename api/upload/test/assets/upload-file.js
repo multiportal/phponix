@@ -13,22 +13,29 @@ const path_url = pathname;
 //console.log('path_url='+path_url);
 const URL = window.location.href;
 //console.log('URL='+URL);
-
-var proyecto = 'apirestm'; //PROYECTO
-//console.log('proyecto=' + proyecto);
+/** CONFIG **/
+const proyecto = 'phponix'; //PROYECTO
+const activeApi = true;//Activar API
+const activeLocal = false;//Local
+const save = 1;// [0 => 'Guardar en Servidor',1 => 'Guardar en base de datos', 2 => 'Guardar en servidor y en base de datos.']; 
+const email='multiportal@outlook.com';
+/***********/
+const api = activeApi ? 'api/':'';
+const inc = activeLocal ? 'files/':'';
+const apiLog = activeApi ? 'Api: Activada':'Api: Desactivada';
+const saveLog = ['Guardar en Servidor','Guardar en base de datos','Guardar en servidor y en base de datos.'];
+/***********/
 var path_root = (host=='localhost')?'MisSitios/' + proyecto + '/':'';
 //console.log('path_root='+path_root);
 var page_url = dominio+path_root;
-//console.log('page_url='+page_url);
-var api_upload = 'api/upload/';
+console.log('page_url='+page_url);
+var api_upload = api+'upload/'+inc;
 //console.log('api_upload='+api_upload);
 var url_upload = page_url+api_upload;
-//console.log('url_upload='+url_upload);
-
-var email='multiportal@outlook.com';
-var save = 0;// [0 => 'Guardar en Servidor',1 => 'Guardar en base de datos', 2 => 'Guardar en servidor y en base de datos.']; 
+console.log('url_upload='+url_upload);
+console.log('*** CONFIGURACION '+proyecto+' ***',apiLog,'Modo: '+saveLog[save]);
+if(save>0 && activeLocal){console.warn('PRECAUCION: La configuración actual no va funcionar.');}
 const formUpload = document.querySelector('#formUpload');//document.getElementById('formUpload');
-
 const upLoad = (e) => {
     console.log(e);
     const tar = e.srcElement.parentElement.parentElement; console.log(tar);
@@ -47,7 +54,7 @@ const upLoad = (e) => {
     type = type.includes('image') ? 'images' : 'pdf'; //console.log(type);
     const formData = new FormData();
     formData.append("file", file); //console.log(formData);
-    const CLOUD_URL = url_upload+'index.php?type=' + type + '&blob=0&save=' + save + '&email=' + email; //console.log(CLOUD_URL);
+    const CLOUD_URL = url_upload+'index.php?type=' + type + '&blob=0' + (save>=0 ? '&save='+save:'') + (email ? '&email='+email:'') + (proyecto ? '&proyecto='+proyecto+'/'+api:''); //console.log(CLOUD_URL);
     const data = {
         method: "POST",
         //headers: {'Content-Type':'image/jpeg'},//headers: {'Content-Type': 'multipart/form-data','Content-Type': 'application/json'},

@@ -1,23 +1,16 @@
 const imagePreview = document.getElementById('img-cover');
 const imageUploader = document.getElementById('cover');
 const upBar = document.getElementById('bar');
-
-
+const proyecto = 'apirestm/api';
 const host = window.location.host;
-if(host!='localhost'){
-    const CLOUD_URL='https://cloudvcard.000webhostapp.com/bloques/files/admin/backend.php?action=subir_cover';
-}else{
-    const CLOUD_URL='https://localhost/MisSitios/cloudphp/bloques/files/admin/backend.php?action=subir_cover';
-}
-
+const urlServer =  host!='localhost' ? 'https://cloudvcard.000webhostapp.com':'http://localhost/MisSitios/'+proyecto;
+const CLOUD_URL= urlServer + '/upload/files/includes/backend.php?proyecto='+proyecto;
 //const CLOUD_UPLOAD_PRESET='clrzlkjw';
 imageUploader.addEventListener('change', async (e)=>{
     const file = e.target.files[0];
-
     const formData = new FormData();
     formData.append('file', file);
     //formData.append('upload_preset', CLOUD_UPLOAD_PRESET);
-
     const res = await axios.post(CLOUD_URL, formData, {
         headers: {
             'Content-Type': 'multipart/form-data'
@@ -29,6 +22,5 @@ imageUploader.addEventListener('change', async (e)=>{
         }
     });
     console.log(res);
-    imagePreview.src=res.data.secure_url;
-
+    imagePreview.src = res.data.url;//res.data.secure_url;
 });

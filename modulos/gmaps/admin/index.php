@@ -23,10 +23,10 @@ switch(true){
 switch(true){
  case($action=='add'):
 if($_POST['Guardar']){
-	$nombre=$_POST['nom'];
-	$adres=$_POST['adres'];
-	$des=$_POST['descripcion'];
-	$info=$_POST['info'];
+	$nombre=html_iso_text($_POST['nom']);
+	$adres=html_iso_text($_POST['adres']);
+	$des=html_iso_text($_POST['descripcion']);
+	$info=html_iso_text($_POST['info']);
 	$precio=$_POST['precio'];
 	$tel=$_POST['tel'];
 	$cover=$_POST['cover'];
@@ -38,7 +38,7 @@ if($_POST['Guardar']){
 	//$fmod=$_POST['fmod'];
 	$visible=$_POST['visible'];
 	$activo=$_POST['activo'];
-	html_iso($nombre,$adres,$des,$info);
+	//html_iso($nombre,$adres,$des,$info);
     if($nombre=='' && $info==''){
         $error = " *Los campos estan vacios.\\n\\r"; $c++; 
     }
@@ -207,10 +207,10 @@ if($reg=mysqli_fetch_array($sqle)){
 }
  
 if($_POST['Guardar']){
-	$nombre=$_POST['nom'];
-	$adres=$_POST['adres'];
-	$des=$_POST['descripcion'];
-	$info=$_POST['info'];
+	$nombre=html_iso_text($_POST['nom']);
+	$adres=html_iso_text($_POST['adres']);
+	$des=html_iso_text($_POST['descripcion']);
+	$info=html_iso_text($_POST['info']);
 	$precio=$_POST['precio'];
 	$tel=$_POST['tel'];
 	$cover=$_POST['cover'];
@@ -222,7 +222,7 @@ if($_POST['Guardar']){
 	$fmod=$_POST['fmod'];
 	$visible=$_POST['visible'];
 	$activo=$_POST['activo'];
-	html_iso($nombre,$adres,$des,$info);
+	//html_iso($nombre,$adres,$des,$info);
     if($nombre=='' && $info==''){
         $error = " *Los campos estan vacios.\\n\\r"; $c++; 
     }

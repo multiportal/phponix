@@ -350,6 +350,9 @@ include	'./modulos/estadisticas/chartjs.php';
   });
 </script>
 
+<!-- Nestable [MENU DRAG & DROP] -->
+<script src="<?php echo $page_url;?>assets/js/jquery.nestable.js"></script>
+
 <!--script src="https://cdn.jsdelivr.net/npm/sweetalert2@9.14.4/dist/sweetalert2.all.min.js"></script-->
 <script src="<?php echo $page_url;?>assets/js/sweetalert2.all.min.js"></script>
 <?php 

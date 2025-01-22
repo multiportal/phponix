@@ -1,14 +1,4 @@
 <?php 
-function html_iso(&$page_name1,&$title1,&$keywords1,&$description1){
-global $chartset;
- if($chartset=='iso-8859-1'){
-	$page_name1 = htmlentities($page_name1, ENT_COMPAT,'ISO-8859-1', true);
-	$title1 = htmlentities($title1, ENT_COMPAT,'ISO-8859-1', true);
-	$keywords1 = htmlentities($keywords1, ENT_COMPAT,'ISO-8859-1', true);	
-	$description1 = htmlentities($description1, ENT_COMPAT,'ISO-8859-1', true);
- }
-}
-
 function analytics(&$google_analytics1){
  $google_analytics1=str_replace("'","\'",$google_analytics1);
 }

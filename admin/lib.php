@@ -687,10 +687,16 @@ function query_opc($tabla,$campo,$opcion,$val){
 }
 
 function sql_opc($tabla,$campo,$opcion,$val){
-global $mysqli,$DBprefix;//$mysqli=conexion();
-    $sql=mysqli_query($mysqli,"SELECT * FROM ".$DBprefix.$tabla." WHERE {$opcion}='{$val}';") or print mysqli_error($mysqli); 
-    if($row=mysqli_fetch_array($sql)){$dato=$row[$campo];}
-    return $dato;
+global $mysqli,$DBprefix,$bootstrap;
+	try{
+    	$sql=mysqli_query($mysqli,"SELECT * FROM ".$DBprefix.$tabla." WHERE {$opcion}='{$val}';") or print mysqli_error($mysqli); 
+    	if($row=mysqli_fetch_array($sql)){$dato=$row[$campo];}
+    	return $dato;
+	} catch (Exception $e) {
+		echo '<link href="./assets/bootstrap/bootstrap.css" rel="stylesheet" type="text/css">';
+		echo '<div class="alert alert-danger mb-0">Error: La tabla: '.$DBprefix.$tabla.' no existe.</div>';
+		if($tabla=='config'){exit();}
+	}
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -2335,4 +2341,3 @@ global $chartset;
 	$text = ($chartset=='iso-8859-1')?htmlentities($text, ENT_COMPAT,'ISO-8859-1', true):htmlentities($text);
 	return $text;
 }
-?>

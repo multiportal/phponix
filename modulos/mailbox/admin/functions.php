@@ -1,14 +1,4 @@
 <?php
-function html_iso(&$nombre,&$email,&$subject,&$msj){
-global $chartset;
- if($chartset=='iso-8859-1'){
- 	$nombre = htmlentities($nombre, ENT_COMPAT,'ISO-8859-1', true);
-	$email=htmlentities($email, ENT_COMPAT,'ISO-8859-1', true);
-	$subject = htmlentities($subject, ENT_COMPAT,'ISO-8859-1', true);
-	$msj = htmlentities($msj, ENT_COMPAT,'ISO-8859-1', true);	
- }
-}
-
 function html_iso_mailbox(&$m_nombre,&$m_asunto){
 global $chartset;
  if($chartset=='iso-8859-1'){

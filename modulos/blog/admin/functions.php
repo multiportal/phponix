@@ -8,7 +8,7 @@ include 'conf_' . $tab . '.php';
 function url_api(){
 global $host, $page_url;
     $tabla = table();
-    $t = ($host=='phponix.webcindario.com') ? '?tabla='.$tabla : $tabla.'/';
+    $t = ($host=='phponixdev.webcindario.com') ? '?tabla='.$tabla : $tabla.'/';
     return $page_url . 'api/v2/' . $t;
 }
 $btn_modal = ($bmodal == 1) ? 'data-toggle="modal" data-target="#modalForm"' : '';

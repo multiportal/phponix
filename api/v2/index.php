@@ -15,7 +15,7 @@ switch ($_SERVER['REQUEST_METHOD']) {
     insert();
   break;
   case 'GET':
-    if($tabla == 'upload_files'){
+    if($tabla == $DBprefix.'upload_files'){
       tableUploadFiles($id);
     }else{
       if($sel_apiType=='restfull'){

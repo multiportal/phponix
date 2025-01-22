@@ -3,7 +3,7 @@
 	"short_name": "PHP ONIX",
 	"description": "PHP Onix - El mejor CMS para crear y administrar tu sitio web. Gestor de contenido web.",
 	"scope": ".",
-	"start_url": "http://localhost/MisSitios/phponix/",
+	"start_url": "http://localhost/MisSitios/phponixdev/",
 	"display": "standalone",
 	"orientation": "portrait",
 	"theme_color": "#000",

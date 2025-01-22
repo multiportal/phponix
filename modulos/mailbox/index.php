@@ -90,12 +90,12 @@ if(isset($_POST['enviar']) || isset($_POST['aceptar'])){
 	//$nombre=$nom.' '.$ape;
 	//$tel=$_POST['tel'];
 	$email=$_POST['email'];
-	$subject=$_POST['subject'];
-	$msj=$_POST['compose-textarea'];
+	$subject=html_iso_text($_POST['subject']);
+	$msj=html_iso_text($_POST['compose-textarea']);
 	//$nombre = htmlentities($nombre, ENT_COMPAT,'ISO-8859-1', true);
 	//$nombre = htmlentities($nombre);
 	
-	html_iso($nombre,$email,$subject,$msj);    
+	//html_iso($nombre,$email,$subject,$msj);    
 	if($email=='' && $subject=='' && $msj==''){
         $error = " <b>Los campos estan vacios.</b>\n\r"; $c++;
     }

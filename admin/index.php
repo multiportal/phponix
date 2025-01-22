@@ -16,4 +16,3 @@ comprobar($form_login,$log_usuarios,$sal,$ses,$log,$U,$P);
 open_page_form();
 include '../modulos/'.$log_usuarios;
 close_page();
-?>

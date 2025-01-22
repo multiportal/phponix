@@ -661,7 +661,7 @@ function profile(){
 }
 
 function fileUpload(){
-    global $page_url, $conec, $table, $tab_signup;
+    global $page_url, $conec, $DBprefix, $table, $tab_signup;
 
     $msjSave = ['Guardado en servidor','Guardado en base de datos','Guardado en servidor y en base de datos'];
     $email = (isset($_GET['email'])) ? $_GET['email'] : '';
@@ -677,14 +677,14 @@ function fileUpload(){
     if ($json) {
         $type = (isset($_GET['type'])) ? $_GET['type'] : '';
         $saveDB = (isset($_GET['save'])) ? $_GET['save'] : '';
-        $imgUrl = './../file/images/nodisponible1.jpg';
+        $imgUrl = './../files/images/nodisponible1.jpg';
         $msg_box = '';
         //datos del arhivo 
-        $repositor = ($type == 'images') ? 'file/images' : 'file/docs';
+        $repositor = ($type == 'images') ? 'files/images' : 'files/docs';
         $nombre_archivo = $_FILES['file']['name'];
         $tipo_archivo = $_FILES['file']['type'];
         $tamano_archivo = $_FILES['file']['size'];
-        $filec = $_FILES['file']['tmp_name'];
+        $file_tmp = $_FILES['file']['tmp_name'];
         $path_archivo = $repositor . "/" . $nombre_archivo;
         //Config del archivo
         $maxSize = 1; //MB
@@ -702,9 +702,9 @@ function fileUpload(){
         } else {
             //Compruebo donde se va guardar en el servidor o en DB
             if ($saveDB == 1 || $saveDB == 2) {
-                $fileContenido = addslashes(file_get_contents($filec)); //*Solo permite procesar un 1MB.
+                $file_tmpontenido = addslashes(file_get_contents($file_tmp)); //*Solo permite procesar un 1MB.
                 //Insertar imagen en la base de datos
-                $insertar = "INSERT INTO upload_files (nombre, type_file, filec, created_at) VALUES ('$nombre_archivo', '$tipo_archivo', '$fileContenido', now())";
+                $insertar = "INSERT INTO {$DBprefix}upload_files (nombre, type_file, filec, created_at) VALUES ('$nombre_archivo', '$tipo_archivo', '$file_tmpontenido', now())";
                 $insertar = $conec->prepare($insertar);
                 $insertar->execute();
                 // Condicional para verificar la subida del fichero
@@ -713,7 +713,7 @@ function fileUpload(){
                     $status = 'Correcto';
                     $msg = $typeF . ' se guardo correctamente. '.$msjSave[$saveDB].'.';
                     //Extraer imagen de la BD mediante GET
-                    $sql = $conec->prepare("SELECT * FROM upload_files WHERE nombre=:nombre");
+                    $sql = $conec->prepare("SELECT * FROM {$DBprefix}upload_files WHERE nombre=:nombre");
                     $sql->bindValue(':nombre', $nombre_archivo);
                     $sql->execute();
                     $numRows = $sql->rowCount();
@@ -730,7 +730,7 @@ function fileUpload(){
             }
 
             if ($saveDB == '' || $saveDB == 0 || $saveDB == 2) {
-                if (@move_uploaded_file($filec, $path_archivo)) {
+                if (@move_uploaded_file($file_tmp, $path_archivo)) {
                     $class = 'alert-success';
                     $status = 'Correcto';
                     $msg = $typeF . ' se subio correctamente. '.$msjSave[$saveDB].'.';
@@ -766,11 +766,11 @@ function fileUpload(){
 
 /*************************************/
 function tableUploadFiles($id){
-    global $conec, $page_url;
+    global $conec, $DBprefix, $page_url;
     $data = [];
     $imgUrl = '';
     $q = ($id) ? " WHERE ID=?" : "";
-    $sql = $conec->prepare("SELECT * FROM upload_files" . $q);
+    $sql = $conec->prepare("SELECT * FROM {$DBprefix}upload_files" . $q);
     ($id) ? $sql->execute([$id]) : $sql->execute();
     $tot = $sql->rowCount();
     if ($sql) {
@@ -806,10 +806,10 @@ function tableUploadFiles($id){
 }
 
 function blobImage($q){
-    global $conec, $bootstrap, $ex_scfg;
+    global $conec, $DBprefix, $bootstrap, $ex_scfg;
     $bootstrap = ($ex_scfg == 1) ? $bootstrap : '<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">';
     //Extraer imagen de la BD mediante GET
-    $sql = $conec->prepare("SELECT * FROM upload_files WHERE ID=:ID OR nombre=:ID");
+    $sql = $conec->prepare("SELECT * FROM {$DBprefix}upload_files WHERE ID=:ID OR nombre=:ID");
     $sql->bindValue(':ID', $q);
     $sql->execute();
     $numRows = $sql->rowCount();

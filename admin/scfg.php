@@ -1,5 +1,5 @@
 <?php 
-$h_s='phponix.webcindario.com';
+$h_s='phponixdev.webcindario.com';
 if($_SERVER['HTTP_HOST']==$h_s || $_SERVER['HTTP_HOST']=='www.'.$h_s){
     // Localhost Production
     $db_host = "mysql.webcindario.com";
@@ -18,7 +18,7 @@ if($_SERVER['HTTP_HOST']==$h_s || $_SERVER['HTTP_HOST']=='www.'.$h_s){
 }
 // Settings
 $config = [
-    "driver" => "mysql",
+    "driver" => "mysqli",
     "host" => $db_host,
     "database" => $db_base,
     "username" => $db_user,
@@ -48,4 +48,3 @@ define('DB_PASSWORD',$config['password']);
 define('DB_DB',$config['database']);
 define('DB_PORT',$config['port']);
 define('DB_CHARSET',$config['charset']);
-?>

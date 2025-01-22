@@ -6,11 +6,9 @@ const CLOUD_URL='https://api.cloudinary.com/v1_1/vcardapp/image/upload';
 const CLOUD_UPLOAD_PRESET='clrzlkjw';
 imageUploader.addEventListener('change', async (e)=>{
     const file = e.target.files[0];
-
     const formData = new FormData();
     formData.append('file', file);
     formData.append('upload_preset', CLOUD_UPLOAD_PRESET);
-
     const res = await axios.post(CLOUD_URL, formData, {
         headers: {
             'Content-Type': 'multipart/form-data'
@@ -23,5 +21,4 @@ imageUploader.addEventListener('change', async (e)=>{
     });
     console.log(res);
     imagePreview.src=res.data.secure_url;
-
 });
