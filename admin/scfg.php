@@ -18,7 +18,7 @@ if($_SERVER['HTTP_HOST']==$h_s || $_SERVER['HTTP_HOST']=='www.'.$h_s){
 }
 // Settings
 $config = [
-    "driver" => "mysqli",
+    "driver" => "mysqli+API",
     "host" => $db_host,
     "database" => $db_base,
     "username" => $db_user,

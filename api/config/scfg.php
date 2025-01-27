@@ -1,5 +1,5 @@
 <?php 
-$h_s='phponix.webcindario.com';
+$h_s='phponixdev.webcindario.com';
 if($_SERVER['HTTP_HOST']==$h_s || $_SERVER['HTTP_HOST']=='www.'.$h_s){
     // Localhost Production
     $db_host = "mysql.webcindario.com";

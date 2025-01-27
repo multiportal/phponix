@@ -39,6 +39,21 @@ $mysqli = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_DB); //conexión ala base
     }
 }
 
+//CONEXION PDO MYSQLI
+function connect_mysqli_PDO(){
+    try {
+        $mysqli = new PDO("mysql:host=".DB_HOST.";dbname=".DB_DB.";charset=utf8mb4", DB_USER, DB_PASSWORD);
+        // set the PDO error mode to exception
+        $mysqli->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        return $mysqli;
+    } catch (PDOException $exception) {
+        // Mostrar mensaje de error y cargar página personalizada
+		echo '<div class="alert alert-danger mb-0">500 Internal Server Error: No se ha podido conectar al servidor MySQL o a la base de datos.</div>';
+		//include './500.php'; // Página de error
+		exit(); // Terminar ejecución
+    }
+}
+
 //CONEXION SQLITE
 function connect_sqlite($dbSQLite){
     $sqlite = new PDO("sqlite:".$dbSQLite);
@@ -50,6 +65,7 @@ function connect_sqlite($dbSQLite){
 }
 
 /*Function to check driver **************************************************/
+//echo $config['driver'];
 switch ($config['driver']) {
     case 'sqlsrv':
         $conec = connect_pdo();
@@ -60,11 +76,14 @@ switch ($config['driver']) {
     case 'mysqli':
         $conec = connect_mysqli();
     break;
+    case 'mysqliPDO':
+		$conec = connect_mysqli_PDO();
+	break;
     case 'sqlite':
         $conec = connect_sqlite($dbSQLite);
     break;
     default:
-        $conec = connect_pdo();
+        $conec = connect_mysqli_PDO();
     break;
 }
 

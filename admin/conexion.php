@@ -34,7 +34,7 @@ function connect_mysqli() {
 }
 
 //CONEXION PDO MYSQLI
-function connect_PDO_mysqli(){
+function connect_mysqli_PDO(){
     try {
         $mysqli = new PDO("mysql:host=".DB_HOST.";dbname=".DB_DB.";charset=utf8mb4", DB_USER, DB_PASSWORD);
         // set the PDO error mode to exception
@@ -69,7 +69,7 @@ function conecta(){
 	}
 }
 
-$conec = connect_PDO_mysqli();
+$conec = connect_mysqli_PDO();
 
 //COMPROBACION DE CONEXION AL SERVIDOR
 /*$mysqli=@mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD);
@@ -87,25 +87,26 @@ if(!$mysqli){
 }*/
 
 /*Function to check driver **************************************************/
+//echo $config['driver'];
 switch ($config['driver']) {
 	case 'sqlsrv':
 		$mysqli = connect_pdo();
-		break;
+	break;
 	case 'mysql':
 		$mysqli = connect_pdo();
-		break;
+	break;
 	case 'mysqli':
 		$mysqli = connect_mysqli();
-		break;
+	break;
 	case 'mysqliPDO':
-		$mysqli = connect_PDO_mysqli();
-		break;
+		$mysqli = connect_mysqli_PDO();
+	break;
 	case 'sqlite':
 		$mysqli = connect_sqlite($dbSQLite);
-		break;
+	break;
 	default:
-		$mysqli = connect_PDO_mysqli();
-		break;
+		$mysqli = connect_mysqli();
+	break;
 }
 
 include 'lib.php';
