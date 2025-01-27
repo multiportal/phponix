@@ -72,11 +72,17 @@ $login='<a href="'.$page_url.'login/">Login</a>';
 /*---------------------------------------------------------------------------------------------------------------------*/
 function sql_opc($tabla,$campo,$opcion,$val){
 global $conec,$DBprefix;//$mysqli=conexion();
-    $sql="SELECT * FROM ".$DBprefix.$tabla." WHERE {$opcion}='{$val}';";
-    $query=$conec->prepare($sql);
-    $query->execute();
-    if($row=$query->fetch()){$dato=$row[$campo];}
-    return $dato;
+    try{
+        $sql="SELECT * FROM ".$DBprefix.$tabla." WHERE {$opcion}='{$val}';";
+        $query=$conec->prepare($sql);
+        $query->execute();
+        if($row=$query->fetch()){$dato=$row[$campo];}
+        return $dato;
+    } catch (Exception $e) {
+        echo '<link href="../../assets/bootstrap/bootstrap.css" rel="stylesheet" type="text/css">';
+        echo '<div class="alert alert-danger mb-0">Error: La tabla '.$DBprefix.$tabla.' no existe.</div>';
+        if($tabla=='config'){exit();}
+    }
 }
 
 ?>
