@@ -122,11 +122,13 @@ function storeAll($id){
     $q = ($id) ? " WHERE " . $IdT . "=?" : "";
     $sql = $conec->prepare("SELECT * FROM " . $tabla . $q);
     ($id) ? $sql->execute([$id]) : $sql->execute();
-    $tot = $sql->rowCount();
+    $sql->setFetchMode(PDO::FETCH_ASSOC);
+    $rows = $sql->fetchAll(); // Obtiene todas las filas
+    $tot = count($rows); // Cuenta el número de filas correctamente //$tot = $sql->rowCount();
     if ($sql) {
         if ($tot > 0) {
-            $sql->setFetchMode(PDO::FETCH_ASSOC);
-            $data = $sql->fetchAll(); //$data[]=$json;
+            //$sql->setFetchMode(PDO::FETCH_ASSOC);
+            $data = $rows;//$sql->fetchAll(); //$data[]=$json;
         } else {
             if ($id > 0) {
                 Error('Registro no encontrado.');
@@ -135,7 +137,7 @@ function storeAll($id){
         }
         header("HTTP/1.1 200 OK");
         header('Content-Type: application/json');
-        $meta = array("status" => "success", "http_code" => 200, "date_time" => date('c'), "message" => "ok");
+        $meta = array("status" => "success", "http_code" => 200, "date_time" => date('c'), "message" => "ok","table" => $tabla);
         $page = array("total_count" => $tot, "page" => 1, "page_size" => 1); //Calcular
         if ($sel_apiType == 'restfull') {
             $res['apiType'] = $sel_apiType;
@@ -162,9 +164,10 @@ function all(){
     global $conec, $tabla, $sel_apiType, $sel_sesionToken;
     $sql = $conec->prepare("SELECT * FROM $tabla");
     $sql->execute();
-    $tot = $sql->rowCount();
+    //$tot = $sql->rowCount();
     $sql->setFetchMode(PDO::FETCH_ASSOC);
     $data = $sql->fetchAll(); //$data[]=$json;
+    $tot = count($data);
     //mysqli_set_charset($conec, 'utf8');
     header("HTTP/1.1 200 OK");
     header('Content-Type: application/json');
@@ -702,10 +705,12 @@ function fileUpload(){
         } else {
             //Compruebo donde se va guardar en el servidor o en DB
             if ($saveDB == 1 || $saveDB == 2) {
-                $file_tmpontenido = addslashes(file_get_contents($file_tmp)); //*Solo permite procesar un 1MB.
+                $file_tmpontenido = file_get_contents($file_tmp);
+                //$file_tmpontenido = addslashes(file_get_contents($file_tmp)); //*Solo permite procesar un 1MB.
                 //Insertar imagen en la base de datos
-                $insertar = "INSERT INTO {$DBprefix}upload_files (nombre, type_file, filec, created_at) VALUES ('$nombre_archivo', '$tipo_archivo', '$file_tmpontenido', now())";
+                $insertar = "INSERT INTO {$DBprefix}upload_files (nombre, type_file, filec, created_at) VALUES ('{$nombre_archivo}', '{$tipo_archivo}', :contenido, CURRENT_TIMESTAMP)";
                 $insertar = $conec->prepare($insertar);
+                $insertar->bindParam(':contenido', $file_tmpontenido, PDO::PARAM_LOB);
                 $insertar->execute();
                 // Condicional para verificar la subida del fichero
                 if ($insertar) {
@@ -716,9 +721,9 @@ function fileUpload(){
                     $sql = $conec->prepare("SELECT * FROM {$DBprefix}upload_files WHERE nombre=:nombre");
                     $sql->bindValue(':nombre', $nombre_archivo);
                     $sql->execute();
-                    $numRows = $sql->rowCount();
+                    $row = $sql->fetch(PDO::FETCH_ASSOC);
+                    $numRows = count($row);//$sql->rowCount();
                     if ($numRows > 0) {
-                        $row = $sql->fetch(PDO::FETCH_ASSOC);
                         $imgUrl = ($blob==1)? strval($page_url.'api/upload/blob.php?id='.$row['ID']) : 'data:' . $tipo_archivo . ';base64,' . base64_encode($row['filec']);
                         //$imgUrl = strval($page_url.'api/upload/blob.php?id='.$row['ID']);
                     }
@@ -772,11 +777,12 @@ function tableUploadFiles($id){
     $q = ($id) ? " WHERE ID=?" : "";
     $sql = $conec->prepare("SELECT * FROM {$DBprefix}upload_files" . $q);
     ($id) ? $sql->execute([$id]) : $sql->execute();
-    $tot = $sql->rowCount();
+    $rows = $sql->fetchAll(PDO::FETCH_ASSOC);
+    $tot = count($rows);//$sql->rowCount();
     if ($sql) {
         if ($tot > 0) {
             $i = -1; // hidden array num
-            $rows = $sql->fetchAll(PDO::FETCH_ASSOC);
+            
             foreach ($rows as $key) {
                 $i++;
                 $ID = $key['ID'];
@@ -812,9 +818,10 @@ function blobImage($q){
     $sql = $conec->prepare("SELECT * FROM {$DBprefix}upload_files WHERE ID=:ID OR nombre=:ID");
     $sql->bindValue(':ID', $q);
     $sql->execute();
-    $numRows = $sql->rowCount();
+    $row = $sql->fetch(PDO::FETCH_ASSOC);
+    $numRows = count($row);//$sql->rowCount();
     if ($numRows > 0) {
-        $row = $sql->fetch(PDO::FETCH_ASSOC);
+        
         $imgUrl = $row['filec'];
         //Mostrar Imagen
         header("Content-type: " . $row['type_file']);

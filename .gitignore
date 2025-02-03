@@ -11,6 +11,6 @@ _template/
 /api/v2/includes/scfg.php
 /admin/scfg.php
 
-*.db
+#*.db
 .env
 .vscode
