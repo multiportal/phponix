@@ -472,6 +472,15 @@ global $page_url,$path_jsonDB,$path_jsonWS;
     return $Data;
 }
 
+function query_data1($ordActive,$url_api){
+    $objData=file_get_contents($url_api);
+	$Data=json_decode($objData,true);
+	if($ordActive){
+		usort($Data, function($a, $b){return strnatcmp($a['ord'], $b['ord']);});//Orden del menu
+	}
+	return $Data;
+}
+
 function query_data2($ord,$tabla,$url_api){
 global $page_url,$path_jsonDB,$path_jsonWS;
     $path_JSON=$path_jsonDB.$tabla.'.json';

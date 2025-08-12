@@ -38,7 +38,7 @@ switch(true){
 					$contenido=$row['contenido'];
 					$tag=$row['tag'];
 					$cate=($row['cate']!='')?$row['cate']:'Sin Categoría';
-					$autor=row['autor'];
+					$autor=$row['autor'];
 					$fmod=$row['fmod'];
 					$alta=$row['fecha'];
 					$visible=$row['visible'];

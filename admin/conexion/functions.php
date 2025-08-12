@@ -84,7 +84,6 @@ global $page_url,$path_jsonDB,$path_jsonWS;
 	$path_JSON=$path_jsonDB.$tabla.'.json';
 	if(!file_exists($path_JSON)){$path_JSON=$page_url.$path_jsonWS.$tabla;}
 	$path_JSON=($url_api)?$url_api:$path_JSON;
-	//echo $path_JSON;
 	$objData=file_get_contents($path_JSON);
 	$Data=json_decode($objData,true);
 	usort($Data, function($a, $b){return strnatcmp($a['ord'], $b['ord']);});//Orden del menu
@@ -92,6 +91,9 @@ global $page_url,$path_jsonDB,$path_jsonWS;
 }
 
 function query_config($tabla,$campo,$id,&$index,&$row){
+	global $host, $page_url;
+	$t = ($host=='phponix.webcindario.com') ? '?tabla='.$tabla : $tabla.'/';
+    $url_api = $page_url . 'api/v1/' . $t;
 	$data=query_data($tabla,$url_api);
 	//DATOS
 	foreach($data as $key => $value){
@@ -101,6 +103,7 @@ function query_config($tabla,$campo,$id,&$index,&$row){
 			$row=$data[$key];//print_r($row);
 		}
 	}
+	
 }
 
 function query_all_tabla($tabla,$url_api){
@@ -109,7 +112,7 @@ global $page_url,$path_jsonDB,$path_jsonWS;
 	print_r($Data);
 }
 
-query_config($tabla='config','ID',1,$row);
+query_config($tabla='config','ID',1,$i,$row);
 $page_name=$row['page_name'];
 
 /*---------------------------------------------------------------------------------------------------------------------*/
