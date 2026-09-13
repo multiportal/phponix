@@ -49,7 +49,7 @@ if($nivel_login==-1){
 	echo '<li class="header">MENU ADMIN</li>
 	  	  <li><a target="_blank" href="'.$page_url.$path_dashboard.'documentation/index.html" alt="Docs (English)"><i class="fa fa-book"></i> <span>Documentaci&oacute;n</span></a></li>';
 	menu_mod('modulos',-1);
-    menu_mod('menu_admin',-1);
+  menu_mod('menu_admin',-1);
 }
 ?>
 

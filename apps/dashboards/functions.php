@@ -241,23 +241,25 @@ if($action){
 echo '</ol>';
 }
 
+//MENU DE MODULOS Y MENU ADMIN
 function menu_mod($tab_m,$niv){
-global $mysqli,$DBprefix,$nivel,$URL,$page_url,$mod,$ext;
+global $mysqli,$DBprefix,$URL,$page_url,$mod;
 user_login($ID_login,$username,$email_login,$nivel_login,$last_login,$tema_login,$nombre_login,$apaterno_login,$amaterno_login,$foto_login,$cover_login,$tel_login,$ext_login,$fnac_login,$fb_login,$tw_login,$puesto_login,$ndepa_login,$depa_login,$empresa_login,$adress_login,$direccion_login,$mpio_login,$edo_login,$edo_login,$genero_login,$exp_login,$like_login,$filtro_login,$zona_login,$alta_login,$actualizacion_login,$page_login,$nivel_oper_login,$rol_login);
-switch(true){
-	case($tab_m=='modulos');
+switch($tab_m){
+	case('modulos');
 	$niv_mod=($nivel_login!=-1)?"(nivel=0 OR nivel='{$nivel_login}') AND activo=1":"nivel!=-1 AND activo=1";
 	if($niv==-1){$niv_mod="nivel=-1 AND activo=1";}else{$niv_mod=$niv_mod;}
 	$niv_mod2=($nivel_login!=-1)?"(nivel=0 OR nivel='{$nivel_login}')":"nivel!=''";
 	$nom_m_a='nombre';$ID_m_a="ID_mod";$aindex='&ext=admin/index';
 	break;
-	case($tab_m=='menu_admin');
+	case('menu_admin');
 	$niv_mod=($nivel_login!=-1)?"(nivel=0 OR nivel='{$nivel_login}') AND ID_menu_adm=0 AND ID_mod=0":"nivel!=-1 AND ID_menu_adm=0 AND ID_mod=0";
 	if($niv==-1){$niv_mod="nivel=-1 AND ID_menu_adm=0 AND ID_mod=0";}else{$niv_mod=$niv_mod;}
 	$niv_mod2="nivel!=''";
 	$nom_m_a='nom_menu';$ID_m_a="ID_menu_adm";
 	break;
 }
+$menu_modulos='';
 $sql=mysqli_query($mysqli,"SELECT * FROM ".$DBprefix.$tab_m." WHERE {$niv_mod} AND visible=1 ORDER BY {$nom_m_a} ASC;") or print mysqli_error($mysqli); 
 while($row=mysqli_fetch_array($sql)){$id_m=$row['ID'];$nombre=$row[$nom_m_a];$icono=$row['icono'];$link=$row['link'];$m=$row['modulo'];
 	$sql1=mysqli_query($mysqli,"SELECT * FROM ".$DBprefix."menu_admin WHERE ({$ID_m_a}='{$id_m}') AND {$niv_mod2} AND visible=1;") or print mysqli_error($mysqli); 
