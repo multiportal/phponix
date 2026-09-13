@@ -15,13 +15,13 @@ const URL = window.location.href;
 //console.log('URL='+URL);
 /** CONFIG **/
 const proyecto = 'phponix'; //PROYECTO
-const activeApi = true;//Activar API
-const activeLocal = false;//Local
-const save = 1;// [0 => 'Guardar en Servidor',1 => 'Guardar en base de datos', 2 => 'Guardar en servidor y en base de datos.']; 
+const save = 1;// [0 => 'Guardar en Servidor',1 => 'Guardar en base de datos', 2 => 'Guardar en servidor y en base de datos.'];
+const activeApi = save>0 ? true : false;//Activar API(True)/LOCAL(False)
+//const activeLocal = true;//Local 
 const email='multiportal@outlook.com';
 /***********/
 const api = activeApi ? 'api/':'';
-const inc = activeLocal ? 'files/':'';
+//const inc = activeLocal ? 'files/':'';
 const apiLog = activeApi ? 'Api: Activada':'Api: Desactivada';
 const saveLog = ['Guardar en Servidor','Guardar en base de datos','Guardar en servidor y en base de datos.'];
 /***********/
@@ -29,25 +29,26 @@ var path_root = (host=='localhost')?'MisSitios/' + proyecto + '/':'';
 //console.log('path_root='+path_root);
 var page_url = dominio+path_root;
 console.log('page_url='+page_url);
-var api_upload = api+'upload/'+inc;
+var api_upload = activeApi ? api+'upload/' : 'upload/files/';
 //console.log('api_upload='+api_upload);
 var url_upload = page_url+api_upload;
 console.log('url_upload='+url_upload);
-console.log('*** CONFIGURACION '+proyecto+' ***',apiLog,'Modo: '+saveLog[save]);
-if(save>0 && activeLocal){console.warn('PRECAUCION: La configuración actual no va funcionar.');}
+console.log('*** CONFIGURACION '+proyecto+' ***',apiLog,'Modo['+save+']: '+saveLog[save]);
+if(save>0 && !activeApi){console.warn('PRECAUCION: La configuración actual no va funcionar.');}
 const formUpload = document.querySelector('#formUpload');//document.getElementById('formUpload');
 const upLoad = (e) => {
-    console.log(e);
-    const tar = e.srcElement.parentElement.parentElement; console.log(tar);
+    //console.log(e);
+    const tar = e.srcElement.parentElement.parentElement; //console.log(tar);
     const { id } = tar;//e.path[2];
+    //console.log(id);
     const iconUpload = document.querySelector('#' + id + ' #icon-upload');
     const urlFile = document.querySelector('#' + id + ' #urlfile');
     const nameFile = document.querySelector('#' + id + ' #namefile');
     const box = document.querySelector('#' + id + ' #mensaje');
     const img = document.querySelector('#' + id + ' #img');
-
-    iconUpload.innerHTML = '<i class="fa-duotone fa-spinner"></i> Cargando...';//'<i class="fa-duotone fa-spinner-third"></i>';
     const file = e.target.files[0]; //console.log(file);
+    if(!file){return}
+    iconUpload.innerHTML = '<i class="fa-duotone fa-spinner"></i> Cargando...';//'<i class="fa-duotone fa-spinner-third"></i>';
     const maxSize = 1; //MB
     const limit = maxSize * 1024 * 1024;
     let { name, type, size } = file; console.log(name, type, size, limit);
@@ -64,7 +65,7 @@ const upLoad = (e) => {
     //const response = await fetch(CLOUD_URL, data);
     //const res = await response.json();console.log(res);
     fetch(CLOUD_URL, data).then(response => response.json())
-        .then(res => { console.log(res);
+        .then(res => { //console.log('Respuesta:',res);
             const { data } = res;
             console.log(data.status + ': ' + data.mensaje);
             urlFile.value = (data.status == 'Error') ? '' : data.url;
